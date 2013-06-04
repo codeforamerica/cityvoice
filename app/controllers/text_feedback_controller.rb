@@ -1,0 +1,2 @@
+class TextFeedbackController < ApplicationController
+end

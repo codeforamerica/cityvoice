@@ -125,7 +125,7 @@ DEPENDENCIES
   jbuilder (~> 1.0.1)
   jquery-rails
   rails (= 4.0.0.rc1)
-  rspec-rails
+  rspec-rails (~> 2.0)
   sass-rails (~> 4.0.0.rc1)
   sdoc
   sqlite3
