@@ -8,7 +8,7 @@ class TextFeedbackController < ApplicationController
     if session[:expect_comment]
       reply_text = "Thanks for your comment! City staff will review your feedback. Please tell your neighbors about this program."
     elsif @feedback.valid?
-      reply_text = "Thanks! We recorded your response '#{@@code_hash[@feedback.text[4]]}' for #{@feedback.address}. Reply with your comments and visit #{@@app_url}/#{@feedback.text[0..3]} to learn more." 
+      reply_text = "Thanks! We recorded your response '#{@feedback.choice_selected}' for #{@feedback.address}. Reply with your comments and visit #{@@app_url}/#{@feedback.text[0..3]} to learn more." 
       session[:expect_comment] = true
     elsif !session[:failed_once?]
       reply_text = "Sorry, we didn't understand your response. Please text back one of the exact choices on the sign, like '1234O' or '1234R'."

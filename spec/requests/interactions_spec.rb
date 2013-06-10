@@ -7,7 +7,7 @@ describe "V&A SMS App" do
     returned_text = parsed_response_body.xpath('//Response/Sms').text
   end
 
-  before(:all) do
+  before(:each) do
     @property_number = "1234"
     @property_address = "1234 Lincoln Way West"
     @choice_code = "D"
@@ -20,6 +20,17 @@ describe "V&A SMS App" do
 
   it "responds to good input with success message" do
     post 'vacant', :Body => "#{@property_number+@choice_code}"
+    twilio_body_from(response).should eq(@success_message)
+  end
+
+  it "responds to lower-case code input with success message" do
+    post 'vacant', :Body => "#{@property_number}d"
+    twilio_body_from(response).should eq(@success_message)
+  end
+
+  it "responds to '0' code input with success message" do
+    post 'vacant', :Body => "#{@property_number}0"
+    @success_message = "Thanks! We recorded your response 'Other' for #{@property_address}. Reply with your comments and visit 1000in1000.com/#{@property_number} to learn more." 
     twilio_body_from(response).should eq(@success_message)
   end
 
