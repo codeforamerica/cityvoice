@@ -10,5 +10,9 @@ class FeedbackSms
     "1234 Lincoln Way West"
   end
 
+  def valid?
+    /\d{4}[DROdro0]/.match @text
+  end
+
 end
 
