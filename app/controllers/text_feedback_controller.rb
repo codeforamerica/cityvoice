@@ -1,12 +1,11 @@
 class TextFeedbackController < ApplicationController
 
   @@code_hash = { "A" => "Demolish", "B" => "Rehab", "C" => "Other" }
-  @@app_url = "www.FeedbackApp.com"
+  @@app_url = "1000in1000.com"
 
   def handle_feedback 
-    #binding.pry
-    text_body = params["Body"]
-    reply_text = "Thanks! You have selected #{text_body[5]} - #{@@code_hash[text_body[5]]} for property #{text_body[0..3]}. You can see responses and learn more at #{@@app_url}."
+    @feedback = FeedbackSms.new(params)
+    reply_text = "Thanks! We recorded your response '#{@@code_hash[@feedback.text[4]]}' for the property at #{@feedback.address}. Visit #{@@app_url}/#{@feedback.text[0..3]} to see what other people had to say."
     render :inline => TextReply.new(reply_text).body
   end
 
