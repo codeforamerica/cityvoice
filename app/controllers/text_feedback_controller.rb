@@ -6,7 +6,7 @@ class TextFeedbackController < ApplicationController
   def handle_feedback 
     @feedback = FeedbackSms.new(params)
     if @feedback.valid?
-      reply_text = "Thanks! We recorded your response '#{@@code_hash[@feedback.text[4]]}' for #{@feedback.address}. Visit #{@@app_url}/#{@feedback.text[0..3]} to see what other people had to say."
+      reply_text = "Thanks! We recorded your response '#{@@code_hash[@feedback.text[4]]}' for #{@feedback.address}. Reply with your comments and visit #{@@app_url}/#{@feedback.text[0..3]} to learn more." 
     elsif !session[:failed_once?]
       session[:failed_once?] = true
       reply_text = "Sorry, we didn't understand your response. Please text back one of the exact choices on the sign, like '1234O' or '1234R'."

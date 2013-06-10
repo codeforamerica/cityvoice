@@ -12,7 +12,7 @@ describe "V&A SMS App" do
     @property_address = "1234 Lincoln Way West"
     @choice_code = "D"
     @choice_text = "Demolish"
-    @success_message = "Thanks! We recorded your response '#{@choice_text}' for #{@property_address}. Visit 1000in1000.com/#{@property_number} to see what other people had to say."
+    @success_message = "Thanks! We recorded your response '#{@choice_text}' for #{@property_address}. Reply with your comments and visit 1000in1000.com/#{@property_number} to learn more." 
     @fail1_message = "Sorry, we didn't understand your response. Please text back one of the exact choices on the sign, like '1234O' or '1234R'."
     @fail2_message = "We're very sorry, but we still don't understand your response. Please visit 1000in1000.com or call 123-456-7890 to submit your feedback."
   end
