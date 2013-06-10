@@ -12,6 +12,10 @@ class FeedbackSms
     "1234 Lincoln Way West"
   end
 
+  def property_number
+    @text[0..3]
+  end
+
   def choice_selected
     @@code_hash[@text[4]]
   end

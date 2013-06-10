@@ -12,8 +12,8 @@ describe "V&A SMS App" do
     @property_address = "1234 Lincoln Way West"
     @choice_code = "D"
     @choice_text = "Demolish"
-    @success_message = "Thanks! We recorded your response '#{@choice_text}' for #{@property_address}. Reply with your comments and visit 1000in1000.com/#{@property_number} to learn more." 
-    @successful_comment_message = "Thanks for your comment! City staff will review your feedback. Please tell your neighbors about this program."
+    @success_message = "Thanks! We recorded your response '#{@choice_text}' for property #{@property_address}. You can also text comments to this number. Learn more: 1000in1000.com/#{@property_number}"
+    @successful_comment_message = "Thanks for your comments! Your feedback will be reviewed by city staff. Please tell your neighbors about this program. Visit 1000in1000.com/#{@property_number}"
     @fail1_message = "Sorry, we didn't understand your response. Please text back one of the exact choices on the sign, like '1234O' or '1234R'."
     @fail2_message = "We're very sorry, but we still don't understand your response. Please visit 1000in1000.com or call 123-456-7890 to submit your feedback."
   end
@@ -30,7 +30,7 @@ describe "V&A SMS App" do
 
   it "responds to '0' code input with success message" do
     post 'vacant', :Body => "#{@property_number}0"
-    @success_message = "Thanks! We recorded your response 'Other' for #{@property_address}. Reply with your comments and visit 1000in1000.com/#{@property_number} to learn more." 
+    @success_message = "Thanks! We recorded your response 'Other' for property #{@property_address}. You can also text comments to this number. Learn more: 1000in1000.com/#{@property_number}"
     twilio_body_from(response).should eq(@success_message)
   end
 

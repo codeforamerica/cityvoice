@@ -5,10 +5,12 @@ class TextFeedbackController < ApplicationController
   def handle_feedback 
     @feedback = FeedbackSms.new(params)
     if session[:expect_comment]
-      reply_text = "Thanks for your comment! City staff will review your feedback. Please tell your neighbors about this program."
+      #reply_text = "Thanks for your comment! City staff will review your feedback. Please tell your neighbors about this program."
+      reply_text = "Thanks for your comments! Your feedback will be reviewed by city staff. Please tell your neighbors about this program. Visit #{@@app_url}/#{session[:current_prop_num]}"
     elsif @feedback.valid?
-      reply_text = "Thanks! We recorded your response '#{@feedback.choice_selected}' for #{@feedback.address}. Reply with your comments and visit #{@@app_url}/#{@feedback.text[0..3]} to learn more." 
+      reply_text = "Thanks! We recorded your response '#{@feedback.choice_selected}' for property #{@feedback.address}. You can also text comments to this number. Learn more: #{@@app_url}/#{@feedback.property_number}" 
       session[:expect_comment] = true
+      session[:current_prop_num] = @feedback.property_number
     elsif !session[:failed_once?]
       reply_text = "Sorry, we didn't understand your response. Please text back one of the exact choices on the sign, like '1234O' or '1234R'."
       session[:failed_once?] = true
