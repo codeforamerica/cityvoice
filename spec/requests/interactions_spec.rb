@@ -22,7 +22,6 @@ describe "V&A SMS App" do
   end
 
   it "correctly deals with wrong-then-correct" do
-    pending "wrong-then-correct implementation"
     # Still need to refine language
     post '/vacant', Body: @property_number
     twilio_body_from(response).should eq(@fail1_message)
