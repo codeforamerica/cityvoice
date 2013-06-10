@@ -1,6 +1,5 @@
 class TextFeedbackController < ApplicationController
 
-  @@code_hash = { "D" => "Demolish", "R" => "Rehab", "O" => "Other" }
   @@app_url = "1000in1000.com"
 
   def handle_feedback 
