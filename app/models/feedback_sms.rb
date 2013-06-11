@@ -9,7 +9,7 @@ class FeedbackSms
   end
 
   def address
-    "1234 Lincoln Way West"
+    "#{property_number} Lincoln Way West"
   end
 
   def property_number
