@@ -60,14 +60,14 @@ describe "V&A SMS App" do
     post 'vacant', Body: "#{@property_number+@choice_code}"
     post 'vacant', Body: "tear down this wall"
     post 'vacant', Body: "5678R"
-    @success_message = "Thanks! We recorded your response 'Rehab' for property #{@property_number} Lincoln Way West. You can also text comments to this number. Learn more: 1000in1000.com/5678"
+    @success_message = "Thanks! We recorded your response 'Rehab' for property 5678 Lincoln Way West. You can also text comments to this number. Learn more: 1000in1000.com/5678"
     twilio_body_from(response).should eq(@success_message)
   end
 
   it "allows for multiple property input from same number (with NO COMMENT on first)" do
     post 'vacant', Body: "#{@property_number+@choice_code}"
     post 'vacant', Body: "5678R"
-    @success_message = "Thanks! We recorded your response 'Rehab' for property #{@property_number} Lincoln Way West. You can also text comments to this number. Learn more: 1000in1000.com/5678"
+    @success_message = "Thanks! We recorded your response 'Rehab' for property 5678 Lincoln Way West. You can also text comments to this number. Learn more: 1000in1000.com/5678"
     twilio_body_from(response).should eq(@success_message)
   end
 
