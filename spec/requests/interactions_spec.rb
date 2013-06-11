@@ -56,4 +56,26 @@ describe "V&A SMS App" do
     twilio_body_from(response).should eq(@fail2_message)
   end
 
+  it "allows for multiple property input from same number (with comment on first)" do
+    post 'vacant', Body: "#{@property_number+@choice_code}"
+    post 'vacant', Body: "tear down this wall"
+    post 'vacant', Body: "5678R"
+    @success_message = "Thanks! We recorded your response 'Rehab' for property #{@property_number} Lincoln Way West. You can also text comments to this number. Learn more: 1000in1000.com/5678"
+    twilio_body_from(response).should eq(@success_message)
+  end
+
+  it "allows for multiple property input from same number (with NO COMMENT on first)" do
+    post 'vacant', Body: "#{@property_number+@choice_code}"
+    post 'vacant', Body: "5678R"
+    @success_message = "Thanks! We recorded your response 'Rehab' for property #{@property_number} Lincoln Way West. You can also text comments to this number. Learn more: 1000in1000.com/5678"
+    twilio_body_from(response).should eq(@success_message)
+  end
+
+  it "accepts multiple-message comments for one property" do
+    post 'vacant', Body: "1234D"
+    post 'vacant', Body: "This is my first comment"
+    post 'vacant', Body: "This is my 2nd comment"
+    twilio_body_from(response).should eq(@successful_comment_message)
+  end
+
 end
