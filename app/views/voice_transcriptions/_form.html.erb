@@ -1,0 +1,21 @@
+<%= form_for(@voice_transcription) do |f| %>
+  <% if @voice_transcription.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@voice_transcription.errors.count, "error") %> prohibited this voice_transcription from being saved:</h2>
+
+      <ul>
+      <% @voice_transcription.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :content %><br>
+    <%= f.text_area :content %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
