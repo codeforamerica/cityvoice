@@ -66,6 +66,8 @@ GEM
     nokogiri (1.5.9)
     pg (0.15.1)
     polyglot (0.3.3)
+    protected_attributes (1.0.1)
+      activemodel (>= 4.0.0.beta, < 5.0)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -150,6 +152,7 @@ DEPENDENCIES
   jquery-rails
   nokogiri
   pg
+  protected_attributes
   pry
   rails (= 4.0.0.rc1)
   rspec-rails (~> 2.0)
