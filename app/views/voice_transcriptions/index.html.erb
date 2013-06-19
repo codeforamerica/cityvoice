@@ -14,9 +14,9 @@
     <% @voice_transcriptions.each do |voice_transcription| %>
       <tr>
         <td><%= voice_transcription.content %></td>
-        <td><%= link_to 'Show', voice_transcription %></td>
-        <td><%= link_to 'Edit', edit_voice_transcription_path(voice_transcription) %></td>
-        <td><%= link_to 'Destroy', voice_transcription, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= #link_to 'Show', voice_transcription %></td>
+        <td><%= #link_to 'Edit', edit_voice_transcription_path(voice_transcription) %></td>
+        <td><%= #link_to 'Destroy', voice_transcription, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +24,4 @@
 
 <br>
 
-<%= link_to 'New Voice transcription', new_voice_transcription_path %>
+<%= #link_to 'New Voice transcription', new_voice_transcription_path %>
