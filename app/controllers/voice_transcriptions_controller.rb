@@ -10,7 +10,7 @@ class VoiceTranscriptionsController < ApplicationController
   def ask_for_response
     twilio_response = Twilio::TwiML::Response.new do |r|
       r.Say "Say something and I'll transcribe it, yo", :voice => 'man'
-      r.Record :transcribeCallback => '/voice_transcriptions/create'
+      r.Record :transcribeCallback => '/voice_transcriptions'
     end
     render :inline => twilio_response.text
   end
