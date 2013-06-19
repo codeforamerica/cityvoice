@@ -12,7 +12,7 @@ class VoiceTranscriptionsController < ApplicationController
       r.Say "Say something and I'll transcribe it, yo", :voice => 'man'
       r.Record :transcribeCallback => '/puts-transcription'
     end
-    twilio_response.text
+    render :inline => twilio_response.text
   end
 
   # GET /voice_transcriptions/1
@@ -46,6 +46,7 @@ class VoiceTranscriptionsController < ApplicationController
       end
     end
 =end
+    render :nothing => true
   end
 
   # PATCH/PUT /voice_transcriptions/1
