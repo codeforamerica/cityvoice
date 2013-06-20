@@ -4,16 +4,13 @@
   <thead>
     <tr>
       <th>Content</th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @voice_transcriptions.each do |voice_transcription| %>
       <tr>
-        <td><%= voice_transcription.content %></td>
+        <td><%= voice_transcription.content %><br><br></td>
       </tr>
     <% end %>
   </tbody>
