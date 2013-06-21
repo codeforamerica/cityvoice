@@ -19,62 +19,62 @@ describe "V&A SMS App" do
   end
 
   it "responds to good input with success message" do
-    post 'vacant', :Body => "#{@property_number+@choice_code}"
+    post 'sms', :Body => "#{@property_number+@choice_code}"
     twilio_body_from(response).should eq(@success_message)
   end
 
   it "responds to lower-case code input with success message" do
-    post 'vacant', :Body => "#{@property_number}d"
+    post 'sms', :Body => "#{@property_number}d"
     twilio_body_from(response).should eq(@success_message)
   end
 
   it "responds to '0' code input with success message" do
-    post 'vacant', :Body => "#{@property_number}0"
+    post 'sms', :Body => "#{@property_number}0"
     @success_message = "Thanks! We recorded your response 'Other' for property #{@property_address}. You can also text comments to this number. Learn more: 1000in1000.com/#{@property_number}"
     twilio_body_from(response).should eq(@success_message)
   end
 
   it "responds to comment with successful comment message" do
-    post 'vacant', :Body => "#{@property_number+@choice_code}"
+    post 'sms', :Body => "#{@property_number+@choice_code}"
     twilio_body_from(response).should eq(@success_message)
-    post 'vacant', :Body => "tear down this wall"
+    post 'sms', :Body => "tear down this wall"
     twilio_body_from(response).should eq(@successful_comment_message)
   end
 
   it "correctly deals with wrong-then-correct" do
     # Still need to refine language
-    post '/vacant', Body: @property_number
+    post 'sms', Body: @property_number
     twilio_body_from(response).should eq(@fail1_message)
-    post '/vacant', Body: "#{@property_number+@choice_code}"
+    post 'sms', Body: "#{@property_number+@choice_code}"
     twilio_body_from(response).should eq(@success_message)
   end
 
   it "correctly deals with wrong-then-wrong" do
-    post '/vacant', Body: "wat"
+    post 'sms', Body: "wat"
     twilio_body_from(response).should eq(@fail1_message)
-    post '/vacant', Body: "WAT"
+    post 'sms', Body: "WAT"
     twilio_body_from(response).should eq(@fail2_message)
   end
 
   it "allows for multiple property input from same number (with comment on first)" do
-    post 'vacant', Body: "#{@property_number+@choice_code}"
-    post 'vacant', Body: "tear down this wall"
-    post 'vacant', Body: "5678R"
+    post 'sms', Body: "#{@property_number+@choice_code}"
+    post 'sms', Body: "tear down this wall"
+    post 'sms', Body: "5678R"
     @success_message = "Thanks! We recorded your response 'Rehab' for property 5678 Lincoln Way West. You can also text comments to this number. Learn more: 1000in1000.com/5678"
     twilio_body_from(response).should eq(@success_message)
   end
 
   it "allows for multiple property input from same number (with NO COMMENT on first)" do
-    post 'vacant', Body: "#{@property_number+@choice_code}"
-    post 'vacant', Body: "5678R"
+    post 'sms', Body: "#{@property_number+@choice_code}"
+    post 'sms', Body: "5678R"
     @success_message = "Thanks! We recorded your response 'Rehab' for property 5678 Lincoln Way West. You can also text comments to this number. Learn more: 1000in1000.com/5678"
     twilio_body_from(response).should eq(@success_message)
   end
 
   it "accepts multiple-message comments for one property" do
-    post 'vacant', Body: "1234D"
-    post 'vacant', Body: "This is my first comment"
-    post 'vacant', Body: "This is my 2nd comment"
+    post 'sms', Body: "1234D"
+    post 'sms', Body: "This is my first comment"
+    post 'sms', Body: "This is my 2nd comment"
     twilio_body_from(response).should eq(@successful_comment_message)
   end
 
