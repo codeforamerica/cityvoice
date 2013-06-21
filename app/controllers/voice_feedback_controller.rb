@@ -4,7 +4,7 @@ class VoiceFeedbackController < ApplicationController
 
   def splash_message 
     response_xml = Twilio::TwiML::Response.new do |r| 
-      r.Say "Welcome to AutoMidnight, brought to you by Swami Records."
+      r.Say "Welcome to Auto Midnight, brought to you by Hot Snakes and Swami Records."
       r.Say "Please enter a property code, and then press the pound sign."
       r.Gather :action => "respond_to_property_code", :timeout => 10, :numdigits => 4
     end.text
@@ -18,7 +18,7 @@ class VoiceFeedbackController < ApplicationController
     response_xml = Twilio::TwiML::Response.new do |r| 
       r.Say "You have entered the property at #{@property_name}."
       r.Say "What would you like to happen at this property?"
-      r.Say "Press 1 for repair, 2 for remove, 3 for other."
+      r.Say "Press 1 for repair, 2 for remove, 3 for other. Then hit the pound sign."
       r.Gather :action => "solicit_comment", :timeout => 5, :numdigits => 1
     end.text
     render :inline => response_xml
