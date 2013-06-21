@@ -6,7 +6,9 @@ Automidnight::Application.routes.draw do
 
   post '/sms' => 'text_feedback#handle_feedback'
   post '/' => 'voice_transcriptions#ask_for_response'
-  post '/voice' => 'voice_feedback#handle_feedback' 
+  post '/voice' => 'voice_feedback#splash_message' 
+  post '/respond_to_property_code' => 'voice_feedback#respond_to_property_code'
+  post '/solicit_comment' => 'voice_feedback#solicit_comment'
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
