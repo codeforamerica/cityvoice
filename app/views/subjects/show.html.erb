@@ -5,7 +5,7 @@
   <%= @subject.name %>
 </p>
 
-<% if @subject.neighborhood_id != nil %>
+<% if @subject.type == "Property" %>
   <p>
     <strong>Neighborhood:</strong>
     <%= @subject.neighborhood.name %>
