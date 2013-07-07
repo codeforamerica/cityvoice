@@ -6,5 +6,6 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-n = Neighborhood.create :name => "Monroe Park Neighborhood"
+n = Neighborhood.create!(name: "Monroe Park Neighborhood")
+p = Property.create!(name: "1234 Fake St", neighborhood_id: n.id)
 
