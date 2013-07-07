@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Question:</strong>
+  <%= @feedback_input.question_id %>
+</p>
+
+<p>
+  <strong>Subject:</strong>
+  <%= @feedback_input.subject_id %>
+</p>
+
+<p>
+  <strong>Neighborhood:</strong>
+  <%= @feedback_input.neighborhood_id %>
+</p>
+
+<p>
+  <strong>Property:</strong>
+  <%= @feedback_input.property_id %>
+</p>
+
+<p>
+  <strong>Voice file url:</strong>
+  <%= @feedback_input.voice_file_url %>
+</p>
+
+<p>
+  <strong>Numberical response:</strong>
+  <%= @feedback_input.numberical_response %>
+</p>
+
+<%= link_to 'Edit', edit_feedback_input_path(@feedback_input) %> |
+<%= link_to 'Back', feedback_inputs_path %>

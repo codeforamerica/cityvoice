@@ -1,4 +1,6 @@
 Automidnight::Application.routes.draw do
+  resources :feedback_inputs
+
   resources :questions
 
   resources :subjects

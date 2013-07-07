@@ -1,0 +1,37 @@
+<h1>Listing feedback_inputs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Question</th>
+      <th>Subject</th>
+      <th>Neighborhood</th>
+      <th>Property</th>
+      <th>Voice file url</th>
+      <th>Numberical response</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @feedback_inputs.each do |feedback_input| %>
+      <tr>
+        <td><%= feedback_input.question_id %></td>
+        <td><%= feedback_input.subject_id %></td>
+        <td><%= feedback_input.neighborhood_id %></td>
+        <td><%= feedback_input.property_id %></td>
+        <td><%= feedback_input.voice_file_url %></td>
+        <td><%= feedback_input.numberical_response %></td>
+        <td><%= link_to 'Show', feedback_input %></td>
+        <td><%= link_to 'Edit', edit_feedback_input_path(feedback_input) %></td>
+        <td><%= link_to 'Destroy', feedback_input, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Feedback input', new_feedback_input_path %>
