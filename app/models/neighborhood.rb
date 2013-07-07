@@ -1,0 +1,2 @@
+class Neighborhood < Subject
+end

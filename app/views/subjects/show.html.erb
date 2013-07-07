@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @subject.name %>
+</p>
+
+<p>
+  <strong>Neighborhood:</strong>
+  <%= @subject.neighborhood_id %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @subject.type %>
+</p>
+
+<%= link_to 'Edit', edit_subject_path(@subject) %> |
+<%= link_to 'Back', subjects_path %>
