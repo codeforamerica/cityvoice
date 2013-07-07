@@ -11,12 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130707183132) do
+ActiveRecord::Schema.define(version: 20130707205534) do
 
   create_table "feedback_items", force: true do |t|
     t.string   "phone_number",   limit: 10
     t.string   "property_id",    limit: 4
     t.string   "outcome_choice", limit: 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "questions", force: true do |t|
+    t.text     "voice_text"
+    t.string   "feedback_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

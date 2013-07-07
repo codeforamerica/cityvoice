@@ -1,4 +1,6 @@
 Automidnight::Application.routes.draw do
+  resources :questions
+
   resources :subjects
 
   resources :voice_transcriptions
