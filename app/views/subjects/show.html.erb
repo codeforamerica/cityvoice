@@ -5,10 +5,12 @@
   <%= @subject.name %>
 </p>
 
-<p>
-  <strong>Neighborhood:</strong>
-  <%= @subject.neighborhood_id %>
-</p>
+<% if @subject.neighborhood_id != nil %>
+  <p>
+    <strong>Neighborhood:</strong>
+    <%= @subject.neighborhood.name %>
+  </p>
+<% end %>
 
 <p>
   <strong>Type:</strong>
