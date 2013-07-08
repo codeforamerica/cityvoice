@@ -1,34 +1,93 @@
-<header class="navbar navbar-fixed-top navbar-inverse" style="background:$cvBlue;">
-  <div class="navbar-inner">
-    <div class="container">
-      CITYVOICE
-      <nav>
-        <ul class="nav pull-right">
-          Login
-        </ul>
-      </nav>
-    </div>
-  </div>
-</header>
+<!DOCTYPE html>
+<html>
+	<head>
+	    
+  	</head>
+	<body>
+		<header class="navbar navbar-fixed-top navbar-inverse">
+		  <div class="navbar-inner" style="background:#83d0d2; border: none;">
+		    <div class="container">
+		      CITYVOICE
+		      <nav>
+		        <ul class="nav pull-right">
+		          
+		        </ul>
+		      </nav>
+		    </div>
+		  </div>
+		</header>
 
-<p id="notice"><%= notice %></p>
+		
+			<div class="row">
+				<div class="span6" style="border: 1px solid black; height: 500px;">
+					<p>map</p>
+				</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @subject.name %>
-</p>
+				<div class="span6 info" style="text-align:left;">
+					<p id="notice"><%= notice %></p>
+					<h4>
+						Responses
+					</h4>
+					<h2>
+					  <%= @subject.name %><br>
+					  Vacant & Abandoned Properties
+					</h2>
+					<div class="row">
+						<div class="span4">
+							<div class="progress progress-info">
+							  <div class="bar" style="width: 20%"></div>
+							</div>
+							<div class="progress progress-success">
+							  <div class="bar" style="width: 40%"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="vmessage">
+						<div class="row">
+							<div class="span1 avatar">
+							</div>
+							<div class="span5">
+								<button class="btn btn-mini btn-inverse" type="button">
+								<i class="icon-play icon-white"></i>Voice Message
+								</button>
+								<p><em>from: xxx-xxx-1234  &nbsp; date: 1/2/13</em></p>
+							</div>
+						</div>
+					</div>
+					<div class="vmessage">
+						<div class="row">
+							<div class="span1 avatar">
+							</div>
+							<div class="span5">
+								<button class="btn btn-mini btn-inverse" type="button">
+								<i class="icon-play icon-white"></i>Voice Message
+								</button>
+								<p><em>from: xxx-xxx-1234  &nbsp; date: 1/2/13</em></p>
+							</div>
+						</div>
+					</div>
+					
+					<% if @subject.type == "Property" %>
+					  <p>
+					    <strong>Neighborhood:</strong>
+					    <%= @subject.neighborhood.name %>
+					  </p>
+					<% end %>
+					
+					<!-- not needed at the moment
+					<p>
+					  <strong>Type:</strong>
+					  <%= @subject.type %>
+					</p>
+					-->
+				</div>
+			</div>
 
-<% if @subject.type == "Property" %>
-  <p>
-    <strong>Neighborhood:</strong>
-    <%= @subject.neighborhood.name %>
-  </p>
-<% end %>
-
-<p>
-  <strong>Type:</strong>
-  <%= @subject.type %>
-</p>
-
-<%= link_to 'Edit', edit_subject_path(@subject) %> |
-<%= link_to 'Back', subjects_path %>
+		<!--
+			<%= link_to 'Edit', edit_subject_path(@subject) %> |
+			<%= link_to 'Back', subjects_path %>
+		-->
+		
+	</body>
+</html>
