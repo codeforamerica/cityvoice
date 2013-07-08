@@ -48,8 +48,10 @@ describe SubjectsController do
     end
 
     # Begin DG
-    it "has a @questions object" do
+    before(:each) do
       get :show, { id: 1 }
+    end
+    it "has a @questions object" do
       assigns(:questions).should_not be_nil
     end
   end
