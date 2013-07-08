@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Voice text</th>
+      <th>Short name</th>
       <th>Feedback type</th>
       <th></th>
       <th></th>
@@ -15,6 +16,7 @@
     <% @questions.each do |question| %>
       <tr>
         <td><%= question.voice_text %></td>
+        <td><%= question.short_name %></td>
         <td><%= question.feedback_type %></td>
         <td><%= link_to 'Show', question %></td>
         <td><%= link_to 'Edit', edit_question_path(question) %></td>
