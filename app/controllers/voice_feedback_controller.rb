@@ -2,6 +2,40 @@ class VoiceFeedbackController < ApplicationController
 
   @@app_url = "1000in1000.com"
 
+  def route_to_survey
+    if params.has_key?("Digits") == false
+      response_xml = Twilio::TwiML::Response.new do |r| 
+        r.Say "Hello! If you are calling about a specific property enter the property code followed by the pound sign. Otherwise enter 0."
+        r.Gather :timeout => 10, :numdigits => 4
+      end.text
+    # Eventually replace below with lookup and validation of property code
+    else
+      if params["Digits"].to_s.length == 4
+        session[:property_code] = params["Digits"]
+        session[:survey] = "property"
+      else
+        session[:survey] = "neighborhood"
+      end
+      response_xml = Twilio::TwiML::Response.new do |r| 
+        r.Redirect "voice_survey"
+      end.text
+    end
+    render :inline => response_xml
+  end
+
+
+  def voice_survey
+    response_xml = Twilio::TwiML::Response.new do |r| 
+      r.Say "MESSAGE GOES HERE"
+      r.Gather :action => "ACTION URL GOES HERE", :timeout => 10, :numdigits => 4
+    end.text
+    render :inline => response_xml
+  end
+
+
+
+
+
   def splash_message 
     response_xml = Twilio::TwiML::Response.new do |r| 
       r.Say "Welcome to Auto Midnight, brought to you by Hot Snakes and Swami Records."

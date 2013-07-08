@@ -16,6 +16,9 @@ Automidnight::Application.routes.draw do
   post '/respond_to_property_code' => 'voice_feedback#respond_to_property_code'
   post '/solicit_comment' => 'voice_feedback#solicit_comment'
 
+  post '/voice_endpoint' => 'voice_feedback#voice_endpoint'
+  post '/route_to_survey' => 'voice_feedback#route_to_survey'
+
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
