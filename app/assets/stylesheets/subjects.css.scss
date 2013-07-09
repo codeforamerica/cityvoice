@@ -7,11 +7,22 @@
 		text-align: left;
 	}
 }
-
-.band{
-	background: #B3B3B3;
-	height:1.5em;
-	width: 100%;
+.question{
+	padding-bottom: 1.5em;
+	.text{
+		padding-bottom: .7em;
+	}
+	.progress{
+		margin-bottom: 0em;
+	}
+	.progressAnnotate{
+		margin: 0px;
+		padding:0px;
+		font-size: .6em;
+		font-style: italic;
+		font-weight: normal;
+		width:100%;
+	}
 }
 
 .vmessage{

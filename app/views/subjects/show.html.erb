@@ -36,16 +36,29 @@
 					  <%= @subject.name %><br>
 					  Vacant & Abandoned Properties
 					</h2>
-					<div class="row-fluid">
-						<div class="span9">
-							<% @questions.each do |my_question| %>
-							<%= my_question.voice_text %>
-								<div class="progress progress-info">
-								  <div class="bar" style="width: <%= my_question.average_priority/5*100 %>%"><span style="color:black"><%= number_with_precision(my_question.average_priority, :precision => 2) %></span></div>
+					<% @questions.each do |my_question| %>
+						<div class="question">
+							<div class="row-fluid">
+								<div class="span9">
+									<div class="text">
+										<%= my_question.question_text %>
+									</div>
+									<div class="progress progress-info">
+									  <div class="bar" style="width: <%= my_question.average_priority/5*100 %>%"><span style="color:black"><%= number_with_precision(my_question.average_priority, :precision => 2) %></span></div>
+									</div>
+									<div class="progressAnnotate">
+										<span class="alignleft">
+											less 
+										</span>
+										<span class="alignright">
+											more 
+										</span>
+										<div style="clear: both;"></div>
+									</div>
 								</div>
-							<% end %>
+							</div>
 						</div>
-					</div>
+					<% end %>
 					<% @user_voice_messages.each do |message| %>
 						<div class="vmessage">
 							<div class="row-fluid">
@@ -57,7 +70,7 @@
 										<audio src="<%= message.voice_url %>" preload="auto" />			
 									</div>
 									<div class="voiceAnnotate">
-										from: <strong><%= message.phone_number %></strong>  &nbsp; date: <strong><%= message.date %></strong>
+										date: <strong><%= message.date %></strong> &nbsp; from: <strong><%= message.phone_number %></strong>
 									</div>
 								</div>
 							</div>
