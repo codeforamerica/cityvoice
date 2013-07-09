@@ -10,7 +10,13 @@ class SubjectsController < ApplicationController
   # GET /subjects/1
   # GET /subjects/1.json
   def show
-    @questions = [1,2]
+    #public_safety_question = Question.find_by_short_name("public_safety")
+    #prop_value_question = Question.find_by_short_name("property_values")
+    @questions_raw = Question.where(:short_name => ["public_safety", "property_values"])
+    @questions = Array.new
+    @questions_raw.each do |q|
+      @questions << OpenStruct.new(:voice_text => q.voice_text , :short_name => q.short_name, :average_priority => Kernel.rand*5)
+    end
   end
 
   # GET /subjects/new
