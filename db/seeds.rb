@@ -12,9 +12,11 @@ p = Property.create!(name: "1234 Fake St", neighborhood_id: n.id)
 Question.create!( \
   [ \
     {voice_text: "On a scale of 1-5 how important is public safety in your neighborhood? Press the corresponding number on your phone to record your response 1 being not important and 5 being very important.", \
+      question_text: "On a scale of 1-5 how important is public safety in your neighborhood?", \
       short_name: "public_safety", \
       feedback_type: "numerical_response" }, \
     {voice_text: "On a scale of 1-5 how important is improving property values in your neighborhood? Press the corresponding number on your phone to record your response 1 being not important and 5 being very important.", \
+      question_text: "On a scale of 1-5 how important is improving property values in your neighborhood?", \
       short_name: "property_values", \
       feedback_type: "numerical_response" }, \
     {voice_text: "Thanks! After the tone you will have a minute to give voice feedback on important issues in your neighborhood. Please remember all feedback will be posted on a public website.", \
