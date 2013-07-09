@@ -30,6 +30,7 @@ describe SubjectsController do
   # SubjectsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
+=begin
   describe "GET index" do
     it "assigns all subjects as @subjects" do
       subject = Subject.create! valid_attributes
@@ -37,12 +38,24 @@ describe SubjectsController do
       assigns(:subjects).should eq([subject])
     end
   end
+=end
 
   describe "GET show" do
     it "assigns the requested subject as @subject" do
       subject = Subject.create! valid_attributes
       get :show, {:id => subject.to_param}, valid_session
       assigns(:subject).should eq(subject)
+    end
+
+    # Begin DG
+    before(:each) do
+      get :show, { id: 1 }
+    end
+    it "has a @questions object" do
+      assigns(:questions).should_not be_nil
+    end
+    it "has a @questions array with object having question_text attribute" do
+      assigns(:questions)[0].question_text.should_not be_nil
     end
   end
 

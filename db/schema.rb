@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20130707212133) do
     t.text     "voice_text"
     t.string   "short_name"
     t.string   "feedback_type"
+    t.string   "question_text"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -10,6 +10,17 @@ class SubjectsController < ApplicationController
   # GET /subjects/1
   # GET /subjects/1.json
   def show
+    #public_safety_question = Question.find_by_short_name("public_safety")
+    #prop_value_question = Question.find_by_short_name("property_values")
+    @questions_raw = Question.where(:short_name => ["public_safety", "property_values"])
+    @questions = Array.new
+    @questions_raw.each do |q|
+      @questions << OpenStruct.new(:voice_text => q.voice_text , :short_name => q.short_name, :average_priority => Kernel.rand*5, :question_text => q.question_text)
+    end
+    @user_voice_messages = Array.new
+    3.times do
+      @user_voice_messages << OpenStruct.new(:voice_url => "http://www.myvoiceurlssdds.com", :public_safety => rand(1..5), :property_values => rand(1..5), :phone_number => "1234567890", :date => "06/09/13")
+    end
   end
 
   # GET /subjects/new

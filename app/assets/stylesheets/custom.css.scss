@@ -1,0 +1,58 @@
+@import "bootstrap";
+@import "bootstrap-responsive";
+
+/* universal */
+
+html {
+  overflow-y: scroll;
+}
+body {
+  padding-top: 80px;
+}
+section {
+  overflow: auto;
+}
+textarea {
+  resize: vertical;
+}
+.center {
+  text-align: center;
+  h1 {
+  margin-bottom: 10px;
+	}
+}
+
+
+/* variables */
+
+$cvBlue: #83d0d2;
+$warmGray: #dcddde;
+$dropShadow: #575757;
+$darkLink: #424242;
+$pressButton: #2fb49d;
+
+
+
+/* typography */
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+}
+h1 {
+  font-size: 2em;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+h2 {
+  font-size: 1.5em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: normal;
+  color: #999;
+}
+p {
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
