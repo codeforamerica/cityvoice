@@ -32,40 +32,33 @@
 					  Vacant & Abandoned Properties
 					</h2>
 					<div class="row-fluid">
-						<div class="span4">
-							<div class="progress progress-info">
-							  <div class="bar" style="width: 20%"></div>
-							</div>
-							<div class="progress progress-success">
-							  <div class="bar" style="width: 40%"></div>
-							</div>
+						<div class="span9">
+							<% @questions.each do |my_question| %>
+							<%= my_question.voice_text %>
+								<div class="progress progress-info">
+								  <div class="bar" style="width: <%= my_question.average_priority/5*100 %>%"><span style="color:black"><%= number_with_precision(my_question.average_priority, :precision => 2) %></span></div>
+								</div>
+							<% end %>
 						</div>
 					</div>
-					
-					<div class="vmessage">
-						<div class="row-fluid">
-							<div class="span1 avatar">
-							</div>
-							<div class="span5">
-								<button class="btn btn-mini btn-inverse" type="button">
-								<i class="icon-play icon-white"></i>Voice Message
-								</button>
-								<p><em>from: xxx-xxx-1234  &nbsp; date: 1/2/13</em></p>
-							</div>
-						</div>
-					</div>
-					<div class="vmessage">
-						<div class="row-fluid">
-							<div class="span1 avatar">
-							</div>
-							<div class="span5">
-								<button class="btn btn-mini btn-inverse" type="button">
-								<i class="icon-play icon-white"></i>Voice Message
-								</button>
-								<p><em>from: xxx-xxx-1234  &nbsp; date: 1/2/13</em></p>
+					<% @user_voice_messages.each do |message| %>
+						<div class="vmessage">
+							<div class="row-fluid">
+								<div class="span12" >
+									<!--<div class="avatar">
+									</div> -->
+									<div>
+										<a href="<%= message.voice_url %>">
+											<button class="btn btn-mini btn-inverse" type="button">
+											<i class="icon-play icon-white"></i>Voice Message
+											</button>
+										</a>
+										<p><em>from: <%= message.phone_number %>  &nbsp; date: <%= message.date %></em></p>
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
+					<% end %>
 					
 					<% if @subject.type == "Property" %>
 					  <p>
@@ -87,6 +80,9 @@
 			<%= link_to 'Edit', edit_subject_path(@subject) %> |
 			<%= link_to 'Back', subjects_path %>
 		-->
-		
+
+<%= @questions %>
+<%= @user_voice_messages %>
+
 	</body>
 </html>
