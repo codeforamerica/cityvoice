@@ -1,34 +1,92 @@
-<header class="navbar navbar-fixed-top navbar-inverse" style="background:$cvBlue;">
-  <div class="navbar-inner">
-    <div class="container">
-      CITYVOICE
-      <nav>
-        <ul class="nav pull-right">
-          Login
-        </ul>
-      </nav>
-    </div>
-  </div>
-</header>
+<!DOCTYPE html>
+<html>
+	<head>
+	    <script src="/audiojs/audio.min.js"></script>
+	    <script>
+		  audiojs.events.ready(function() {
+		    var as = audiojs.createAll();
+		  });
+		</script>
+  	</head>
+	<body>
+		<header class="navbar navbar-fixed-top navbar-inverse">
+		  <div class="navbar-inner" style="background:#83d0d2; border: none;">
+		    <div class="container">
+		      CITYVOICE
+		      <nav>
+		        <ul class="nav pull-right">
+		          
+		        </ul>
+		      </nav>
+		    </div>
+		  </div>
+		</header>
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span6" style="border: 1px solid black; height: 500px;">
+					<p>map</p>
+				</div>
 
-<p id="notice"><%= notice %></p>
+				<div class="span6 info" style="text-align:left;">
+					<p id="notice"><%= notice %></p>
+					<h4>
+						Responses
+					</h4>
+					<h2>
+					  <%= @subject.name %><br>
+					  Vacant & Abandoned Properties
+					</h2>
+					<div class="row-fluid">
+						<div class="span9">
+							<% @questions.each do |my_question| %>
+							<%= my_question.voice_text %>
+								<div class="progress progress-info">
+								  <div class="bar" style="width: <%= my_question.average_priority/5*100 %>%"><span style="color:black"><%= number_with_precision(my_question.average_priority, :precision => 2) %></span></div>
+								</div>
+							<% end %>
+						</div>
+					</div>
+					<% @user_voice_messages.each do |message| %>
+						<div class="vmessage">
+							<div class="row-fluid">
+								<div class="span12" >
+									<!-- will style avatar later
+									<div class="avatar">
+									</div> -->
+									<div>
+										<audio src="<%= message.voice_url %>" preload="auto" />			
+									</div>
+									<div class="voiceAnnotate">
+										from: <strong><%= message.phone_number %></strong>  &nbsp; date: <strong><%= message.date %></strong>
+									</div>
+								</div>
+							</div>
+						</div>
+					<% end %>
+					
+					<% if @subject.type == "Property" %>
+					  <p>
+					    <strong>Neighborhood:</strong>
+					    <%= @subject.neighborhood.name %>
+					  </p>
+					<% end %>
+					
+					<!-- not needed at the moment
+					<p>
+					  <strong>Type:</strong>
+					  <%= @subject.type %>
+					</p>
+					-->
+				</div>
+			</div>
+		</div>
+		<!--
+			<%= link_to 'Edit', edit_subject_path(@subject) %> |
+			<%= link_to 'Back', subjects_path %>
+		-->
 
-<p>
-  <strong>Name:</strong>
-  <%= @subject.name %>
-</p>
+<%= @questions %>
+<%= @user_voice_messages %>
 
-<% if @subject.type == "Property" %>
-  <p>
-    <strong>Neighborhood:</strong>
-    <%= @subject.neighborhood.name %>
-  </p>
-<% end %>
-
-<p>
-  <strong>Type:</strong>
-  <%= @subject.type %>
-</p>
-
-<%= link_to 'Edit', edit_subject_path(@subject) %> |
-<%= link_to 'Back', subjects_path %>
+	</body>
+</html>
