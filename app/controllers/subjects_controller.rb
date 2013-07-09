@@ -21,7 +21,6 @@ class SubjectsController < ApplicationController
     3.times do
       @user_voice_messages << OpenStruct.new(:voice_url => "http://www.myvoiceurlssdds.com", :public_safety => rand(1..5), :property_values => rand(1..5), :phone_number => "1234567890", :date => "06/09/13")
     end
-    binding.pry
   end
 
   # GET /subjects/new
