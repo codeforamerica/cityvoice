@@ -54,6 +54,9 @@ describe SubjectsController do
     it "has a @questions object" do
       assigns(:questions).should_not be_nil
     end
+    it "has a @questions array with object having question_text attribute" do
+      assigns(:questions)[0].question_text.should_not be_nil
+    end
   end
 
   describe "GET new" do
