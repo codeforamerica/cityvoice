@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	    
+	    <script src="/audiojs/audio.min.js"></script>
+	    <script>
+		  audiojs.events.ready(function() {
+		    var as = audiojs.createAll();
+		  });
+		</script>
   	</head>
 	<body>
 		<header class="navbar navbar-fixed-top navbar-inverse">
@@ -45,15 +50,14 @@
 						<div class="vmessage">
 							<div class="row-fluid">
 								<div class="span12" >
-									<!--<div class="avatar">
+									<!-- will style avatar later
+									<div class="avatar">
 									</div> -->
 									<div>
-										<a href="<%= message.voice_url %>">
-											<button class="btn btn-mini btn-inverse" type="button">
-											<i class="icon-play icon-white"></i>Voice Message
-											</button>
-										</a>
-										<p><em>from: <%= message.phone_number %>  &nbsp; date: <%= message.date %></em></p>
+										<audio src="<%= message.voice_url %>" preload="auto" />			
+									</div>
+									<div class="voiceAnnotate">
+										from: <strong><%= message.phone_number %></strong>  &nbsp; date: <strong><%= message.date %></strong>
 									</div>
 								</div>
 							</div>
