@@ -4,12 +4,18 @@
 
 
 #map{
-	height: 500px;
+	height: 600px;
 }
 .info {
 	h2{
 		text-align: left;
 	}
+}
+.infoHeader{
+	background: #C4C4C4;
+	color: white;
+	padding: .25em;
+	margin-bottom: 1em;
 }
 .question{
 	padding-bottom: 1em;
