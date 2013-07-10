@@ -109,6 +109,28 @@ describe "Voice Survey Interface" do
       post 'voice_survey', { "RecordingUrl" => "https://s3-us-west-1.amazonaws.com/south-bend-secrets/121gigawatts.mp3", "From" => "+16175551212" }
       @saved_input = FeedbackInput.where(:phone_number => "16175551212", :question_id => @ncomment_question_id, :neighborhood_id => session[:neighborhood_id]).first
       @saved_input.voice_file_url.should eq("https://s3-us-west-1.amazonaws.com/south-bend-secrets/121gigawatts.mp3")
+      @saved_input = FeedbackInput.where(:phone_number => "16175551212", :question_id => @ncomment_question_id, :neighborhood_id => session[:neighborhood_id]).count.should eq(1)
+    end
+    it "prompts with property voice question at end" do
+      post 'voice_survey'
+      post 'voice_survey', { "Digits" => "1", "From" => "+16175551212" }
+      post 'voice_survey', { "Digits" => "4", "From" => "+16175551212" }
+      post 'voice_survey', { "Digits" => "5", "From" => "+16175551212" }
+      post 'voice_survey', { "RecordingUrl" => "https://s3-us-west-1.amazonaws.com/south-bend-secrets/121gigawatts.mp3", "From" => "+16175551212" }
+      @body_hash = hash_from_xml(response.body)
+      @body_hash["Response"]["Say"].should eq(Question.find(session[:current_question_id]).voice_text) #include("")
+    end
+    it "saves property voice question correctly" do
+      post 'voice_survey'
+      post 'voice_survey', { "Digits" => "1", "From" => "+16175551212" }
+      post 'voice_survey', { "Digits" => "4", "From" => "+16175551212" }
+      post 'voice_survey', { "Digits" => "5", "From" => "+16175551212" }
+      post 'voice_survey', { "RecordingUrl" => "https://s3-us-west-1.amazonaws.com/south-bend-secrets/121gigawatts.mp3", "From" => "+16175551212" }
+      @pcomment_question_id = session[:current_question_id]
+      post 'voice_survey', { "RecordingUrl" => "https://s3-us-west-1.amazonaws.com/south-bend-secrets/121gigawatts.mp3", "From" => "+16175551212" }
+      @saved_input = FeedbackInput.where(:phone_number => "16175551212", :question_id => @pcomment_question_id, :neighborhood_id => session[:neighborhood_id]).first
+      @saved_input.voice_file_url.should eq("https://s3-us-west-1.amazonaws.com/south-bend-secrets/121gigawatts.mp3")
+      FeedbackInput.where(:phone_number => "16175551212", :question_id => @pcomment_question_id, :neighborhood_id => session[:neighborhood_id]).count.should eq(1)
     end
   end
 
