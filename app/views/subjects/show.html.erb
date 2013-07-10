@@ -1,23 +1,23 @@
 
 		<div class="container-fluid">
 			<div class="row-fluid">
-				<div class="span6">
+				<div class="span5 offset1">
 					<div id="map"></div>
 				</div>
 
-				<div class="span6 info" style="text-align:left;">
+				<div class="span5 info" style="text-align:left;">
 					<p id="notice"><%= notice %></p>
-					<h4>
-						Responses
-					</h4>
-					<h2>
+					<h1>
 					  <%= @subject.name %><br>
 					  Vacant & Abandoned Properties
+					</h1>
+					<h2>
+						Issues
 					</h2>
 					<% @questions.each do |my_question| %>
 						<div class="question">
 							<div class="row-fluid">
-								<div class="span9">
+								<div class="span11">
 									<div class="text">
 										<%= my_question.question_text %>
 									</div>
@@ -37,6 +37,9 @@
 							</div>
 						</div>
 					<% end %>
+					<h2>
+						Messages
+					</h2>
 					<% @user_voice_messages.each do |message| %>
 						<div class="vmessage">
 							<div class="row-fluid">
