@@ -65,5 +65,20 @@ describe "Voice Survey Interface" do
       @saved_input.voice_file_url.should eq("https://s3-us-west-1.amazonaws.com/south-bend-secrets/121gigawatts.mp3")
     end
   end
+
+  describe "property survey" do
+    before(:each) do
+      post 'route_to_survey', "Digits" => "1234"
+    end
+    it "has the correct session" do
+      session[:survey].should eq("property")
+    end
+    it "prompts with correct question" do
+      post 'voice_survey'
+      @body_hash = hash_from_xml(response.body)
+      @body_hash["Response"]["Say"].should include("if you want to repair this property")
+    end
+  end
+
 end
 

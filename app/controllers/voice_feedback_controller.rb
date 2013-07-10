@@ -26,7 +26,7 @@ class VoiceFeedbackController < ApplicationController
   def voice_survey
     # Set the index if none exists
     if session[:current_question_id] == nil
-      @current_question = Question.find_by_short_name(Survey.questions_for("neighborhood")[0])
+      @current_question = Question.find_by_short_name(Survey.questions_for(session[:survey])[0])
       session[:current_question_id] = @current_question.id
     else
       # Process data for existing question 
