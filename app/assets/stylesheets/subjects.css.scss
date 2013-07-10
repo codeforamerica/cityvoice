@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
 #map{
 	height: 500px;
 }
@@ -11,7 +12,9 @@
 	}
 }
 .question{
-	padding-bottom: 1.5em;
+	padding-bottom: 1em;
+	padding-left: 2em;
+	padding-right: 2em;
 	.text{
 		padding-bottom: .7em;
 	}
@@ -29,9 +32,10 @@
 }
 
 .vmessage{
-	border-top: 1px solid #B3B3B3;
-	padding-bottom: 1em;
+	border-bottom: 1px solid #E3E3E3;
+	padding-bottom: 1.75em;
 	padding-top: 2em;
+	padding-left: 2em;
 }
 .avatar{
 	background: #83d0d2;
@@ -41,7 +45,7 @@
 .voiceAnnotate{
 	font-style:italic;
 	padding-top: .5em;
-	color: #828282;
+	color: #999;
 }
 
 .center {
