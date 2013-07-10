@@ -5,8 +5,8 @@ class VoiceFeedbackController < ApplicationController
   def route_to_survey
     if !params.has_key?("Digits") 
       response_xml = Twilio::TwiML::Response.new do |r| 
-        r.Say "Hello! If you are calling about a specific property enter the property code followed by the pound sign. Otherwise enter 0."
-        r.Gather :timeout => 10, :numdigits => 4
+        r.Say "Hello! If you are calling about a specific property enter the property code followed by the pound sign. Otherwise enter 0, followed by the pound sign."
+        r.Gather :timeout => 10, :numDigits => 4
       end.text
     # Eventually replace below with lookup and validation of property code
     else
