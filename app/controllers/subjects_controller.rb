@@ -15,7 +15,7 @@ class SubjectsController < ApplicationController
     @questions_raw = Question.where(:short_name => ["public_safety", "property_values"])
     @questions = Array.new
     @questions_raw.each do |q|
-      average_priority = FeedbackInput.where(:neighborhood_id => params[:id]).average("numerical_response")
+      average_priority = FeedbackInput.where(:neighborhood_id => params[:id], :question_id => q.id).average("numerical_response")
       @questions << OpenStruct.new(:voice_text => q.voice_text , :short_name => q.short_name, :average_priority => average_priority, :question_text => q.question_text)
     end
     @user_voice_messages = Array.new
