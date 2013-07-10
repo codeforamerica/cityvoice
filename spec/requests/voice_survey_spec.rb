@@ -46,8 +46,24 @@ describe "Voice Survey Interface" do
       post 'voice_survey', { "Digits" => "5", "From" => "+16175551212" }
       @input = FeedbackInput.where(:phone_number => "16175551212", :question_id => @second_question_id).first
       @input.numerical_response.should eq(5)
+      FeedbackInput.where(:phone_number => "16175551212", :question_id => @second_question_id).count.should eq(1)
+    end
+    it "asks third (open) questions" do
+      post 'voice_survey'
+      post 'voice_survey', { "Digits" => "1", "From" => "+16175551212" }
+      post 'voice_survey', { "Digits" => "5", "From" => "+16175551212" }
+      @body_hash = hash_from_xml(response.body)
+      @body_hash["Response"]["Say"].should include("to give voice feedback")
+    end
+    it "asks third (open) questions" do
+      post 'voice_survey'
+      post 'voice_survey', { "Digits" => "1", "From" => "+16175551212" }
+      post 'voice_survey', { "Digits" => "5", "From" => "+16175551212" }
+      @third_question_id = session[:current_question_id]
+      post 'voice_survey', { "RecordingUrl" => "https://s3-us-west-1.amazonaws.com/south-bend-secrets/121gigawatts.mp3", "From" => "+16175551212" }
+      @saved_input = FeedbackInput.where(:phone_number => "16175551212", :question_id => @third_question_id).first
+      @saved_input.voice_file_url.should eq("https://s3-us-west-1.amazonaws.com/south-bend-secrets/121gigawatts.mp3")
     end
   end
-
-
 end
+

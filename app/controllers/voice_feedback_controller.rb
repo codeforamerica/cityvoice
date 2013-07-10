@@ -29,19 +29,35 @@ class VoiceFeedbackController < ApplicationController
       @current_question = Question.find_by_short_name(Survey.questions_for("neighborhood")[0])
       session[:current_question_id] = @current_question.id
     else
-      # Process data for existing question and iterate counter
+      # Process data for existing question 
       @current_question = Question.find(session[:current_question_id])
-      FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: 1, numerical_response: params["Digits"], phone_number: params["From"][1..-1].to_i)
+      if @current_question.feedback_type == "numerical_response"
+        FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: 1, numerical_response: params["Digits"], phone_number: params["From"][1..-1].to_i)
+      elsif @current_question.feedback_type == "voice_file"
+        FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: 1, voice_file_url: params["RecordingUrl"], phone_number: params["From"][1..-1].to_i)
+      end
+      # Then iterate counter
       current_index = Survey.questions_for("neighborhood").index(@current_question.short_name)
       @current_question = Question.find_by_short_name(Survey.questions_for("neighborhood")[current_index+1])
-      session[:current_question_id] = @current_question.id
+      # If there remains a question
+      if @current_question
+        session[:current_question_id] = @current_question.id
+      else
+        @hang_up = true
+      end
     end
     @response_xml = Twilio::TwiML::Response.new do |r| 
-      r.Say @current_question.voice_text 
-      if @current_question.feedback_type == "numerical_response"
-        r.Gather :timeout => 10, :numdigits => 1
+      if @hang_up
+        r.Say "Thank you very much for your feedback. Good bye."
+        r.Hangup
       else
-        # Handle the voice recording here
+        r.Say @current_question.voice_text 
+        if @current_question.feedback_type == "numerical_response"
+          r.Gather :timeout => 10, :numdigits => 1
+        else
+          # Handle the voice recording here
+          r.Record :maxLength => 60
+        end
       end
     end.text
     render :inline => @response_xml
