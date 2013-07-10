@@ -30,3 +30,8 @@ Question.create!( \
       feedback_type: "voice_file" } \
   ] )
 
+FeedbackInput.create!(:property_id => 2, :question_id => Question.find_by_short_name("property_outcome").id, :numerical_response => 1)
+FeedbackInput.create!(:property_id => 2, :question_id => Question.find_by_short_name("property_outcome").id, :numerical_response => 1)
+FeedbackInput.create!(:property_id => 2, :question_id => Question.find_by_short_name("property_outcome").id, :numerical_response => 3)
+
+
