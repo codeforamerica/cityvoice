@@ -19,16 +19,8 @@ ActiveRecord::Schema.define(version: 20130707212133) do
     t.integer  "neighborhood_id"
     t.integer  "property_id"
     t.string   "voice_file_url"
-    t.integer  "numberical_response"
+    t.integer  "numerical_response"
     t.integer  "phone_number"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "feedback_items", force: true do |t|
-    t.string   "phone_number",   limit: 10
-    t.string   "property_id",    limit: 4
-    t.string   "outcome_choice", limit: 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end

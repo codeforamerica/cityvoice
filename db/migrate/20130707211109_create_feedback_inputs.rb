@@ -6,7 +6,7 @@ class CreateFeedbackInputs < ActiveRecord::Migration
       t.integer :neighborhood_id
       t.integer :property_id
       t.string :voice_file_url
-      t.integer :numberical_response
+      t.integer :numerical_response
       t.integer :phone_number
 
       t.timestamps
