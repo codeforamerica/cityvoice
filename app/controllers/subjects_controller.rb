@@ -12,13 +12,28 @@ class SubjectsController < ApplicationController
   def show
     #public_safety_question = Question.find_by_short_name("public_safety")
     #prop_value_question = Question.find_by_short_name("property_values")
-    @questions_raw = Question.where(:short_name => ["public_safety", "property_values"])
-    @questions = Array.new
-    @questions_raw.each do |q|
-      average_priority = FeedbackInput.where(:neighborhood_id => params[:id], :question_id => q.id).average("numerical_response")
-      @questions << OpenStruct.new(:voice_text => q.voice_text , :short_name => q.short_name, :average_priority => average_priority, :question_text => q.question_text)
+    @subject = Subject.find(params[:id])
+    if @subject.type == "Neighborhood"
+      @questions_raw = Question.where(:short_name => ["public_safety", "property_values"])
+      @questions = Array.new
+      @questions_raw.each do |q|
+        average_priority = FeedbackInput.where(:neighborhood_id => params[:id], :question_id => q.id).average("numerical_response")
+        @questions << OpenStruct.new(:voice_text => q.voice_text , :short_name => q.short_name, :average_priority => average_priority, :question_text => q.question_text)
+      end
+    elsif @subject.type == "Property"
+      @questions_raw = Question.where(:short_name => ["property_outcome"])
+      @questions= Array.new
+      @questions_raw.each do |q|
+        response_hash = Hash.new
+        ["Repair", "Remove", "Other"].each_with_index do |choice, index|
+          @count_of_response = FeedbackInput.where(:question_id => q.id, :property_id => params[:id], :numerical_response => (index+1)).count
+          response_hash[choice] = @count_of_response
+        end
+        @questions << OpenStruct.new(:voice_text => q.voice_text , :short_name => q.short_name, :response_hash => response_hash, :question_text => q.question_text)
+      end
     end
-    @user_voice_messages = FeedbackInput.where(:neighborhood_id => params[:id]).where.not(:voice_file_url => nil)
+    # May need to make this conditional as well
+    @user_voice_messages = FeedbackInput.where(:property_id => params[:id]).where.not(:voice_file_url => nil)
   end
 
   # GET /subjects/new
