@@ -70,8 +70,11 @@ describe "Voice Survey Interface" do
     before(:each) do
       post 'route_to_survey', "Digits" => "1234"
     end
-    it "has the correct session" do
+    it "has the correct session survey" do
       session[:survey].should eq("property")
+    end
+    it "sets :property_id in session" do
+      session[:property_code].should eq("1234")
     end
     it "prompts with correct question" do
       post 'voice_survey'
