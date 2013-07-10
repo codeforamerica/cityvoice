@@ -22,7 +22,7 @@
 										<%= my_question.question_text %>
 									</div>
 									<div class="progress progress-info">
-									  <div class="bar" style="width: <%= my_question.average_priority/5*100 %>%"><span style="color:black"><%= number_with_precision(my_question.average_priority, :precision => 2) %></span></div>
+                    <div class="bar" style="width: <%= my_question.average_priority/5*100 rescue nil %>%"><span style="color:black"><%= number_with_precision(my_question.average_priority, :precision => 2) %></span></div>
 									</div>
 									<div class="progressAnnotate">
 										<span class="alignleft">
