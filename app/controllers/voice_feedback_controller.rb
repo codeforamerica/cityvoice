@@ -23,16 +23,21 @@ class VoiceFeedbackController < ApplicationController
     render :inline => response_xml
   end
 
-
   def voice_survey
-    response_xml = Twilio::TwiML::Response.new do |r| 
-      r.Say "MESSAGE GOES HERE"
-      r.Gather :action => "ACTION URL GOES HERE", :timeout => 10, :numdigits => 4
+    # Set the index if none exists
+    if session[:current_question_index] == nil
+      session[:current_question_index] = 0
+      @current_question = Question.find_by_short_name(Survey.questions_for("neighborhood")[0])
+    else
+    # Process data for existing question and iterate counter
+      #
+    end
+    @response_xml = Twilio::TwiML::Response.new do |r| 
+      r.Say @current_question.voice_text #"MESSAGE GOES HERE"
+      r.Gather :timeout => 10, :numdigits => 1
     end.text
-    render :inline => response_xml
+    render :inline => @response_xml
   end
-
-
 
 
 
