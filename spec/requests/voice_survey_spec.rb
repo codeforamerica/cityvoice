@@ -88,8 +88,19 @@ describe "Voice Survey Interface" do
       @input = FeedbackInput.where(:phone_number => "16175551212", :question_id => @prop_outcome_question_id).first
       @input.numerical_response.should eq(1)
       FeedbackInput.where(:phone_number => "16175551212", :question_id => @prop_outcome_question_id, :property_id => session[:property_code]).count.should eq(1)
+      FeedbackInput.where(:phone_number => "16175551212", :question_id => @prop_outcome_question_id, :property_id => session[:property_code]).count.should eq(1)
     end
     it "gets to open neighborhood question successfully" do
+      post 'voice_survey'
+      post 'voice_survey', { "Digits" => "1", "From" => "+16175551212" }
+      post 'voice_survey', { "Digits" => "4", "From" => "+16175551212" }
+      post 'voice_survey', { "Digits" => "5", "From" => "+16175551212" }
+      @ncomment_question_id = session[:current_question_id]
+      post 'voice_survey', { "RecordingUrl" => "https://s3-us-west-1.amazonaws.com/south-bend-secrets/121gigawatts.mp3", "From" => "+16175551212" }
+      @saved_input = FeedbackInput.where(:phone_number => "16175551212", :question_id => @ncomment_question_id, :neighborhood_id => session[:neighborhood_id]).first
+      @saved_input.voice_file_url.should eq("https://s3-us-west-1.amazonaws.com/south-bend-secrets/121gigawatts.mp3")
+    end
+    it "saves neighborhood voice question correctly" do
       post 'voice_survey'
       post 'voice_survey', { "Digits" => "1", "From" => "+16175551212" }
       post 'voice_survey', { "Digits" => "4", "From" => "+16175551212" }
