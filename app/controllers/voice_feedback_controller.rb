@@ -54,11 +54,13 @@ class VoiceFeedbackController < ApplicationController
         r.Say "Thank you very much for your feedback. Good bye."
         r.Hangup
       else
-        r.Say @current_question.voice_text 
         if @current_question.feedback_type == "numerical_response"
-          r.Gather :timeout => 10, :numDigits => 1
+          r.Gather :timeout => 10, :numDigits => 1 do |g|
+            r.Say @current_question.voice_text 
+          end
         else
           # Handle the voice recording here
+          r.Say @current_question.voice_text 
           r.Record :maxLength => 60
         end
       end
