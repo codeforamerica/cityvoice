@@ -45,10 +45,10 @@
 									<div class="avatar">
 									</div> -->
 									<div>
-										<audio src="<%= message.voice_url %>" preload="auto" />			
+										<audio src="<%= message.voice_file_url %>" preload="auto" />			
 									</div>
 									<div class="voiceAnnotate">
-										date: <strong><%= message.date %></strong> &nbsp; from: <strong><%= message.phone_number %></strong>
+										date: <strong><%= message.created_at.to_date %></strong> &nbsp; from: <strong><%= message.phone_number %></strong>
 									</div>
 								</div>
 							</div>

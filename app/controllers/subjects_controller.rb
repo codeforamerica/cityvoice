@@ -18,10 +18,13 @@ class SubjectsController < ApplicationController
       average_priority = FeedbackInput.where(:neighborhood_id => params[:id], :question_id => q.id).average("numerical_response")
       @questions << OpenStruct.new(:voice_text => q.voice_text , :short_name => q.short_name, :average_priority => average_priority, :question_text => q.question_text)
     end
+=begin
     @user_voice_messages = Array.new
     3.times do
       @user_voice_messages << OpenStruct.new(:voice_url => "https://s3-us-west-1.amazonaws.com/south-bend-secrets/121gigawatts.mp3", :public_safety => rand(1..5), :property_values => rand(1..5), :phone_number => "1234567890", :date => "06/09/13")
     end
+=end
+    @user_voice_messages = FeedbackInput.where(:neighborhood_id => params[:id]).where.not(:voice_file_url => nil)
   end
 
   # GET /subjects/new
