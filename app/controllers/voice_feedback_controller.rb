@@ -37,8 +37,8 @@ class VoiceFeedbackController < ApplicationController
         FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: 1, voice_file_url: params["RecordingUrl"], phone_number: params["From"][1..-1].to_i)
       end
       # Then iterate counter
-      current_index = Survey.questions_for("neighborhood").index(@current_question.short_name)
-      @current_question = Question.find_by_short_name(Survey.questions_for("neighborhood")[current_index+1])
+      current_index = Survey.questions_for(session[:survey]).index(@current_question.short_name)
+      @current_question = Question.find_by_short_name(Survey.questions_for(session[:survey])[current_index+1])
       # If there remains a question
       if @current_question
         session[:current_question_id] = @current_question.id

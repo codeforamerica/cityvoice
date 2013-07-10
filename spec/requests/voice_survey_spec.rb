@@ -78,6 +78,14 @@ describe "Voice Survey Interface" do
       @body_hash = hash_from_xml(response.body)
       @body_hash["Response"]["Say"].should include("if you want to repair this property")
     end
+    it "saves input for property_outcome question" do
+      post 'voice_survey'
+      @prop_outcome_question_id = session[:current_question_id]
+      post 'voice_survey', { "Digits" => "1", "From" => "+16175551212" }
+      @input = FeedbackInput.where(:phone_number => "16175551212", :question_id => @prop_outcome_question_id).first
+      @input.numerical_response.should eq(1)
+      FeedbackInput.where(:phone_number => "16175551212", :question_id => @prop_outcome_question_id).count.should eq(1)
+    end
   end
 
 end
