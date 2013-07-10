@@ -20,7 +20,9 @@ class SubjectsController < ApplicationController
         average_priority = FeedbackInput.where(:neighborhood_id => params[:id], :question_id => q.id).average("numerical_response")
         @questions << OpenStruct.new(:voice_text => q.voice_text , :short_name => q.short_name, :average_priority => average_priority, :question_text => q.question_text)
       end
-      @user_voice_messages = FeedbackInput.where(:neighborhood_id => params[:id]).where.not(:voice_file_url => nil)
+      # omg hard-coded question id i hate everything
+      @voice_question_id = Question.find_by_short_name("neighborhood_comments")
+      @user_voice_messages = FeedbackInput.where(:neighborhood_id => params[:id], :question_id => @voice_question_id).where.not(:voice_file_url => nil)
     elsif @subject.type == "Property"
       @questions_raw = Question.where(:short_name => ["property_outcome"])
       @questions= Array.new
@@ -32,7 +34,9 @@ class SubjectsController < ApplicationController
         end
         @questions << OpenStruct.new(:voice_text => q.voice_text , :short_name => q.short_name, :response_hash => response_hash, :question_text => q.question_text)
       end
-      @user_voice_messages = FeedbackInput.where(:property_id => params[:id]).where.not(:voice_file_url => nil)
+      # omg hard-coded question id i hate everything
+      @voice_question_id = Question.find_by_short_name("property_comments").id
+      @user_voice_messages = FeedbackInput.where(:property_id => params[:id], :question_id => @voice_question_id).where.not(:voice_file_url => nil)
     end
     # May need to make this conditional as well
     #@user_voice_messages = FeedbackInput.where(:neighborhood_id => params[:id]).where.not(:voice_file_url => nil)
