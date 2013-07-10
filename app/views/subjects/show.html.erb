@@ -11,9 +11,13 @@
 					  <%= @subject.name %><br>
 					  Vacant & Abandoned Properties
 					</h1>
-					<h2>
-						Issues
-					</h2>
+
+					<div class="infoHeader">
+						<h2>
+							Opinions 
+						</h2>
+						<em style="color:;">of 10 neighbors</em>
+					</div>
 					<% @questions.each do |my_question| %>
 						<div class="question">
 							<div class="row-fluid">
@@ -37,9 +41,11 @@
 							</div>
 						</div>
 					<% end %>
-					<h2>
-						Messages
-					</h2>
+					<div class="infoHeader">
+						<h2>
+							Messages
+						</h2>
+					</div>
 					<% @user_voice_messages.each do |message| %>
 						<div class="vmessage">
 							<div class="row-fluid">
