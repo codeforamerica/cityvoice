@@ -74,7 +74,7 @@ describe "Voice Survey Interface" do
       session[:survey].should eq("property")
     end
     it "sets :property_id in session" do
-      session[:property_code].should eq("1234")
+      session[:property_id].should eq(2)
     end
     it "prompts with correct question" do
       post 'voice_survey'
@@ -87,8 +87,8 @@ describe "Voice Survey Interface" do
       post 'voice_survey', { "Digits" => "1", "From" => "+16175551212" }
       @input = FeedbackInput.where(:phone_number => "16175551212", :question_id => @prop_outcome_question_id).first
       @input.numerical_response.should eq(1)
-      FeedbackInput.where(:phone_number => "16175551212", :question_id => @prop_outcome_question_id, :property_id => session[:property_code]).count.should eq(1)
-      FeedbackInput.where(:phone_number => "16175551212", :question_id => @prop_outcome_question_id, :property_id => session[:property_code]).count.should eq(1)
+      FeedbackInput.where(:phone_number => "16175551212", :question_id => @prop_outcome_question_id, :property_id => session[:property_id]).count.should eq(1)
+      FeedbackInput.where(:phone_number => "16175551212", :question_id => @prop_outcome_question_id, :property_id => session[:property_id]).count.should eq(1)
     end
     it "gets to open neighborhood question successfully" do
       post 'voice_survey'

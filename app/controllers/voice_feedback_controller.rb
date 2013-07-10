@@ -11,7 +11,7 @@ class VoiceFeedbackController < ApplicationController
     # Eventually replace below with lookup and validation of property code
     else
       if params["Digits"].to_s.length == 4
-        session[:property_code] = params["Digits"]
+        session[:property_id] = Property.find_by_property_code(params["Digits"]).id
         session[:survey] = "property"
       else
         session[:survey] = "neighborhood"
@@ -34,9 +34,9 @@ class VoiceFeedbackController < ApplicationController
       # Process data for existing question 
       @current_question = Question.find(session[:current_question_id])
       if @current_question.feedback_type == "numerical_response"
-        FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: session[:neighborhood_id], :property_id => session[:property_code], numerical_response: params["Digits"], phone_number: params["From"][1..-1].to_i)
+        FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: session[:neighborhood_id], :property_id => session[:property_id], numerical_response: params["Digits"], phone_number: params["From"][1..-1].to_i)
       elsif @current_question.feedback_type == "voice_file"
-        FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: session[:neighborhood_id], :property_id => session[:property_code], voice_file_url: params["RecordingUrl"], phone_number: params["From"][1..-1].to_i)
+        FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: session[:neighborhood_id], :property_id => session[:property_id], voice_file_url: params["RecordingUrl"], phone_number: params["From"][1..-1].to_i)
       end
       # Then iterate counter
       current_index = Survey.questions_for(session[:survey]).index(@current_question.short_name)
