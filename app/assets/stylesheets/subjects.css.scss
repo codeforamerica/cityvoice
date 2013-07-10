@@ -1,3 +1,53 @@
 // Place all the styles related to the subjects controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#map{
+	height: 500px;
+}
+.info {
+	h2{
+		text-align: left;
+	}
+}
+.question{
+	padding-bottom: 1.5em;
+	.text{
+		padding-bottom: .7em;
+	}
+	.progress{
+		margin-bottom: 0em;
+	}
+	.progressAnnotate{
+		margin: 0px;
+		padding:0px;
+		font-size: .6em;
+		font-style: italic;
+		font-weight: normal;
+		width:100%;
+	}
+}
+
+.vmessage{
+	border-top: 1px solid #B3B3B3;
+	padding-bottom: 1em;
+	padding-top: 2em;
+}
+.avatar{
+	background: #83d0d2;
+	height: 40px;
+	width: 40px;
+}
+.voiceAnnotate{
+	font-style:italic;
+	padding-top: .5em;
+	color: #828282;
+}
+
+.center {
+  text-align: center;
+  h1 {
+  margin-bottom: 10px;
+	}
+}
+

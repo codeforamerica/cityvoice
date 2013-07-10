@@ -5,8 +5,26 @@
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
+  <script src="/audiojs/audio.min.js"></script>
+	    <script>
+		  audiojs.events.ready(function() {
+		    var as = audiojs.createAll();
+		  });
+		</script>
 </head>
-<body>
+<body class="<%= controller_name %> <%= action_name %>">
+	<header class="navbar navbar-fixed-top navbar-inverse">
+		  <div class="navbar-inner" style="background:#83d0d2; border: none;">
+		    <div class="container">
+		      CITYVOICE
+		      <nav>
+		        <ul class="nav pull-right">
+		          
+		        </ul>
+		      </nav>
+		    </div>
+		  </div>
+		</header>
 
 <%= yield %>
 
