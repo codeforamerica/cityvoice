@@ -87,7 +87,7 @@ describe "Voice Survey Interface" do
       post 'voice_survey', { "Digits" => "1", "From" => "+16175551212" }
       @input = FeedbackInput.where(:phone_number => "16175551212", :question_id => @prop_outcome_question_id).first
       @input.numerical_response.should eq(1)
-      FeedbackInput.where(:phone_number => "16175551212", :question_id => @prop_outcome_question_id).count.should eq(1)
+      FeedbackInput.where(:phone_number => "16175551212", :question_id => @prop_outcome_question_id, :property_id => session[:property_code]).count.should eq(1)
     end
   end
 
