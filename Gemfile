@@ -55,6 +55,9 @@ end
 #use bootstrap as front-end framework
 gem 'bootstrap-sass', '2.3.1.0'
 
+#leaflet maps
+gem "leaflet-rails", "~> 0.6.0"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

@@ -1,30 +1,8 @@
-<!DOCTYPE html>
-<html>
-	<head>
-	    <script src="/audiojs/audio.min.js"></script>
-	    <script>
-		  audiojs.events.ready(function() {
-		    var as = audiojs.createAll();
-		  });
-		</script>
-  	</head>
-	<body>
-		<header class="navbar navbar-fixed-top navbar-inverse">
-		  <div class="navbar-inner" style="background:#83d0d2; border: none;">
-		    <div class="container">
-		      CITYVOICE
-		      <nav>
-		        <ul class="nav pull-right">
-		          
-		        </ul>
-		      </nav>
-		    </div>
-		  </div>
-		</header>
+
 		<div class="container-fluid">
 			<div class="row-fluid">
-				<div class="span6" style="border: 1px solid black; height: 500px;">
-					<p>map</p>
+				<div class="span6">
+					<div id="map"></div>
 				</div>
 
 				<div class="span6 info" style="text-align:left;">
@@ -97,9 +75,3 @@
 			<%= link_to 'Edit', edit_subject_path(@subject) %> |
 			<%= link_to 'Back', subjects_path %>
 		-->
-
-<%= @questions %>
-<%= @user_voice_messages %>
-
-	</body>
-</html>
