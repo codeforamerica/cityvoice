@@ -25,20 +25,24 @@ class VoiceFeedbackController < ApplicationController
 
   def voice_survey
     # Set the index if none exists
-    if session[:current_question_index] == nil
-      session[:current_question_index] = 0
+    if session[:current_question_id] == nil
       @current_question = Question.find_by_short_name(Survey.questions_for("neighborhood")[0])
+      session[:current_question_id] = @current_question.id
     else
-    # Process data for existing question and iterate counter
-      #
+      # Process data for existing question and iterate counter
+      @current_question = Question.find(session[:current_question_id])
+      FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: 1, numerical_response: params["Digits"], phone_number: params["From"][1..-1].to_i)
     end
     @response_xml = Twilio::TwiML::Response.new do |r| 
-      r.Say @current_question.voice_text #"MESSAGE GOES HERE"
-      r.Gather :timeout => 10, :numdigits => 1
+      r.Say @current_question.voice_text 
+      if @current_question.feedback_type == "numerical_response"
+        r.Gather :timeout => 10, :numdigits => 1
+      else
+        # Handle the voice recording here
+      end
     end.text
     render :inline => @response_xml
   end
-
 
 
   def splash_message 

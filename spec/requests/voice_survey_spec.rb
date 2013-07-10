@@ -34,6 +34,11 @@ describe "Voice Survey Interface" do
       @body_hash = hash_from_xml(response.body)
       @body_hash["Response"]["Say"].should include("how important is public safety")
     end
+    it "saves first answer" do
+      post 'voice_survey'
+      post 'voice_survey',  { "Digits" => "1", "From" => "+16175551212" }
+      FeedbackInput.find_by_phone_number("16175551212").should_not be_nil
+    end
   end
 
 
