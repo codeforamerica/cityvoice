@@ -19,7 +19,7 @@ class SubjectsController < ApplicationController
     end
     @user_voice_messages = Array.new
     3.times do
-      @user_voice_messages << OpenStruct.new(:voice_url => "http://www.myvoiceurlssdds.com", :public_safety => rand(1..5), :property_values => rand(1..5), :phone_number => "1234567890", :date => "06/09/13")
+      @user_voice_messages << OpenStruct.new(:voice_url => "https://s3-us-west-1.amazonaws.com/south-bend-secrets/121gigawatts.mp3", :public_safety => rand(1..5), :property_values => rand(1..5), :phone_number => "1234567890", :date => "06/09/13")
     end
   end
 
