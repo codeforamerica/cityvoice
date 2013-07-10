@@ -36,8 +36,16 @@ describe "Voice Survey Interface" do
     end
     it "saves first answer" do
       post 'voice_survey'
-      post 'voice_survey',  { "Digits" => "1", "From" => "+16175551212" }
+      post 'voice_survey', { "Digits" => "1", "From" => "+16175551212" }
       FeedbackInput.find_by_phone_number("16175551212").should_not be_nil
+    end
+    it "saves second answer" do
+      post 'voice_survey'
+      post 'voice_survey', { "Digits" => "1", "From" => "+16175551212" }
+      @second_question_id = session[:current_question_id]
+      post 'voice_survey', { "Digits" => "5", "From" => "+16175551212" }
+      @input = FeedbackInput.where(:phone_number => "16175551212", :question_id => @second_question_id).first
+      @input.numerical_response.should eq(5)
     end
   end
 
