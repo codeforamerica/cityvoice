@@ -3,7 +3,10 @@ module Survey
     if survey_type == "neighborhood"
       ["public_safety", "property_values", "neighborhood_comments"]
     elsif survey_type == "property"
-      ["property_outcome", "public_safety", "property_values", "neighborhood_comments", "property_comments"]
+      # Old, combined
+      #["property_outcome", "public_safety", "property_values", "neighborhood_comments", "property_comments"]
+      # New -- property questions only
+      ["property_outcome", "property_comments"]
     end
   end
 
