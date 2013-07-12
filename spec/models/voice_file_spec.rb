@@ -1,5 +1,8 @@
 require 'spec_helper'
 
 describe VoiceFile do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "inits with URL" do
+    v = VoiceFile.create!(:url => "www.google.com")
+    v.url.should eq("www.google.com")
+  end
 end
