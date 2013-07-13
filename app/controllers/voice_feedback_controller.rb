@@ -7,11 +7,10 @@ class VoiceFeedbackController < ApplicationController
     #if !params.has_key?("Digits") 
       session[:survey_started] = true
       response_xml = Twilio::TwiML::Response.new do |r| 
-        #r.Say "Hello! If you are calling about a specific property enter the property code followed by the pound sign. Otherwise enter 0, followed by the pound sign."
         r.Gather :timeout => 15, :numDigits => 4 do |g|
           g.Play VoiceFile.find_by_short_name("welcome").url
         end
-        r.Redirect "voice_survey"
+        r.Redirect "route_to_survey"
       end.text
     # Eventually replace below with lookup and validation of property code
     else
@@ -34,6 +33,7 @@ class VoiceFeedbackController < ApplicationController
     # Set the index if none exists
     if session[:current_question_id] == nil
       @current_question = Question.find_by_short_name(Survey.questions_for(session[:survey])[0])
+      binding.pry
       session[:current_question_id] = @current_question.id
     else
       # Process data for existing question 
