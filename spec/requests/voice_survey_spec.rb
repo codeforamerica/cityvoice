@@ -16,7 +16,7 @@ describe "Voice Survey Interface" do
       @body_hash["Response"]["Gather"]["Play"].should include("welcome.mp3")
     end
     it "redirects to hood with zero" do
-      post 'route_to_survey', "Digits" => "0"
+      post 'route_to_survey', "Digits" => ""
       @body_hash = hash_from_xml(response.body)
       @body_hash["Response"]["Redirect"].should eq("voice_survey")
       session[:survey].should eq("neighborhood")
