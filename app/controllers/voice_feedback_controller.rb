@@ -33,7 +33,6 @@ class VoiceFeedbackController < ApplicationController
     # Set the index if none exists
     if session[:current_question_id] == nil
       @current_question = Question.find_by_short_name(Survey.questions_for(session[:survey])[0])
-      binding.pry
       session[:current_question_id] = @current_question.id
     else
       # Process data for existing question 
