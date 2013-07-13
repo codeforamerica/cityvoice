@@ -3,12 +3,15 @@ class VoiceFeedbackController < ApplicationController
   @@app_url = "1000in1000.com"
 
   def route_to_survey
-    if !params.has_key?("Digits") 
+    if !session[:survey_started]
+    #if !params.has_key?("Digits") 
+      session[:survey_started] = true
       response_xml = Twilio::TwiML::Response.new do |r| 
         #r.Say "Hello! If you are calling about a specific property enter the property code followed by the pound sign. Otherwise enter 0, followed by the pound sign."
         r.Gather :timeout => 15, :numDigits => 4 do |g|
           g.Play VoiceFile.find_by_short_name("welcome").url
         end
+        r.Redirect "voice_survey"
       end.text
     # Eventually replace below with lookup and validation of property code
     else
