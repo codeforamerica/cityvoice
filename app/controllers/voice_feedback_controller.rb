@@ -55,16 +55,19 @@ class VoiceFeedbackController < ApplicationController
 
     @response_xml = Twilio::TwiML::Response.new do |r| 
       if @hang_up
-        r.Say "Thank you very much for your feedback. Good bye."
+        #r.Say "Thank you very much for your feedback. Good bye."
+        r.Play VoiceFile.find_by_short_name("thanks").url
         r.Hangup
       else
         if @current_question.feedback_type == "numerical_response"
           r.Gather :timeout => 10, :numDigits => 1 do |g|
-            r.Say @current_question.voice_text 
+            #r.Say @current_question.voice_text 
+            r.Play @current_question.voice_file.url
           end
         else
           # Handle the voice recording here
-          r.Say @current_question.voice_text 
+          #r.Say @current_question.voice_text 
+          r.Play @current_question.voice_file.url
           r.Record :maxLength => 60
         end
       end
