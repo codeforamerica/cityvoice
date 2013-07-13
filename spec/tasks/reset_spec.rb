@@ -10,4 +10,10 @@ describe "Reset Task" do
   it "creates Questions" do
     Question.count.should_not eq(0)
   end
+  it "properly associates Questions with VoiceFiles" do
+    binding.pry
+    Question.all.each do |q|
+      q.voice_file.should eq(VoiceFile.find_by_short_name(q.short_name))
+    end
+  end
 end

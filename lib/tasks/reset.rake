@@ -38,6 +38,9 @@ namespace :reset do
           short_name: "property_comments", \
           feedback_type: "voice_file" } \
       ] )
+    Question.all.each do |question|
+      question.update_attribute(:voice_file_id, VoiceFile.find_by_short_name(question.short_name).id)
+    end
   end
 
 end
