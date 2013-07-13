@@ -3,19 +3,25 @@ class VoiceFeedbackController < ApplicationController
   @@app_url = "1000in1000.com"
 
   def route_to_survey
-    if !params.has_key?("Digits") 
+    if !session[:survey_started]
+    #if !params.has_key?("Digits") 
+      session[:survey_started] = true
       response_xml = Twilio::TwiML::Response.new do |r| 
-        r.Say "Hello! If you are calling about a specific property enter the property code followed by the pound sign. Otherwise enter 0, followed by the pound sign."
-        r.Gather :timeout => 10, :numDigits => 4
+        r.Gather :timeout => 15, :numDigits => 4 do |g|
+          g.Play VoiceFile.find_by_short_name("welcome").url
+        end
+        r.Redirect "route_to_survey"
       end.text
     # Eventually replace below with lookup and validation of property code
     else
       if params["Digits"].to_s.length == 4
-        session[:property_code] = params["Digits"]
+        session[:property_id] = Property.find_by_property_code(params["Digits"]).id
         session[:survey] = "property"
       else
         session[:survey] = "neighborhood"
       end
+      # Hard core neighborhood ID for now
+      session[:neighborhood_id] = 1
       response_xml = Twilio::TwiML::Response.new do |r| 
         r.Redirect "voice_survey"
       end.text
@@ -26,19 +32,19 @@ class VoiceFeedbackController < ApplicationController
   def voice_survey
     # Set the index if none exists
     if session[:current_question_id] == nil
-      @current_question = Question.find_by_short_name(Survey.questions_for("neighborhood")[0])
+      @current_question = Question.find_by_short_name(Survey.questions_for(session[:survey])[0])
       session[:current_question_id] = @current_question.id
     else
       # Process data for existing question 
       @current_question = Question.find(session[:current_question_id])
       if @current_question.feedback_type == "numerical_response"
-        FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: 1, numerical_response: params["Digits"], phone_number: params["From"][1..-1].to_i)
+        FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: session[:neighborhood_id], :property_id => session[:property_id], numerical_response: params["Digits"], phone_number: params["From"][1..-1].to_i)
       elsif @current_question.feedback_type == "voice_file"
-        FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: 1, voice_file_url: params["RecordingUrl"], phone_number: params["From"][1..-1].to_i)
+        FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: session[:neighborhood_id], :property_id => session[:property_id], voice_file_url: params["RecordingUrl"], phone_number: params["From"][1..-1].to_i)
       end
       # Then iterate counter
-      current_index = Survey.questions_for("neighborhood").index(@current_question.short_name)
-      @current_question = Question.find_by_short_name(Survey.questions_for("neighborhood")[current_index+1])
+      current_index = Survey.questions_for(session[:survey]).index(@current_question.short_name)
+      @current_question = Question.find_by_short_name(Survey.questions_for(session[:survey])[current_index+1])
       # If there remains a question
       if @current_question
         session[:current_question_id] = @current_question.id
@@ -49,14 +55,19 @@ class VoiceFeedbackController < ApplicationController
 
     @response_xml = Twilio::TwiML::Response.new do |r| 
       if @hang_up
-        r.Say "Thank you very much for your feedback. Good bye."
+        #r.Say "Thank you very much for your feedback. Good bye."
+        r.Play VoiceFile.find_by_short_name("thanks").url
         r.Hangup
       else
-        r.Say @current_question.voice_text 
         if @current_question.feedback_type == "numerical_response"
-          r.Gather :timeout => 10, :numDigits => 1
+          r.Gather :timeout => 10, :numDigits => 1 do |g|
+            #r.Say @current_question.voice_text 
+            r.Play @current_question.voice_file.url
+          end
         else
           # Handle the voice recording here
+          #r.Say @current_question.voice_text 
+          r.Play @current_question.voice_file.url
           r.Record :maxLength => 60
         end
       end

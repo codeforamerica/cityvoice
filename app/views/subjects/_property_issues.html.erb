@@ -1,0 +1,30 @@
+<% @questions.each do |my_question| %>
+  <div class="question">
+    <div class="row-fluid">
+      <div class="span11">
+        <div class="text">
+          <%= my_question.question_text %>
+        </div>
+
+        <% my_question.response_hash.each_pair do |choice, count_of_choice| %>
+          <%= choice %>
+          <div class="progress progress-info">
+            <div class="bar" style="width: <%= count_of_choice*10 %>%">
+              <span style="color:black"><%= count_of_choice %></span>
+            </div>
+          </div>
+          <div class="progressAnnotate">
+            <span class="alignleft">
+              less 
+            </span>
+            <span class="alignright">
+              more 
+            </span>
+            <div style="clear: both;"></div>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+<% end %>
