@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130712220348) do
+ActiveRecord::Schema.define(version: 20130713154520) do
 
   create_table "feedback_inputs", force: true do |t|
     t.integer  "question_id"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20130712220348) do
     t.string   "question_text"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "voice_file_id"
   end
 
   create_table "subjects", force: true do |t|
