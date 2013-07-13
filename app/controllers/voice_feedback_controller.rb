@@ -6,7 +6,7 @@ class VoiceFeedbackController < ApplicationController
     if !params.has_key?("Digits") 
       response_xml = Twilio::TwiML::Response.new do |r| 
         #r.Say "Hello! If you are calling about a specific property enter the property code followed by the pound sign. Otherwise enter 0, followed by the pound sign."
-        r.Gather :timeout => 60, :numDigits => 4 do |g|
+        r.Gather :timeout => 15, :numDigits => 4 do |g|
           g.Play VoiceFile.find_by_short_name("welcome").url
         end
       end.text
