@@ -10,12 +10,14 @@ jQuery () ->
 	    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
 	    maxZoom: 18
 		}).addTo(map)
+  if json_representation.type == "Property"
+    marker = L.marker([41.6702, -86.2457]).addTo(map)
 
-		$.ajax "/assets/neighborhood_boundaries.geojson",
-			dataType: "json",
-			success: ((geojsonFeatures) ->
-				L.geoJson(geojsonFeatures.features[4]).addTo(map)
-				console.log("yolo",geojsonFeatures.features[0]))
+  $.ajax "/assets/neighborhood_boundaries.geojson",
+    dataType: "json",
+    success: ((geojsonFeatures) ->
+      L.geoJson(geojsonFeatures.features[4]).addTo(map)
+      console.log("yolo",geojsonFeatures.features[0]))
 
 
 		###

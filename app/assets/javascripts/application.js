@@ -14,8 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require leaflet
+//= require ./global_var
 //= require_tree .
-
-// Make a JSON representation of the Rails object available to the page
-$.getJSON(document.URL, success = function(successObject) { json_representation = successObject; console.log(successObject) } );
 
