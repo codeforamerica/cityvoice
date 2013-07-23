@@ -10,5 +10,6 @@
  *
  *= require_self
  *= require leaflet
+ *= require landing
  *= require_tree .
  */
