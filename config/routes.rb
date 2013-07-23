@@ -1,4 +1,6 @@
 Automidnight::Application.routes.draw do
+  get "/" => "landing#location_search"
+
   resources :questions
 
   resources :feedback_inputs
