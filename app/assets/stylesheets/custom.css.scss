@@ -46,10 +46,11 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1;
 }
 h1 {
-  color: #C4C4C4;
+  color: #545454;
   font-size: 1.75em;
   text-align: left;
   margin-bottom: .75em;
+  font-family: 'Varela Round', sans-serif;
 }
 h2 {
   display:inline;
@@ -70,6 +71,7 @@ p {
 #logo {
   float: left;
   margin-right: 10px;
+  font-family: 'Varela Round', sans-serif;
   font-size: 1.7em;
   color: #ffffff;
   text-transform: uppercase;

@@ -6,17 +6,17 @@
 width: 100%;
 height: auto;
 position: absolute;
-top: 0;
+top: 40px;
 bottom: 0;
-background: #858DFF; 
 z-index:-1;
 }
 
 .landingBox{
+border: 3px double #B8B8B8;
 background:white;  
--moz-border-radius: 6px;
-border-radius: 6px; 
-box-shadow: 0 0 8px -3px #575757;
+-moz-border-radius: 5px;
+border-radius: 5px; 
+box-shadow: 0 0 10px 0px #545454;
 margin-bottom: 1.5em;
 margin-top: 3em; 
 padding-left: 1.5em; 
@@ -24,4 +24,10 @@ padding-right: 1.4em;
 padding-top: 1em; 
 padding-bottom: 1em; 
 width:100%; 
+}
+
+.input-append{
+	-moz-border-radius: 5px;
+	border-radius: 5px; 
+	box-shadow: 0 0 10px 0px #545454;
 }
