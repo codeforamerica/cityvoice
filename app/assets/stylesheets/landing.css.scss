@@ -2,9 +2,18 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#maplayer{
+width: 100%;
+height: auto;
+position: absolute;
+top: 0;
+bottom: 0;
+background: #858DFF; 
+z-index:-1;
+}
+
 .landingBox{
-background:white; 
- 
+background:white;  
 -moz-border-radius: 6px;
 border-radius: 6px; 
 box-shadow: 0 0 8px -3px #575757;
