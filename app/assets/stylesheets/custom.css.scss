@@ -30,6 +30,7 @@ $warmGray: #dcddde;
 $dropShadow: #575757;
 $darkLink: #424242;
 $pressButton: #2fb49d;
+$medGray: #B8B8B8;
 
 /* general */
 .alignleft {
@@ -87,4 +88,45 @@ p {
 }
 
 /* footer */
+
+footer {
+  background: white;
+  position: absolute;
+  bottom:0;
+  left:0;
+  margin-top: 30px;
+  padding-top: 5px;
+  border-top: 1px solid $medGray;
+  color: #999;
+  height: 9em;
+  width: 100%;
+}
+
+footer a {
+  color: #555;
+}
+
+footer a:hover {
+  color: white;
+  background: $cvBlue;
+  padding: .1em;
+  text-decoration: none;
+}
+
+footer small {
+  float: left;
+  margin-left: 2em;
+}
+
+footer ul {
+  float: right;
+  list-style: none;
+  margin-right: 2em;
+}
+
+footer ul li {
+  float: left;
+  margin-left: 10px;
+}
+
 

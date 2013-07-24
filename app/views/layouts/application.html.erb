@@ -1,39 +1,52 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Automidnight</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
- <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-  <script src="/audiojs/audio.min.js"></script>
-	    <script>
-		  audiojs.events.ready(function() {
-		    var as = audiojs.createAll();
-		  });
-		</script>
-	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
-  	<link href='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css' rel='stylesheet' />
-</head>
-<body class="<%= controller_name %> <%= action_name %>">
-	<header class="navbar navbar-fixed-top navbar-inverse">
-		  <div class="navbar-inner" style="background:#83d0d2; border: none;">
-		    <div class="container">
-		    	<div class="row">
-		    		<div class="span5">
-		      <%= link_to "CITYVOICE", '#', id: "logo" %>
-		  </div>
-		</div>
-		      <nav>
-		        <ul class="nav pull-right">
-		          
-		        </ul>
-		      </nav>
-		    </div>
-		  </div>
+	<head>
+	  <title>Automidnight</title>
+	  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+	 <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+	  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+	  <%= csrf_meta_tags %>
+	  <script src="/audiojs/audio.min.js"></script>
+		    <script>
+			  audiojs.events.ready(function() {
+			    var as = audiojs.createAll();
+			  });
+			</script>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+	  	<link href='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css' rel='stylesheet' />
+	</head>
+	<body class="<%= controller_name %> <%= action_name %>">
+		<header class="navbar navbar-fixed-top navbar-inverse">
+			  <div class="navbar-inner" style="background:#83d0d2; border: none;">
+			    <div class="container">
+			    	<div class="row">
+			    		<div class="span5">
+			      <%= link_to "CITYVOICE", '#', id: "logo" %>
+			  </div>
+			</div>
+			      <nav>
+			        <ul class="nav pull-right">
+			          
+			        </ul>
+			      </nav>
+			    </div>
+			  </div>
 		</header>
 
-<%= yield %>
+		<%= yield %>
 
-</body>
+		<footer class="footer">
+		  <small>
+		    A project by
+		    <a href="http://codeforamerica.org/">Code for America</a>
+		    Team South Bend
+		  </small>
+		  <nav>
+		    <ul>
+		      <li><%= link_to "Contact", '#' %></li>
+		    </ul>
+		  </nav>
+		</footer>
+
+	</body>
 </html>
