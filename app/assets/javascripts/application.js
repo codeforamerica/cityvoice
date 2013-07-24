@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require leaflet
-//= require landing
+//= require mapbox
 //= require ./global_var
 //= require_tree .
-
