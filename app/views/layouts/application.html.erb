@@ -17,36 +17,23 @@
 	</head>
 	<body class="<%= controller_name %> <%= action_name %>">
 		<header class="navbar navbar-fixed-top navbar-inverse">
-			  <div class="navbar-inner" style="background:#83d0d2; border: none;">
+			<div class="navbar-inner" style="background:#83d0d2; border: none;">
 			    <div class="container">
 			    	<div class="row">
 			    		<div class="span5">
-			      <%= link_to "CITYVOICE", '#', id: "logo" %>
-			  </div>
-			</div>
-			      <nav>
-			        <ul class="nav pull-right">
+			      			<%= link_to "CITYVOICE", '#', id: "logo" %>
+					  	</div>
+					</div>
+			      	<nav>
+			        	<ul class="nav pull-right">
 			          
-			        </ul>
-			      </nav>
+			        	</ul>
+			      	</nav>
 			    </div>
-			  </div>
+			</div>
 		</header>
 
 		<%= yield %>
-
-		<footer class="footer">
-		  <small>
-		    A project by
-		    <a href="http://codeforamerica.org/">Code for America</a>
-		    Team South Bend
-		  </small>
-		  <nav>
-		    <ul>
-		      <li><%= link_to "Contact", '#' %></li>
-		    </ul>
-		  </nav>
-		</footer>
 
 	</body>
 </html>

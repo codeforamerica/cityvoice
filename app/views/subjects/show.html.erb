@@ -5,7 +5,6 @@
 				<div class="span5 offset1">
 					<div id="map"></div>
 				</div>
-
 				<div class="span5 info" style="text-align:left;">
 					<p id="notice"><%= notice %></p>
 					<div class="infoBox">
@@ -14,6 +13,11 @@
 							  <%= @subject.name %><br>
 							  Vacant & Abandoned Properties
 							</h1>
+							<em>
+								<% if @subject.type == "Property" %>
+								    <%= @subject.neighborhood.name %>
+								<% end %>
+							</em>
 						</div>
 						<div class="lower">
 							<div>Condition Code:</div>
@@ -62,24 +66,21 @@
 							<% end %>
 						</div>
 					</div>
-					<% if @subject.type == "Property" %>
-					  <p>
-					    <strong>Neighborhood:</strong>
-					    <%= @subject.neighborhood.name %>
-					  </p>
-					<% end %>
-					
-					<!-- not needed at the moment
-					<p>
-					  <strong>Type:</strong>
-					  <%= @subject.type %>
-					</p>
-					-->
 				</div>
-
-
 			</div>
 		</div>
+		<footer class="footer">
+		  <small>
+		    A project by
+		    <a href="http://codeforamerica.org/">Code for America</a>
+		    Team South Bend
+		  </small>
+		  <nav>
+		    <ul>
+		      <li><%= link_to "Contact", '#' %></li>
+		    </ul>
+		  </nav>
+		</footer>
 		<!--
 			<%= link_to 'Edit', edit_subject_path(@subject) %> |
 			<%= link_to 'Back', subjects_path %>

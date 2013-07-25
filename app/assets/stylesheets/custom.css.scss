@@ -7,7 +7,7 @@ html {
   overflow-y: scroll;
 }
 body {
-  padding-top: 40px;
+  padding-top: 20px;
 }
 section {
   overflow: auto;
@@ -92,9 +92,6 @@ p {
 
 footer {
   background: white;
-  position: absolute;
-  bottom:0;
-  left:0;
   margin-top: 30px;
   padding-top: 5px;
   border-top: 1px solid $medGray;
