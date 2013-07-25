@@ -11,6 +11,36 @@
 		text-align: left;
 	}
 }
+.infoBox{
+	margin-bottom: 1em;
+	.upper{
+		background: #C4C4C4;
+		padding-left: .75em;
+		padding-top: .1em;
+		padding-bottom: .5em;
+		border-bottom: 1px solid #F2F2F2;
+	}
+	.lower{
+		background: #DBDBDB;
+		padding-left: .75em;
+		padding-top: 1em;
+		padding-bottom: 1em;
+	}
+	div{
+		color: white;
+	}
+	h1{
+		color:white;
+		margin-bottom: 0em;
+		margin-right: .5em;
+	}
+	h2{
+		color:white;
+		padding-bottom: 0em;
+		margin-bottom: 0em;
+		margin-right: .5em;
+	}
+}
 .infoHeader{
 	background: #C4C4C4;
 	color: white;
@@ -19,7 +49,7 @@
 }
 .question{
 	padding-bottom: 1em;
-	padding-left: 2em;
+	padding-left: .25em;
 	padding-right: 2em;
 	.text{
 		padding-bottom: .7em;

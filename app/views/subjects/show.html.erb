@@ -1,3 +1,4 @@
+<script>window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg');</script>
 
 		<div class="container-fluid">
 			<div class="row-fluid">
@@ -7,48 +8,60 @@
 
 				<div class="span5 info" style="text-align:left;">
 					<p id="notice"><%= notice %></p>
-					<h1>
-					  <%= @subject.name %><br>
-					  Vacant & Abandoned Properties
-					</h1>
-
-					<div class="infoHeader">
-						<h2>
-							Opinions 
-						</h2>
-						<em style="color:;">of 10 neighbors</em>
+					<div class="infoBox">
+						<div class="upper">
+							<h1>
+							  <%= @subject.name %><br>
+							  Vacant & Abandoned Properties
+							</h1>
+						</div>
+						<div class="lower">
+							<div>Condition Code:</div>
+							<div>Repair Cost (est.):</div>
+							<div>Recommendation:</div>
+						</div>
 					</div>
-
-						<% if @subject.type == "Neighborhood" %>
-							<%= render "neighborhood_issues" %>
-						<% elsif @subject.type == "Property" %>
-							<%= render "property_issues" %>
-						<% end %>
-
-					<div class="infoHeader">
-						<h2>
-							Messages
-						</h2>
+					<div class="infoBox">
+						<div class="upper">
+							<h1>
+								Opinions 
+							</h1>
+							<em style="color:;">of 10 neighbors</em>
+						</div>
+						<div class="lower">
+							<% if @subject.type == "Neighborhood" %>
+								<%= render "neighborhood_issues" %>
+							<% elsif @subject.type == "Property" %>
+								<%= render "property_issues" %>
+							<% end %>
+						</div>
 					</div>
-
-					<% @user_voice_messages.each do |message| %>
-						<div class="vmessage">
-							<div class="row-fluid">
-								<div class="span12" >
-									<!-- will style avatar later
-									<div class="avatar">
-									</div> -->
-									<div>
-										<audio src="<%= message.voice_file_url %>" preload="auto" />			
-									</div>
-									<div class="voiceAnnotate">
-										date: <strong><%= message.created_at.to_date %></strong> &nbsp; from: <strong><%= "XXX-XXX-" + message.phone_number.to_s[-4..-1] %></strong>
+					<div class="infoBox">
+						<div class="upper">
+							<h1>
+								Messages
+							</h1>
+						</div>
+						<div class="lower">
+							<% @user_voice_messages.each do |message| %>
+								<div class="vmessage">
+									<div class="row-fluid">
+										<div class="span12" >
+											<!-- will style avatar later
+											<div class="avatar">
+											</div> -->
+											<div>
+												<audio src="<%= message.voice_file_url %>" preload="auto" />			
+											</div>
+											<div class="voiceAnnotate">
+												date: <strong><%= message.created_at.to_date %></strong> &nbsp; from: <strong><%= "XXX-XXX-" + message.phone_number.to_s[-4..-1] %></strong>
+											</div>
+										</div>
 									</div>
 								</div>
-							</div>
+							<% end %>
 						</div>
-					<% end %>
-					
+					</div>
 					<% if @subject.type == "Property" %>
 					  <p>
 					    <strong>Neighborhood:</strong>
