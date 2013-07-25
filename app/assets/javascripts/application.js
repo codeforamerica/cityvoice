@@ -15,5 +15,6 @@
 //= require turbolinks
 //= require leaflet
 //= require mapbox
+//= require bootstrap
 //= require ./global_var
 //= require_tree .
