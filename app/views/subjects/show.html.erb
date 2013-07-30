@@ -1,12 +1,9 @@
 <script>window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg');</script>
 
 		<div class="container-fluid">
+			<p id="notice"><%= notice %></p>
 			<div class="row-fluid">
 				<div class="span5 offset1">
-					<div id="map"></div>
-				</div>
-				<div class="span5 info" style="text-align:left;">
-					<p id="notice"><%= notice %></p>
 					<div class="infoBox">
 						<div class="upper">
 							<h1>
@@ -25,6 +22,9 @@
 							<div>Recommendation:</div>
 						</div>
 					</div>
+					<div id="map"></div>
+				</div>
+				<div class="span5 info" style="text-align:left;">
 					<div class="infoBox">
 						<div class="upper">
 							<h1>
@@ -50,10 +50,7 @@
 							<div class="vmessage">
 									<div class="row-fluid">
 										<div class="span12" >
-											
 												<span class="label label-warning">Repair</span>
-
-											
 											<div>
 												<audio src="#" preload="auto"/>
 											</div>
