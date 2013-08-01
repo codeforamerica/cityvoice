@@ -5,6 +5,7 @@ namespace :property_data do
     table = CSV.read(csv_path, :headers => true)
     table.each do |row|
       parcel_id = row["Parcel ID"]
+      puts "Processing #{parcel_id}"
       target_property = Property.find_by_parcel_id(parcel_id)
       if target_property == nil
         address = row["Location 1"][0, row["Location 1"].index("\n")]
@@ -12,12 +13,18 @@ namespace :property_data do
       end
       recommendation = nil
       ["Repair","Demo","Deconstruct","Hold"].each do |key|
-        puts "Warning! #{row["Parcel ID"]} has multiple recommendations" if recommendation && row[key]
+        if (recommendation && row[key])
+          puts "Warning! #{row["Parcel ID"]} has multiple recommendations"
+          binding.pry
+        end
         recommendation = key if row[key] == "1"
       end
       outcome = nil
-      ["Repaired","Demolished","Deconstructed","Occupied / Repaired","Occupied / Not Repaired","Legal","Hold"].each do |key|
-        puts "Warning! #{row["Parcel ID"]} has multiple recommendations" if outcome && row[key]
+      ["Repaired","Demolished","Deconstructed","Occupied / Repaired","Occupied / Not Repaired","Legal Hold"].each do |key|
+        if (outcome && row[key])
+          puts "Warning! #{row["Parcel ID"]} has multiple outcomes"
+          binding.pry
+        end
         outcome = key if row[key] == "1"
       end
       if target_property.property_info_set
