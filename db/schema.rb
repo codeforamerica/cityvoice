@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(version: 20130801173830) do
     t.integer  "property_id"
     t.integer  "condition_code",          limit: 1
     t.string   "condition"
-    t.integer  "estimated_cost_exterior"
-    t.integer  "estimated_cost_interior"
+    t.string   "estimated_cost_exterior"
+    t.string   "estimated_cost_interior"
     t.string   "demo_order"
     t.string   "recommendation"
     t.string   "outcome"
