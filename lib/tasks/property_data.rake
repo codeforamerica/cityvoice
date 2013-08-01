@@ -1,3 +1,5 @@
+require 'csv'
+
 namespace :property_data do
   desc "Import data from the property data file"
   task :import => :environment do
