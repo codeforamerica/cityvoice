@@ -29,6 +29,7 @@ namespace :property_data do
         end
         outcome = key if row[key] == "1"
       end
+      outcome = "Vacant and Abandoned" if outcome == nil
       if target_property.property_info_set
         target_property.property_info_set.update_attributes(:condition_code => row["Condition Code"].to_i, :condition => row["Condition (auto populates)"], :estimated_cost_exterior=> row["Estimated cost (Exterior)"], :estimated_cost_interior => row["Estimated cost (Interior - if able)"], :demo_order => row["Demo order? (Affirmed/Expired)"], :recommendation => recommendation, :outcome => outcome)
       else # Already has property info set
