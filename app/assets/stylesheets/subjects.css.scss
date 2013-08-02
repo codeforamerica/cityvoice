@@ -20,6 +20,22 @@
 		padding-top: .1em;
 		padding-bottom: .5em;
 		border-bottom: 1px solid #F2F2F2;
+		.infoSet_above{
+		margin: 0px;
+		padding:0px;
+		font-size: .7em;
+		font-style: italic;
+		font-weight: normal;
+		width:100%;
+		}
+		.infoSet_below{
+		margin-bottom: .25em;
+		margin-top: -.25em;
+		padding:0px;
+		font-size: 1.2em;
+		font-weight: bold;
+		width:100%;
+		}
 	}
 	.lower{
 		background: #CCCCCC;
