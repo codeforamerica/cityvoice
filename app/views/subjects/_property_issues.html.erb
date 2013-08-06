@@ -5,9 +5,9 @@
         <div class="text">
           <%= my_question.question_text %>
         </div>
-
+        <span class="label label-warning">
         <% my_question.response_hash.each_pair do |choice, count_of_choice| %>
-          <%= choice %>
+          <%= choice %></span>
           <div class="progress progress-info">
             <div class="bar" style="width: <%= count_of_choice*10 %>%">
               <span style="color:black"><%= count_of_choice %></span>

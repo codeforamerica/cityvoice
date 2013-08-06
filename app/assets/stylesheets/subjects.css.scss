@@ -4,8 +4,8 @@
 
 
 #map{
-	height: 550px;
-	margin-top: .95em;
+	height: 300px;
+	margin-bottom: 0;
 }
 .info {
 	h2{
@@ -15,14 +15,30 @@
 .infoBox{
 	margin-bottom: 1.5em;
 	.upper{
-		background: #C4C4C4;
+		background: #BABABA;
 		padding-left: .75em;
 		padding-top: .1em;
 		padding-bottom: .5em;
 		border-bottom: 1px solid #F2F2F2;
+		.infoSet_above{
+		margin: 0px;
+		padding:0px;
+		font-size: .7em;
+		font-style: italic;
+		font-weight: normal;
+		width:100%;
+		}
+		.infoSet_below{
+		margin-bottom: .25em;
+		margin-top: -.25em;
+		padding:0px;
+		font-size: 1.2em;
+		font-weight: bold;
+		width:100%;
+		}
 	}
 	.lower{
-		background: #DBDBDB;
+		background: #CCCCCC;
 		padding-left: .75em;
 		padding-top: 1em;
 		padding-bottom: 1em;
@@ -40,6 +56,12 @@
 		padding-bottom: 0em;
 		margin-bottom: 0em;
 		margin-right: .5em;
+	}
+	.tags{
+		margin-bottom: .5em;
+	}
+	.label{
+		margin-bottom: .5em;
 	}
 }
 .infoHeader{
@@ -70,9 +92,9 @@
 
 .vmessage{
 	border-bottom: 1px solid #E3E3E3;
-	padding-bottom: 1.75em;
-	padding-top: 2em;
-	padding-left: 2em;
+	padding-bottom: 1em;
+	padding-top: .5em;
+	padding-left: .5em;
 }
 .avatar{
 	background: #83d0d2;

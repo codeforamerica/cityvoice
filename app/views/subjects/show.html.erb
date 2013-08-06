@@ -1,36 +1,46 @@
 <script>window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg');</script>
 
 		<div class="container-fluid">
+			<p id="notice"><%= notice %></p>
 			<div class="row-fluid">
 				<div class="span5 offset1">
-					<div id="map"></div>
-				</div>
-				<div class="span5 info" style="text-align:left;">
-					<p id="notice"><%= notice %></p>
-					<div class="infoBox">
+					<div class="infoBox" style="margin-bottom: 0;">
 						<div class="upper">
-							<h1>
-							  <%= @subject.name %><br>
-							  Vacant & Abandoned Properties
-							</h1>
-							<em>
-								<% if @subject.type == "Property" %>
-								    <%= @subject.neighborhood.name %>
-								<% end %>
-							</em>
-						</div>
-						<div class="lower">
-							<div>Condition Code:</div>
-							<div>Repair Cost (est.):</div>
-							<div>Recommendation:</div>
+							<div class="row">
+								<div class="span4 offset1">
+									<h1>
+									  <%= @subject.name %><br>
+									</h1>
+										<% if @subject.type == "Property" %>
+										<% end %>
+								</div>
+								<div class="span6">
+									<div class="infoSet_above">status</div>
+									<div class="infoSet_below"><%= @subject.property_info_set.outcome %></div>
+									<div class="infoSet_above">condition</div>
+									<div class="infoSet_below"><%= @subject.property_info_set.condition %></div>
+									<div class="infoSet_above">repair cost (est.)</div>
+									<div class="infoSet_below"><%= @subject.property_info_set.estimated_cost_exterior %></div>
+									<div class="infoSet_above">inspector recommendation</div>
+									<div class="infoSet_below"><%= @subject.property_info_set.recommendation %></div>
+								</div>
+							</div>
 						</div>
 					</div>
+					<div id="map"></div>
+					<div class="infoBox">
+						<div class="lower">
+
+						</div>
+					</div>
+				</div>
+				<div class="span5 info" style="text-align:left;">
 					<div class="infoBox">
 						<div class="upper">
 							<h1>
 								Opinions 
 							</h1>
-							<em style="color:;">of 10 neighbors</em>
+							<!-- <em style="color:;">of 10 neighbors</em> -->
 						</div>
 						<div class="lower">
 							<% if @subject.type == "Neighborhood" %>
@@ -47,6 +57,20 @@
 							</h1>
 						</div>
 						<div class="lower">
+							<div class="vmessage">
+									<div class="row-fluid">
+										<div class="span12" >
+											<div class="voiceAnnotate">
+												<span class="label label-warning">Repair</span>&nbsp;&nbsp;
+											    date: <strong>1/12/13</strong> &nbsp; from: <strong>XXX-XXX-1234</strong>
+											</div>
+											<div>
+												<audio src="#" preload="auto"/>
+											</div>
+											
+										</div>
+									</div>
+								</div>
 							<% @user_voice_messages.each do |message| %>
 								<div class="vmessage">
 									<div class="row-fluid">

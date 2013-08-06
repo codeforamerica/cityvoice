@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130713161248) do
+ActiveRecord::Schema.define(version: 20130801173830) do
 
   create_table "feedback_inputs", force: true do |t|
     t.integer  "question_id"
@@ -21,6 +21,19 @@ ActiveRecord::Schema.define(version: 20130713161248) do
     t.string   "voice_file_url"
     t.integer  "numerical_response"
     t.string   "phone_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "property_info_sets", force: true do |t|
+    t.integer  "property_id"
+    t.integer  "condition_code",          limit: 1
+    t.string   "condition"
+    t.string   "estimated_cost_exterior"
+    t.string   "estimated_cost_interior"
+    t.string   "demo_order"
+    t.string   "recommendation"
+    t.string   "outcome"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -42,6 +55,7 @@ ActiveRecord::Schema.define(version: 20130713161248) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "property_code"
+    t.string   "parcel_id"
   end
 
   create_table "voice_files", force: true do |t|

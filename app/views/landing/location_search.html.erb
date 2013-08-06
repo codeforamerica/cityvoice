@@ -1,7 +1,18 @@
-<div id="maplayer"> 
-	<div id="map"></div>
-</div>
+
 <div class="container">
+	<div class="center row landingBar">
+		<div class="span8 ">
+			<div class="row">
+				<div class="span1">
+					<img style="height:70px; width:70px;" src="/assets/southbendlogo.png" />				
+				</div>
+				<div class="span6">
+					<h1>View information and opinions on vacant and abandoned properties in your neighborhood.</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--
 	<div class="center row">
 		<div class="span6 offset3">
 			<div class="landingBox">
@@ -14,13 +25,10 @@
 					</div>
 				</div>
 			</div>
-			<div class="input-append">
-        <input class="span6" type="text" id="appendedInputButton">
-			  <button class="btn" type="button"><i class="icon-search"></i></button>
-			</div>
 		</div>
 	</div>
-	<footer class="footer" style="height: 12em; position: absolute; bottom:0; left:0;">
+-->
+	<footer class="footer" style="height: 5em; position: absolute; bottom:0; left:0;">
 	  <small>
 	    A project by
 	    <a href="http://codeforamerica.org/">Code for America</a>
@@ -33,6 +41,7 @@
 	  </nav>
 	</footer>
 </div>
+<div id="map" style="width: 100%; height: auto; position: absolute; top: 135px; bottom: 0; z-index:-1;"></div>
 
 <script>window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg').setView([41.687, -86.254], 15);</script>
 <script>$('#appendedInputButton').typeahead({name: "Colors", local: ["red", "Roja", "roger", "raja", "blue","green"] });</script>

@@ -1,13 +1,14 @@
 @import "bootstrap";
 @import "bootstrap-responsive";
 
+
 /* universal */
 
 html {
   overflow-y: scroll;
 }
 body {
-  padding-top: 40px;
+  padding-top: 50px;
 }
 section {
   overflow: auto;
@@ -87,16 +88,23 @@ p {
     background: none;
   }
 }
+.input-append{
+-moz-border-radius: 5px;
+border-radius: 5px; 
+padding-top: 5em;
+margin-top: 5em;
+/* box-shadow: 0 0 10px 0px #545454; */
+}
 
 /* footer */
 
 footer {
   background: white;
-  margin-top: 30px;
+  margin-top: 50px;
   padding-top: 5px;
   border-top: 1px solid $medGray;
   color: #999;
-  height: 9em;
+  height: 5em;
   width: 100%;
 }
 
