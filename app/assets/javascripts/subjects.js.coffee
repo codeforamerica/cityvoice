@@ -17,7 +17,6 @@ loadData = (json_representation) ->
 
 
 
-
 ###
 marker = L.marker([41.6702, -86.2457]).addTo(map);
 polygon = L.polygon([
