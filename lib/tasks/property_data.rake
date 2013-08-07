@@ -15,6 +15,9 @@ namespace :property_data do
       if target_property == nil
         target_property = Property.create(:parcel_id => parcel_id, :name => address)
       end
+      latlong = row["Location 1"][/\((.*)\)/]
+      lat = latlong[/\((.*)[,]/].gsub(/([\(]|[,])/, "")
+      long = latlong[/\s(.*)$/].gsub(/(\s|\))/, "")
       recommendation = nil
       ["Repair","Demo","Deconstruct","Hold"].each do |key|
         if (recommendation && row[key])
@@ -33,9 +36,9 @@ namespace :property_data do
       end
       outcome = "Vacant and Abandoned" if outcome == nil
       if target_property.property_info_set
-        target_property.property_info_set.update_attributes(:condition_code => row["Condition Code"].to_i, :condition => row["Condition (auto populates)"], :estimated_cost_exterior=> row["Estimated cost (Exterior)"], :estimated_cost_interior => row["Estimated cost (Interior - if able)"], :demo_order => row["Demo order? (Affirmed/Expired)"], :recommendation => recommendation, :outcome => outcome)
+        target_property.property_info_set.update_attributes(:condition_code => row["Condition Code"].to_i, :condition => row["Condition (auto populates)"], :estimated_cost_exterior=> row["Estimated cost (Exterior)"], :estimated_cost_interior => row["Estimated cost (Interior - if able)"], :demo_order => row["Demo order? (Affirmed/Expired)"], :recommendation => recommendation, :outcome => outcome, :lat => lat, :long => long)
       else # Already has property info set
-        target_property.property_info_set = PropertyInfoSet.create(:condition_code => row["Condition Code"].to_i, :condition => row["Condition (auto populates)"], :estimated_cost_exterior=> row["Estimated cost (Exterior)"], :estimated_cost_interior => row["Estimated cost (Interior - if able)"], :demo_order => row["Demo order? (Affirmed/Expired)"], :recommendation => recommendation, :outcome => outcome)
+        target_property.property_info_set = PropertyInfoSet.create(:condition_code => row["Condition Code"].to_i, :condition => row["Condition (auto populates)"], :estimated_cost_exterior=> row["Estimated cost (Exterior)"], :estimated_cost_interior => row["Estimated cost (Interior - if able)"], :demo_order => row["Demo order? (Affirmed/Expired)"], :recommendation => recommendation, :outcome => outcome, :lat => lat, :long => long)
       end
     end
     address_json_path = "#{Rails.root}/app/assets/javascripts/property_addresses.json"
