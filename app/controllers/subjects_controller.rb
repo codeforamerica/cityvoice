@@ -1,6 +1,12 @@
 class SubjectsController < ApplicationController
   before_action :set_subject, only: [:show, :edit, :update, :destroy]
 
+  def property_address
+    params[:id] = Subject.find_by_name(params[:address]).id
+    show
+    render :show
+  end
+
   # GET /subjects
   # GET /subjects.json
   def index
