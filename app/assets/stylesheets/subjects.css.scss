@@ -21,28 +21,28 @@
 		padding-bottom: .5em;
 		border-bottom: 1px solid #F2F2F2;
 		.address{
-		font-family: 'Varela Round', sans-serif;
-		font-size: 3em;
-		line-height: 35px;
+			font-family: 'Varela Round', sans-serif;
+			font-size: 3em;
+			line-height: 35px;
 		}
 		.infoLogo{
-		padding-top: .5em;
+			padding-top: .5em;
 		}
 		.infoSet_above{
-		margin: 0px;
-		padding:0px;
-		font-size: .7em;
-		font-style: italic;
-		font-weight: normal;
-		width:100%;
+			margin: 0px;
+			padding:0px;
+			font-size: .7em;
+			font-style: italic;
+			font-weight: normal;
+			width:100%;
 		}
 		.infoSet_below{
-		margin-bottom: .4em;
-		margin-top: -.25em;
-		padding:0px;
-		font-size: 1.2em;
-		font-weight: bold;
-		width:100%;
+			margin-bottom: .4em;
+			margin-top: -.25em;
+			padding:0px;
+			font-size: 1.2em;
+			font-weight: bold;
+			width:100%;
 		}
 	}
 	.lower{
@@ -79,11 +79,22 @@
 	margin-bottom: 1em;
 }
 .question{
-	padding-bottom: 1em;
+	margin-bottom: 1em;
 	padding-left: .25em;
 	padding-right: 2em;
+	.oneQuestion{
+		margin-bottom: .75em;
+		.opinionIcon{
+			display: inline;
+		}
+		.opinionText{
+			display:inline;
+			font-weight: bold;
+		}
+	}
 	.text{
-		padding-bottom: .7em;
+		display: inline;
+		margin-bottom: -.5em;
 	}
 	.progress{
 		margin-bottom: 0em;
