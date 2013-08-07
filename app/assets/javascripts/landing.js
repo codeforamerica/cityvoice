@@ -11,8 +11,6 @@ function placeMarkers(dataArray) {
 		marker.bindPopup("<a href=" + document.location.origin + "/properties/" + address.replace(/\s/g,"-") + ">" + address + "</a>");
 		markers.addLayer(marker);
 	}
-	//markers.addLayer(new L.marker([41.6871, -86.254]));
-	//markers.addLayer(new L.marker([41.6872, -86.254]));
 	map.addLayer(markers);
 }
 
