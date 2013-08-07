@@ -3,9 +3,6 @@
 	<div class="center row landingBar">
 		<div class="span8 ">
 			<div class="row">
-				<div class="span1">
-					<img style="height:70px; width:70px;" src="/assets/southbendlogo.png" />				
-				</div>
 				<div class="span6">
 					<h1>View information and opinions on vacant and abandoned properties in your neighborhood.</h1>
 				</div>
@@ -28,17 +25,15 @@
 		</div>
 	</div>
 -->
-	<footer class="footer" style="height: 5em; position: absolute; bottom:0; left:0;">
-	  <small>
-	    A project by
-	    <a href="http://codeforamerica.org/">Code for America</a>
-	    Team South Bend
-	  </small>
-	  <nav>
+	<footer class="footer" style="height: 7em; position: absolute; bottom:0; left:0;">
+	  <nav class="pull right" style="padding-right: 1.5em;">
 	    <ul>
 	      <li><%= link_to "Contact", '#' %></li>
+	      <li><%= link_to "About", '#' %></li>
 	    </ul>
 	  </nav>
+	  <div class="footerLogo"><a href="http://codeforamerica.org/"><img src="/assets/cfa_logo_black.png" /></a></div>
+	  <div class="footerLogo"><a href="http://southbendin.gov/"><img src="/assets/southbendlogo.png" /></a></div>
 	</footer>
 </div>
 <div id="map" style="width: 100%; height: auto; position: absolute; top: 135px; bottom: 0; z-index:-1;"></div>
