@@ -5,11 +5,13 @@
 
 loadData = (json_representation) ->
   jQuery () ->
+    latitude = json_representation.property_info_set.lat
+    longitude = json_representation.property_info_set.long
     if $("body.subjects").length > 0
-      window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg').setView([41.6702, -86.2457], 14)
+      window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg').setView([latitude, longitude], 14)
       L.Icon.Default.imagePath = "/assets"
     if json_representation.type == "Property"
-      marker = L.marker([41.6702, -86.2457]).addTo(map)
+      marker = L.marker([latitude, longitude]).addTo(map)
     else 
       polygon = L.polygon([[41.6707, -86.2499],[41.6654, -86.2498],[41.6655, -86.238],[41.6707, -86.243]]).addTo(map)
 
