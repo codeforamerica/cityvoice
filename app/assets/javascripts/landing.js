@@ -8,7 +8,7 @@ function placeMarkers(dataArray) {
 		var a = dataArray[i];
 		var address = a[0];
 		var marker = L.marker(new L.LatLng(a[1],a[2]) , { address: address } );
-		marker.bindPopup(address);
+		marker.bindPopup("<a href=" + document.location.origin + "/properties/" + address.replace(/\s/g,"-") + ">" + address + "</a>");
 		markers.addLayer(marker);
 	}
 	//markers.addLayer(new L.marker([41.6871, -86.254]));
