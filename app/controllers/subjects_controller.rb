@@ -2,7 +2,8 @@ class SubjectsController < ApplicationController
   before_action :set_subject, only: [:show, :edit, :update, :destroy]
 
   def property_address
-    params[:id] = Subject.find_by_name(params[:address]).id
+    @clean_address = params[:address].gsub("-", " ")
+    params[:id] = Subject.find_by_name(@clean_address).id
     show
     render :show
   end
