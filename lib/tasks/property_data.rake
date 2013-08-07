@@ -38,7 +38,7 @@ namespace :property_data do
         target_property.property_info_set = PropertyInfoSet.create(:condition_code => row["Condition Code"].to_i, :condition => row["Condition (auto populates)"], :estimated_cost_exterior=> row["Estimated cost (Exterior)"], :estimated_cost_interior => row["Estimated cost (Interior - if able)"], :demo_order => row["Demo order? (Affirmed/Expired)"], :recommendation => recommendation, :outcome => outcome)
       end
     end
-    address_json_path = "#{Rails.root}/app/assets/javascripts/rake_props.json"
+    address_json_path = "#{Rails.root}/app/assets/javascripts/property_addresses.json"
     File.delete(address_json_path) if File.exist?(address_json_path)
     File.open(address_json_path, 'w') { |file| file.write(all_address_array.to_json) }
   end
