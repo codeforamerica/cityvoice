@@ -17,4 +17,3 @@
 //= require mapbox
 //= require bootstrap
 //= require ./typeahead.min
-//= require_tree .
