@@ -17,11 +17,16 @@
 	.upper{
 		background: #BABABA;
 		padding-left: .75em;
-		padding-top: .1em;
+		padding-top: .5em;
 		padding-bottom: .5em;
 		border-bottom: 1px solid #F2F2F2;
+		.address{
+		font-family: 'Varela Round', sans-serif;
+		font-size: 3em;
+		line-height: 35px;
+		}
 		.infoLogo{
-		padding-top: .3em;
+		padding-top: .5em;
 		}
 		.infoSet_above{
 		margin: 0px;
@@ -32,7 +37,7 @@
 		width:100%;
 		}
 		.infoSet_below{
-		margin-bottom: .25em;
+		margin-bottom: .4em;
 		margin-top: -.25em;
 		padding:0px;
 		font-size: 1.2em;

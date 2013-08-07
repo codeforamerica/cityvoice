@@ -7,14 +7,17 @@
 					<div class="infoBox" style="margin-bottom: 0;">
 						<div class="upper">
 							<div class="row">
-								<div class="span5 offset1">
-									<h1>
-									  <%= @subject.name %><br>
-									</h1>
-										<% if @subject.type == "Property" %>
-										<% end %>
+								<div class="span4 offset1">
+									<div class="infoSet_above">
+										address
+									</div>
+									<div class="address">
+									  	<%= @subject.name %><br>
+									</div>
+									<% if @subject.type == "Property" %>
+									<% end %>
 								</div>
-								<div class="span6">
+								<div class="span6 offset1">
 									<div class="row">
 										<div class="span2 infoLogo">
 											<img src="/assets/<%= @subject.property_info_set.outcome.gsub(/(\s|[\/])/, "") %>.png" />
@@ -137,7 +140,7 @@
 				</div>
 			</div>
 		</div>
-		<footer class="footer" style="height: 7em; position: absolute; bottom:0; left:0;">
+		<footer class="footer">
 		  <nav class="pull right" style="padding-right: 1.5em;">
 		    <ul>
 		      <li><%= link_to "Contact", '#' %></li>
