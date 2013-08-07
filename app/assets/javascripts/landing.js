@@ -1,5 +1,3 @@
-window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg').setView([41.687, -86.254], 12);
-
 var lats_longs;
 function placeMarkers(dataArray) {
 	lats_longs = dataArray;
@@ -14,4 +12,7 @@ function placeMarkers(dataArray) {
 	map.addLayer(markers);
 }
 
-$.getJSON('assets/lats_longs.json', success = placeMarkers)
+$(document).ready(function() { 
+	window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg').setView([41.687, -86.254], 12);
+	$.getJSON('assets/lats_longs.json', success = placeMarkers) 
+});
