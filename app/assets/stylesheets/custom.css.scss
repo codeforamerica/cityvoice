@@ -101,11 +101,15 @@ margin-top: 5em;
 footer {
   background: white;
   margin-top: 50px;
-  padding-top: 5px;
+  padding-top: 1em;
+  padding-left: 1.5em;
   border-top: 1px solid $medGray;
   color: #999;
   height: 5em;
   width: 100%;
+  .nav{
+    display: inline;
+  }
 }
 
 footer a {
@@ -113,9 +117,8 @@ footer a {
 }
 
 footer a:hover {
-  color: white;
-  background: $cvBlue;
-  padding: .1em;
+  color: black;
+  background: none;
   text-decoration: none;
 }
 
@@ -133,6 +136,11 @@ footer ul {
 footer ul li {
   float: left;
   margin-left: 10px;
+}
+
+.footerLogo{
+  margin-left: 1.5em;
+  display: inline;
 }
 
 

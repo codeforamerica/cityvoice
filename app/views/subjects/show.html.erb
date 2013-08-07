@@ -7,7 +7,7 @@
 					<div class="infoBox" style="margin-bottom: 0;">
 						<div class="upper">
 							<div class="row">
-								<div class="span4 offset1">
+								<div class="span5 offset1">
 									<h1>
 									  <%= @subject.name %><br>
 									</h1>
@@ -15,14 +15,58 @@
 										<% end %>
 								</div>
 								<div class="span6">
-									<div class="infoSet_above">status</div>
-									<div class="infoSet_below"><%= @subject.property_info_set.outcome %></div>
-									<div class="infoSet_above">condition</div>
-									<div class="infoSet_below"><%= @subject.property_info_set.condition %></div>
-									<div class="infoSet_above">repair cost (est.)</div>
-									<div class="infoSet_below"><%= @subject.property_info_set.estimated_cost_exterior %></div>
-									<div class="infoSet_above">inspector recommendation</div>
-									<div class="infoSet_below"><%= @subject.property_info_set.recommendation %></div>
+									<div class="row">
+										<div class="span2 infoLogo">
+											<img src="/assets/<%= @subject.property_info_set.outcome.gsub(/(\s|[\/])/, "") %>.png" />
+										</div>
+										<div class="span9">
+											<div class="infoSet_above">
+												status
+											</div>
+											<div class="infoSet_below">
+												<%= @subject.property_info_set.outcome %>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="span2 infoLogo">
+											<img src="/assets/<%= @subject.property_info_set.condition.gsub(" ", "") %>.png" />
+										</div>
+										<div class="span9">
+											<div class="infoSet_above">
+												condition
+											</div>
+											<div class="infoSet_below">
+												<%= @subject.property_info_set.condition %>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="span2 infoLogo">
+											
+										</div>
+										<div class="span9">
+											<div class="infoSet_above">
+												repair cost (est.)
+											</div>
+											<div class="infoSet_below">
+												<%= @subject.property_info_set.estimated_cost_exterior %>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="span2 infoLogo">
+											<img src="/assets/<%= @subject.property_info_set.recommendation %>.png" />
+										</div>
+										<div class="span9">
+											<div class="infoSet_above">
+												inspector recommendation
+											</div>
+											<div class="infoSet_below">
+												<%= @subject.property_info_set.recommendation %>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -93,17 +137,15 @@
 				</div>
 			</div>
 		</div>
-		<footer class="footer">
-		  <small>
-		    A project by
-		    <a href="http://codeforamerica.org/">Code for America</a>
-		    Team South Bend
-		  </small>
-		  <nav>
+		<footer class="footer" style="height: 7em; position: absolute; bottom:0; left:0;">
+		  <nav class="pull right" style="padding-right: 1.5em;">
 		    <ul>
 		      <li><%= link_to "Contact", '#' %></li>
+		      <li><%= link_to "About", '#' %></li>
 		    </ul>
 		  </nav>
+		  <div class="footerLogo"><a href="http://codeforamerica.org/"><img src="/assets/cfa_logo_black.png" /></a></div>
+		  <div class="footerLogo"><a href="http://southbendin.gov/"><img src="/assets/southbendlogo.png" /></a></div>
 		</footer>
 		<!--
 			<%= link_to 'Edit', edit_subject_path(@subject) %> |
