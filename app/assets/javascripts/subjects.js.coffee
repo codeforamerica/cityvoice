@@ -8,7 +8,7 @@ loadData = (json_representation) ->
     latitude = json_representation.property_info_set.lat
     longitude = json_representation.property_info_set.long
     if $("body.subjects").length > 0
-      window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg').setView([latitude, longitude], 14)
+      window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg').setView([latitude, longitude], 16)
       L.Icon.Default.imagePath = "/assets"
     if json_representation.type == "Property"
       marker = L.marker([latitude, longitude]).addTo(map)
