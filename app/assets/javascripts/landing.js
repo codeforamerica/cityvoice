@@ -17,3 +17,16 @@ function placeMarkers(dataArray) {
 }
 
 $.getJSON('assets/lats_longs.json', success = placeMarkers)
+
+
+$(function() {
+$( "#dialog" ).dialog();
+$( "#dialog" ).dialog({ width: 350 });
+$( "#dialog" ).dialog({ position: { my: "center", at: "-300,-50"  } });
+});
+
+
+ 
+
+
+
