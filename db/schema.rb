@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130801173830) do
+ActiveRecord::Schema.define(version: 20130807053959) do
 
   create_table "feedback_inputs", force: true do |t|
     t.integer  "question_id"
@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 20130801173830) do
     t.string   "outcome"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "lat"
+    t.string   "long"
   end
 
   create_table "questions", force: true do |t|
