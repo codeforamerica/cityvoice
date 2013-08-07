@@ -6,6 +6,7 @@ namespace :property_data do
     csv_path = "/tmp/Vacant_and_Abandoned_Property_Data.csv"
     table = CSV.read(csv_path, :headers => true)
     all_address_array = []
+    lats_and_longs_array = []
     table.each do |row|
       parcel_id = row["Parcel ID"]
       puts "Processing #{parcel_id}"
@@ -18,6 +19,7 @@ namespace :property_data do
       latlong = row["Location 1"][/\((.*)\)/]
       lat = latlong[/\((.*)[,]/].gsub(/([\(]|[,])/, "")
       long = latlong[/\s(.*)$/].gsub(/(\s|\))/, "")
+      lats_and_longs_array << [address,lat,long]
       recommendation = nil
       ["Repair","Demo","Deconstruct","Hold"].each do |key|
         if (recommendation && row[key])
@@ -44,6 +46,9 @@ namespace :property_data do
     address_json_path = "#{Rails.root}/app/assets/javascripts/property_addresses.json"
     File.delete(address_json_path) if File.exist?(address_json_path)
     File.open(address_json_path, 'w') { |file| file.write(all_address_array.to_json) }
+    lats_and_longs_array_path = "#{Rails.root}/app/assets/javascripts/lats_longs.json"
+    File.delete(lats_and_longs_array_path) if File.exist?(lats_and_longs_array_path)
+    File.open(lats_and_longs_array_path, 'w') { |file| file.write(lats_and_longs_array.to_json) }
   end
   desc "PENDING - Pull down CSV data from Socrata and store in /tmp"
   task :download_from_socrata do
