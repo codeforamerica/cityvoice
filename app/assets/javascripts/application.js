@@ -19,3 +19,6 @@
 //= require ./global_var
 //= require ./typeahead.min
 //= require_tree .
+
+
+$('#appendedInputButton').typeahead({name: "Address", prefetch: 'assets/property_addresses.json' });
