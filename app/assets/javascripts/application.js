@@ -17,3 +17,4 @@
 //= require mapbox
 //= require bootstrap
 //= require ./typeahead.min
+//= require typeahead_address_bar
