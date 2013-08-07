@@ -1,7 +1,7 @@
 require 'csv'
 
 namespace :property_data do
-  desc "Import data from the property data file"
+  desc "Import data from the property data file and create an addresses JSON file for typeahead search"
   task :import => :environment do
     csv_path = "/tmp/Vacant_and_Abandoned_Property_Data.csv"
     table = CSV.read(csv_path, :headers => true)
@@ -38,7 +38,9 @@ namespace :property_data do
         target_property.property_info_set = PropertyInfoSet.create(:condition_code => row["Condition Code"].to_i, :condition => row["Condition (auto populates)"], :estimated_cost_exterior=> row["Estimated cost (Exterior)"], :estimated_cost_interior => row["Estimated cost (Interior - if able)"], :demo_order => row["Demo order? (Affirmed/Expired)"], :recommendation => recommendation, :outcome => outcome)
       end
     end
-    File.open("#{Rails.root}/app/assets/javascripts/rake_props.json", 'w') { |file| file.write(all_address_array.to_json) }
+    address_json_path = "#{Rails.root}/app/assets/javascripts/rake_props.json"
+    File.delete(address_json_path) if File.exist?(address_json_path)
+    File.open(address_json_path, 'w') { |file| file.write(all_address_array.to_json) }
   end
   desc "PENDING - Pull down CSV data from Socrata and store in /tmp"
   task :download_from_socrata do
