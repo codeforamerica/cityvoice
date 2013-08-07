@@ -16,6 +16,5 @@
 //= require leaflet
 //= require mapbox
 //= require bootstrap
-//= require ./global_var
 //= require ./typeahead.min
 //= require_tree .
