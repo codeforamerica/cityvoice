@@ -22,11 +22,25 @@ margin-top: .5em;
 background: white;
 }
 
-.modalBox{
-	-moz-border-radius: 5px;
-	border-radius: 5px; 
-	box-shadow: 0 0 10px 0px #545454;
+.ui-dialog{ 
+box-shadow: 0 0 10px 0px #545454;
+	.ui-dialog-content{
+		padding-left: .7em; 
+		padding-right: .75em; 
+		padding-top: 1em;
+	}
+	.ui-dialog-titlebar{
+	background: none;
+	border: none;
+		.ui-dialog-titlebar-close{
+			margin-top: .15em;
+			margin-right: .25em;
+		}
+	}
+
+
 }
+
 
 
 

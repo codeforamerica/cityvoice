@@ -47,9 +47,12 @@
 	}
 	.lower{
 		background: #CCCCCC;
-		padding-left: .75em;
+		padding-left: 2.5em;
 		padding-top: 1em;
 		padding-bottom: 1em;
+		.resources{
+			margin-left: .25em;
+		}
 	}
 	div{
 		color: white;

@@ -21,8 +21,8 @@ $.getJSON('assets/lats_longs.json', success = placeMarkers)
 
 $(function() {
 $( "#dialog" ).dialog();
-$( "#dialog" ).dialog({ width: 350 });
-$( "#dialog" ).dialog({ position: { my: "center", at: "-300,-50"  } });
+$( "#dialog" ).dialog({ width: 250 });
+$( "#dialog" ).dialog({ position: { my: "left top", at: "left+20 bottom+60", of: "head"} });
 });
 
 
