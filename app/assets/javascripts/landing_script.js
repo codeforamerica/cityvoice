@@ -12,10 +12,13 @@ function placeMarkers(dataArray) {
 	map.addLayer(markers);
 }
 
-$(document).ready(function() { 
+$(document).ready(drawMap);
+
+function drawMap () {
+	console.log('drawMap')
 	window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg').setView([41.687, -86.254], 12);
 	$.getJSON('assets/lats_longs.json', success = placeMarkers);
 	$( "#dialog" ).dialog();
 	$( "#dialog" ).dialog({ width: 250 });
 	$( "#dialog" ).dialog({ position: { my: "left top", at: "left+50 bottom+60", of: "head"} });
-});
+}
