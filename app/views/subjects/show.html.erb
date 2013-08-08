@@ -20,19 +20,6 @@
 								<div class="span5 offset1">
 									<div class="row">
 										<div class="span2 infoLogo">
-											<img src="/assets/<%= @subject.property_info_set.outcome.gsub(/(\s|[\/])/, "") %>.png" />
-										</div>
-										<div class="span9">
-											<div class="infoSet_above">
-												status
-											</div>
-											<div class="infoSet_below">
-												<%= @subject.property_info_set.outcome %>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="span2 infoLogo">
 											<img src="/assets/<%= @subject.property_info_set.condition.gsub(" ", "") %>.png" />
 										</div>
 										<div class="span9">
@@ -41,19 +28,6 @@
 											</div>
 											<div class="infoSet_below">
 												<%= @subject.property_info_set.condition %>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="span2 infoLogo">
-											
-										</div>
-										<div class="span9">
-											<div class="infoSet_above">
-												repair cost (est.)
-											</div>
-											<div class="infoSet_below">
-												<%= @subject.property_info_set.estimated_cost_exterior %>
 											</div>
 										</div>
 									</div>
@@ -70,6 +44,19 @@
 											</div>
 										</div>
 									</div>
+									<div class="row">
+										<div class="span2 infoLogo">
+											<img src="/assets/<%= @subject.property_info_set.outcome.gsub(/(\s|[\/])/, "") %>.png" />
+										</div>
+										<div class="span9">
+											<div class="infoSet_above">
+												status
+											</div>
+											<div class="infoSet_below">
+												<%= @subject.property_info_set.outcome %>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -77,12 +64,24 @@
 					<div id="map"></div>
 					<div class="infoBox">
 						<div class="lower">
-							<div style="margin-bottom: .5em;">
-								<h2>Resources</h2>
+							<div class="row resources">
+								<div class="span3 offset1 resources_name">
+									<a href="http://www.ci.south-bend.in.us/government/department/code-enforcement">Code Enforcement Department</a>
+								</div>
+								<div class="span6 offset1 resources_info">
+									227 West Jefferson Blvd., Suite 1300 S<br> 
+									South Bend, Indiana 46601<br>
+									phone: 574.235.9486
+								</div>
 							</div>
-							<div class="resources">
-								<a href="http://www.ci.south-bend.in.us/government/department/code-enforcement">Code Enforcement Department</a><br>
-								<a href="http://www.ci.south-bend.in.us/government/department/code-enforcement">Monroe Park Neighborhood Association</a>
+							<div class="row resources">
+								<div class="span4 offset1 resources_name">
+									<a href="http://www.nrc4neighborhoods.org/neighborhoods/14-monroe-park/">Monroe Park Neighborhood Association</a>
+								</div>
+								<div class="span6 resources_info">
+									Salvation Army Building, 520 S. Carroll Street<br>
+									Group meets 3rd Thursday each month,<br> 7:30-8:30 p.m.
+								</div>
 							</div>
 						</div>
 					</div>

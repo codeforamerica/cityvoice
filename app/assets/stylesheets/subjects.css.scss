@@ -2,6 +2,16 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+a {
+  color: #fff;
+  &:visited {
+    color: #fff;
+  }
+  &:hover {
+    color: gray;
+    text-decoration: none;
+  }
+}
 
 #map{
 	height: 300px;
@@ -51,7 +61,17 @@
 		padding-top: 1em;
 		padding-bottom: 1em;
 		.resources{
-			margin-left: .25em;
+			margin-top: .5em;
+			.resources_name{
+				color: white;
+				font-size: 1.25em;
+				font-style: italic;
+			}
+			.resources_info{
+				color: white;
+				margin-bottom: 1em;
+				padding-left: .25em;
+			}
 		}
 	}
 	div{

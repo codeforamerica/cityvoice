@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require leaflet
 //= require mapbox
 //= require bootstrap
