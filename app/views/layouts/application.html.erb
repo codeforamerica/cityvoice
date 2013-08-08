@@ -5,6 +5,7 @@
 	  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
 	 <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
 	  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+	  <%= javascript_include_tag "application", controller_name %>
 	  <%= csrf_meta_tags %>
 	  <script src="/audiojs/audio.min.js"></script>
 		    <script>
@@ -23,7 +24,7 @@
 			      	<nav>
 			        	<ul class="nav" style="margin-top: .35em; margin-left: 2em;">
 				          	<div class="input-append">
-                      			<input id="appendedInputButton" type="text" data-provide="typeahead">
+                      			<input id="appendedInputButton" type="text" data-provide="typeahead" placeholder="ex. 123 Main Street">
 							 <button class="btn" type="button"><i class="icon-search"></i></button>
 							</div>
 			        	</ul>
@@ -37,5 +38,3 @@
 	</body>
 </html>
 
-
-<script>$('#appendedInputButton').typeahead({name: "Address", prefetch: 'assets/property_addresses.json' }).bind('typeahead:selected', function(obj, datum) { window.location = (document.location.origin + "/properties/" + datum.value.replace(/\s/g,"-")); });</script>
