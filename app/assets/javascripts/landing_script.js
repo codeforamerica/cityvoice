@@ -15,4 +15,7 @@ function placeMarkers(dataArray) {
 $(document).ready(function() { 
 	window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg').setView([41.687, -86.254], 12);
 	$.getJSON('assets/lats_longs.json', success = placeMarkers);
+	$( "#dialog" ).dialog();
+	$( "#dialog" ).dialog({ width: 250 });
+	$( "#dialog" ).dialog({ position: { my: "left top", at: "left+50 bottom+60", of: "head"} });
 });
