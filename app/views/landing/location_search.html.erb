@@ -1,5 +1,29 @@
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
+
+	<div id="dialog">
+	  	<h1>
+	  		Find out about abandoned properties in South Bend.
+	  	</h1>
+	  	<ul>
+  			<li>Status</li>
+  			<li>Condition</li>
+  			<li>Repair Cost</li>
+  			<li>Inspector Recommendation</li>
+  		</ul>
+  		<hr>
+		<h1>To leave feedback:</h1>
+  		<ul>
+  			<li>look for signage on a property</li>
+  			<li>contact your neighborhood association</li>
+  		</ul>
+	</div>
+
+<div id="map" style="width: 100%; height: auto; position: absolute; top: 40px; bottom: 0; z-index:-1;"></div>
 <div class="container">
+	<!--
 	<div class="center row landingBar">
 		<div class="span8 ">
 			<div class="row">
@@ -9,23 +33,8 @@
 			</div>
 		</div>
 	</div>
-	<!--
-	<div class="center row">
-		<div class="span6 offset3">
-			<div class="landingBox">
-				<div class="row">
-					<div class="span2">
-						<img style="height:110px; width:110px;" src="/assets/southbendlogo.png" />				
-					</div>
-					<div class="span4">
-						<h1>View information and opinions on vacant and abandoned properties in your neighborhood.</h1>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 -->
-	<footer class="footer" style="height: 7em; position: absolute; bottom:0; left:0;">
+	<footer class="footer" style="height: 5em; position: absolute; bottom:0; left:0;">
 	  <nav class="pull right" style="padding-right: 1.5em;">
 	    <ul>
 	      <li><%= link_to "Contact", '#' %></li>
@@ -36,4 +45,4 @@
 	  <div class="footerLogo"><a href="http://southbendin.gov/"><img src="/assets/southbendlogo.png" /></a></div>
 	</footer>
 </div>
-<div id="map" style="width: 100%; height: auto; position: absolute; top: 135px; bottom: 0; z-index:-1;"></div>
+<%= javascript_include_tag "landing" %>
