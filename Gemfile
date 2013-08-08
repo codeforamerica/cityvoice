@@ -46,6 +46,9 @@ group :development, :test do
   #gem 'webmock'
   gem 'pry'
   gem 'rspec-rails', '~> 2.0'
+  
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :production do
