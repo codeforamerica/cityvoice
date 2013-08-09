@@ -45,6 +45,13 @@ class SubjectsController < ApplicationController
       @voice_question_id = Question.find_by_short_name("property_comments").id
       @user_voice_messages = FeedbackInput.where(:property_id => params[:id], :question_id => @voice_question_id).where.not(:voice_file_url => nil)
     end
+    # Check for any responses
+    @feedback_responses_exist = false
+    @questions.each do |question|
+      question.response_hash.each_pair do |response_text, response_count|
+        @feedback_responses_exist = true if response_count > 0
+      end
+    end
     # May need to make this conditional as well
     #@user_voice_messages = FeedbackInput.where(:neighborhood_id => params[:id]).where.not(:voice_file_url => nil)
   end
