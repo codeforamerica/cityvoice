@@ -1,7 +1,7 @@
 var lats_longs;
 function placeMarkers(dataArray) {
 	lats_longs = dataArray;
-	var markers = new L.MarkerClusterGroup();
+	var markers = new L.MarkerClusterGroup( { showCoverageOnHover: false } );
 	for(var i = 0; i < dataArray.length; i++) {
 		var a = dataArray[i];
 		var address = a[0];
