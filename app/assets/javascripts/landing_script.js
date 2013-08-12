@@ -19,6 +19,6 @@ function drawMap () {
 	window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg').setView([41.665, -86.28], 13);
 	$.getJSON('assets/lats_longs.json', success = placeMarkers);
 	$( "#dialog" ).dialog();
-	$( "#dialog" ).dialog({ width: 250 });
+	$( "#dialog" ).dialog({ width: 275 });
 	$( "#dialog" ).dialog({ position: { my: "left top", at: "left+50 bottom+60", of: "head"} });
 }
