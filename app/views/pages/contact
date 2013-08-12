@@ -1,0 +1,39 @@
+
+<div class="container">
+	<div class="center">
+		<div class="row">
+			<div class="span5" style="text-align: left;">
+				<br>
+				<br>
+				<h1>CONTACT</h1>
+				<hr>
+				<br>
+				<p><strong>Code for America - Team South Bend</strong><br>
+				<a href="mailto:southbend@codeforamerica.org">southbend@codeforamerica.org</a>
+				</p><br>
+				<p><strong>Dept. of Code Enforcement - City of South Bend</strong><br>
+				227 West Jefferson Blvd. • Suite 1300 S<br>
+				South Bend, Indiana 46601<br>
+				phone: 574.235.9486
+				</p><br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+			</div>
+		</div>
+	</div>
+</div>
+<footer class="footer">
+  <nav class="pull right" style="padding-right: 1.5em;">
+    <ul>
+      <li><%= link_to "Contact", 'contact' %></li>
+      <li><%= link_to "About", 'about' %></li>
+    </ul>
+  </nav>
+  <div class="footerLogo"><a href="http://codeforamerica.org/"><img src="/assets/cfa_logo_black.png" /></a></div>
+  <div class="footerLogo"><a href="http://southbendin.gov/"><img src="/assets/southbendlogo.png" /></a></div>
+</footer>
