@@ -23,13 +23,14 @@ textarea {
 	}
 }
 a {
-  color: #000;
+  color: gray;
   a:visited {
-    color: #666;
+    color: gray;
   }
   a:hover {
-    color: #fff;
+    color: black;
     background: none;
+    text-decoration: none;
   }
 }
 

@@ -2,16 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-a {
-  color: #fff;
-  &:visited {
-    color: #fff;
-  }
-  &:hover {
-    color: gray;
-    text-decoration: none;
-  }
-}
+
 
 #map{
 	height: 300px;
@@ -24,6 +15,16 @@ a {
 }
 .infoBox{
 	margin-bottom: 1.5em;
+	a {
+	  color: #fff;
+	  &:visited {
+	    color: #fff;
+	  }
+	  &:hover {
+	    color: gray;
+	    text-decoration: none;
+	  }
+	}
 	.upper{
 		background: #BABABA;
 		padding-left: .75em;
