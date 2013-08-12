@@ -1,7 +1,7 @@
 var lats_longs;
 function placeMarkers(dataArray) {
 	lats_longs = dataArray;
-	var markers = new L.MarkerClusterGroup();
+	var markers = new L.MarkerClusterGroup( { showCoverageOnHover: false } );
 	for(var i = 0; i < dataArray.length; i++) {
 		var a = dataArray[i];
 		var address = a[0];
@@ -16,7 +16,7 @@ $(document).ready(drawMap);
 
 function drawMap () {
 	console.log('drawMap')
-	window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg').setView([41.687, -86.254], 12);
+	window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg').setView([41.665, -86.28], 13);
 	$.getJSON('assets/lats_longs.json', success = placeMarkers);
 	$( "#dialog" ).dialog();
 	$( "#dialog" ).dialog({ width: 250 });
