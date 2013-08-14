@@ -20,32 +20,6 @@
 								<div class="span5 offset1">
 									<div class="row">
 										<div class="span2 infoLogo">
-											<img src="/assets/<%= @subject.property_info_set.condition.gsub(" ", "") %>.png" />
-										</div>
-										<div class="span9">
-											<div class="infoSet_above">
-												inspector assesment
-											</div>
-											<div class="infoSet_below">
-												<%= @subject.property_info_set.condition %>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="span2 infoLogo">
-											<img src="/assets/<%= @subject.property_info_set.recommendation %>.png" />
-										</div>
-										<div class="span9">
-											<div class="infoSet_above">
-												inspector recommendation
-											</div>
-											<div class="infoSet_below">
-												<%= @subject.property_info_set.recommendation %>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="span2 infoLogo">
 											<img src="/assets/<%= @subject.property_info_set.outcome.gsub(/(\s|[\/])/, "") %>.png" />
 										</div>
 										<div class="span9">
@@ -54,6 +28,20 @@
 											</div>
 											<div class="infoSet_below">
 												<%= @subject.property_info_set.outcome %>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="span9 offset2">
+											<div class="infoSet_above">
+												demolition order
+											</div>
+											<div class="infoSet_below">
+												<% if @subject.property_info_set.demo_order == "" %>
+													No Order
+												<% else %>
+													<%= @subject.property_info_set.demo_order %>
+												<% end %>
 											</div>
 										</div>
 									</div>
