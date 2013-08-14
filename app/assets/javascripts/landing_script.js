@@ -35,6 +35,6 @@ function drawMap () {
   }
 	$.getJSON('assets/lats_longs.json', success = placeMarkers);
 	$( "#dialog" ).dialog();
-	$( "#dialog" ).dialog({ width: 275 });
+	$( "#dialog" ).dialog({ width: 295 });
 	$( "#dialog" ).dialog({ position: { my: "left top", at: "left+50 bottom+60", of: "head"} });
 }

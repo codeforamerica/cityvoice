@@ -22,17 +22,7 @@ textarea {
   margin-bottom: 10px;
 	}
 }
-a {
-  color: gray;
-  a:visited {
-    color: gray;
-  }
-  a:hover {
-    color: black;
-    background: none;
-    text-decoration: none;
-  }
-}
+
 
 
 /* variables */
@@ -66,16 +56,17 @@ h1 {
   font-family: 'Varela Round', sans-serif;
 }
 h2 {
+  color: #545454;
   display:inline;
-  color: white;
   font-size: 1.5em;
   letter-spacing: 0;
   padding: .25em;
   text-align: center;
   font-weight: normal;
-  font-family: 'Varela Round', sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
 p {
+  color: #545454;
   font-size: 1.1em;
   line-height: 1.7em;
   font-family: 'Raleway', sans-serif;
@@ -83,6 +74,23 @@ p {
 strong{
   font-size: 1.15em;
   font-family: 'Raleway', sans-serif;
+}
+ol, ul, td {
+  color: #545454;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.1em;
+  line-height: 25px;
+}
+a {
+  color: gray;
+  a:visited {
+    color: gray;
+  }
+  a:hover {
+    color: black;
+    background: none;
+    text-decoration: none;
+  }
 }
 
 /* header */
@@ -164,12 +172,6 @@ body {
   background-color: #fff;
   color: #333;
   font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 18px;
-}
-
-ol, ul, td {
-  font-family: 'Raleway', sans-serif;
   font-size: 13px;
   line-height: 18px;
 }
