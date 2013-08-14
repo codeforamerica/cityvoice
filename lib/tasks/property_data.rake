@@ -4,9 +4,9 @@ namespace :property_data do
   desc "Import data from the property data file and create an addresses JSON file for typeahead search"
   task :import => :environment do
     p "Downloading property data..."
-    system("curl -O https://s3-us-west-1.amazonaws.com/south-bend-secrets/Vacant_and_Abandoned_Property_Data.csv /tmp")
+    system("cd /tmp && curl -O https://s3-us-west-1.amazonaws.com/south-bend-secrets/Vacant_and_Abandoned_Property_Data.csv")
     p "Downloading centroids..."
-    system("curl -O https://s3-us-west-1.amazonaws.com/south-bend-secrets/cityparcelscentroids_abandoned_latlon_CLEAN.csv /tmp")
+    system("cd /tmp && curl -O https://s3-us-west-1.amazonaws.com/south-bend-secrets/cityparcelscentroids_abandoned_latlon_CLEAN.csv")
     property_data_path = "/tmp/Vacant_and_Abandoned_Property_Data.csv"
     table = CSV.read(property_data_path, :headers => true)
     lat_long_table = CSV.read("/tmp/cityparcelscentroids_abandoned_latlon_CLEAN.csv", :headers => true)
