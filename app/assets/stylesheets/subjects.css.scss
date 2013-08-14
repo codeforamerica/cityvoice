@@ -25,6 +25,22 @@
 	    text-decoration: none;
 	  }
 	}
+	.infoSet_above{
+			margin: 0px;
+			padding:0px;
+			font-size: .8em;
+			font-style: italic;
+			font-weight: normal;
+			width:100%;
+		}
+	.infoSet_below{
+		margin-bottom: .4em;
+		margin-top: -.25em;
+		padding:0px;
+		font-size: 1.2em;
+		font-weight: bold;
+		width:100%;
+	}
 	.upper{
 		background: #BABABA;
 		padding-left: .75em;
@@ -39,22 +55,7 @@
 		.infoLogo{
 			padding-top: .5em;
 		}
-		.infoSet_above{
-			margin: 0px;
-			padding:0px;
-			font-size: .7em;
-			font-style: italic;
-			font-weight: normal;
-			width:100%;
-		}
-		.infoSet_below{
-			margin-bottom: .4em;
-			margin-top: -.25em;
-			padding:0px;
-			font-size: 1.2em;
-			font-weight: bold;
-			width:100%;
-		}
+		
 	}
 	.lower{
 		background: #CCCCCC;
