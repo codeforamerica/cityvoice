@@ -43,10 +43,9 @@
 	}
 	.upper{
 		background: #BABABA;
-		padding-left: .75em;
+		padding-left: 1em;
 		padding-top: .5em;
-		padding-bottom: .5em;
-		border-bottom: 1px solid #F2F2F2;
+		padding-bottom: .75em;
 		.address{
 			font-family: 'Varela Round', sans-serif;
 			font-size: 3.5em;
@@ -59,7 +58,9 @@
 	}
 	.lower{
 		background: #CCCCCC;
+		border-top: 1px solid #F2F2F2;
 		padding-left: 2.5em;
+		padding-right: 2em;
 		padding-top: 1em;
 		padding-bottom: 1em;
 		.resources{
@@ -83,6 +84,7 @@
 		color:white;
 		margin-bottom: 0em;
 		margin-right: .5em;
+		margin-top: .25em;
 	}
 	h2{
 		color:white;

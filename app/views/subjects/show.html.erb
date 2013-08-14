@@ -5,7 +5,7 @@
 			<div class="row-fluid">
 				<div class="span6 offset1">
 					<div class="infoBox" style="margin-bottom: 0;">
-						<div class="upper">
+						<div class="upper" style="border-left: 8px solid #FDBB11;">
 							<div class="row">
 								<div class="span5 offset1">
 									<div class="infoSet_above">
@@ -79,8 +79,8 @@
 
 				<div class="span4 info" style="text-align:left;">
 					<div class="infoBox">
-						<div class="upper">
-							<h1> Citizen Feedback</h1>
+						<div class="upper" style="border-left: 8px solid #4B5DAA;">
+							<h1> CITIZEN FEEDBACK</h1>
 						</div>
 						<div class="lower">
 							<div class="infoSet_above">
@@ -92,13 +92,19 @@
 							</div>
 						</div>
 					</div>
-					<% if @feedback_responses_exist %>
-						<%= render partial: "feedback" %>
-					<% else %>
-						<div id="noFeedbackNote">
-							NO FEEDBACK HAS BEEN LEFT, DUH
+					<div class="infoBox">
+						<% if @feedback_responses_exist %>
+							<%= render partial: "feedback" %>
+						<% else %>
+						<div class="lower">
+							<div id="noFeedbackNote">
+								<div class="infoSet_below" style="margin-top: .5em;">
+									There is no citizen feedback on this property yet.
+								</div>
+							</div>
 						</div>
-					<% end %>
+						<% end %>
+					</div>
 				</div>
 			</div>
 		</div>
