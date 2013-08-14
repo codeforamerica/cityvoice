@@ -1,3 +1,14 @@
+<% if ENV["MONROE_PILOT"] %>
+  <script>
+    var monroePilot = true;
+    console.log("Monroe pilot in effect");
+  </script>
+<% else %>
+  <script>
+    var monroePilot = false;
+  </script>
+<% end %>
+
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 
 <div id="dialog">
