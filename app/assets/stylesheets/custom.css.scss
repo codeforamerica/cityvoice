@@ -78,6 +78,11 @@ h2 {
 p {
   font-size: 1.1em;
   line-height: 1.7em;
+  font-family: 'Raleway', sans-serif;
+}
+strong{
+  font-size: 1.15em;
+  font-family: 'Raleway', sans-serif;
 }
 
 /* header */
@@ -163,8 +168,8 @@ body {
   line-height: 18px;
 }
 
-p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
+ol, ul, td {
+  font-family: 'Raleway', sans-serif;
   font-size: 13px;
   line-height: 18px;
 }
