@@ -27,7 +27,7 @@ namespace :property_data do
       clean_address = address.gsub(".", "")
       all_address_array << clean_address
       if target_property == nil
-        target_property = Property.create(:parcel_id => parcel_id, :name => address)
+        target_property = Property.create(:parcel_id => parcel_id, :name => clean_address)
       elsif target_property.name != clean_address 
         target_property.update_attribute(:name, clean_address)
       end
