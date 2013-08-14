@@ -13,9 +13,13 @@ namespace :property_data do
       puts "Processing #{parcel_id}"
       target_property = Property.find_by_parcel_id(parcel_id)
       address = row["Location 1"][0, row["Location 1"].index("\n")]
-      all_address_array << address
+      # Remove periods from addresses
+      clean_address = address.gsub(".", "")
+      all_address_array << clean_address
       if target_property == nil
         target_property = Property.create(:parcel_id => parcel_id, :name => address)
+      elsif target_property.name != clean_address 
+        target_property.update_attribute(:name, clean_address)
       end
       # Replace Socrata latlong code with parsing of centroid file
       #latlong = row["Location 1"][/\((.*)\)/]
