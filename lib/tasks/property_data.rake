@@ -3,6 +3,10 @@ require 'csv'
 namespace :property_data do
   desc "Import data from the property data file and create an addresses JSON file for typeahead search"
   task :import => :environment do
+    p "Downloading property data..."
+    system("cd /tmp && curl -O https://s3-us-west-1.amazonaws.com/south-bend-secrets/Vacant_and_Abandoned_Property_Data.csv")
+    p "Downloading centroids..."
+    system("cd /tmp && curl -O https://s3-us-west-1.amazonaws.com/south-bend-secrets/cityparcelscentroids_abandoned_latlon_CLEAN.csv")
     property_data_path = "/tmp/Vacant_and_Abandoned_Property_Data.csv"
     table = CSV.read(property_data_path, :headers => true)
     lat_long_table = CSV.read("/tmp/cityparcelscentroids_abandoned_latlon_CLEAN.csv", :headers => true)
@@ -23,7 +27,7 @@ namespace :property_data do
       clean_address = address.gsub(".", "")
       all_address_array << clean_address
       if target_property == nil
-        target_property = Property.create(:parcel_id => parcel_id, :name => address)
+        target_property = Property.create(:parcel_id => parcel_id, :name => clean_address)
       elsif target_property.name != clean_address 
         target_property.update_attribute(:name, clean_address)
       end
@@ -33,7 +37,7 @@ namespace :property_data do
       #long = latlong[/\s(.*)$/].gsub(/(\s|\))/, "")
       lat = lat_long_table.find { |lat_long_row| lat_long_row["parcelid"] == parcel_id }["latitude_0"]
       long = lat_long_table.find { |lat_long_row| lat_long_row["parcelid"] == parcel_id }["longitude_0"]
-      lats_and_longs_array << [address,lat,long]
+      lats_and_longs_array << [clean_address,lat,long]
       recommendation = nil
       ["Repair","Demo","Deconstruct","Hold"].each do |key|
         if (recommendation && row[key])
