@@ -1,4 +1,9 @@
 				<div class="span4 info" style="text-align:left;">
+          <% unless @feedback_responses_exist %>
+            <div id="noFeedbackNote">
+              No community feedback has been received yet. 
+            </div>
+          <% end %>
 					<div class="infoBox">
 						<div class="upper">
 							<h1>
