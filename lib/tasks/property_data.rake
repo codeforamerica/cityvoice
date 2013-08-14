@@ -3,8 +3,6 @@ require 'csv'
 namespace :property_data do
   desc "Import data from the property data file and create an addresses JSON file for typeahead search"
   task :import => :environment do
-    #system("grep -E '(Obvious asbestos containing material|519 S St.|523 S St.|213 E South|614 S St.|615 Fellows|624 Fellows|616 Clinton|620 Columbia|520 Columbia)' /tmp/Vacant_and_Abandoned_Property_Data.csv > /tmp/monroe_property_data.csv")
-    #property_data_path = "/tmp/monroe_property_data.csv"
     property_data_path = "/tmp/Vacant_and_Abandoned_Property_Data.csv"
     table = CSV.read(property_data_path, :headers => true)
     lat_long_table = CSV.read("/tmp/cityparcelscentroids_abandoned_latlon_CLEAN.csv", :headers => true)
