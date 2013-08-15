@@ -1,10 +1,11 @@
+#= require audio.min
+
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 jQuery ($) ->
   loadData = (json_representation) ->
-      console.log("fired")
       latitude = json_representation.property_info_set.lat
       longitude = json_representation.property_info_set.long
       if $("body.subjects").length > 0
@@ -23,8 +24,9 @@ jQuery ($) ->
       type: 'GET',
       success: (data) ->
         loadData(data)
-        console.log 'success'
     })
+    audiojs.events.ready ->
+      as = audiojs.createAll()
 
 
 
