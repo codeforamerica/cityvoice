@@ -4,12 +4,22 @@ Automidnight
 
 ![alt text](http://ecx.images-amazon.com/images/I/515oQdDHwmL.jpg "Automatic midnight")
 
-To get going, you'll need to:
+To set up the Monroe Park pilot, you'll want to set a MONROE\_PILOT environment variable on your server to true.
 
-1. Run `bundle exec rake db:migrate`
-2. Run `rake db:seed` to get the basic questions in
-3. Run `rake reset:voice_files` to add in the data related to voice files
-4. Turn on access to the data files on S3, and run `rake property\_data:import` to load in the property data
+For example, on Heroku:
+```
+heroku config:set MONROE_PILOT=true
+```
+
+To get going, you'll need to run the following rake tasks in this order:
+
+```
+rake db:migrate
+rake reset:voice_files
+rake reset:questions
+rake property_data:import
+rake property_data:add_monroe_phone_codes
+```
 
 If you want HTTP basic authentication enabled, you can set the following environment variables:
 
