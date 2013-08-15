@@ -1,7 +1,5 @@
-
-				<div class="span4 info" style="text-align:left;">
 					<div class="infoBox">
-						<div class="upper" style="border-left: 8px solid #4B5DAA;">
+						<div class="upper feedback_bar">
 							<h1>
 								Opinions 
 							</h1>
@@ -15,42 +13,26 @@
 							<% end %>
 						</div>
 					</div>
-					<div class="infoBox" style="border-left: 8px solid #4B5DAA;">
-						<div class="upper">
+					<div class="infoBox">
+						<div class="upper feedback_bar">
 							<h1>
 								Messages
 							</h1>
 						</div>
 						<div class="lower">
-							<div class="vmessage">
-									<div class="row-fluid">
-										<div class="span12" >
-											<div class="voiceAnnotate">
-												<img style="
-													display: inline;
-													margin-bottom: .75em; 
-													padding-right: 1em;" src="/assets/Repair.png" /><span class=""><strong>Repair</strong></span>&nbsp;&nbsp;
-											    date: <strong>1/12/13</strong> &nbsp; from: <strong>XXX-XXX-1234</strong>
-											</div>
-											<div>
-												<audio src="#" preload="auto"/>
-											</div>
-											
-										</div>
-									</div>
-								</div>
 							<% @user_voice_messages.each do |message| %>
 								<div class="vmessage">
 									<div class="row-fluid">
 										<div class="span12" >
-											<!-- will style avatar later
-											<div class="avatar">
-											</div> -->
-											<div>
-												<audio src="<%= message.voice_file_url %>" preload="auto" />			
-											</div>
 											<div class="voiceAnnotate">
-												date: <strong><%= message.created_at.to_date %></strong> &nbsp; from: <strong><%= "XXX-XXX-" + message.phone_number.to_s[-4..-1] %></strong>
+												<div style="display: inline; margin-bottom: .75em; padding-right: 1em;">
+									        	</div>
+												<strong><%= @choice %></strong>&nbsp;&nbsp;
+											    date: <strong><%= message.created_at.to_date %></strong> &nbsp; 
+											    from: <strong><%= "XXX-XXX-" + message.phone_number.to_s[-4..-1] %></strong>
+											</div>
+											<div>
+												<audio src="<%= message.voice_file_url %>" preload="auto" />
 											</div>
 										</div>
 									</div>
@@ -58,4 +40,7 @@
 							<% end %>
 						</div>
 					</div>
-				</div>
+
+
+					
+				
