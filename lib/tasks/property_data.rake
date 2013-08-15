@@ -45,6 +45,12 @@ namespace :property_data do
       #long = latlong[/\s(.*)$/].gsub(/(\s|\))/, "")
       lat = lat_long_table.find { |lat_long_row| lat_long_row["parcelid"] == parcel_id }["latitude_0"]
       long = lat_long_table.find { |lat_long_row| lat_long_row["parcelid"] == parcel_id }["longitude_0"]
+      if clean_address == "520 Carroll"
+        lat, long = "41.670489", "-86.246904"
+      end
+      if clean_address == "620 Carroll"
+        lat, long = "41.669233", "-86.246934"
+      end
       lats_and_longs_array << [clean_address,lat,long]
       recommendation = nil
       ["Repair","Demo","Deconstruct","Hold"].each do |key|
