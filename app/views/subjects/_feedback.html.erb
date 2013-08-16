@@ -1,3 +1,5 @@
+					    
+
 					<div class="infoBox">
 						<div class="upper feedback_bar">
 							<h1>
@@ -19,20 +21,99 @@
 								Messages
 							</h1>
 						</div>
-						<div class="lower">
+							<div class="lower">
+								
 							<% @user_voice_messages.each do |message| %>
 								<div class="vmessage">
 									<div class="row-fluid">
 										<div class="span12" >
 											<div class="voiceAnnotate">
 												<div style="display: inline; margin-bottom: .75em; padding-right: 1em;">
-									        	</div>
+									      </div>
 												<strong><%= @choice %></strong>&nbsp;&nbsp;
-											    date: <strong><%= message.created_at.to_date %></strong> &nbsp; 
-											    from: <strong><%= "XXX-XXX-" + message.phone_number.to_s[-4..-1] %></strong>
+											  date: <strong><%= message.created_at.to_date %></strong> &nbsp; 
+											  from: <strong><%= "XXX-XXX-" + message.phone_number.to_s[-4..-1] %></strong>
 											</div>
 											<div>
-												<audio style="width: 95%;" src="<%= message.voice_file_url %>" preload="auto" />
+                        <style>
+                          p { clear: both; }
+                        </style>
+                        <script>
+                          audiojs.events.ready(function() {
+                            var audios = document.getElementsByTagName('audio');
+
+                            var a1 = audiojs.create(audios[0], {
+                              css: false,
+                              createPlayer: {
+                                markup: false,
+                                playPauseClass: 'play-pauseZ',
+                                scrubberClass: 'scrubberZ',
+                                progressClass: 'progressZ',
+                                loaderClass: 'loadedZ',
+                                timeClass: 'timeZ',
+                                durationClass: 'durationZ',
+                                playedClass: 'playedZ',
+                                errorMessageClass: 'error-messageZ',
+                                playingClass: 'playingZ',
+                                loadingClass: 'loadingZ',
+                                errorClass: 'errorZ'
+                              }
+                            });
+
+                          });
+                        </script>
+                         <style>
+                          .audiojsZ audio { position: absolute; left: -1px; }
+                          .audiojsZ { max-width: 550px;  width: 95%; height: 36px; background: #8F8F8F; overflow: hidden; font-family: monospace; font-size: 12px;
+                            -webkit-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3); -moz-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
+                            -o-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3); box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3); }
+                          .audiojsZ .play-pauseZ { width: 25px; height: 40px; padding: 4px 6px; margin: 0px; float: left; overflow: hidden; border-right: 1px solid #fff; }
+                          .audiojsZ p { display: none; width: 25px; height: 40px; margin: 0px; cursor: pointer; }
+                          .audiojsZ .playZ { display: block; }
+                          .audiojsZ .scrubberZ { position: relative; float: left; width: 40%; background: #DEDEDE; height: 14px; margin: 10px; border-left: 0px; border-bottom: 0px; overflow: hidden; }
+                          .audiojsZ .progressZ { position: absolute; top: 0px; left: 0px; height: 14px; width: 0px; background: #fff; z-index: 1; }
+                          .audiojsZ .loadedZ { position: absolute; top: 0px; left: 0px; height: 14px; width: 0px; background: #fff; }
+                          .audiojsZ .timeZ { float: left; height: 36px; line-height: 36px; margin: 0px 0px 0px 6px; padding: 0px 6px 0px 12px; border-left: 1px solid #fff; color: #fff; text-shadow: 1px 1px 0px rgba(20, 20, 20, 0.5); }
+                          .audiojsZ .timeZ em { padding: 0px 2px 0px 0px; color: #fff; font-style: normal; }
+                          .audiojsZ .timeZ strong { padding: 0px 0px 0px 2px; font-weight: normal; }
+                          .audiojsZ .error-messageZ { float: left; display: none; margin: 0px 10px; height: 36px; width: 400px; overflow: hidden; line-height: 36px; white-space: nowrap; color: #fff;
+                            text-overflow: ellipsis; -o-text-overflow: ellipsis; -icab-text-overflow: ellipsis; -khtml-text-overflow: ellipsis; -moz-text-overflow: ellipsis; -webkit-text-overflow: ellipsis; }
+                          .audiojsZ .error-messageZ a { color: #eee; text-decoration: none; padding-bottom: 1px; border-bottom: 1px solid #999; white-space: wrap; }
+
+                          .audiojsZ .playZ { background: url('../audiojs/player-graphics.gif') -2px -1px no-repeat; }
+                          .audiojsZ .loadingZ { background: url('../audiojs/player-graphics.gif') -2px -31px no-repeat; }
+                          .audiojsZ .errorZ { background: url('../audiojs/player-graphics.gif') -2px -61px no-repeat; }
+                          .audiojsZ .pauseZ { background: url('../audiojs/player-graphics.gif') -2px -91px no-repeat; }
+
+                          .playingZ .playZ, .playingZ .loadingZ, .playingZ .errorZ { display: none; }
+                          .playingZ .pauseZ { display: block; }
+
+                          .loadingZ .playZ, .loadingZ .pauseZ, .loadingZ .errorZ { display: none; }
+                          .loadingZ .loadingZ { display: block; }
+
+                          .errorZ .timeZ, .errorZ .playZ, .errorZ .pauseZ, .errorZ .scrubberZ, .errorZ .loadingZ { display: none; }
+                          .errorZ .errorZ { display: block; }
+                          .errorZ .play-pauseZ p { cursor: auto; }
+                          .errorZ .error-messageZ { display: block; }
+                        </style>
+                        <div class="audiojsZ">
+                          <audio src="<%= message.voice_file_url %>" preload="auto"></audio>
+                          <div class="play-pauseZ">
+                            <p class="playZ"></p>
+                            <p class="pauseZ"></p>
+                            <p class="loadingZ"></p>
+                            <p class="errorZ"></p>
+                          </div>
+                          <div class="scrubberZ">
+                            <div class="progressZ"></div>
+                            <div class="loadedZ"></div>
+                          </div>
+                          <div class="timeZ">
+                            <em class="playedZ">00:00</em>/<strong class="durationZ">00:00</strong>
+                          </div>
+                          <div class="error-messageZ"></div>
+                          
+                        </div>
 											</div>
 										</div>
 									</div>
@@ -40,6 +121,15 @@
 							<% end %>
 						</div>
 					</div>
+
+
+
+
+
+
+ 
+
+    
 
 
 					
