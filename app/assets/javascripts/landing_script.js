@@ -5,7 +5,11 @@ function placeMarkers(dataArray) {
     for(var i = 0; i < dataArray.length; i++) {
       var a = dataArray[i];
       var address = a[0];
-      var marker = L.marker(new L.LatLng(a[1],a[2]) , { address: address } );
+      var greenIcon = L.icon({
+          iconUrl: '/assets/mapicon_vacant.png',
+          iconAnchor:   [10, 7], // point of the icon which will correspond to marker's location
+      });
+      var marker = L.marker(new L.LatLng(a[1],a[2]) , {icon: greenIcon} , { address: address });
       marker.bindPopup("<a href=" + document.location.origin + "/properties/" + address.replace(/\s/g,"-") + ">" + address + "</a>");
       marker.addTo(map);
     }
@@ -15,13 +19,20 @@ function placeMarkers(dataArray) {
     for(var i = 0; i < dataArray.length; i++) {
       var a = dataArray[i];
       var address = a[0];
-      var marker = L.marker(new L.LatLng(a[1],a[2]) , { address: address } );
+      var greenIcon = L.icon({
+          iconUrl: '/assets/mapicon_vacant.png',
+          iconAnchor:   [10, 7], // point of the icon which will correspond to marker's location
+      });
+      var marker = L.marker(new L.LatLng(a[1],a[2]) , {icon: greenIcon} , { address: address } );
       marker.bindPopup("<a href=" + document.location.origin + "/properties/" + address.replace(/\s/g,"-") + ">" + address + "</a>");
       markers.addLayer(marker);
     }
     map.addLayer(markers);
   }
 }
+
+
+
 
 $(document).ready(drawMap);
 
