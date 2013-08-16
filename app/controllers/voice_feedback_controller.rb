@@ -8,7 +8,7 @@ class VoiceFeedbackController < ApplicationController
       session[:survey_started] = true
       response_xml = Twilio::TwiML::Response.new do |r| 
         r.Gather :timeout => 15, :numDigits => 4 do |g|
-          g.Play "#{VoiceFile.find_by_short_name("welcome").url} + '?version=1'"
+          g.Play VoiceFile.find_by_short_name("welcome").url
         end
         r.Redirect "route_to_survey"
       end.text
