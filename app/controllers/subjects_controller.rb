@@ -52,7 +52,6 @@ class SubjectsController < ApplicationController
         @feedback_responses_exist = true if response_count > 0
       end
     end
-    @feedback_responses_exist = true
     # May need to make this conditional as well
     #@user_voice_messages = FeedbackInput.where(:neighborhood_id => params[:id]).where.not(:voice_file_url => nil)
   end
