@@ -2,26 +2,38 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.landingBox{
-border: 3px double #B8B8B8;
-background:white;  
--moz-border-radius: 5px;
-border-radius: 5px; 
-box-shadow: 0 0 10px 0px #545454;
-margin-bottom: 1.5em;
-margin-top: 2em; 
-padding-left: 1.5em; 
-padding-right: 1.4em; 
-padding-top: 1em; 
-padding-bottom: 1em; 
-width:100%; 
-}
+
 
 .landingBar{
 margin-top: .5em; 
 background: white;
 }
+.landing_content{
+	margin-bottom: 1em;
+}
 
+.landing_icon{
+	display: inline;
+	margin-right: 1.5em;
+	height: 30px;
+	width: 30px;
+}
+.landing_titles{
+	color: gray;
+	display: inline;
+	font-family: 'Varela Round', sans-serif;
+	font-size: 2.3em;
+	margin-top: 1em;
+	text-align: left;
+}
+.landing_box{
+	border: 1px solid #B8B8B8; 
+	margin-top: 1em; 
+	min-height: 180px;
+	padding: .75em;
+	-moz-border-radius: 5px;
+	border-radius: 5px; 
+}
 
 .ui-dialog{ 
 box-shadow: 0 0 10px 0px #545454;

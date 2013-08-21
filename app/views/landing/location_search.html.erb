@@ -9,51 +9,81 @@
   </script>
 <% end %>
 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-
-<div id="dialog">
-	<h1 style="border-bottom: 1px solid #eeeeee; border-top: 1px solid #eeeeee; padding-bottom: .15em; padding-top: .25em; margin-bottom: .75em;">ABOUT</h1>
-  	<ul>
-  	<li>Find out about abandoned properties in South Bend.</li>
-  	<li>Review citizen feedback on those properties.</li>
-  	</ul>
-  	<h1 style="border-bottom: 1px solid #eeeeee; border-top: 1px solid #eeeeee; padding-bottom: .15em; padding-top: .25em; margin-top: 1.25em; margin-bottom: .75em;">LEAVE FEEDBACK</h1>
-	<ul>
-		<li>
-			Find a properties call-in code by:<br>
-			<ul>
-				<li>Searching for the property on this website</li>
-				<li>Looking for signage on select properties</li>
-			</ul>
-		</li>
-		<li>
-			Call: <strong>(574) 584-2979</strong>
-		</li>
-	</ul>
-</div>
-
-<div id="map" style="width: 100%; height: auto; position: absolute; top: 40px; bottom: 0; z-index:-1;"></div>
 <div class="container">
-	<!--
-	<div class="center row landingBar">
-		<div class="span8 ">
-			<div class="row">
-				<div class="span6">
+	<div class="center">
+		<a class="expander" href="#">
+			<div class="row" style="text-align: left;">
+				<div class="span4">
+					<div>
+						<img class="landing_icon" src="/assets/learnicon.png" />
+						<h1 style="display:inline;">LEARN</h1>
+					</div>
+				</div>
+				<div class="span4">
+					<div>
+						<img class="landing_icon" src="/assets/phoneicon.png" />
+						<h1 style="display:inline;">CALL</h1>
+					</div>
+				</div>
+				<div class="span4">
+					<div>
+						<img class="landing_icon" src="/assets/listenicon.png" />
+						<h1 style="display:inline;">LISTEN</h1>
+					</div>
+				</div>
+			</div>
+		</a>
+		<div class="row" style="text-align: left;">
+			<div class="span4">
+				<div class="landing_box content" style="border-top: 5px solid #27BDE0">
+					<h5 style="display:inline;">Issue:</h5>
+					<h3>South Bend Vacant and Abandoned Properties</h3><br>
+					<p>Explore the map to see where abandoned properties are located in South Bend. Search for an address or click on a map marker to learn more about the condition of a property. See real-time polls reflecting your neighbors’ views.</p>
+				</div>
+			</div>
+			<div class="span4">
+				<div class="landing_box content" style="border-top: 5px solid #F15E2C">
+					<p>Is this information inaccurate? Have a plan for a property? Share your thoughts and knowledge.</p>
+					<br>
+					<ul>
+						<li><h3>Find a property's call-in code on this website</h3></li>
+						<li><h3>Call <strong>(574) 584-2979</strong></h3></li>
+					</ul>
+				</div>
+			</div>
+			<div class="span4">
+				<div class="landing_box content" style="border-top: 5px solid #FDBB11">
+					<p>CityVoice is about having a conversation. Click on an audio link to hear what your neighbors have to say.</p>
+					<div class="vmessage">
+						<div class="row-fluid">
+							<div class="span12" >
+								<div class="voiceAnnotate">
+					        		from #: <strong>XXX-XXX-1234</strong>&nbsp;&nbsp;  
+								    date: <strong>1/2/13</strong> 
+								</div>
+								<div>
+									<audio src="#" preload="auto" />
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
--->
-	<footer class="footer" style="height: 5em; position: absolute; bottom:0; left:0;">
-	  <nav class="pull right" style="padding-right: 1.5em;">
-	    <ul>
-	      <li><%= link_to "Contact", page_path('contact') %></li>
-	      <li><%= link_to 'About', page_path('about') %></li>
-	    </ul>
-	  </nav>
-	  <div class="footerLogo"><a href="http://codeforamerica.org/"><img src="/assets/cfa_logo_black.png" /></a></div>
-	  <div class="footerLogo"><a href="http://southbendin.gov/"><img src="/assets/southbendlogo.png" /></a></div>
-	</footer>
+	<div id="map" style="width: 100%; height: 400px; margin-top: 1em;"></div>
 </div>
+
+<footer class="footer" style="height: 5em; bottom:0; left:0;">
+  <nav class="pull right" style="padding-right: 1.5em;">
+    <ul>
+      <li><%= link_to "Contact", page_path('contact') %></li>
+      <li><%= link_to 'About', page_path('about') %></li>
+    </ul>
+  </nav>
+  <div class="footerLogo"><a href="http://codeforamerica.org/"><img src="/assets/cfa_logo_black.png" /></a></div>
+  <div class="footerLogo"><a href="http://southbendin.gov/"><img src="/assets/southbendlogo.png" /></a></div>
+</footer>
+
 
 
