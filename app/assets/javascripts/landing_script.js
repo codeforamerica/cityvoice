@@ -5,11 +5,15 @@ function placeMarkers(dataArray) {
     for(var i = 0; i < dataArray.length; i++) {
       var a = dataArray[i];
       var address = a[0];
-      var greenIcon = L.icon({
-          iconUrl: '/assets/mapicon_vacant.png',
-          iconAnchor:   [10, 7], // point of the icon which will correspond to marker's location
+      var mapIcon = L.icon({
+          iconUrl: '/assets/marker-icon-vacant.png',
+          shadowUrl: '/assets/marker-shadow.png',
+
+          iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+          shadowAnchor: [4, 62],  // the same for the shadow
+          popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
       });
-      var marker = L.marker(new L.LatLng(a[1],a[2]) , {icon: greenIcon} , { address: address });
+      var marker = L.marker(new L.LatLng(a[1],a[2]) , {icon: mapIcon} , { address: address });
       marker.bindPopup("<a href=" + document.location.origin + "/properties/" + address.replace(/\s/g,"-") + ">" + address + "</a>");
       marker.addTo(map);
     }
@@ -19,11 +23,12 @@ function placeMarkers(dataArray) {
     for(var i = 0; i < dataArray.length; i++) {
       var a = dataArray[i];
       var address = a[0];
-      var greenIcon = L.icon({
-          iconUrl: '/assets/mapicon_vacant.png',
+      var mapIcon = L.icon({
+          iconUrl: '/assets/marker-icon-vacant.png',
+          shadowUrl: '/assets/marker-shadow.png',
           iconAnchor:   [10, 7], // point of the icon which will correspond to marker's location
       });
-      var marker = L.marker(new L.LatLng(a[1],a[2]) , {icon: greenIcon} , { address: address } );
+      var marker = L.marker(new L.LatLng(a[1],a[2]) , {icon: mapIcon} , { address: address } );
       marker.bindPopup("<a href=" + document.location.origin + "/properties/" + address.replace(/\s/g,"-") + ">" + address + "</a>");
       markers.addLayer(marker);
     }
