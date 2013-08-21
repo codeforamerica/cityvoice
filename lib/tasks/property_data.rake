@@ -90,17 +90,13 @@ namespace :property_data do
 
   desc "Adds for Monroe Park"
   task :add_monroe_phone_codes => :environment do
-    monroe_park_codes = { "519 S St Joseph" => "2345", "523 S St Joseph" => "3456", "213 E South" => "4567", "614 S St Joseph" => "5678", "520 Carroll" => "6789", "620 Carroll" => "7891", "615 Fellows" => "8912", "624 Fellows" => "9123", "616 Clinton" => "1234" }
+    monroe_park_codes = { "519 S St Joseph" => "05190", "523 S St Joseph" => "05230", "213 E South" => "02130", "614 S St Joseph" => "06140", "520 Carroll" => "05200", "620 Carroll" => "06200", "615 Fellows" => "06150", "624 Fellows" => "06240", "616 Clinton" => "06160" }
     # Test to check they're all good
     #monroe_park_codes.each_pair { |key,value| p "uh oh: #{key} #{value}" if Property.find_all_by_name(key).count == 0 }
     monroe_park_codes.each_pair do |prop_address, prop_code|
      target = Property.find_by_name(prop_address)
-     if target.property_code
-       p "#{target.name} already has a property code"
-     else
-       target.update_attribute(:property_code, prop_code)
-       p "Added property code #{prop_code} to #{target.name}"
-     end
+     target.update_attribute(:property_code, prop_code)
+     p "Added property code #{prop_code} to #{target.name}"
     end
   end
 end
