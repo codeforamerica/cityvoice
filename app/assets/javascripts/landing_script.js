@@ -17,7 +17,7 @@ function placeMarkers(dataArray) {
       var a = dataArray[i];
       var address = a[0];
       var marker = L.marker(new L.LatLng(a[1],a[2]) , { address: address } );
-      marker.bindPopup("<a href=" + document.location.origin + "/properties/" + address.replace(/\s/g,"-") + ">" + address + "</a>");
+      marker.bindPopup("<strong><a href=" + document.location.origin + "/properties/" + address.replace(/\s/g,"-") + ">" + address + "</a></strong>" + "<br>" + "call-in code:");
       markers.addLayer(marker);
     }
     map.addLayer(markers);
