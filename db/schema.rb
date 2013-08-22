@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130807053959) do
+ActiveRecord::Schema.define(version: 20130822004736) do
 
   create_table "feedback_inputs", force: true do |t|
     t.integer  "question_id"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20130807053959) do
     t.string   "phone_number"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "call_source"
   end
 
   create_table "property_info_sets", force: true do |t|
