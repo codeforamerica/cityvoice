@@ -17,3 +17,4 @@
 //= require bootstrap
 //= require ./typeahead.min
 //= require typeahead_address_bar
+//= require audiojs

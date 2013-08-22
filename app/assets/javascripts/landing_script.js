@@ -44,7 +44,12 @@ function placeMarkers(dataArray) {
 
 
 
-$(document).ready(drawMap);
+$(document).ready(function() {
+  drawMap();
+  audiojs.events.ready(function() {
+    var as = audiojs.createAll();
+  });
+});
 
 function drawMap () {
 	console.log('drawMap')
