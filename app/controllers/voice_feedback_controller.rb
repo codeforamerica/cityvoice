@@ -8,19 +8,19 @@ class VoiceFeedbackController < ApplicationController
       session[:survey_started] = true
       session[:call_source] = call_source_from_twilio_phone_number(params["To"])
       response_xml = Twilio::TwiML::Response.new do |r| 
-        r.Gather :timeout => 15, :numDigits => 4 do |g|
+        r.Gather :timeout => 15, :numDigits => 5 do |g|
           g.Play VoiceFile.find_by_short_name("welcome_property").url
         end
         r.Redirect "route_to_survey"
       end.text
     # Eventually replace below with lookup and validation of property code
     else
-      if params["Digits"].to_s.length == 4
+      if params["Digits"].to_s.length == 5
         session[:property_id] = Property.find_by_property_code(params["Digits"]).id
         session[:survey] = "property"
       else
         # Need to change this: remove neighborhood survey and just ask for valid property code
-        session[:survey] = "neighborhood"
+        #session[:survey] = "neighborhood"
       end
       # Hard code neighborhood ID for now
       session[:neighborhood_id] = 1
