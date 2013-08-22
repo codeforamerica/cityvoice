@@ -7,7 +7,7 @@ describe "Voice Survey Interface" do
   end
 
   before(:all) do
-    @property_code = "9999"
+    @property_code = "99999"
     Property.create!(:property_code => @property_code)
   end
 
