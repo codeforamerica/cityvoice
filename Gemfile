@@ -61,6 +61,8 @@ gem 'bootstrap-sass', '2.3.2.0'
 #leaflet maps
 gem "leaflet-rails", "~> 0.6.0"
 
+gem 'audiojs'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

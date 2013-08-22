@@ -6,7 +6,16 @@ function placeMarkers(dataArray) {
     for(var i = 0; i < dataArray.length; i++) {
       var a = dataArray[i];
       var address = a[0];
-      var marker = L.marker(new L.LatLng(a[1],a[2]) , { address: address } );
+      var mapIcon = L.icon({
+          iconUrl: '/assets/marker-icon-vacant.png',
+          shadowUrl: '/assets/marker-shadow.png',
+          iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
+          shadowAnchor: [4, 62],  // the same for the shadow
+          popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+      });
+      // Turn on below once we've fixed the positioning and have implemented color icons
+      //var marker = L.marker(new L.LatLng(a[1],a[2]) , {icon: mapIcon} , { address: address });
+      var marker = L.marker(new L.LatLng(a[1],a[2]) , { address: address });
       marker.bindPopup("<a href=" + document.location.origin + "/properties/" + address.replace(/\s/g,"-") + ">" + address + "</a>");
       marker.addTo(map);
     }
@@ -16,6 +25,14 @@ function placeMarkers(dataArray) {
     for(var i = 0; i < dataArray.length; i++) {
       var a = dataArray[i];
       var address = a[0];
+      var mapIcon = L.icon({
+          iconUrl: '/assets/marker-icon-vacant.png',
+          shadowUrl: '/assets/marker-shadow.png',
+          iconAnchor:   [10, 7], // point of the icon which will correspond to marker's location
+          shadowAnchor: [10, 7]
+      });
+      // Turn on below once we've fixed the positioning and have implemented color icons
+      //var marker = L.marker(new L.LatLng(a[1],a[2]) , {icon: mapIcon} , { address: address } );
       var marker = L.marker(new L.LatLng(a[1],a[2]) , { address: address } );
       marker.bindPopup("<strong><a href=" + document.location.origin + "/properties/" + address.replace(/\s/g,"-") + ">" + address + "</a></strong>" + "<br>" + "call-in code:");
       markers.addLayer(marker);
@@ -23,6 +40,9 @@ function placeMarkers(dataArray) {
     map.addLayer(markers);
   }
 }
+
+
+
 
 $(document).ready(drawMap);
 
