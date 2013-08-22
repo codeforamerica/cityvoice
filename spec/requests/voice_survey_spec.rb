@@ -21,6 +21,25 @@ describe "Voice Survey Interface" do
     end
   end
 
+  describe "medium parsing" do
+    it "sets for flyers" do
+      post 'route_to_survey', { "To" => "+15745842971" }
+      session[:feedback_medium].should eq("flyer")
+    end
+    it "sets for sign" do
+      post 'route_to_survey', { "To" => "+15745842979" }
+      session[:feedback_medium].should eq("sign")
+    end
+    it "sets for web" do
+      post 'route_to_survey', { "To" => "+15745842969" }
+      session[:feedback_medium].should eq("web")
+    end
+    it "sets for web" do
+      post 'route_to_survey', { "To" => "+12223334444" }
+      session[:feedback_medium].should eq("error: from +12223334444")
+    end
+  end
+
   describe "property survey" do
     before(:each) do
       post 'route_to_survey'

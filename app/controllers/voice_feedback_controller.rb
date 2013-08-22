@@ -1,11 +1,12 @@
 class VoiceFeedbackController < ApplicationController
 
-  @@app_url = "1000in1000.com"
+  #@@app_url = "1000in1000.com"
 
   def route_to_survey
     if !session[:survey_started]
     #if !params.has_key?("Digits") 
       session[:survey_started] = true
+      session[:feedback_medium] = feedback_medium_from_twilio_phone_number(params["To"])
       response_xml = Twilio::TwiML::Response.new do |r| 
         r.Gather :timeout => 15, :numDigits => 4 do |g|
           g.Play VoiceFile.find_by_short_name("welcome_property").url
@@ -18,9 +19,10 @@ class VoiceFeedbackController < ApplicationController
         session[:property_id] = Property.find_by_property_code(params["Digits"]).id
         session[:survey] = "property"
       else
+        # Need to change this: remove neighborhood survey and just ask for valid property code
         session[:survey] = "neighborhood"
       end
-      # Hard core neighborhood ID for now
+      # Hard code neighborhood ID for now
       session[:neighborhood_id] = 1
       response_xml = Twilio::TwiML::Response.new do |r| 
         r.Redirect "voice_survey"
@@ -128,5 +130,18 @@ class VoiceFeedbackController < ApplicationController
     end
     render :inline => TextReply.new(reply_text).body
 =end
+  private
+  def feedback_medium_from_twilio_phone_number(twilio_number)
+    case twilio_number
+    when "+15745842971"
+      return "flyer"
+    when "+15745842979"
+      return "sign"
+    when "+15745842969"
+      return "web"
+    else
+      return "error: from #{twilio_number}"
+    end
+  end
 
 end
