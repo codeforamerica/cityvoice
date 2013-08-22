@@ -54,7 +54,7 @@ $(document).ready(function() {
 function drawMap () {
 	console.log('drawMap')
   if(monroePilot) {
-    window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg').setView([41.668, -86.246], 16);
+    window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg').setView([41.6696, -86.246], 16);
   }
   else {
     window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg').setView([41.665, -86.28], 13);
