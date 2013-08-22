@@ -6,7 +6,7 @@ class VoiceFeedbackController < ApplicationController
     if !session[:survey_started]
     #if !params.has_key?("Digits") 
       session[:survey_started] = true
-      session[:feedback_medium] = feedback_medium_from_twilio_phone_number(params["To"])
+      session[:call_source] = call_source_from_twilio_phone_number(params["To"])
       response_xml = Twilio::TwiML::Response.new do |r| 
         r.Gather :timeout => 15, :numDigits => 4 do |g|
           g.Play VoiceFile.find_by_short_name("welcome_property").url
@@ -40,9 +40,9 @@ class VoiceFeedbackController < ApplicationController
       # Process data for existing question 
       @current_question = Question.find(session[:current_question_id])
       if @current_question.feedback_type == "numerical_response"
-        FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: session[:neighborhood_id], :property_id => session[:property_id], numerical_response: params["Digits"], phone_number: params["From"][1..-1].to_i)
+        FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: session[:neighborhood_id], :property_id => session[:property_id], numerical_response: params["Digits"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
       elsif @current_question.feedback_type == "voice_file"
-        FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: session[:neighborhood_id], :property_id => session[:property_id], voice_file_url: params["RecordingUrl"], phone_number: params["From"][1..-1].to_i)
+        FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: session[:neighborhood_id], :property_id => session[:property_id], voice_file_url: params["RecordingUrl"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
       end
       # Then iterate counter
       current_index = Survey.questions_for(session[:survey]).index(@current_question.short_name)
@@ -131,7 +131,7 @@ class VoiceFeedbackController < ApplicationController
     render :inline => TextReply.new(reply_text).body
 =end
   private
-  def feedback_medium_from_twilio_phone_number(twilio_number)
+  def call_source_from_twilio_phone_number(twilio_number)
     case twilio_number
     when "+15745842971"
       return "flyer"

@@ -24,25 +24,25 @@ describe "Voice Survey Interface" do
   describe "medium parsing" do
     it "sets for flyers" do
       post 'route_to_survey', { "To" => "+15745842971" }
-      session[:feedback_medium].should eq("flyer")
+      session[:call_source].should eq("flyer")
     end
     it "sets for sign" do
       post 'route_to_survey', { "To" => "+15745842979" }
-      session[:feedback_medium].should eq("sign")
+      session[:call_source].should eq("sign")
     end
     it "sets for web" do
       post 'route_to_survey', { "To" => "+15745842969" }
-      session[:feedback_medium].should eq("web")
+      session[:call_source].should eq("web")
     end
     it "sets for web" do
       post 'route_to_survey', { "To" => "+12223334444" }
-      session[:feedback_medium].should eq("error: from +12223334444")
+      session[:call_source].should eq("error: from +12223334444")
     end
   end
 
   describe "property survey" do
     before(:each) do
-      post 'route_to_survey'
+      post 'route_to_survey', "To" => "+15745842979" #sign
       post 'route_to_survey', "Digits" => @property_code
     end
     it "has the correct session survey" do
@@ -62,6 +62,7 @@ describe "Voice Survey Interface" do
       post 'voice_survey', { "Digits" => "1", "From" => "+16175551212" }
       @input = FeedbackInput.where(:phone_number => "16175551212", :question_id => @prop_outcome_question_id).first
       @input.numerical_response.should eq(1)
+      @input.call_source.should eq("sign")
       FeedbackInput.where(:phone_number => "16175551212", :question_id => @prop_outcome_question_id, :property_id => session[:property_id]).count.should eq(1)
     end
     it "prompts with property voice question" do
