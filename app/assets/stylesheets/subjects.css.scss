@@ -2,6 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+/* colors */
+$cvBlue: #27BDE0;
+$cvYellow: #FDBB11;
+$cvOrange: #F15E2C;
 
 
 #map{
@@ -13,7 +17,137 @@
 		text-align: left;
 	}
 }
-
+.infoBox{
+	margin-bottom: 1.5em;
+	a {
+	  color: #fff;
+	  &:visited {
+	    color: #fff;
+	  }
+	  &:hover {
+	    color: gray;
+	    text-decoration: none;
+	  }
+	}
+	.infoSet_above{
+			margin: 0px;
+			padding:0px;
+			font-size: .8em;
+			font-style: italic;
+			font-weight: normal;
+			width:100%;
+		}
+	.infoSet_below{
+		margin-bottom: .4em;
+		margin-top: -.25em;
+		padding:0px;
+		font-size: 1.2em;
+		font-weight: bold;
+		width:100%;
+	}
+	.learn_bar{
+		border-top: 5px solid $cvBlue;
+	}
+	.call_bar{
+		border-top: 5px solid $cvOrange;
+	}
+	.listen_bar{
+		border-top: 5px solid $cvYellow;
+	}
+	.upper{
+		background: #BABABA;
+		padding-left: 1em;
+		padding-top: .5em;
+		padding-bottom: .75em;
+		.address{
+			font-family: 'Varela Round', sans-serif;
+			font-size: 3.5em;
+			line-height: 45px;
+		}
+		.infoLogo{
+			padding-top: .5em;
+		}
+		
+	}
+	.lower{
+		background: #CCCCCC;
+		border-top: 1px solid #F2F2F2;
+		padding-left: 2.5em;
+		padding-right: 2em;
+		padding-top: 1em;
+		padding-bottom: 1em;
+		.resources{
+			margin-top: .5em;
+			.resources_name{
+				color: white;
+				font-size: 1.25em;
+				font-style: italic;
+			}
+			.resources_info{
+				color: white;
+				margin-bottom: 1em;
+				padding-left: .25em;
+			}
+		}
+	}
+	div{
+		color: white;
+	}
+	h1{
+		color:white;
+		margin-bottom: 0em;
+		margin-right: .5em;
+		margin-top: .25em;
+	}
+	h2{
+		color:white;
+		padding-bottom: 0em;
+		margin-bottom: 0em;
+		margin-right: .5em;
+	}
+	.tags{
+		margin-bottom: .5em;
+	}
+	.label{
+		margin-bottom: .5em;
+	}
+}
+.infoHeader{
+	background: #C4C4C4;
+	color: white;
+	padding: .25em;
+	margin-bottom: 1em;
+}
+.question{
+	margin-bottom: 1em;
+	padding-left: .25em;
+	padding-right: 2em;
+	.oneQuestion{
+		margin-bottom: .75em;
+		.opinionIcon{
+			display: inline;
+		}
+		.opinionText{
+			display:inline;
+			font-weight: bold;
+		}
+	}
+	.text{
+		display: inline;
+		margin-bottom: -.5em;
+	}
+	.progress{
+		margin-bottom: 0em;
+	}
+	.progressAnnotate{
+		margin: 0px;
+		padding:0px;
+		font-size: .6em;
+		font-style: italic;
+		font-weight: normal;
+		width:100%;
+	}
+}
 .infoHeader{
 	background: #C4C4C4;
 	color: white;

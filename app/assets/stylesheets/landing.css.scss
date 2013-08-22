@@ -2,7 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-
+/* colors */
+$cvBlue: #27BDE0;
+$cvYellow: #FDBB11;
+$cvOrange: #F15E2C;
 
 .landingBar{
 margin-top: .5em; 
@@ -33,6 +36,16 @@ background: white;
 	padding: .75em;
 	-moz-border-radius: 5px;
 	border-radius: 5px; 
+}
+
+#learn{
+border-top: 5px solid $cvBlue;
+}
+#call{
+border-top: 5px solid $cvOrange;
+}
+#listen{
+border-top: 5px solid $cvYellow;
 }
 
 .ui-dialog{ 
