@@ -34,7 +34,7 @@ function placeMarkers(dataArray) {
       // Turn on below once we've fixed the positioning and have implemented color icons
       //var marker = L.marker(new L.LatLng(a[1],a[2]) , {icon: mapIcon} , { address: address } );
       var marker = L.marker(new L.LatLng(a[1],a[2]) , { address: address } );
-      marker.bindPopup("<strong><a href=" + document.location.origin + "/properties/" + address.replace(/\s/g,"-") + ">" + address + "</a></strong>" + "<br>" + "call-in code:");
+      marker.bindPopup("<strong>" + address + "</strong>" + "<br>" + "<a href=" + document.location.origin + "/properties/" + address.replace(/\s/g,"-") + ">" + "Leave Feedback" + "</a>");
       markers.addLayer(marker);
     }
     map.addLayer(markers);
