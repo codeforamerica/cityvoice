@@ -28,10 +28,12 @@ class VoiceFeedbackController < ApplicationController
         r.Redirect "voice_survey"
       end.text
     end
+    puts response_xml
     render :inline => response_xml
   end
 
   def voice_survey
+    puts params
     # Set the index if none exists
     if session[:current_question_id] == nil
       @current_question = Question.find_by_short_name(Survey.questions_for(session[:survey])[0])
@@ -74,6 +76,7 @@ class VoiceFeedbackController < ApplicationController
         end
       end
     end.text
+    puts @response_xml
     render :inline => @response_xml
   end
 
