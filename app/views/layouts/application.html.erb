@@ -9,7 +9,7 @@
 	  <%= csrf_meta_tags %>
 		<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
 	  	<link href='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css' rel='stylesheet' />
-    <% if Rails.env == "production" %>
+    <% if Rails.env == "production" && ENV['GOOGLE_ANALYTICS_ON'] == "true" %>
       <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
