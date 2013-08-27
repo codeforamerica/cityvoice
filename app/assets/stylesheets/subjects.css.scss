@@ -6,6 +6,7 @@
 $cvBlue: #27BDE0;
 $cvYellow: #FDBB11;
 $cvOrange: #F15E2C;
+$cvGray: #545454;
 
 
 #map{
@@ -17,8 +18,48 @@ $cvOrange: #F15E2C;
 		text-align: left;
 	}
 }
-.infoBox{
-	margin-bottom: 1.5em;
+.address{
+	color: $cvGray;
+	font-family: 'Varela Round', sans-serif;
+	font-size: 3.5em;
+	line-height: 45px;
+	text-align: left;
+}
+.infoSet_above{
+	color: $cvGray;
+	margin: 0px;
+	padding:0px;
+	font-size: .8em;
+	font-style: italic;
+	font-weight: normal;
+	text-align: left;
+}
+.infoSet_below{
+	color: $cvGray;
+	margin-bottom: .4em;
+	margin-top: .25em;
+	padding:0px;
+	font-size: 1.2em;
+	font-weight: bold;
+	text-align: left;
+}
+
+.resources{
+	margin-top: 1em;
+	.resources_name{
+		color: $cvGray;
+		font-size: 1.25em;
+		font-style: italic;
+		padding-left: 1.5em;
+	}
+	.resources_info{
+		color: $cvGray;
+		margin-bottom: 1em;
+		padding-left: .25em;
+	}
+}
+
+/*
 	a {
 	  color: #fff;
 	  &:visited {
@@ -28,22 +69,6 @@ $cvOrange: #F15E2C;
 	    color: gray;
 	    text-decoration: none;
 	  }
-	}
-	.infoSet_above{
-			margin: 0px;
-			padding:0px;
-			font-size: .8em;
-			font-style: italic;
-			font-weight: normal;
-			width:100%;
-		}
-	.infoSet_below{
-		margin-bottom: .4em;
-		margin-top: -.25em;
-		padding:0px;
-		font-size: 1.2em;
-		font-weight: bold;
-		width:100%;
 	}
 	.learn_bar{
 		border-top: 5px solid $cvBlue;
@@ -76,31 +101,18 @@ $cvOrange: #F15E2C;
 		padding-right: 2em;
 		padding-top: 1em;
 		padding-bottom: 1em;
-		.resources{
-			margin-top: .5em;
-			.resources_name{
-				color: white;
-				font-size: 1.25em;
-				font-style: italic;
-			}
-			.resources_info{
-				color: white;
-				margin-bottom: 1em;
-				padding-left: .25em;
-			}
-		}
+		
 	}
+*/
 	div{
 		color: white;
 	}
 	h1{
-		color:white;
 		margin-bottom: 0em;
 		margin-right: .5em;
 		margin-top: .25em;
 	}
 	h2{
-		color:white;
 		padding-bottom: 0em;
 		margin-bottom: 0em;
 		margin-right: .5em;
@@ -111,7 +123,7 @@ $cvOrange: #F15E2C;
 	.label{
 		margin-bottom: .5em;
 	}
-}
+
 .infoHeader{
 	background: #C4C4C4;
 	color: white;
