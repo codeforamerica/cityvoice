@@ -42,6 +42,9 @@ class VoiceFeedbackController < ApplicationController
       # Process data for existing question 
       @current_question = Question.find(session[:current_question_id])
       if @current_question.feedback_type == "numerical_response"
+        if params["Digits"] == "#"
+          return render :inline => twiml_for_reasking_current_question
+        end
         FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: session[:neighborhood_id], :property_id => session[:property_id], numerical_response: params["Digits"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
       elsif @current_question.feedback_type == "voice_file"
         FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: session[:neighborhood_id], :property_id => session[:property_id], voice_file_url: params["RecordingUrl"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
@@ -64,7 +67,7 @@ class VoiceFeedbackController < ApplicationController
         r.Hangup
       else
         if @current_question.feedback_type == "numerical_response"
-          r.Gather :timeout => 10, :numDigits => 1, :finishOnKey => '0' do |g|
+          r.Gather :timeout => 10, :numDigits => 1, :finishOnKey => '' do |g|
             #r.Say @current_question.voice_text 
             r.Play @current_question.voice_file.url
           end
@@ -80,6 +83,27 @@ class VoiceFeedbackController < ApplicationController
     render :inline => @response_xml
   end
 
+  def twiml_for_reasking_current_question
+    @response_xml = Twilio::TwiML::Response.new do |r| 
+      if @hang_up
+        #r.Say "Thank you very much for your feedback. Good bye."
+        r.Play VoiceFile.find_by_short_name("thanks").url
+        r.Hangup
+      else
+        if @current_question.feedback_type == "numerical_response"
+          r.Gather :timeout => 10, :numDigits => 1, :finishOnKey => '0' do |g|
+            #r.Say @current_question.voice_text 
+            r.Play @current_question.voice_file.url
+          end
+        else
+          # Handle the voice recording here
+          #r.Say @current_question.voice_text 
+          r.Play @current_question.voice_file.url
+          r.Record :maxLength => 60
+        end
+      end
+    end.text
+  end
 
   def splash_message 
     response_xml = Twilio::TwiML::Response.new do |r| 

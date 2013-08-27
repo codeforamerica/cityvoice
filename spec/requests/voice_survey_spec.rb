@@ -51,6 +51,15 @@ describe "Voice Survey Interface" do
     it "sets :property_id in session" do
       session[:property_id].should eq(Property.find_by_property_code(@property_code).id)
     end
+    it "reasks question if pound submitted" do
+      post 'voice_survey'
+      @prop_outcome_question_id = session[:current_question_id]
+      @first_body_hash = hash_from_xml(response.body)
+      post 'voice_survey', { "Digits" => "#" }
+      @second_body_hash = hash_from_xml(response.body)
+      session[:current_question_id].should eq(@prop_outcome_question_id)
+      @first_body_hash.should eq(@second_body_hash)
+    end
     it "prompts with correct first question" do
       post 'voice_survey'
       @body_hash = hash_from_xml(response.body)
