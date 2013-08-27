@@ -91,7 +91,7 @@ class VoiceFeedbackController < ApplicationController
         r.Hangup
       else
         if @current_question.feedback_type == "numerical_response"
-          r.Gather :timeout => 10, :numDigits => 1, :finishOnKey => '0' do |g|
+          r.Gather :timeout => 10, :numDigits => 1, :finishOnKey => '' do |g|
             #r.Say @current_question.voice_text 
             r.Play @current_question.voice_file.url
           end
