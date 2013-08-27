@@ -141,6 +141,29 @@ margin-top: 5em;
 
 /* body */
 
+.info_box{
+  border: 1px solid #B8B8B8; 
+  margin-top: 1em; 
+  padding: 1em;
+  -moz-border-radius: 5px;
+  border-radius: 5px; 
+  text-align: left;
+}
+.action_icon{
+  display: inline;
+  margin-right: 1.5em;
+  height: 30px;
+  width: 30px;
+}
+.learn{
+border-top: 5px solid $cvBlue;
+}
+.call{
+border-top: 5px solid $cvOrange;
+}
+.listen{
+border-top: 5px solid $cvYellow;
+}
 
 
 /* footer */
