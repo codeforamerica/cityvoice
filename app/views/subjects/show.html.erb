@@ -1,104 +1,89 @@
 <script>window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg');</script>
 
-		<div class="container-fluid">
-			<p id="notice"><%= notice %></p>
-			<div class="row-fluid">
-				<div class="span6 offset1">
-					<div class="infoBox" style="margin-bottom: 0;">
-						<div class="upper learn_bar">
-							<div class="row">
-								<div class="span5 offset1">
-									<div class="infoSet_above">
-										address
-									</div>
-									<div class="address">
-									  	<%= @subject.name %><br>
-									</div>
-									<% if @subject.type == "Property" %>
-									<% end %>
+<div class="container">
+	<div class="center">
+	<p id="notice"><%= notice %></p>
+		<div class="row" style="text-align: left;">
+			<div class="span6 offset1 info_box learn">
+				<div class="row">
+					<div class="span3">
+						<img class="action_icon" src="/assets/learnicon.png" />
+							<div class="address" style="margin-top: .25em;">
+							  	<%= @subject.name %><br>
+							</div>
+					</div>
+					<div class="span3">
+						<div class="row">
+							<div class="span1 infoLogo">
+								<img src="/assets/<%= @subject.property_info_set.outcome.gsub(/(\s|[\/])/, "") %>.png" />
+							</div>
+							<div class="span2">
+								<div class="infoSet_above">
+									status
 								</div>
-								<div class="span5 offset1">
-									<div class="row">
-										<div class="span2 infoLogo">
-											<img src="/assets/<%= @subject.property_info_set.outcome.gsub(/(\s|[\/])/, "") %>.png" />
-										</div>
-										<div class="span9">
-											<div class="infoSet_above">
-												status
-											</div>
-											<div class="infoSet_below">
-												<%= @subject.property_info_set.outcome %>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="span9 offset2">
-											<div class="infoSet_above">
-												demolition order
-											</div>
-											<div class="infoSet_below">
-												<%= @subject.property_info_set.demo_order ? @subject.property_info_set.demo_order : "No Demolition Order" %>
-											</div>
-										</div>
-									</div>
+								<div class="infoSet_below">
+									<%= @subject.property_info_set.outcome %>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div id="map"></div>
-					<div class="infoBox">
-						<div class="lower">
-							<div class="row resources">
-								<div class="span4 offset1 resources_name">
-									<a href="http://www.nrc4neighborhoods.org/neighborhoods/14-monroe-park/" target="_blank">Monroe Park Neighborhood Association</a>
+						<div class="row">
+							<div class="span2 offset1">
+								<div class="infoSet_above">
+									demolition order
 								</div>
-								<div class="span6 resources_info">
-									Salvation Army Building, 520 S. Carroll Street<br>
-									Group meets 3rd Thursday each month,<br> 7:30-8:30 p.m.
+								<div class="infoSet_below">
+									<%= @subject.property_info_set.demo_order ? @subject.property_info_set.demo_order : "No Demolition Order" %>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="span4 info" style="text-align:left;">
-					<div class="infoBox">
-						<div class="upper call_bar">
-							<h1> CITIZEN FEEDBACK</h1>
-						</div>
-						<div class="lower">
-							<div class="infoSet_above">
-								To leave feedback
-							</div>
-							<div class="infoSet_below">
-								Call: (574) 584-2969<br>
-                property call-in code: <%= @subject.property_code %>
-							</div>
-						</div>
+				<div id="map" style="margin-top: 1em; margin-bottom: 1em;"></div>
+				<div class="row resources">
+					<div class="span2 resources_name">
+						<a href="http://www.nrc4neighborhoods.org/neighborhoods/14-monroe-park/" target="_blank">Monroe Park Neighborhood Association</a>
 					</div>
-					<% if @feedback_responses_exist %>
-						<%= render partial: "feedback" %>
-					<% else %>
-					<div class="lower">
-						<div id="noFeedbackNote">
-							<div class="infoSet_below" style="margin-top: .5em;">
-								There is no neighborhood feedback on this property yet.
-							</div>
-						</div>
+					<div class="span3 resources_info">
+						Salvation Army Building, 520 S. Carroll Street<br>
+						Group meets 3rd Thursday each month,<br> 7:30-8:30 p.m.
 					</div>
-					<% end %>
 				</div>
 			</div>
+			<div class="span4 info" style="text-align:left;">
+				<div class="info_box call">
+					<div class="upper">
+						<img class="action_icon" src="/assets/phoneicon.png" /><h1 style="display:inline;">CALL</h1>
+					</div>
+					<div class="lower">
+						<div class="infoSet_below">
+							<br>(574) 584-2969
+		    				<br>call-in code: <%= @subject.property_code %>
+						</div>
+					</div>
+				</div>
+				<% if @feedback_responses_exist %>
+					<%= render partial: "feedback" %>
+				<% else %>
+				<div class="info_box listen">
+					<img class="action_icon" src="/assets/listenicon.png" /><h1 style="display:inline;">LISTEN</h1><br><br>
+					<p>There is no neighborhood feedback on this property yet.</p>
+				</div>
+				<% end %>
+			</div>
 		</div>
-		<footer class="footer">
-		  <nav class="pull right" style="padding-right: 1.5em;">
-		    <ul>
-		      <li><%= link_to "Contact", page_path('contact') %></li>
-		      <li><%= link_to "About", page_path('about') %></li>
-		    </ul>
-		  </nav>
-		  <div class="footerLogo"><a href="http://codeforamerica.org/"><img src="/assets/cfa_logo_black.png" /></a></div>
-		  <div class="footerLogo"><a href="http://southbendin.gov/"><img src="/assets/southbendlogo.png" /></a></div>
-		</footer>
+	</div>
+</div>
+		
+<footer class="footer">
+  <nav class="pull right" style="padding-right: 1.5em;">
+    <ul>
+      <li><%= link_to "Contact", page_path('contact') %></li>
+      <li><%= link_to "About", page_path('about') %></li>
+    </ul>
+  </nav>
+  <div class="footerLogo"><a href="http://codeforamerica.org/"><img src="/assets/cfa_logo_black.png" /></a></div>
+  <div class="footerLogo"><a href="http://southbendin.gov/"><img src="/assets/southbendlogo.png" /></a></div>
+</footer>
 		<!--
 			<%= link_to 'Edit', edit_subject_path(@subject) %> |
 			<%= link_to 'Back', subjects_path %>
