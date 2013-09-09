@@ -130,36 +130,7 @@ $cvGray: #545454;
 	padding: .25em;
 	margin-bottom: 1em;
 }
-.question{
-	margin-bottom: 1em;
-	padding-left: .25em;
-	padding-right: 2em;
-	.oneQuestion{
-		margin-bottom: .75em;
-		.opinionIcon{
-			display: inline;
-		}
-		.opinionText{
-			display:inline;
-			font-weight: bold;
-		}
-	}
-	.text{
-		display: inline;
-		margin-bottom: -.5em;
-	}
-	.progress{
-		margin-bottom: 0em;
-	}
-	.progressAnnotate{
-		margin: 0px;
-		padding:0px;
-		font-size: .6em;
-		font-style: italic;
-		font-weight: normal;
-		width:100%;
-	}
-}
+
 .infoHeader{
 	background: #C4C4C4;
 	color: white;
@@ -167,7 +138,7 @@ $cvGray: #545454;
 	margin-bottom: 1em;
 }
 .question{
-	margin-bottom: 1em;
+	margin-top: 1em;
 	padding-left: .25em;
 	padding-right: 2em;
 	.oneQuestion{
@@ -176,6 +147,7 @@ $cvGray: #545454;
 			display: inline;
 		}
 		.opinionText{
+			color: #545454;
 			display:inline;
 			font-weight: bold;
 		}
@@ -188,6 +160,7 @@ $cvGray: #545454;
 		margin-bottom: 0em;
 	}
 	.progressAnnotate{
+		color: black;
 		margin: 0px;
 		padding:0px;
 		font-size: .6em;
@@ -211,7 +184,7 @@ $cvGray: #545454;
 .voiceAnnotate{
 	font-style:italic;
 	padding-top: .5em;
-	color: #999;
+	color: #545454;
 }
 
 .center {

@@ -1,11 +1,11 @@
 					    
 
-					<div class="infoBox listen">
+					<div class="info_box listen">
 						<div class="upper listen_bar">
-							<img class="action_icon" src="/assets/listenicon.png" /><h1 style="display:inline;">Opinions</h1>
+							<h1 style="display:inline;">OPINIONS</h1>
 							<!-- <em style="color:;">of 10 neighbors</em> -->
 						</div>
-						<div class="lower">
+						<div class="">
 							<% if @subject.type == "Neighborhood" %>
 								<%= render "neighborhood_issues" %>
 							<% elsif @subject.type == "Property" %>
@@ -13,9 +13,9 @@
 							<% end %>
 						</div>
 					</div>
-					<div class="infoBox listen">
+					<div class="info_box listen">
 						<div class="upper">
-							<img class="action_icon" src="/assets/listenicon.png" /><h1 style="display:inline;">Messages</h1>
+							<img class="action_icon" src="/assets/listenicon.png" /><h1 style="display:inline;">MESSAGES</h1>
 						</div>
 							<div class="lower">
 								
