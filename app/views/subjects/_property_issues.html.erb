@@ -1,14 +1,14 @@
 <% @questions.each do |my_question| %>
   <div class="question">
     <div class="row-fluid">
-      <div class="span11">
+      <div class="span12">
         <div class="text">
           <%= my_question.question_text %>
         </div>
         
         <% my_question.response_hash.each_pair do |choice, count_of_choice| %>
-          <div class="oneQuestion">
-            <div class="opinionIcon">
+          
+            <div class="span2">
               <% if choice == "Repair" %>
                 <img src="/assets/Repair.png" />
               <% elsif choice == "Remove" %>
@@ -17,14 +17,13 @@
                 <img src="/assets/Other.png" />
               <% end %>
             </div>
-            <div class="opinionText">
-              <%= choice %>
-            </div>
-            <div class="progress progress-info" style="margin-top: .5em; margin-bottom: 1.5em;">
+            <div class="span9">
+            <div class="progress progress-info" style="margin-top: .5em; margin-bottom: 1em;">
               <div class="bar" style="width: <%= count_of_choice*10 %>%">
-                <span style="color:black"><%= count_of_choice %></span>
+                <h3><%= count_of_choice %>&nbsp;&nbsp;<%= choice %></h3>
               </div>
             </div>
+          </div>
             <!--
             <div class="progressAnnotate">
               <span class="alignleft">
@@ -36,7 +35,7 @@
               <div style="clear: both;"></div>
             </div>
           -->
-          </div>
+          
         <% end %>
 
       </div>
