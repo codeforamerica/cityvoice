@@ -141,16 +141,8 @@ $cvGray: #545454;
 	margin-top: 1em;
 	padding-left: .25em;
 	padding-right: 2em;
-	.oneQuestion{
-		margin-bottom: .75em;
-		.opinionIcon{
-			display: inline;
-		}
-		.opinionText{
-			color: #545454;
-			display:inline;
-			font-weight: bold;
-		}
+	.opinionIcon{
+		display: inline;
 	}
 	.text{
 		display: inline;
@@ -171,10 +163,8 @@ $cvGray: #545454;
 }
 
 .vmessage{
-	border-bottom: 1px solid #E3E3E3;
-	padding-bottom: 1em;
+	padding-bottom: 1.5em;
 	padding-top: .5em;
-	padding-left: .5em;
 }
 .avatar{
 	background: #83d0d2;
