@@ -151,7 +151,9 @@
           
           <% @most_recent_messages.each do |voice_feedback| %>
             <h3 style="display:inline;">
-              <a href="#"><%= voice_feedback.property.name if voice_feedback.property %></a>
+            <% if voice_feedback.property %>
+              <%= voice_feedback.property.name  %>
+            <% end %>
             </h3>
               &nbsp;&nbsp;&nbsp;
             <p style="display:inline;">
