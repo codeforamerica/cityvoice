@@ -32,17 +32,17 @@ class SubjectsController < ApplicationController
       @user_voice_messages = FeedbackInput.where(:neighborhood_id => params[:id], :question_id => @voice_question_id).where.not(:voice_file_url => nil)
     elsif @subject.type == "Property"
       @questions_raw = Question.where(:short_name => ["property_outcome"])
-      @questions= Array.new
+      @questions     = Array.new
       @questions_raw.each do |q|
         response_hash = Hash.new
         ["Repair", "Remove", "Other"].each_with_index do |choice, index|
-          @count_of_response = FeedbackInput.where(:question_id => q.id, :property_id => params[:id], :numerical_response => (index+1)).count
+          @count_of_response    = FeedbackInput.where(:question_id => q.id, :property_id => params[:id], :numerical_response => (index+1)).count
           response_hash[choice] = @count_of_response
         end
         @questions << OpenStruct.new(:voice_text => q.voice_text , :short_name => q.short_name, :response_hash => response_hash, :question_text => q.question_text)
       end
       # omg hard-coded question id i hate everything
-      @voice_question_id = Question.find_by_short_name("property_comments").id
+      @voice_question_id   = Question.find_by_short_name("property_comments").id
       @user_voice_messages = FeedbackInput.where(:property_id => params[:id], :question_id => @voice_question_id).where.not(:voice_file_url => nil)
     end
     # Check for any responses
