@@ -1,24 +1,24 @@
 Automidnight::Application.routes.draw do
   get "/" => "landing#location_search"
 
-  resources :questions
+  #resources :questions
 
-  resources :feedback_inputs
+  #resources :feedback_inputs
 
-  resources :subjects
+  #resources :subjects
 
-  resources :voice_transcriptions
+  #resources :voice_transcriptions
 
   get 'properties/:address' => 'subjects#property_address'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  post '/sms' => 'text_feedback#handle_feedback'
-  post '/' => 'voice_transcriptions#ask_for_response'
-  post '/voice' => 'voice_feedback#splash_message' 
-  post '/respond_to_property_code' => 'voice_feedback#respond_to_property_code'
-  post '/solicit_comment' => 'voice_feedback#solicit_comment'
+  #post '/sms' => 'text_feedback#handle_feedback'
+  #post '/' => 'voice_transcriptions#ask_for_response'
+  #post '/voice' => 'voice_feedback#splash_message'
+  #post '/respond_to_property_code' => 'voice_feedback#respond_to_property_code'
+  #post '/solicit_comment' => 'voice_feedback#solicit_comment'
 
   post '/voice_survey' => 'voice_feedback#voice_survey'
   post '/route_to_survey' => 'voice_feedback#route_to_survey'
