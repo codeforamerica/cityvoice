@@ -1,4 +1,9 @@
 class NotificationSubscribersController < ApplicationController
+
+  def create
+    @subscription = NotificationSubscriber.create(params[:notification_subscriber])
+  end
+
   def confirm
     # user will go to this link through the email
     auth_token = params[:token]
