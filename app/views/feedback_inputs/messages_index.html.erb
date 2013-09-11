@@ -1,37 +1,42 @@
 
-
 <div class="container">
-	<div class="row">
-		<div class="span3 offset1">
-			<h1>ALL MESSAGES</h1><br>
-		</div>
-	</div>
-	<div class="row" style="border-bottom: 1px solid #eeeeee; border-top: 1px solid #eeeeee; margin-bottom: .5em;" >
-		<div class="span2 offset1">
-			<h4>location</h4>
-		</div>
-		<div class="span1">
-			<h4>date</h4>
-		</div>
-		<div class="span2">
-			<h4>phone #</h4>
-		</div>
-		<div class="span4">
-			<h4>voice message</h4>
-		</div>
-	</div>
-	<div class="row" style="margin-top: 1.25em;">
-		<div class="span2 offset1">
-			<h3><a href="#">123 Fake St.</a></h3>
-		</div>
-		<div class="span1">
-			<h3>2013-9-9</h3>
-		</div>
-		<div class="span2">
-			<h3>xxx-xxx-1234</h3>
-		</div>
-		<div class="span4">
-			 <style>
+  <div class="row">
+    <div class="span3 offset1">
+      <h1>ALL MESSAGES</h1><br>
+    </div>
+  </div>
+  <div class="row" style="border-bottom: 1px solid #eeeeee; border-top: 1px solid #eeeeee; margin-bottom: .5em;" >
+    <div class="span2 offset1">
+      <h4>location</h4>
+    </div>
+    <div class="span1">
+      <h4>date</h4>
+    </div>
+    <div class="span2">
+      <h4>phone #</h4>
+    </div>
+    <div class="span4">
+      <h4>voice message</h4>
+    </div>
+  </div>
+
+<% @most_recent_messages.each do |feedback_input| %>
+  <% location = feedback_input.property.name if feedback_input.property %>
+  <% created_at = feedback_input.created_at.to_date %>
+  <% phone = "XXX-XXX-" + feedback_input.phone_number.to_s[-4..-1] %>
+
+    <div class="row" style="margin-top: 1.25em;">
+    <div class="span2 offset1">
+      <h3><a href="#"><%= location %> <%= feedback_input.id %></a></h3>
+    </div>
+    <div class="span1">
+      <h3><%= created_at %></h3>
+    </div>
+    <div class="span2">
+      <h3><%= phone %> </h3>
+    </div>
+    <div class="span4">
+       <style>
               p { clear: both; }
             </style>
             <script>
@@ -108,7 +113,26 @@
                     <em class="playedZ">00:00</em>/<strong class="durationZ">00:00</strong>
                   </div>
                   <div class="error-messageZ"></div>
-			</div>
-		</div>
-	</div>
+      </div>
+    </div>
+  </div>
+
+<% end %>
+
 </div>
+<% page_count = @messages_count / @messages_per_page + 1%>
+<% page = params['page'].to_i %>
+
+<% prev = page == 1 ? 1 : page - 1 %>
+<% nxt = page == page_count ? page_count : page + 1 %>
+
+<div class="pagination" style="text-align:center;">
+  <ul>
+    <li><a href="/messages?page=<%= prev %>">Prev</a></li>
+    <% (1..page_count).each do |i| %>
+      <li class="<%= 'active' if i.to_s == params['page'] %>"><a href="/messages?page=<%= i %>"><%= i %></a></li>
+    <% end %>
+    <li><a href="/messages?page=<%= nxt %>">Next</a></li>
+  </ul>
+</div>
+
