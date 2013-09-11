@@ -49,6 +49,7 @@ group :development, :test do
   #gem 'webmock'
   gem 'pry'
   gem 'rspec-rails', '~> 2.0'
+  gem "letter_opener"
 end
 
 group :production do
