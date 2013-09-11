@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130911194811) do
+ActiveRecord::Schema.define(version: 20130911225022) do
 
   create_table "feedback_inputs", force: true do |t|
     t.integer  "question_id"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20130911194811) do
     t.string   "call_source"
   end
 
-  create_table "notification_subscribers", force: true do |t|
+  create_table "notification_subscriptions", force: true do |t|
     t.string   "email"
     t.boolean  "confirmed"
     t.datetime "confirmation_sent_at"

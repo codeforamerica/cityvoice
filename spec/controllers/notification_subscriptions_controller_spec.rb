@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe NotificationSubscribersController do
+describe NotificationSubscriptionsController do
 
   describe "GET 'confirm'" do
     it "returns http success" do

@@ -1,4 +1,4 @@
-class NotificationSubscriber < ActiveRecord::Base
+class NotificationSubscription < ActiveRecord::Base
 
   attr_protected
   belongs_to :property
