@@ -7,10 +7,7 @@
     <h1>This is to confirm that you want notification for: <%= @property.name %></h1>
 
     <p>
-      You have successfully signed up to example.com,
-    </p>
-    <p>
-      To confirm just click this link: <%#= @url %>.
+      To confirm just click this link: <%= link_to 'Confirm!', notification_subscribers_confirm_url(token: @token) %>
     </p>
     <p>Thanks!</p>
   </body>

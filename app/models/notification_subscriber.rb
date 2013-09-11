@@ -1,4 +1,5 @@
 class NotificationSubscriber < ActiveRecord::Base
+
   attr_protected
   belongs_to :property
   # validations (email)
@@ -7,11 +8,24 @@ class NotificationSubscriber < ActiveRecord::Base
   before_create :create_auth_token
   after_create :send_confirmation_email
 
+  def confirm!
+    self.update_attributes(confirmed: true)
+  end
+
+  def confirmed?
+    !!self.confirmed
+  end
+
+  def confirmation_sent?
+    !self.confirmation_sent_at.nil?
+  end
+
   private
 
   def send_confirmation_email
     # send the email
-    self.confirmation_sent_at = DateTime.now
+    NotificationMailer.confirmation_email(self).deliver
+    self.update_attributes(confirmation_sent_at: DateTime.now)
   end
 
   def create_auth_token
