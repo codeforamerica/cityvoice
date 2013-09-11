@@ -11,6 +11,9 @@ namespace :dummy_data do
     p = Property.create!(name: "1234 Fake St", property_code: 9999)
     p.property_info_set = PropertyInfoSet.create!(:outcome => "Vacant and Abandoned", :demo_order => nil)
     FeedbackInput.create!(:property_id => p.id, :question_id => Question.find_by_short_name("property_outcome").id, :numerical_response => 1)
-    FeedbackInput.create!(:property_id => p.id, :question_id => Question.find_by_short_name("property_comments").id, :voice_file_url => "https://s3-us-west-1.amazonaws.com/south-bend-secrets/121gigawatts.mp3", :phone_number => "19998887777")
+    100.times do
+      sleep 0.05
+      FeedbackInput.create!(:property_id => p.id, :question_id => Question.find_by_short_name("property_comments").id, :voice_file_url => "https://s3-us-west-1.amazonaws.com/south-bend-secrets/121gigawatts.mp3", :phone_number => "19998887777")
+    end
   end
 end
