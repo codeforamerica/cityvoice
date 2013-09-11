@@ -62,16 +62,11 @@ class FeedbackInputsController < ApplicationController
   end
 
   # /messages
-  def messages_index
-    @messages_per_page = 10
-
-    params[:page] ||= 1
-    page = params[:page].to_i
-
-    @messages_count = FeedbackInput.where.not(:voice_file_url => nil).count
-    @total_pages = @messages_count / @messages_per_page + 1
-
-    @most_recent_messages = FeedbackInput.includes(:property).where.not(:voice_file_url => nil).order("created_at DESC").offset((page-1)*@messages_per_page).limit(@messages_per_page)
+  def voice_messages
+    @messages = FeedbackInput.includes(:property)
+                             .where('voice_file_url IS NOT null')
+                             .paginate(page: params['page'], per_page: 10)
+                             .order("created_at DESC")
   end
 
   private
