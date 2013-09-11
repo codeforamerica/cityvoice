@@ -53,6 +53,7 @@ end
 
 group :production do
   gem 'pg'
+  gem 'rails_12factor'
 end
 
 #use bootstrap as front-end framework
