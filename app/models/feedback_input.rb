@@ -4,17 +4,19 @@ class FeedbackInput < ActiveRecord::Base
 
   after_create :send_notification_email
   #  -- or --
-  after_create :add_to_notification_que
+  after_create :update_property
 
   def send_notification_email
     # TODO - Mike
-    binding.pry
     # find confirmed subscribers to this property:
-    # self.property.notification_subscribers.where(confirmed: true)
+    # self.property.notification_subscriptions.where(confirmed: true)
 
     # send email to all of them
   end
 
+  def update_property
+    self.property.new_activity!
+  end
 
 
 end

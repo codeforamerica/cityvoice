@@ -1,6 +1,6 @@
 class CreateNotificationSubscriptions < ActiveRecord::Migration
   def change
-    create_table :notification_subscribers do |t|
+    create_table :notification_subscriptions do |t|
       t.string :email
       t.boolean :confirmed
       t.datetime :confirmation_sent_at

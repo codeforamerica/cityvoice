@@ -1,7 +1,7 @@
 class NotificationSubscriptionsController < ApplicationController
 
   def create
-    @subscription = NotificationSubscription.create(params[:notification_subscriber])
+    @subscription = NotificationSubscription.create(params[:notification_subscription])
   end
 
   def confirm
