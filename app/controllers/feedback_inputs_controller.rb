@@ -61,6 +61,14 @@ class FeedbackInputsController < ApplicationController
     end
   end
 
+  # /messages
+  def voice_messages
+    @messages = FeedbackInput.includes(:property)
+                             .where('voice_file_url IS NOT null')
+                             .paginate(page: params['page'], per_page: 10)
+                             .order("created_at DESC")
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_feedback_input
