@@ -64,6 +64,8 @@ gem "leaflet-rails", "~> 0.6.0"
 
 gem 'audiojs'
 
+gem 'will_paginate'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
