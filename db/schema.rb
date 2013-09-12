@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130911231121) do
+ActiveRecord::Schema.define(version: 20130912173844) do
 
   create_table "feedback_inputs", force: true do |t|
     t.integer  "question_id"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20130911231121) do
     t.integer  "property_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "last_email_sent_at"
   end
 
   create_table "property_info_sets", force: true do |t|

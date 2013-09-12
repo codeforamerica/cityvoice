@@ -3,9 +3,13 @@ namespace :notifications do
   task :send => :environment do
     # This code needs to be better
     # Should be querying for NotificationSubscriptions from the start...
+    # NotificationSubscription.where(confirmed: true).includes(:property).where("property.most_recent_activity <= ?", 7.days.ago)
+
+
     properties = Property.activity_since(7.days.ago)
                             .includes(:notification_subscriptions)
                             .where("notification_subscriptions.confirmed = ?", true)
+
 
     #TODO group by emails!
 
@@ -17,4 +21,9 @@ namespace :notifications do
     end
 
   end
+
+  task :send2 => :environment do
+    Notifier.send_weekly_notifications
+  end
+
 end
