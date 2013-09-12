@@ -8,7 +8,8 @@ describe "Voice Survey Interface" do
 
   before(:all) do
     @property_code = "99999"
-    Property.create!(:property_code => @property_code)
+    Property.destroy_all(property_code: @property_code)
+    Property.create!(property_code: @property_code)
   end
 
   describe "initial call" do
@@ -92,6 +93,7 @@ describe "Voice Survey Interface" do
     end
   end
 
+  # TODO put this test somewhere else
   describe "notifications system" do
     it "updates most_recent_activity on property" do
       p = Property.where(:property_code => @property_code)[0]

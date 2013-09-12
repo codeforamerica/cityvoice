@@ -7,6 +7,9 @@ class NotificationMailer < ActionMailer::Base
     mail(to: notification_subscription.email, subject: 'Confirm to get notifications')
   end
 
-
+  def weekly_activity(notification_subscription)
+    @property = notification_subscription.property
+    mail(to: notification_subscription.email, subject: 'Weekly Activity')
+  end
 
 end
