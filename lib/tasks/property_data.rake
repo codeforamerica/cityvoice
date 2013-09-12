@@ -75,10 +75,10 @@ namespace :property_data do
         target_property.property_info_set = PropertyInfoSet.create(:condition_code => row["Condition Code"].to_i, :condition => row["Condition (auto populates)"], :estimated_cost_exterior=> row["Estimated cost (Exterior)"], :estimated_cost_interior => row["Estimated cost (Interior - if able)"], :demo_order => row["Demo order? (Affirmed/Expired)"], :recommendation => recommendation, :outcome => outcome, :lat => lat, :long => long)
       end
     end
-    address_json_path = "#{Rails.root}/public/assets/property_addresses.json"
+    address_json_path = "#{Rails.root}/app/assets/javascripts/property_addresses.json"
     File.delete(address_json_path) if File.exist?(address_json_path)
     File.open(address_json_path, 'w') { |file| file.write(all_address_array.to_json) }
-    lats_and_longs_array_path = "#{Rails.root}/public/assets/lats_longs.json"
+    lats_and_longs_array_path = "#{Rails.root}/app/assets/javascripts/lats_longs.json"
     File.delete(lats_and_longs_array_path) if File.exist?(lats_and_longs_array_path)
     File.open(lats_and_longs_array_path, 'w') { |file| file.write(lats_and_longs_array.to_json) }
   end
