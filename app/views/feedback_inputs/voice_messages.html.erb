@@ -62,7 +62,11 @@
 
     <div class="row" style="margin-top: 1.25em;">
       <div class="span2 offset1">
-        <h3><a href="#"><%= location %></a></h3>
+        <h3>
+          <% if location %>
+            <a href="<%= "properties/#{location.gsub(" ","-")} " %>"><%= location %></a>
+          <% end %>
+        </h3>
       </div>
       <div class="span2">
         <h3><%= created_at %></h3>
