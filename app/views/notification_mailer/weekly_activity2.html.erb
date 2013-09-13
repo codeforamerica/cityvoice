@@ -487,7 +487,8 @@
                                                 <br />
                                                 <% @properties_array.each do |property_hash| %>
                                                   <h1 class='property-name'>
-                                                    <%= property_hash[:property].name %> <%#= link_to 'View',  %>
+                                                    <%= host = ActionMailer::Base.default_url_options[:host] %>
+                                                    <%= property_hash[:property].name %> <%= link_to 'View', "#{host}#{property_hash[:property].url_to}" %>
                                                   </h1>
 
                                                   <%= link_to 'Unsubscribe from this property',

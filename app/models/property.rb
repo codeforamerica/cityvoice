@@ -12,6 +12,11 @@ class Property < Subject
     self.update_attributes(most_recent_activity: DateTime.now)
   end
 
+  def url_to
+    name_link = self.name.gsub(' ', '-')
+    path = "/properties/#{name_link}"
+  end
+
   # Using scoping instead, delete soon
   # def recently_active?(since = 7.days.ago)
   #   return false if self.most_recent_activity.nil?
