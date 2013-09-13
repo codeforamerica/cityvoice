@@ -2,30 +2,41 @@
 
 class Notifier
 
+  # Construct a hash of the form:
+  # {
+  #   mike@gmail.com:
+  #    {
+  #      properties: [{property: <Property>, feedback_inputs: [<FeedbackInput>, <FeedbackInput>, ...], unsubscribe_token: 'nf897e623'}, {...}]
+  #    },
+  #   another@email.com: {...}
+  # }
   def self.send_weekly_notifications
-    puts "Start of notifier method"
+    puts 'Start of notifier method'
     # Get the NotificationSubscriptions which have had activity since last email was sent
     subs = NotificationSubscription.includes(property: :feedback_inputs)
-                                   .where(notification_subscriptions: {confirmed: true})
-                                   .where("feedback_inputs.created_at >= notification_subscriptions.last_email_sent_at")
+                                   .where(confirmed: true)
+                                   .where('feedback_inputs.created_at >= notification_subscriptions.last_email_sent_at')
 
-    # [mike@gmail.com: {properties: [{id: 22, activity: [feedback_input, feedback_input]}]},
-    #  another@email.com: {} ]
+    # Group all the <NotificationSubscription>'s by email
+    result = Hash.new { |hash, k| hash[k] = {} }
+    result.tap do |result|
+      subs.each do |sub|
+        email    = sub.email
+        property = sub.property
 
-    hash = {}
-    subs.each do |sub|
-      hash[sub.email] = {}
-
-      hash[sub.email][:properties] = []
-      hash[sub.email][:properties] << { property: sub.property, unsubscribe_token: sub.auth_token, activity: sub.property.feedback_inputs.where("created_at >= ?", sub.last_email_sent_at) }
+        result[email][:properties] ||= []
+        result[email][:properties] << {
+          property: property,
+          unsubscribe_token: sub.auth_token,
+          feedback_inputs: property.feedback_inputs.where('created_at >= ?', sub.last_email_sent_at)
+        }
+      end
     end
 
-
-    # send the email for each in hash
-    hash.each do |email, properties_array|
-      NotificationMailer.weekly_activity2(email, properties_array[:properties]).deliver
+    # Deliver for each email address in hash
+    result.each do |email, properties|
+      NotificationMailer.weekly_activity2(email, properties[:properties]).deliver
     end
-
   end
 
 end
