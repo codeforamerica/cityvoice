@@ -30,11 +30,13 @@ class Notifier
           unsubscribe_token: sub.auth_token,
           feedback_inputs: property.feedback_inputs.where('created_at >= ?', sub.last_email_sent_at)
         }
+        sub.update_attributes(last_email_sent_at: DateTime.now)
       end
     end
 
     # Deliver for each email address in hash
     result.each do |email, properties|
+      puts "Outbound to #{email}: #{properties.count}"
       NotificationMailer.weekly_activity2(email, properties[:properties]).deliver
     end
   end
