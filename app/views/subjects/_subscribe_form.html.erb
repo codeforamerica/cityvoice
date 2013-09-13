@@ -1,3 +1,5 @@
+
+<div id="subscription-form-status"></div>
 <%= form_for(NotificationSubscription.new) do |f| %>
   <%= f.hidden_field :property_id, value: @subject.id %>
   <%= f.text_field :email, placeholder: 'example@gmail.com' %>

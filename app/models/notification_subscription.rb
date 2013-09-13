@@ -4,6 +4,11 @@ class NotificationSubscription < ActiveRecord::Base
   belongs_to :property
   # validations (email)
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+  validates :email, uniqueness: {
+    case_sensitive: false,
+    scope: :property_id,
+    message: "You've already subscribed to this property"
+  }
 
   before_create :create_auth_token, :set_last_email_sent_at
   after_create :send_confirmation_email

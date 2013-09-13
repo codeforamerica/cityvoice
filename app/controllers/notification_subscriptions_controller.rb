@@ -2,6 +2,8 @@ class NotificationSubscriptionsController < ApplicationController
 
   def create
     @subscription = NotificationSubscription.create(params[:notification_subscription])
+    @errors = @subscription.errors.full_messages
+    binding.pry
   end
 
   def confirm
