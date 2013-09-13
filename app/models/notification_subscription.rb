@@ -5,7 +5,7 @@ class NotificationSubscription < ActiveRecord::Base
   # validations (email)
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
 
-  before_create :create_auth_token
+  before_create :create_auth_token, :set_last_email_sent_at
   after_create :send_confirmation_email
 
   def confirm!
@@ -26,6 +26,10 @@ class NotificationSubscription < ActiveRecord::Base
     # send the email
     NotificationMailer.confirmation_email(self).deliver
     self.update_attributes(confirmation_sent_at: DateTime.now)
+  end
+
+  def set_last_email_sent_at
+    self.last_email_sent_at = self.created_at
   end
 
   def create_auth_token

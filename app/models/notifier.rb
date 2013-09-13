@@ -17,7 +17,7 @@ class Notifier
       hash[sub.email] = {}
 
       hash[sub.email][:properties] = []
-      hash[sub.email][:properties] << { property: sub.property, activity: sub.property.feedback_inputs.where("created_at >= ?", sub.last_email_sent_at) }
+      hash[sub.email][:properties] << { property: sub.property, unsubscribe_token: sub.auth_token, activity: sub.property.feedback_inputs.where("created_at >= ?", sub.last_email_sent_at) }
     end
 
 

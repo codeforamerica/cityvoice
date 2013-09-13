@@ -14,6 +14,10 @@ class NotificationSubscriptionsController < ApplicationController
   def unsubscribe
     auth_token = params[:token]
     subscription = NotificationSubscription.find_by(auth_token: auth_token)
-    subscription.delete
+    if params[:all] # delete all under that email address
+      NotificationSubscription.delete_all(email: subscription.email)
+    else
+      subscription.delete
+    end
   end
 end
