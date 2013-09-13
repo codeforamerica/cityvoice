@@ -49,9 +49,9 @@ group :development, :test do
   #gem 'webmock'
   gem 'pry'
   gem 'rspec-rails', '~> 2.0'
+  gem "letter_opener"
 end
 
-gem "letter_opener"
 group :production do
   gem 'pg'
 end
