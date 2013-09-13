@@ -4,9 +4,14 @@
 
 // voice-messages page
 .pagination {
+	font-family: 'Varela Round', sans-serif;
+	font-size: 1.6em;
+	margin-top: 3em;
+	margin-bottom: 3em;
   text-align: center;
   .current {
     color: #6DC6AD;
-    font-size: 1.25em;
+    font-weight: bold;
+    font-size: 1.7em;
   }
 }

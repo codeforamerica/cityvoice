@@ -60,7 +60,7 @@
     <% created_at = message.created_at.to_date %>
     <% phone = "XXX-XXX-" + message.phone_number.to_s[-4..-1] %>
 
-    <div class="row" style="margin-top: 1.25em;">
+    <div class="row" style="margin-top: 2em;">
       <div class="span2 offset1">
         <h3>
           <% if location %>
@@ -77,7 +77,7 @@
       <div class="span5">
        <style>
        p { clear: both; }
-       </style>s
+       </style>
 
         <div class="audiojsZ">
           <audio src="<%= message.voice_file_url %>" preload="auto"></audio>

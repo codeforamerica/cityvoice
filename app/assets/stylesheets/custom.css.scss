@@ -148,6 +148,28 @@ padding-top: 5em;
 margin-top: 5em;
 /* box-shadow: 0 0 10px 0px #545454; */
 }
+.header_links{
+  border: 1px solid white;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  font-size: .9em;
+  margin-top: .35em;
+  padding: .1em;
+  padding-left: .28em;
+  padding-right: .28em;
+  a {
+    color: white;
+    font-family: 'Varela Round', sans-serif;
+  }
+  a:visited {
+      color: white;
+  }
+  a:hover {
+    background: none;
+    color: white;
+    text-decoration: none;
+  }
+}
 
 /* body */
 
