@@ -54,6 +54,7 @@ end
 
 group :production do
   gem 'pg'
+  gem 'rails_12factor'
 end
 
 #use bootstrap as front-end framework
@@ -63,6 +64,8 @@ gem 'bootstrap-sass', '2.3.2.0'
 gem "leaflet-rails", "~> 0.6.0"
 
 gem 'audiojs'
+
+gem 'will_paginate'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

@@ -15,6 +15,8 @@ Automidnight::Application.routes.draw do
 
   get 'properties/:address' => 'subjects#property_address'
 
+  get 'voice-messages', to: 'feedback_inputs#voice_messages', as: :voice_messages
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
