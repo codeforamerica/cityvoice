@@ -1,5 +1,9 @@
 Automidnight::Application.routes.draw do
+  get "notification_subscriptions/confirm"
+  get "notification_subscriptions/unsubscribe"
   get "/" => "landing#location_search"
+
+  resources :notification_subscriptions, only: [:create]
 
   #resources :questions
 

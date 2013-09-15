@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>This is to confirm that you want notification for: <%= @property.name %></h1>
+
+    <p>
+      To confirm just click this link: <%= link_to 'Confirm!', notification_subscriptions_confirm_url(token: @token) %>
+    </p>
+    <p>Thanks!</p>
+  </body>
+</html>

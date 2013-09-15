@@ -1,0 +1,13 @@
+<% if @errors.any? %>
+  <h1>The subscription did not go through:</h1>
+  <ul>
+  <% @errors.each do |error| %>
+    <li><%= error %></li>
+  <% end %>
+  </ul>
+<% else %>
+  <h1>You just subscribed! Look for a confirmation email!</h1>
+
+  <h2>Property: <%= @subscription.property.name %></h2>
+<% end %>
+
