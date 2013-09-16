@@ -4,11 +4,12 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>This is to confirm that you want notification for: <%= @property.name %></h1>
+    <h2>Hi,<br> You recently signed up to recieve email notifications from CityVoice. This email is to confirm that you want notifications for the location at: <br><h1><%= @property.name %></h1></h2>
 
-    <p>
-      To confirm just click this link: <%= link_to 'Confirm!', notification_subscriptions_confirm_url(token: @token) %>
-    </p>
-    <p>Thanks!</p>
+    <h3>
+      Click this link to <%= link_to 'CONFIRM', notification_subscriptions_confirm_url(token: @token) %>
+    </h3><br>
+    <hr>
+    <p>For questions or comments email: southbend@codeforamerica.org<br><a href="http://cityvoiceapp.com">cityvoiceapp.com</a></p>
   </body>
 </html>

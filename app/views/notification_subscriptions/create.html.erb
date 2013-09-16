@@ -1,13 +1,21 @@
-<% if @errors.any? %>
-  <h1>The subscription did not go through:</h1>
-  <ul>
-  <% @errors.each do |error| %>
-    <li><%= error %></li>
-  <% end %>
-  </ul>
-<% else %>
-  <h1>You just subscribed! Look for a confirmation email!</h1>
-
-  <h2>Property: <%= @subscription.property.name %></h2>
-<% end %>
+<div class="container">
+	<div class="row">
+		<div class="span4 offset4 info_box admin" style="margin-top: 3em;">
+			<div class="underline">
+				<h2>Email Notifications</h2>
+			</div>
+			<br>
+			<% if @errors.any? %>
+			  <p>The subscription did not go through:</p>
+			  <ul>
+			  <% @errors.each do |error| %>
+			    <li><%= error %></li>
+			  <% end %>
+			  </ul>
+			<% else %>
+			  <p>You just subscribed to receive notifications for:<br><br> <em><strong><%= @subscription.property.name %></strong></em><br><br><br> <em>Look for a confirmation email to complete the process!</em></p>
+			<% end %>
+		</div>
+	</div>
+</div>
 

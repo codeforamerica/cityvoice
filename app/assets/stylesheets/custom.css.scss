@@ -96,10 +96,10 @@ h5 {
 }
 p {
   color: #545454;
-  font-size: .9em;
-  line-height: .95em;
+  font-size: 1.1em;
+  line-height: 1.1em;
   font-weight: normal;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
 strong{
   font-size: 1.15em;
@@ -202,6 +202,9 @@ border-top: 5px solid $cvYellow;
 }
 form {
   margin: 0px;
+}
+.underline{
+  border-bottom: 1px solid $medGray;
 }
 
 
