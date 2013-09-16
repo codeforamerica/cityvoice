@@ -17,3 +17,7 @@ rerun.txt
 pickle-email-*.html
 .project
 *.DS_Store
+Vacant*
+cityparcel*
+cityvoice-todo*
+next-steps*
