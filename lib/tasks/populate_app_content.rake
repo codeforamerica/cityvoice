@@ -16,6 +16,7 @@ namespace :populate_app_content do
 
   desc "Loads default front page content"
   task :default => :environment do
+    # Pending default content
   end
 
 end
