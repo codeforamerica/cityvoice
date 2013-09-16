@@ -14,6 +14,11 @@ namespace :populate_app_content do
     end
   end
 
+  desc "Loads app content for 'I wish this were' deploy"
+  task :iwtw => :environment do
+    # To be filled in
+  end
+
   desc "Loads default front page content"
   task :default => :environment do
     # Pending default content
