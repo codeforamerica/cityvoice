@@ -2,45 +2,52 @@
 <div class="container">
 	<div class="center">
 	<p id="notice"><%= notice %></p>
-
-		<%= render 'subscribe_form' %>
-
+		<div class="row">
+			
+		</div>
 		<div class="row" style="text-align: left;">
-			<div class="span6 offset1 info_box learn">
-				<div class="row">
-					<div class="span3">
-						<img class="action_icon" src="/assets/learnicon.png" />
-							<div class="address" style="margin-top: .25em;">
-							  	<%= @subject.name %><br>
-							</div>
-					</div>
-					<div class="span3">
-						<div class="row">
-							<div class="span1 infoLogo">
-								<!-- <img src="/assets/<%= @subject.property_info_set.outcome.gsub(/(\s|[\/])/, "") %>.png" /> -->
-							</div>
-							<div class="span2">
-								<div class="infoSet_above">
-									status
+			<div class="span6 offset1">
+				<div class="info_box learn">
+					<div class="row">
+						<div class="span2">
+							<img class="action_icon" src="/assets/learnicon.png" />
+								<div class="address" style="margin-top: .25em;">
+								  	<%= @subject.name %><br>
 								</div>
-								<div class="infoSet_below">
-									<%= @subject.property_info_set.outcome %>
+						</div>
+						<div class="span3">
+							<div class="row">
+								<div class="span1 infoLogo">
+									<!-- <img src="/assets/<%= @subject.property_info_set.outcome.gsub(/(\s|[\/])/, "") %>.png" /> -->
+								</div>
+								<div class="span2">
+									<div class="infoSet_above">
+										status
+									</div>
+									<div class="infoSet_below">
+										<%= @subject.property_info_set.outcome %>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="span2 offset1">
+									<div class="infoSet_above">
+										demolition order
+									</div>
+									<div class="infoSet_below">
+										<%= @subject.property_info_set.demo_order ? @subject.property_info_set.demo_order : "No Demolition Order" %>
+									</div>
 								</div>
 							</div>
 						</div>
-						<div class="row">
-							<div class="span2 offset1">
-								<div class="infoSet_above">
-									demolition order
-								</div>
-								<div class="infoSet_below">
-									<%= @subject.property_info_set.demo_order ? @subject.property_info_set.demo_order : "No Demolition Order" %>
-								</div>
-							</div>
-						</div>
 					</div>
+					<div id="map" style="margin-top: 1em; margin-bottom: 1em;"></div>
 				</div>
-				<div id="map" style="margin-top: 1em; margin-bottom: 1em;"></div>
+				<div class="info_box admin">
+					<h2 style="display: inline;">Email Notifications</h2>
+					<%= render 'subscribe_form' %>	
+					<p>* Sign up to recieve an email when there is new information on this location. Emails are sent out once a week and you only recieve an email when there is new information for this location.</p>
+				</div>
 			</div>
 			<div class="span4 info" style="text-align:left;">
 				<div class="info_box call">
