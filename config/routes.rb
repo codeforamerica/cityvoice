@@ -1,5 +1,6 @@
 Automidnight::Application.routes.draw do
-  resources :app_content_sets
+  # Comment out resource route for now; eventually use
+  #resources :app_content_sets
 
   get "/" => "landing#location_search"
 
