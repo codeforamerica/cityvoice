@@ -6,8 +6,8 @@
 
 jQuery ($) ->
   loadData = (json_representation) ->
-      latitude = json_representation.property_info_set.lat
-      longitude = json_representation.property_info_set.long
+      latitude = json_representation.lat
+      longitude = json_representation.long
       if $("body.subjects").length > 0
         window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg').setView([latitude, longitude], 16)
         L.Icon.Default.imagePath = "/assets"
