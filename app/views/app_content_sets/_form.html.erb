@@ -1,0 +1,49 @@
+<%= form_for(@app_content_set) do |f| %>
+  <% if @app_content_set.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@app_content_set.errors.count, "error") %> prohibited this app_content_set from being saved:</h2>
+
+      <ul>
+      <% @app_content_set.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :issue %><br>
+    <%= f.text_field :issue %>
+  </div>
+  <div class="field">
+    <%= f.label :learn_text %><br>
+    <%= f.text_field :learn_text %>
+  </div>
+  <div class="field">
+    <%= f.label :call_text %><br>
+    <%= f.text_field :call_text %>
+  </div>
+  <div class="field">
+    <%= f.label :call_instruction %><br>
+    <%= f.text_field :call_instruction %>
+  </div>
+  <div class="field">
+    <%= f.label :app_phone_number %><br>
+    <%= f.text_field :app_phone_number %>
+  </div>
+  <div class="field">
+    <%= f.label :listen_text %><br>
+    <%= f.text_field :listen_text %>
+  </div>
+  <div class="field">
+    <%= f.label :message_from %><br>
+    <%= f.text_field :message_from %>
+  </div>
+  <div class="field">
+    <%= f.label :message_url %><br>
+    <%= f.text_field :message_url %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

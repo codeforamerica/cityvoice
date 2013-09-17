@@ -1,0 +1,41 @@
+<h1>Listing app_content_sets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Issue</th>
+      <th>Learn text</th>
+      <th>Call text</th>
+      <th>Call instruction</th>
+      <th>App phone number</th>
+      <th>Listen text</th>
+      <th>Message from</th>
+      <th>Message url</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @app_content_sets.each do |app_content_set| %>
+      <tr>
+        <td><%= app_content_set.issue %></td>
+        <td><%= app_content_set.learn_text %></td>
+        <td><%= app_content_set.call_text %></td>
+        <td><%= app_content_set.call_instruction %></td>
+        <td><%= app_content_set.app_phone_number %></td>
+        <td><%= app_content_set.listen_text %></td>
+        <td><%= app_content_set.message_from %></td>
+        <td><%= app_content_set.message_url %></td>
+        <td><%= link_to 'Show', app_content_set %></td>
+        <td><%= link_to 'Edit', edit_app_content_set_path(app_content_set) %></td>
+        <td><%= link_to 'Destroy', app_content_set, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New App content set', new_app_content_set_path %>
