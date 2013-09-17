@@ -11,6 +11,8 @@ namespace :populate_app_content do
       content.listen_text = "CityVoice is about having a conversation. Click on an audio link to hear what your neighbors have to say."
       content.message_from = "Code for America Fellows"
       content.message_url = "https://s3-us-west-1.amazonaws.com/south-bend-secrets/cityvoice_intro.mp3"
+      content.header_color = "#6DC6AD"
+      content.short_title = ""
     end
   end
 
@@ -25,6 +27,8 @@ namespace :populate_app_content do
       content.listen_text = "This is about starting conversations. Click on an audio link to hear what your neighbors have to say."
       content.message_from = "\"I wish this was\" Organizers"
       content.message_url = ""
+      content.header_color = "#4E81BF"
+      content.short_title = "\"I wish this was...\""
     end
   end
 

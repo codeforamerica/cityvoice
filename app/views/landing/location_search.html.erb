@@ -56,8 +56,29 @@
 			</div>
 			<div class="span4">
 				<div class="info_box listen content" style="min-height: 155px;">
-                                  <p><%= @content.listen_text %></p>
-                                  <h3 style="margin-top: 1.25em;">Message: <%= @content.message_from %></h3>
+                    <p><%= @content.listen_text %></p>
+
+
+                  <% unless ["", nil].include?(@content.message_url) %>
+                    <h3 style="margin-top: 1.25em;">Message: <%= @content.message_from %></h3>
+                    <div class="audiojsZ">
+                      <audio src="<%= @content.message_url %>" preload="auto"></audio>
+                        <div class="play-pauseZ">
+                          <p class="playZ"></p>
+                          <p class="pauseZ"></p>
+                          <p class="loadingZ"></p>
+                          <p class="errorZ"></p>
+                        </div>
+                        <div class="scrubberZ">
+                          <div class="progressZ"></div>
+                          <div class="loadedZ"></div>
+                        </div>
+                        <div class="timeZ">
+                          <em class="playedZ">00:00</em>/<strong class="durationZ">00:00</strong>
+                        </div>
+                        <div class="error-messageZ"></div>
+                   </div>
+                  <% end %>
 						
                     <style>
                       p { clear: both; }
@@ -120,23 +141,7 @@
                       .errorZ .play-pauseZ p { cursor: auto; }
                       .errorZ .error-messageZ { display: block; }
                     </style>
-                    <div class="audiojsZ">
-                      <audio src="<%= @content.message_url %>" preload="auto"></audio>
-	                      <div class="play-pauseZ">
-	                        <p class="playZ"></p>
-	                        <p class="pauseZ"></p>
-	                        <p class="loadingZ"></p>
-	                        <p class="errorZ"></p>
-	                      </div>
-	                      <div class="scrubberZ">
-	                        <div class="progressZ"></div>
-	                        <div class="loadedZ"></div>
-	                      </div>
-	                      <div class="timeZ">
-	                        <em class="playedZ">00:00</em>/<strong class="durationZ">00:00</strong>
-	                      </div>
-	                      <div class="error-messageZ"></div>
-        			</div>
+
 				</div>
 			</div>
 		</div>
