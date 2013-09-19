@@ -2,44 +2,33 @@
 var lats_longs;
 function placeMarkers(dataArray) {
   lats_longs = dataArray;
-  if(monroePilot) {
-    for(var i = 0; i < dataArray.length; i++) {
-      var subject = dataArray[i];
-      var mapIcon = L.icon({
-          iconUrl: '/assets/marker-icon-vacant.png',
-          shadowUrl: '/assets/marker-shadow.png',
-          iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
-          shadowAnchor: [4, 62],  // the same for the shadow
-          popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-      });
-      // Turn on below once we've fixed the positioning and have implemented color icons
-      //var marker = L.marker(new L.LatLng(a[1],a[2]) , {icon: mapIcon} , { address: address });
-      if (subject.lat && subject.long) {
-        var marker = L.marker(new L.LatLng(subject.lat,subject.long) , { name: subject.name });
-        marker.bindPopup("<a href=" + document.location.origin + "/properties/" + subject.name.replace(/\s/g,"-") + ">" + subject.name + "</a>");
-        marker.addTo(map);
-      }
-    }
+  if(lats_longs.length < 30) {
+    markerFeatureGroup = new L.FeatureGroup();
   }
   else {
-    var markers = new L.MarkerClusterGroup( { showCoverageOnHover: false } );
-    for(var i = 0; i < dataArray.length; i++) {
-      var a = dataArray[i];
-      var address = a[0];
-      var mapIcon = L.icon({
-          iconUrl: '/assets/marker-icon-vacant.png',
-          shadowUrl: '/assets/marker-shadow.png',
-          iconAnchor:   [10, 7], // point of the icon which will correspond to marker's location
-          shadowAnchor: [10, 7]
-      });
-      // Turn on below once we've fixed the positioning and have implemented color icons
-      //var marker = L.marker(new L.LatLng(a[1],a[2]) , {icon: mapIcon} , { address: address } );
-      var marker = L.marker(new L.LatLng(a[1],a[2]) , { address: address } );
-      marker.bindPopup("<a href=" + document.location.origin + "/properties/" + subject.name.replace(/\s/g,"-") + ">" + subject.name + "</a>");
-      markers.addLayer(marker);
-    }
-    map.addLayer(markers);
+    markerFeatureGroup = new L.MarkerClusterGroup( { showCoverageOnHover: false } );
   }
+  for(var i = 0; i < dataArray.length; i++) {
+    var subject = dataArray[i];
+    var mapIcon = L.icon({
+        iconUrl: '/assets/marker-icon-vacant.png',
+        shadowUrl: '/assets/marker-shadow.png',
+        iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
+        shadowAnchor: [4, 62],  // the same for the shadow
+        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
+    // Turn on below once we've fixed the positioning and have implemented color icons
+    //var marker = L.marker(new L.LatLng(a[1],a[2]) , {icon: mapIcon} , { address: address });
+    if (subject.lat && subject.long) {
+      var marker = L.marker(new L.LatLng(subject.lat,subject.long) , { name: subject.name });
+      marker.bindPopup("<a href=" + document.location.origin + "/properties/" + subject.name.replace(/\s/g,"-") + ">" + subject.name + "</a>");
+      //marker.addTo(map);
+      markerFeatureGroup.addLayer(marker);
+    }
+  }
+  console.log(markerFeatureGroup);
+  map.fitBounds(markerFeatureGroup.getBounds());
+  markerFeatureGroup.addTo(map);
 }
 
 
