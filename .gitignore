@@ -17,7 +17,8 @@ rerun.txt
 pickle-email-*.html
 .project
 *.DS_Store
-Vacant*
-cityparcel*
-cityvoice-todo*
-next-steps*
+Vacant*.csv
+cityparcel*.csv
+cityvoice-todo*.rtf
+next-steps*.txt
+git-merge-steps.txt
