@@ -40,24 +40,45 @@
 			<div class="span4">
 				<div class="info_box learn content">
 					<h5 style="display:inline;">Issue:</h5>
-					<h3>South Bend Vacant and Abandoned Properties</h3><br>
-					<p>Explore the map to see where abandoned properties are located in South Bend. Search for an address or click on a map marker to learn more about the condition of a property. See real-time polls reflecting your neighbors’ views.</p>
+                                        <h3><%= @content.issue %></h3><br>
+                                        <p><%= @content.learn_text %></p>
 				</div>
 			</div>
 			<div class="span4">
 				<div class="info_box call content" style="min-height: 155px;">
-					<p>Is this information inaccurate? Have a plan for a property? Share your thoughts and knowledge.</p>
+                                  <p><%= @content.call_text %></p>
 					<br>
 					<ul>
-						<li><h3>Find a property's call-in code on this website</h3></li>
-						<li><h3>Call <strong>(574) 584-2969</strong></h3></li>
+                                          <li><h3><%= @content.call_instruction %></h3></li>
+                                          <li><h3>Call <strong><%= @content.app_phone_number %></strong></h3></li>
 					</ul>
 				</div>
 			</div>
 			<div class="span4">
 				<div class="info_box listen content" style="min-height: 155px;">
-					<p>CityVoice is about having a conversation. Click on an audio link to hear what your neighbors have to say.</p>
-	        		<h3 style="margin-top: 1.25em;">Message: Code for America Fellows</h3>
+                    <p><%= @content.listen_text %></p>
+
+
+                  <% unless ["", nil].include?(@content.message_url) %>
+                    <h3 style="margin-top: 1.25em;">Message: <%= @content.message_from %></h3>
+                    <div class="audiojsZ">
+                      <audio src="<%= @content.message_url %>" preload="auto"></audio>
+                        <div class="play-pauseZ">
+                          <p class="playZ"></p>
+                          <p class="pauseZ"></p>
+                          <p class="loadingZ"></p>
+                          <p class="errorZ"></p>
+                        </div>
+                        <div class="scrubberZ">
+                          <div class="progressZ"></div>
+                          <div class="loadedZ"></div>
+                        </div>
+                        <div class="timeZ">
+                          <em class="playedZ">00:00</em>/<strong class="durationZ">00:00</strong>
+                        </div>
+                        <div class="error-messageZ"></div>
+                   </div>
+                  <% end %>
 						
                     <style>
                       p { clear: both; }
@@ -120,23 +141,7 @@
                       .errorZ .play-pauseZ p { cursor: auto; }
                       .errorZ .error-messageZ { display: block; }
                     </style>
-                    <div class="audiojsZ">
-	                      <audio src="https://s3-us-west-1.amazonaws.com/south-bend-secrets/cityvoice_intro.mp3" preload="auto"></audio>
-	                      <div class="play-pauseZ">
-	                        <p class="playZ"></p>
-	                        <p class="pauseZ"></p>
-	                        <p class="loadingZ"></p>
-	                        <p class="errorZ"></p>
-	                      </div>
-	                      <div class="scrubberZ">
-	                        <div class="progressZ"></div>
-	                        <div class="loadedZ"></div>
-	                      </div>
-	                      <div class="timeZ">
-	                        <em class="playedZ">00:00</em>/<strong class="durationZ">00:00</strong>
-	                      </div>
-	                      <div class="error-messageZ"></div>
-        			</div>
+
 				</div>
 			</div>
 		</div>
@@ -180,22 +185,7 @@
               </div>
             </div>
           <% end %>
-
       </div>
     </div>
   </div>
 </div>
-
-<footer class="footer" style="height: 5em; bottom:0; left:0;">
-  <nav class="pull right" style="padding-right: 1.5em;">
-    <ul>
-      <li><%= link_to "Contact", page_path('contact') %></li>
-      <li><%= link_to 'About', page_path('about') %></li>
-    </ul>
-  </nav>
-  <div class="footerLogo"><a href="http://codeforamerica.org/"><img src="/assets/cfa_logo_black.png" /></a></div>
-  <div class="footerLogo"><a href="http://southbendin.gov/"><img src="/assets/southbendlogo.png" /></a></div>
-</footer>
-
-
-

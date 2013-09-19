@@ -47,7 +47,7 @@
 					</div>
 					<div class="lower">
 						<div class="infoSet_below">
-							<br>(574) 584-2969
+                                                  <br><%= @content.app_phone_number %>
 		    				<br>call-in code: <%= @subject.property_code %>
 						</div>
 					</div>
@@ -64,15 +64,3 @@
 		</div>
 	</div>
 </div>
-		
-<footer class="footer">
-  <nav class="pull right" style="padding-right: 1.5em;">
-    <ul>
-      <li><%= link_to "Contact", page_path('contact') %></li>
-      <li><%= link_to "About", page_path('about') %></li>
-    </ul>
-  </nav>
-  <div class="footerLogo"><a href="http://codeforamerica.org/"><img src="/assets/cfa_logo_black.png" /></a></div>
-  <div class="footerLogo"><a href="http://southbendin.gov/"><img src="/assets/southbendlogo.png" /></a></div>
-</footer>
-

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130916234522) do
+ActiveRecord::Schema.define(version: 20130917164747) do
 
   create_table "app_content_sets", force: true do |t|
     t.string   "issue"
@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 20130916234522) do
     t.string   "message_url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "header_color"
+    t.string   "short_title"
   end
 
   create_table "feedback_inputs", force: true do |t|

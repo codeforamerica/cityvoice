@@ -21,10 +21,17 @@ rake property_data:import
 rake property_data:add_monroe_phone_codes
 ```
 
-If you're deploying on Heroku, you'll need to use the experimental feature that makes environment variables present during asset compilation:
+### Heroku Deployment
 
+To deploy on Heroku, you'll need to do the following:
 ```
+# Turn on experimental env variable feature
 heroku labs:enable user-env-compile
+# Add the Postgresql add-on 
+heroku addons:add heroku-postgresql
+# Find the URL for the database by running the config command and set a DATABASE_URL variable
+heroku config # Look for your postgres URL in the output!
+heroku config:set DATABASE_URL=yourpostgresURLgoeshere
 ```
 
 In production, you may want to set up Google Analytics (hard-coded ID for now, so need to tinker) with the environment variable used as a flag:
