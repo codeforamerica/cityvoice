@@ -5,7 +5,7 @@ Automidnight::Application.routes.draw do
 
   #resources :feedback_inputs
 
-  #resources :subjects
+  resources :subjects, :only => [:index]
 
   #resources :voice_transcriptions
 
