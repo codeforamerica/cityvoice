@@ -29,8 +29,8 @@ To deploy on Heroku, you'll need to do the following:
 heroku labs:enable user-env-compile
 # Add the Postgresql add-on 
 heroku addons:add heroku-postgresql
-# Find the URL for the database by running the config command and set a DATABASE\_URL variable
-heroku config
+# Find the URL for the database by running the config command and set a DATABASE_URL variable
+heroku config # Look for your postgres URL in the output!
 heroku config:set DATABASE_URL=yourpostgresURLgoeshere
 ```
 
