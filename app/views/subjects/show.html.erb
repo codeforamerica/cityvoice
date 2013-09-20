@@ -11,7 +11,15 @@
 							  	<%= @subject.name %><br>
 							</div>
 					</div>
-					<%= render :partial => "property_info" if @subject.type == "Property" %>
+
+					<div class="span3" id="subject_description_box">
+						<% if @subject.respond_to? :property_info_set %>
+						<%= render :partial => "property_info" %>
+						<% else %>
+						<%= render :inline => @subject.description %>
+						<% end %>
+					</div>
+
 				</div>
 				<div id="map" style="margin-top: 1em; margin-bottom: 1em;"></div>
 			</div>
