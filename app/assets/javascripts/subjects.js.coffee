@@ -8,13 +8,9 @@ jQuery ($) ->
   loadData = (json_representation) ->
       latitude = json_representation.lat
       longitude = json_representation.long
-      if $("body.subjects").length > 0
-        window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg').setView([latitude, longitude], 16)
-        L.Icon.Default.imagePath = "/assets"
-      if json_representation.type == "Property"
-        marker = L.marker([latitude, longitude]).addTo(map)
-      else 
-        polygon = L.polygon([[41.6707, -86.2499],[41.6654, -86.2498],[41.6655, -86.238],[41.6707, -86.243]]).addTo(map)
+      window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg').setView([latitude, longitude], 16)
+      L.Icon.Default.imagePath = "/assets"
+      marker = L.marker([latitude, longitude]).addTo(map)
 
   $(document).ready ->
     $.ajax({
