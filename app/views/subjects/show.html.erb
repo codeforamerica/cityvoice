@@ -16,7 +16,7 @@
 						<% if @subject.respond_to? :property_info_set %>
 						<%= render :partial => "property_info" %>
 						<% else %>
-						<%= render :inline => @subject.description %>
+						<%= render :inline => raw(@subject.description) %>
 						<% end %>
 					</div>
 
