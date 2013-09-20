@@ -17,43 +17,27 @@ class SubjectsController < ApplicationController
   # GET /subjects/1
   # GET /subjects/1.json
   def show
-    #public_safety_question = Question.find_by_short_name("public_safety")
-    #prop_value_question = Question.find_by_short_name("property_values")
     @subject = Subject.find(params[:id])
-    if @subject.type == "Neighborhood"
-      @questions_raw = Question.where(:short_name => ["public_safety", "property_values"])
-      @questions = Array.new
-      @questions_raw.each do |q|
-        average_priority = FeedbackInput.where(:neighborhood_id => params[:id], :question_id => q.id).average("numerical_response")
-        @questions << OpenStruct.new(:voice_text => q.voice_text , :short_name => q.short_name, :average_priority => average_priority, :question_text => q.question_text)
+    @numerical_questions_raw = Question.where(:feedback_type => "numerical_response")
+    @numerical_questions = Array.new
+    @numerical_questions_raw.each do |q|
+      response_hash = Hash.new
+      ["Repair", "Remove", "Other"].each_with_index do |choice, index|
+        @count_of_response = FeedbackInput.where(:question_id => q.id, :property_id => params[:id], :numerical_response => (index+1)).count
+        response_hash[choice] = @count_of_response
       end
-      # omg hard-coded question id i hate everything
-      @voice_question_id = Question.find_by_short_name("neighborhood_comments")
-      @user_voice_messages = FeedbackInput.where(:neighborhood_id => params[:id], :question_id => @voice_question_id).where.not(:voice_file_url => nil)
-    elsif @subject.type == "Property"
-      @questions_raw = Question.where(:short_name => ["property_outcome"])
-      @questions= Array.new
-      @questions_raw.each do |q|
-        response_hash = Hash.new
-        ["Repair", "Remove", "Other"].each_with_index do |choice, index|
-          @count_of_response = FeedbackInput.where(:question_id => q.id, :property_id => params[:id], :numerical_response => (index+1)).count
-          response_hash[choice] = @count_of_response
-        end
-        @questions << OpenStruct.new(:voice_text => q.voice_text , :short_name => q.short_name, :response_hash => response_hash, :question_text => q.question_text)
-      end
+      @numerical_questions << OpenStruct.new(:voice_text => q.voice_text , :short_name => q.short_name, :response_hash => response_hash, :question_text => q.question_text)
       # omg hard-coded question id i hate everything
       @voice_question_id = Question.find_by_short_name("property_comments").id
       @user_voice_messages = FeedbackInput.where(:property_id => params[:id], :question_id => @voice_question_id).where.not(:voice_file_url => nil)
     end
     # Check for any responses
     @feedback_responses_exist = false
-    @questions.each do |question|
+    @numerical_questions.each do |question|
       question.response_hash.each_pair do |response_text, response_count|
         @feedback_responses_exist = true if response_count > 0
       end
     end
-    # May need to make this conditional as well
-    #@user_voice_messages = FeedbackInput.where(:neighborhood_id => params[:id]).where.not(:voice_file_url => nil)
   end
 
   # GET /subjects/new

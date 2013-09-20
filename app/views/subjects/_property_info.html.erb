@@ -1,0 +1,25 @@
+<div class="span3">
+	<div class="row">
+		<div class="span1 infoLogo">
+			<!-- <img src="/assets/<%= @subject.property_info_set.outcome.gsub(/(\s|[\/])/, "") %>.png" /> -->
+		</div>
+		<div class="span2">
+			<div class="infoSet_above">
+				status
+			</div>
+			<div class="infoSet_below">
+				<%= @subject.property_info_set.outcome %>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span2 offset1">
+			<div class="infoSet_above">
+				demolition order
+			</div>
+			<div class="infoSet_below">
+				<%= @subject.property_info_set.demo_order ? @subject.property_info_set.demo_order : "No Demolition Order" %>
+			</div>
+		</div>
+	</div>
+</div>
