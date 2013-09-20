@@ -43,4 +43,11 @@ namespace :reset do
     end
   end
 
+  task :remove_neighborhood_questions => :environment do
+    ["public_safety","property_values"].each do |short_name|
+      q = Question.find_by_short_name(short_name)
+      q.destroy if q
+    end
+  end
+
 end
