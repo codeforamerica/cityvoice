@@ -7,6 +7,7 @@ describe "Voice Survey Interface" do
   end
 
   before(:all) do
+    ENV["SURVEY_NAME"] = "property"
     @property_code = "99999"
     Property.create!(:property_code => @property_code)
   end
