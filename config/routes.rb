@@ -8,11 +8,11 @@ Automidnight::Application.routes.draw do
 
   #resources :feedback_inputs
 
-  resources :subjects, :only => [:index]
+  resources :subjects, :only => [:index, :show]
 
   #resources :voice_transcriptions
 
-  get 'properties/:address' => 'subjects#property_address'
+  #get 'properties/:address' => 'subjects#property_address'
 
   get 'voice-messages', to: 'feedback_inputs#voice_messages', as: :voice_messages
 

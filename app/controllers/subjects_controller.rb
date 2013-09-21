@@ -1,12 +1,5 @@
 class SubjectsController < ApplicationController
-  before_action :set_subject, only: [:show, :edit, :update, :destroy]
-
-  def property_address
-    @clean_address = params[:address].gsub("-", " ")
-    params[:id] = Subject.find_by_name(@clean_address).id
-    show
-    render :show
-  end
+  #before_action :set_subject, only: [:show, :edit, :update, :destroy]
 
   # GET /subjects
   # GET /subjects.json
@@ -17,6 +10,10 @@ class SubjectsController < ApplicationController
   # GET /subjects/1
   # GET /subjects/1.json
   def show
+    if params[:id].match(/[a-zA-Z]/)
+      @clean_address = params[:id].gsub("-", " ")
+      params[:id] = Subject.find_by_name(@clean_address).id
+    end
     @subject = Subject.find(params[:id])
     @numerical_questions_raw = Question.where(:feedback_type => "numerical_response")
     @numerical_questions = Array.new
@@ -91,9 +88,9 @@ class SubjectsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_subject
-      @subject = Subject.find(params[:id])
-    end
+    #def set_subject
+    #  @subject = Subject.find(params[:id])
+    #end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def subject_params
