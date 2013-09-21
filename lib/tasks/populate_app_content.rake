@@ -30,7 +30,7 @@ namespace :populate_app_content do
       content.message_url = ""
       content.header_color = "#4E81BF"
       content.short_title = "\"I wish this was...\""
-      content.call_in_code_digits = "1"
+      content.call_in_code_digits = "2"
     end
   end
 
