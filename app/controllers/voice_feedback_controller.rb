@@ -1,15 +1,15 @@
 class VoiceFeedbackController < ApplicationController
 
-  #@@app_url = "1000in1000.com"
-
   def route_to_survey
     if !session[:survey_started]
     #if !params.has_key?("Digits")
       session[:survey_started] = true
       session[:call_source] = call_source_from_twilio_phone_number(params["To"])
+      @call_in_code_digits = AppContentSet.first.call_in_code_digits
       response_xml = Twilio::TwiML::Response.new do |r|
-        r.Gather :timeout => 15, :numDigits => 5, :finishOnKey => '#' do |g|
-          g.Play VoiceFile.find_by_short_name("welcome_property").url
+        r.Gather :timeout => 15, :numDigits => @call_in_code_digits, :finishOnKey => '#' do |g|
+          g.Play VoiceFile.find_by_short_name("welcome").url
+          g.Play VoiceFile.find_by_short_name("code_prompt").url
         end
         r.Redirect "route_to_survey"
       end.text
@@ -23,7 +23,7 @@ class VoiceFeedbackController < ApplicationController
         #session[:survey] = "neighborhood"
       #end
       # Hard code neighborhood ID for now
-      session[:neighborhood_id] = 1
+      #session[:neighborhood_id] = 1
       response_xml = Twilio::TwiML::Response.new do |r|
         r.Redirect "voice_survey"
       end.text

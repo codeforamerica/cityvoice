@@ -13,6 +13,7 @@ namespace :populate_app_content do
       content.message_url = "https://s3-us-west-1.amazonaws.com/south-bend-secrets/cityvoice_intro.mp3"
       content.header_color = "#6DC6AD"
       content.short_title = ""
+      content.call_in_code_digits = "5"
     end
   end
 
@@ -29,6 +30,7 @@ namespace :populate_app_content do
       content.message_url = ""
       content.header_color = "#4E81BF"
       content.short_title = "\"I wish this was...\""
+      content.call_in_code_digits = "1"
     end
   end
 
