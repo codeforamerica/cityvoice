@@ -21,6 +21,9 @@ rake property_data:import
 rake property_data:add_monroe_phone_codes
 ```
 
+Also, for now, we set the name of the survey in the environment. Example:
+`SURVEY_NAME=iwtw`
+
 ### Heroku Deployment
 
 To deploy on Heroku, you'll need to do the following:
