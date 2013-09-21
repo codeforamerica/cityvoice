@@ -8,7 +8,7 @@ namespace :reset do
     def s3_path_for(filename)
       "https://s3-us-west-1.amazonaws.com/south-bend-secrets/#{filename}.mp3"
     end
-    ["neighborhood_comments", "property_comments", "property_outcome", "property_values", "public_safety", "thanks", "welcome_property"].each do |short_name|
+    ["neighborhood_comments", "property_comments", "property_outcome", "property_values", "public_safety", "thanks", "welcome", "code_prompt"].each do |short_name|
       VoiceFile.create!(short_name: short_name, url: s3_path_for(short_name))
     end
   end
