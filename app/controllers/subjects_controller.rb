@@ -11,7 +11,13 @@ class SubjectsController < ApplicationController
   # GET /subjects
   # GET /subjects.json
   def index
-    @subjects = Subject.all
+    # ONLY argument will return an array of the values of a single field across all records
+    # eg, subjects.json?only=name will yield, eg, ["Name1", "Name2", ...]
+    if params[:only] && Subject.column_names.include?(params[:only])
+      @subjects = Subject.select(params[:only]).map { |subject| subject.read_attributes(params[:only]) }
+    else
+      @subjects = Subject.all
+    end
   end
 
   # GET /subjects/1
