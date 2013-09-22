@@ -40,7 +40,7 @@ namespace :manage_deploy_data do
     desc "Adds (or updates) voice files for IWTW"
     task voice_files: :environment do
       def s3_path_for(filename)
-        "https://s3-us-west-1.amazonaws.com/south-bend-cityvoice-iwtw/#{filename}.mp3"
+        "https://s3.amazonaws.com/south-bend-cityvoice-iwtw/#{filename}.mp3"
       end
       # May want to include error messages here
       ["welcome", "code_prompt", "i_wish_comment", "thanks"].each do |short_name|
