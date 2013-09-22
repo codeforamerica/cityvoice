@@ -29,16 +29,17 @@ class SubjectsController < ApplicationController
       @user_voice_messages = FeedbackInput.where(:property_id => params[:id], :question_id => @voice_question_id).where.not(:voice_file_url => nil)
     end
     # Check for any responses
-    if @user_voice_messages && @user_voice_messages.count > 0
+    @feedback_responses_exist = false
+    if @user_voice_messages
       @feedback_responses_exist = true
     else
-      @feedback_responses_exist = false
       @numerical_questions.each do |question|
         question.response_hash.each_pair do |response_text, response_count|
           @feedback_responses_exist = true if response_count > 0
         end
       end
     end
+    p "Feedback responses exist? #{@feedback_responses_exist}"
   end
 
   # GET /subjects/new
