@@ -52,7 +52,7 @@ namespace :manage_deploy_data do
     desc "Adds (or updates) questions for IWTW"
     task questions: :environment do
       q = Question.find_or_create_by(:short_name => "i_wish_comment")
-      q.update_attributes(:feedback_type => "voice_file", :voice_file_id => VoiceFile.find_by_short_name(q.short_name))
+      q.update_attributes(:feedback_type => "voice_file", :voice_file_id => VoiceFile.find_by_short_name(q.short_name).id)
     end
 
     desc "Creates (or updates) target storefronts"
