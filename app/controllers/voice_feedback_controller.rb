@@ -7,7 +7,7 @@ class VoiceFeedbackController < ApplicationController
       session[:call_source] = call_source_from_twilio_phone_number(params["To"])
       @call_in_code_digits = AppContentSet.select(:call_in_code_digits).first.call_in_code_digits
       response_xml = Twilio::TwiML::Response.new do |r|
-        r.Gather :timeout => 15, :numDigits => @call_in_code_digits, :finishOnKey => '#' do |g|
+        r.Gather :timeout => 15, :numDigits => @call_in_code_digits, :finishOnKey => '' do |g|
           g.Play VoiceFile.find_by_short_name("welcome").url
           g.Play VoiceFile.find_by_short_name("code_prompt").url
         end
