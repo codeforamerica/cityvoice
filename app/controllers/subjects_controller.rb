@@ -24,9 +24,8 @@ class SubjectsController < ApplicationController
         response_hash[choice] = @count_of_response
       end
       @numerical_questions << OpenStruct.new(:voice_text => q.voice_text , :short_name => q.short_name, :response_hash => response_hash, :question_text => q.question_text)
-      # omg hard-coded question id i hate everything
-      @voice_question_id = Question.find_by_short_name("property_comments").id
-      @user_voice_messages = FeedbackInput.where(:property_id => params[:id], :question_id => @voice_question_id).where.not(:voice_file_url => nil)
+      # Brittle: will want to deal with multiple possible voice questions in the future
+      @user_voice_messages = FeedbackInput.where(:property_id => params[:id]).where.not(:voice_file_url => nil)
     end
     # Check for any responses
     @feedback_responses_exist = false
