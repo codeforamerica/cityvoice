@@ -61,11 +61,11 @@ namespace :manage_deploy_data do
       s1 = Subject.find_or_create_by(name: "237 N Michigan (former LaSalle Hotel)")
       s1.update_attributes(:lat => "41.678013", :long => "-86.250477", :property_code => "10")
       s2 = Subject.find_or_create_by(name: "132 S Michigan")
-      s2.update_attributes(:lat => "41.676364", :long => "-86.250375", :property_code => "11")
+      s2.update_attributes(:lat => "41.675934", :long => "-86.250326", :property_code => "11")
       s3 = Subject.find_or_create_by(name: "225 S Michigan (Left Storefront)")
-      s3.update_attributes(:lat => "41.677920", :long => "-86.250461", :property_code => "12")
+      s3.update_attributes(:lat => "41.674697", :long => "-86.250334", :property_code => "12")
       s4 = Subject.find_or_create_by(name: "225 S Michigan (Right Storefront)")
-      s4.update_attributes(:lat => "41.677920", :long => "-86.250461", :property_code => "13")
+      s4.update_attributes(:lat => "41.674697", :long => "-86.250034", :property_code => "13")
     end
   end # namespace: iwtw
 end
