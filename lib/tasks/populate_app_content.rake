@@ -24,7 +24,7 @@ namespace :populate_app_content do
       content.learn_text = "Explore the map to see where vacant storefronts are located in South Bend. Search for an address or click on a map marker to learn more about a storefront. Listen to your neighbors’ ideas for the space."
       content.call_text = "Have an idea or suggestion for this storefront? Share your thoughts and knowledge."
       content.call_instruction = "Find a storefront's call-in code on this website"
-      content.app_phone_number = ""
+      content.app_phone_number = "(414) 376-6746"
       content.listen_text = "This is about starting conversations. Click on an audio link to hear what your neighbors have to say."
       content.message_from = "\"I wish this was\" Organizers"
       content.message_url = ""
