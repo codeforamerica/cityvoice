@@ -8,7 +8,7 @@ namespace :manage_deploy_data do
         VoiceFile.delete_all
       end
       def s3_path_for(filename)
-        "https://s3-us-west-1.amazonaws.com/south-bend-cityvoice-abandoneds/#{filename}.mp3"
+        "https://s3.amazonaws.com/south-bend-cityvoice-abandoneds/#{filename}.mp3"
       end
       ["property_comments", "property_outcome", "thanks", "welcome", "code_prompt"].each do |short_name|
         VoiceFile.create!(short_name: short_name, url: s3_path_for(short_name))
