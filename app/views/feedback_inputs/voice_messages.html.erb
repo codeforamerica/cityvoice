@@ -56,7 +56,7 @@
   </div>
 
   <% @messages.each do |message| %>
-    <% location = message.property.name if message.property %>
+    <% location = message.subject.name if message.subject %>
     <% created_at = message.created_at.to_date %>
     <% phone = "XXX-XXX-" + message.phone_number.to_s[-4..-1] %>
 
