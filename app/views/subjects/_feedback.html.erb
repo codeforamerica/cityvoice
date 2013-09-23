@@ -1,18 +1,16 @@
 					    
 
-					<div class="info_box listen">
-						<div class="upper listen_bar">
-							<h1 style="display:inline;">OPINIONS</h1>
-							<!-- <em style="color:;">of 10 neighbors</em> -->
-						</div>
-						<div class="lower">
-							<% if @subject.type == "Neighborhood" %>
-								<%= render "neighborhood_issues" %>
-							<% elsif @subject.type == "Property" %>
-								<%= render "property_issues" %>
-							<% end %>
-						</div>
-					</div>
+					<% unless @numerical_questions_raw.empty? %>
+                                          <div class="info_box listen">
+                                                    <div class="upper listen_bar">
+                                                            <h1 style="display:inline;">OPINIONS</h1>
+                                                            <!-- <em style="color:;">of 10 neighbors</em> -->
+                                                    </div>
+                                                    <div class="lower">
+                                                            <%= render "property_issues" %>
+                                                    </div>
+                                          </div>
+					<% end %>
 					<div class="info_box listen">
 						<div class="upper">
 							<img class="action_icon" src="/assets/listenicon.png" /><h1 style="display:inline;">MESSAGES</h1>
