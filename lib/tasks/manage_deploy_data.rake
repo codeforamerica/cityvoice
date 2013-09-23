@@ -27,7 +27,7 @@ namespace :manage_deploy_data do
     end
 
     task :remove_neighborhood_questions => :environment do
-      ["public_safety","property_values"].each do |short_name|
+      ["public_safety", "property_values", "neighborhood_comments"].each do |short_name|
         q = Question.find_by_short_name(short_name)
         q.destroy if q
       end
