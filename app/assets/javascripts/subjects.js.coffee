@@ -29,13 +29,6 @@ jQuery ($) ->
 # `$(document).ready(makeRequest)`
 # `$(window).bind('page:change', makeRequest)`
 
-# `function makeRequest () {
-#     console.log('hey')
-#     $.getJSON(document.URL, success = loadData)
-#   }
-# `
-
-
 
 ###
 marker = L.marker([41.6702, -86.2457]).addTo(map);
@@ -48,7 +41,6 @@ polygon = L.polygon([
 
 L.geoJson().addTo(map).addData(geojsonFeatures.features[0].geometry)
 
-console.log("yolo",geojsonFeatures.features[0]))
 
 $.ajax "/assets/neighborhood_boundaries.geojson",
   dataType: "json",
