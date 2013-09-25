@@ -21,7 +21,7 @@ function placeMarkers(dataArray) {
     //var marker = L.marker(new L.LatLng(a[1],a[2]) , {icon: mapIcon} , { address: address });
     if (subject.lat && subject.long) {
       var marker = L.marker(new L.LatLng(subject.lat,subject.long) , { name: subject.name });
-      marker.bindPopup("<a href=" + document.location.origin + "/subjects/" + subject.name.replace(/\s/g,"-") + ">" + subject.name + "</a>");
+      marker.bindPopup("<a href='/subjects/" + subject.name.replace(/\s/g,"-") + "'>" + subject.name + "</a>");
       //marker.addTo(map);
       markerFeatureGroup.addLayer(marker);
     }
