@@ -26,7 +26,6 @@ function placeMarkers(dataArray) {
       markerFeatureGroup.addLayer(marker);
     }
   }
-  console.log(markerFeatureGroup);
   map.fitBounds(markerFeatureGroup.getBounds());
   markerFeatureGroup.addTo(map);
 }
@@ -42,7 +41,6 @@ $(document).ready(function() {
 });
 
 function drawMap () {
-  console.log('drawMap')
   if(monroePilot) {
     window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg').setView([41.6696, -86.246], 16);
   }
