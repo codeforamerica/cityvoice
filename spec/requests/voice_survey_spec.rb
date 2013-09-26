@@ -102,7 +102,6 @@ describe "Voice Survey Interface" do
   describe "notifications system" do
     it "updates most_recent_activity on property" do
       p = Property.where(:property_code => @property_code)[0]
-      p.recently_active?.should eq(false)
 
       post 'route_to_survey', "To" => "+15745842979" #sign
       post 'route_to_survey', "Digits" => @property_code
