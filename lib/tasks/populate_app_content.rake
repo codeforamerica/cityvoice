@@ -9,7 +9,7 @@ namespace :populate_app_content do
       content.call_instruction = "Find a property's call-in code on this website"
       content.app_phone_number = "(574) 584-2969"
       content.listen_text = "CityVoice is about having a conversation. Click on an audio link to hear what your neighbors have to say."
-      content.message_from = "Code for America Fellows"
+      content.message_from = "Shubhada Kambli, Director of Code Enforcement"
       content.message_url = "https://s3-us-west-1.amazonaws.com/south-bend-secrets/cityvoice_intro.mp3"
       content.header_color = "#6DC6AD"
       content.short_title = ""
