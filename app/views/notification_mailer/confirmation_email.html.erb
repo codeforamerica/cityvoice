@@ -85,7 +85,7 @@
       </style>
   </head>
   <body>
-    <h2>Hi,<br> You recently signed up to recieve email notifications from CityVoice. This email is to confirm that you want notifications for the location at:</h2> <br><h1><%= @property.name %></h1>
+    <h2>Hi,<br> You recently signed up to receive email notifications from CityVoice. This email is to confirm that you want notifications for the location at:</h2> <br><h1><%= @property.name %></h1>
     <br>
     <h3>
       Click this link to <%= link_to 'CONFIRM', notification_subscriptions_confirm_url(token: @token) %>
