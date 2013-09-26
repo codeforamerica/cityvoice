@@ -14,6 +14,7 @@ namespace :populate_app_content do
       content.header_color = "#6DC6AD"
       content.short_title = ""
       content.call_in_code_digits = "5"
+      content.feedback_form_url = "https://docs.google.com/forms/d/1fOhzLGy4lOYUAT3p3SH41oDNlMnELMkONJCOXCMDT0w/viewform"
     end
   end
 
@@ -31,6 +32,7 @@ namespace :populate_app_content do
       content.header_color = "#4E81BF"
       content.short_title = "\"I wish this was...\""
       content.call_in_code_digits = "2"
+      content.feedback_form_url = "https://docs.google.com/a/codeforamerica.org/forms/d/1NeC7Yq-bNK3tPeJd2gNVjB4Ave4k5EZhG4Kpbomh0j8/viewform"
     end
   end
 

@@ -54,9 +54,11 @@
 
 		<%= yield %>
 
-		<div id="feedback">
-			<a href="https://docs.google.com/forms/d/1fOhzLGy4lOYUAT3p3SH41oDNlMnELMkONJCOXCMDT0w/viewform" target="_blank"><img src="/assets/feedback_button.png" /></a>
-		</div>
+                <% unless @content.feedback_form_url.empty? %>
+                  <div id="feedback">
+                          <a href="https://docs.google.com/forms/d/1fOhzLGy4lOYUAT3p3SH41oDNlMnELMkONJCOXCMDT0w/viewform" target="_blank"><img src="/assets/feedback_button.png" /></a>
+                  </div>
+                <% end %>
 		<footer class="footer">
 		  <nav class="pull right" style="padding-right: 1.5em;">
 		    <ul>
