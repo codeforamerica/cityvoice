@@ -1,7 +1,8 @@
-
 <div class="container">
 	<div class="center">
 	<p id="notice"><%= notice %></p>
+		<div class="row">
+		</div>
 		<div class="row" style="text-align: left;">
 			<div class="span6 offset1 info_box learn">
 				<div class="row">
@@ -11,7 +12,6 @@
 							  	<%= @subject.name %><br>
 							</div>
 					</div>
-
 					<div class="span3" id="subject_description_box">
 						<% if @subject.respond_to? :property_info_set %>
 						<%= render :partial => "property_info" %>
@@ -19,9 +19,13 @@
 						<%= render :inline => raw(@subject.description) %>
 						<% end %>
 					</div>
-
 				</div>
 				<div id="map" style="margin-top: 1em; margin-bottom: 1em;"></div>
+					<div class="info_box admin">
+						<h2 style="display: inline;">Email Notifications</h2>
+						<%= render 'subscribe_form' %>	
+						<p>Sign up to receive an email when there is new information on this location. Emails are sent out once a week and only if there is new information.</p>
+					</div>
 			</div>
 			<div class="span4 info" style="text-align:left;">
 				<div class="info_box call">
@@ -35,7 +39,7 @@
 						</div>
 					</div>
 				</div>
-				<% if @feedback_responses_exist %>
+				<% if @numerical_responses_exist or !@user_voice_messages.empty? %>
 					<%= render partial: "feedback" %>
 				<% else %>
 				<div class="info_box listen">

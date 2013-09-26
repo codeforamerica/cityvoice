@@ -21,12 +21,11 @@ function placeMarkers(dataArray) {
     //var marker = L.marker(new L.LatLng(a[1],a[2]) , {icon: mapIcon} , { address: address });
     if (subject.lat && subject.long) {
       var marker = L.marker(new L.LatLng(subject.lat,subject.long) , { name: subject.name });
-      marker.bindPopup("<a href=" + document.location.origin + "/subjects/" + subject.name.replace(/\s/g,"-") + ">" + subject.name + "</a>");
+      marker.bindPopup("<a href='/subjects/" + subject.name.replace(/\s/g,"-") + "'>" + subject.name + "</a>");
       //marker.addTo(map);
       markerFeatureGroup.addLayer(marker);
     }
   }
-  console.log(markerFeatureGroup);
   map.fitBounds(markerFeatureGroup.getBounds());
   markerFeatureGroup.addTo(map);
 }
@@ -42,14 +41,13 @@ $(document).ready(function() {
 });
 
 function drawMap () {
-  console.log('drawMap')
   if(monroePilot) {
     window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg').setView([41.6696, -86.246], 16);
   }
   else {
     window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg').setView([41.665, -86.28], 13);
   }
-  $.getJSON('subjects.json', success = placeMarkers);
+  $.getJSON('subjects.json', placeMarkers);
   $( "#dialog" ).dialog();
   $( "#dialog" ).dialog({ width: 295 });
   $( "#dialog" ).dialog({ position: { my: "left top", at: "left+50 bottom+60", of: "head"} });

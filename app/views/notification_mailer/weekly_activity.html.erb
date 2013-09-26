@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+     <style>
+      h1, h2, h3, h4, h5, h6 {
+        line-height: 1;
+        text-align: left;
+      }
+      h1 {
+        color: #545454;
+        font-size: 1.75em;
+        text-align: left;
+        margin-bottom: 0em;
+        font-family: 'Varela Round', sans-serif;
+      }
+      h2 {
+        color: #545454;
+        display:inline;
+        font-size: 1.2em;
+        font-weight: bold;
+        font-family: 'Raleway', sans-serif;
+        letter-spacing: 0;
+        padding: .25em;
+        text-align: left;
+      }
+      h3 {
+        color: #545454;
+        font-size: 1.15em;
+        font-weight: bold;
+        font-family: 'Raleway', sans-serif;
+        letter-spacing: 0;
+        line-height: 1em;
+        margin-top: .25em;
+        text-align: left;
+      }
+      h4 {
+        color: #545454;
+        font-size: 1em;
+        letter-spacing: 0;
+        line-height: .6em;
+        text-align: left;
+        font-weight: normal;
+        font-style: italic;
+        font-family: 'Raleway', sans-serif;
+      }
+      h5 {
+        color: #545454;
+        font-size: .85em;
+        letter-spacing: 0;
+        line-height: .6em;
+        text-align: left;
+        font-weight: normal;
+        font-style: italic;
+        font-family: 'Raleway', sans-serif;
+      }
+      p {
+        color: #545454;
+        font-size: 1.1em;
+        line-height: 1.1em;
+        font-weight: normal;
+        font-family: 'Raleway', sans-serif;
+      }
+      strong{
+        font-size: 1.15em;
+        font-family: 'Raleway', sans-serif;
+      }
+      ol, ul, td {
+        color: #545454;
+        font-family: 'Raleway', sans-serif;
+        font-size: 1.1em;
+        line-height: 25px;
+      }
+      a {
+        color: gray;
+        a:visited {
+          color: gray;
+        }
+        a:hover {
+          color: black;
+          background: none;
+          text-decoration: none;
+        }
+      }
+      </style>
+  </head>
+  <body>
+    <h3>Your weekly wrap-up from CityVocie!</h3>
+
+    <h3>In the last week the following location has seen activity: </h3>
+    <br>
+    <h2><%= @property.name %></h2>
+    <br>
+    <hr>
+    <p>For questions or comments email: southbend@codeforamerica.org<br><a href="http://cityvoiceapp.com">cityvoiceapp.com</a></p>
+  </body>
+</html>

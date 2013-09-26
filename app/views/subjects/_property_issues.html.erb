@@ -1,12 +1,12 @@
-<% @numerical_questions.each do |my_question| %>
+<% @numerical_responses.each do |single_numerical| %>
   <div class="question">
     <div class="row-fluid">
       <div class="span12">
         <div class="text">
-          <%= my_question.question_text %>
+          <%= single_numerical.question_text %>
         </div>
         
-        <% my_question.response_hash.each_pair do |choice, count_of_choice| %>
+        <% single_numerical.response_hash.each_pair do |choice, count_of_choice| %>
           
             <div class="span2">
               <% if choice == "Repair" %>

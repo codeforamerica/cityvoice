@@ -7,7 +7,6 @@ describe "Voice Survey Interface" do
   end
 
   describe "Property Survey" do
-
     before(:all) do
       ENV["SURVEY_NAME"] = "property"
       @property_code = "99999"
@@ -94,6 +93,23 @@ describe "Voice Survey Interface" do
         @saved_input.voice_file_url.should eq("https://s3-us-west-1.amazonaws.com/south-bend-secrets/121gigawatts.mp3")
         FeedbackInput.where(:phone_number => "16175551212", :question_id => @pcomment_question_id, :neighborhood_id => session[:neighborhood_id]).count.should eq(1)
       end
+    end
+  end
+
+
+  # TODO put this test somewhere else
+  # DG TODO Refactor this to not use property
+  describe "notifications system" do
+    it "updates most_recent_activity on property" do
+      p = Property.where(:property_code => @property_code)[0]
+
+      post 'route_to_survey', "To" => "+15745842979" #sign
+      post 'route_to_survey', "Digits" => @property_code
+      post 'voice_survey'
+      post 'voice_survey', { "Digits" => "1", "From" => "+16175551212" }
+
+      p = Property.where(:property_code => @property_code)[0]
+      p.recently_active?.should eq(true)
     end
   end
 

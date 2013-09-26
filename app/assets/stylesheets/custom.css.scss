@@ -58,8 +58,8 @@ h1 {
 h2 {
   color: #545454;
   display:inline;
-  font-size: 1.1em;
-  font-weight: normal;
+  font-size: 1.2em;
+  font-weight: bold;
   font-family: 'Raleway', sans-serif;
   letter-spacing: 0;
   padding: .25em;
@@ -98,7 +98,8 @@ h5 {
 p {
   color: #545454;
   font-size: 1.1em;
-  line-height: 1.2em;
+  line-height: 1.1em;
+  font-weight: normal;
   font-family: 'Raleway', sans-serif;
 }
 strong{
@@ -215,6 +216,15 @@ border-top: 5px solid $cvOrange;
 }
 .listen{
 border-top: 5px solid $cvYellow;
+}
+.admin{
+  border-top: 5px solid $medGray;
+}
+form {
+  margin: 0px;
+}
+.underline{
+  border-bottom: 1px solid $medGray;
 }
 
 
