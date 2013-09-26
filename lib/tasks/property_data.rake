@@ -70,10 +70,11 @@ namespace :property_data do
       end
       outcome = "Vacant and Abandoned" if outcome == nil
       if target_property.property_info_set
-        target_property.property_info_set.update_attributes(:condition_code => row["Condition Code"].to_i, :condition => row["Condition (auto populates)"], :estimated_cost_exterior=> row["Estimated cost (Exterior)"], :estimated_cost_interior => row["Estimated cost (Interior - if able)"], :demo_order => row["Demo order? (Affirmed/Expired)"], :recommendation => recommendation, :outcome => outcome, :lat => lat, :long => long)
+        target_property.property_info_set.update_attributes(:condition_code => row["Condition Code"].to_i, :condition => row["Condition (auto populates)"], :estimated_cost_exterior=> row["Estimated cost (Exterior)"], :estimated_cost_interior => row["Estimated cost (Interior - if able)"], :demo_order => row["Demo order? (Affirmed/Expired)"], :recommendation => recommendation, :outcome => outcome)
       else # Already has property info set
-        target_property.property_info_set = PropertyInfoSet.create(:condition_code => row["Condition Code"].to_i, :condition => row["Condition (auto populates)"], :estimated_cost_exterior=> row["Estimated cost (Exterior)"], :estimated_cost_interior => row["Estimated cost (Interior - if able)"], :demo_order => row["Demo order? (Affirmed/Expired)"], :recommendation => recommendation, :outcome => outcome, :lat => lat, :long => long)
+        target_property.property_info_set = PropertyInfoSet.create(:condition_code => row["Condition Code"].to_i, :condition => row["Condition (auto populates)"], :estimated_cost_exterior=> row["Estimated cost (Exterior)"], :estimated_cost_interior => row["Estimated cost (Interior - if able)"], :demo_order => row["Demo order? (Affirmed/Expired)"], :recommendation => recommendation, :outcome => outcome)
       end
+      target_property.update_attributes(:lat => lat, :long => long)
     end
     address_json_path = "#{Rails.root}/app/assets/javascripts/property_addresses.json"
     File.delete(address_json_path) if File.exist?(address_json_path)
@@ -81,6 +82,18 @@ namespace :property_data do
     lats_and_longs_array_path = "#{Rails.root}/app/assets/javascripts/lats_longs.json"
     File.delete(lats_and_longs_array_path) if File.exist?(lats_and_longs_array_path)
     File.open(lats_and_longs_array_path, 'w') { |file| file.write(lats_and_longs_array.to_json) }
+  end
+
+  desc "Migrates lat/long data from property info set to subject"
+  task :migrate_latlongs_to_subject => :environment do
+    Property.all.each do |prop|
+      if prop.lat == nil or prop.long == nil
+        p "Migrating data for #{prop.name}" 
+        prop.lat = prop.property_info_set.lat
+        prop.long = prop.property_info_set.long
+        prop.save
+      end
+    end
   end
 
   desc "PENDING - Pull down CSV data from Socrata and store in /tmp"

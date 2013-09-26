@@ -63,7 +63,7 @@ class FeedbackInputsController < ApplicationController
 
   # /messages
   def voice_messages
-    @messages = FeedbackInput.includes(:property)
+    @messages = FeedbackInput.includes(:subject)
                              .where.not(:voice_file_url => nil)
                              .order("created_at DESC")
                              .paginate(page: params['page'], per_page: 10)

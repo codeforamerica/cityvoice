@@ -1,12 +1,5 @@
 class SubjectsController < ApplicationController
-  before_action :set_subject, only: [:show, :edit, :update, :destroy]
-
-  def property_address
-    @clean_address = params[:address].gsub("-", " ")
-    params[:id] = Subject.find_by_name(@clean_address).id
-    show
-    render :show
-  end
+  #before_action :set_subject, only: [:show, :edit, :update, :destroy]
 
   # GET /subjects
   # GET /subjects.json
@@ -17,43 +10,31 @@ class SubjectsController < ApplicationController
   # GET /subjects/1
   # GET /subjects/1.json
   def show
-    #public_safety_question = Question.find_by_short_name("public_safety")
-    #prop_value_question = Question.find_by_short_name("property_values")
-    @subject = Subject.find(params[:id])
-    if @subject.type == "Neighborhood"
-      @questions_raw = Question.where(:short_name => ["public_safety", "property_values"])
-      @questions = Array.new
-      @questions_raw.each do |q|
-        average_priority = FeedbackInput.where(:neighborhood_id => params[:id], :question_id => q.id).average("numerical_response")
-        @questions << OpenStruct.new(:voice_text => q.voice_text , :short_name => q.short_name, :average_priority => average_priority, :question_text => q.question_text)
-      end
-      # omg hard-coded question id i hate everything
-      @voice_question_id = Question.find_by_short_name("neighborhood_comments")
-      @user_voice_messages = FeedbackInput.where(:neighborhood_id => params[:id], :question_id => @voice_question_id).where.not(:voice_file_url => nil)
-    elsif @subject.type == "Property"
-      @questions_raw = Question.where(:short_name => ["property_outcome"])
-      @questions     = Array.new
-      @questions_raw.each do |q|
-        response_hash = Hash.new
-        ["Repair", "Remove", "Other"].each_with_index do |choice, index|
-          @count_of_response    = FeedbackInput.where(:question_id => q.id, :property_id => params[:id], :numerical_response => (index+1)).count
-          response_hash[choice] = @count_of_response
-        end
-        @questions << OpenStruct.new(:voice_text => q.voice_text , :short_name => q.short_name, :response_hash => response_hash, :question_text => q.question_text)
-      end
-      # omg hard-coded question id i hate everything
-      @voice_question_id   = Question.find_by_short_name("property_comments").id
-      @user_voice_messages = FeedbackInput.where(:property_id => params[:id], :question_id => @voice_question_id).where.not(:voice_file_url => nil)
+    if params[:id].match(/[a-zA-Z]/)
+      @clean_address = params[:id].gsub("-", " ")
+      params[:id] = Subject.find_by_name(@clean_address).id
     end
+    @subject = Subject.find(params[:id])
+    @numerical_questions_raw = Question.where(:feedback_type => "numerical_response")
+    @numerical_responses = Array.new
+    @numerical_questions_raw.each do |q|
+      response_hash = Hash.new
+      ["Repair", "Remove", "Other"].each_with_index do |choice, index|
+        @count_of_response = FeedbackInput.where(:question_id => q.id, :property_id => params[:id], :numerical_response => (index+1)).count
+        response_hash[choice] = @count_of_response
+      end
+      @numerical_responses << OpenStruct.new(:voice_text => q.voice_text , :short_name => q.short_name, :response_hash => response_hash, :question_text => q.question_text)
+    end
+    # Brittle: will want to deal with multiple possible voice questions in the future
+    @user_voice_messages = FeedbackInput.where(:property_id => params[:id]).where.not(:voice_file_url => nil)
     # Check for any responses
     @feedback_responses_exist = false
-    @questions.each do |question|
+    @numerical_responses.each do |question|
       question.response_hash.each_pair do |response_text, response_count|
-        @feedback_responses_exist = true if response_count > 0
+        @numerical_responses_exist = true if response_count > 0
       end
     end
-    # May need to make this conditional as well
-    #@user_voice_messages = FeedbackInput.where(:neighborhood_id => params[:id]).where.not(:voice_file_url => nil)
+    p "Feedback responses exist? #{@feedback_responses_exist}"
   end
 
   # GET /subjects/new
@@ -107,9 +88,9 @@ class SubjectsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_subject
-      @subject = Subject.find(params[:id])
-    end
+    #def set_subject
+    #  @subject = Subject.find(params[:id])
+    #end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def subject_params
