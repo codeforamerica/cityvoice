@@ -55,6 +55,7 @@ end
 group :production do
   gem 'pg'
   gem 'rails_12factor'
+  gem 'unicorn'
 end
 
 #use bootstrap as front-end framework
