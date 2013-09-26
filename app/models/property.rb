@@ -14,7 +14,7 @@ class Property < Subject
 
   def url_to
     name_link = self.name.gsub(' ', '-')
-    path = "/properties/#{name_link}"
+    path = "/subjects/#{name_link}"
   end
 
   # Using scoping instead, delete soon
