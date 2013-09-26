@@ -22,3 +22,4 @@ cityparcel*.csv
 cityvoice-todo*.rtf
 next-steps*.txt
 git-merge-steps.txt
+.env
