@@ -43,9 +43,8 @@
 			      	<nav class="pull-right">
 			        	<ul class="nav" style="margin-top: .35em; margin-left: 2em;">
 			        		<div class="header_links">
-
-                                                <%= link_to "ALL MESSAGES", voice_messages_path %>
-				          </div>
+                                <%= link_to "ALL MESSAGES", voice_messages_path %>
+				          	</div>
 			        	</ul>
 			      	</nav>
 			    </div>
@@ -54,11 +53,11 @@
 
 		<%= yield %>
 
-                <% unless @content.feedback_form_url.empty? %>
-                  <div id="feedback">
-                    <a href="<%= @content.feedback_form_url %>" target="_blank"><img src="/assets/feedback_button.png" /></a>
-                  </div>
-                <% end %>
+        <% unless @content.feedback_form_url.empty? %>
+          <div id="feedback">
+            <a href="<%= @content.feedback_form_url %>" target="_blank"><img src="/assets/feedback_button.png" /></a>
+          </div>
+        <% end %>
 
 		<footer class="footer">
 		  <nav class="pull right" style="padding-right: 1.5em;">
