@@ -85,12 +85,12 @@
       </style>
   </head>
   <body>
-    <h2>Hi,<br> You recently signed up to receive email notifications from CityVoice. This email is to confirm that you want notifications for the location at:</h2> <br><h1><%= @property.name %></h1>
+    <h2 style="color: #545454; display:inline; font-size: 1.2em; font-weight: bold; font-family: 'Raleway', sans-serif; letter-spacing: 0; padding: .25em; text-align: left;">Hi,<br> You recently signed up to receive email notifications from CityVoice. This email is to confirm that you want notifications for the location at:</h2> <br><h1 style="color: #545454; font-size: 1.75em; text-align: left; margin-bottom: 0em; font-family: 'Varela Round', sans-serif;"><%= @property.name %></h1>
     <br>
-    <h3>
+    <h2 style="color: #545454; display:inline; font-size: 1.2em; font-weight: bold; font-family: 'Raleway', sans-serif; letter-spacing: 0; padding: .25em; text-align: left;">
       Click this link to <%= link_to 'CONFIRM', notification_subscriptions_confirm_url(token: @token) %>
-    </h3><br>
+    </h2><br>
     <hr>
-    <p>For questions or comments email: southbend@codeforamerica.org<br><a href="http://cityvoiceapp.com">cityvoiceapp.com</a></p>
+    <p style="color: #545454; font-size: 1.1em; line-height: 1.1em; font-weight: normal; font-family: 'Raleway', sans-serif;">For questions or comments email: southbend@codeforamerica.org<br><a href="http://cityvoiceapp.com">cityvoiceapp.com</a></p>
   </body>
 </html>
