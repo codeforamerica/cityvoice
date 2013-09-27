@@ -26,12 +26,11 @@
 		<header class="navbar navbar-fixed-top navbar-inverse">
                   <div class="navbar-inner" style="background: <%= @content.header_color || "#6DC6AD" %>;  border: none;">
 			    <div class="container">
-                              <% if [nil, ""].include? @content.short_title %>
-			      	<%= link_to image_tag("cityvoice_icon.png", :border => 0), "/", id: "logo" %>
-			      	<%= link_to "CITYVOICE", "/", id: "logo" %>
-                              <% else %>
-                                <%= link_to @content.short_title, "/", id: "logo" %>
-                              <% end %>
+	                  <% if [nil, ""].include? @content.short_title %>
+	      				<%= link_to "CITYVOICE", "/", id: "logo" %>
+	                  <% else %>
+	                    <%= link_to @content.short_title, "/", id: "logo" %>
+	                  <% end %>
 			      	<nav>
 			        	<ul class="nav" style="margin-top: .35em; margin-left: 2em;">
 				          	<div class="input-append">
