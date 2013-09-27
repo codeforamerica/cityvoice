@@ -19,7 +19,7 @@ class SubjectsController < ApplicationController
     @numerical_responses = Array.new
     @numerical_questions_raw.each do |q|
       response_hash = Hash.new
-      ["Repair", "Remove", "Other"].each_with_index do |choice, index|
+      ["Repair", "Remove"].each_with_index do |choice, index|
         @count_of_response = FeedbackInput.where(:question_id => q.id, :property_id => params[:id], :numerical_response => (index+1)).count
         response_hash[choice] = @count_of_response
       end
