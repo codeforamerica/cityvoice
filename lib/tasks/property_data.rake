@@ -119,7 +119,7 @@ namespace :property_data do
       target = Property.find_by_name(row[1])
       if target == nil
         # Street name changed
-        new_name = row[1].gsub("N College", "College")
+        new_name = row[1].gsub("N College", "College").gsub("N Elmer", "Elmer")
         target = Property.find_by_name(new_name)
       end
       if target == nil
