@@ -7,6 +7,16 @@ $cvBlue: #27BDE0;
 $cvYellow: #FDBB11;
 $cvOrange: #F15E2C;
 
+/* For marker cluster group */
+.marker-cluster{
+  width: 40px;
+  height: 40px;
+  padding-top: 3px;
+  background-color: gray;
+  text-align: center;
+  font-size: 24px;
+}
+
 .landingBar{
 margin-top: .5em; 
 background: white;
