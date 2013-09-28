@@ -118,6 +118,11 @@ namespace :property_data do
     CSV.foreach("#{Rails.root}/lib/data/property_codes_201309261616420700.csv") do |row|
       target = Property.find_by_name(row[1])
       if target == nil
+        # Street name changed
+        new_name = row[1].gsub("N College", "College")
+        target = Property.find_by_name(new_name)
+      end
+      if target == nil
         p "problem with #{row} -- address not found" if target == nil
         binding.pry
       else
