@@ -4,28 +4,34 @@
 		<div class="row">
 		</div>
 		<div class="row" style="text-align: left;">
-			<div class="span6 offset1 info_box learn">
-				<div class="row">
-					<div class="span3">
-						<img class="action_icon" src="/assets/learnicon.png" />
+			<div class="span6 offset1 ">
+				<div class="info_box learn">
+					<div class="row">
+						<div class="span2">
+							<img class="action_icon" src="/assets/learnicon.png" />
 							<div class="address" style="margin-top: .25em;">
 							  	<%= @subject.name %><br>
 							</div>
+						</div>
+						<div class="span3" id="subject_description_box">
+							<% if @subject.respond_to? :property_info_set %>
+							<%= render :partial => "property_info" %>
+							<% else %>
+							<%= render :inline => raw(@subject.description) %>
+							<% end %>
+						</div>
 					</div>
-					<div class="span3" id="subject_description_box">
-						<% if @subject.respond_to? :property_info_set %>
-						<%= render :partial => "property_info" %>
-						<% else %>
-						<%= render :inline => raw(@subject.description) %>
-						<% end %>
+					<div id="map" style="margin-top: 1em; margin-bottom: 1em;"></div>
+				</div>
+				<div class="info_box admin">
+					<div class="row">
+						<div class="span5">
+							<h2 style="display: inline;">Email Notifications</h2>
+							<%= render 'subscribe_form' %>	
+							<p>Sign up to receive an email when there is new information on this location. Emails are sent out once a week and only if there is new information.</p>
+						</div>
 					</div>
 				</div>
-				<div id="map" style="margin-top: 1em; margin-bottom: 1em;"></div>
-					<div class="info_box admin">
-						<h2 style="display: inline;">Email Notifications</h2>
-						<%= render 'subscribe_form' %>	
-						<p>Sign up to receive an email when there is new information on this location. Emails are sent out once a week and only if there is new information.</p>
-					</div>
 			</div>
 			<div class="span4 info" style="text-align:left;">
 				<div class="info_box call">
