@@ -1,32 +1,30 @@
 class VoiceFeedbackController < ApplicationController
 
   def route_to_survey
+    @call_in_code_digits = AppContentSet.select(:call_in_code_digits).first.call_in_code_digits
     if !session[:survey_started]
-    #if !params.has_key?("Digits")
       session[:survey_started] = true
       session[:call_source] = call_source_from_twilio_phone_number(params["To"])
-      @call_in_code_digits = AppContentSet.select(:call_in_code_digits).first.call_in_code_digits
-      response_xml = Twilio::TwiML::Response.new do |r|
-        r.Gather :timeout => 15, :numDigits => @call_in_code_digits, :finishOnKey => '' do |g|
-          g.Play VoiceFile.find_by_short_name("welcome").url
-          g.Play VoiceFile.find_by_short_name("code_prompt").url
-        end
-        r.Redirect "route_to_survey"
-      end.text
-    # Eventually replace below with lookup and validation of property code
+      response_xml = ask_for_code(first_time: true)
     else
-      #if params["Digits"].to_s.length == 5
-        session[:property_id] = Subject.find_by_property_code(params["Digits"]).id
+      target_subject = Subject.find_by_property_code(params["Digits"])
+      if target_subject
+        session[:property_id] = target_subject.id
         session[:survey] = ENV["SURVEY_NAME"] #"property"
-      #else
-        # Need to change this: remove neighborhood survey and just ask for valid property code
-        #session[:survey] = "neighborhood"
-      #end
-      # Hard code neighborhood ID for now
-      #session[:neighborhood_id] = 1
-      response_xml = Twilio::TwiML::Response.new do |r|
-        r.Redirect "voice_survey"
-      end.text
+        response_xml = Twilio::TwiML::Response.new do |r|
+          r.Redirect "voice_survey"
+        end.text
+      else
+        if session[:attempts] == nil
+          session[:attempts] = 1
+          response_xml = ask_for_code(first_time: false)
+        else
+          response_xml = Twilio::TwiML::Response.new do |r|
+            r.Play VoiceFile.find_by_short_name("error2").url
+            r.Hangup
+          end.text
+        end
+      end
     end
     puts response_xml
     render :inline => response_xml
@@ -46,6 +44,18 @@ class VoiceFeedbackController < ApplicationController
       if @current_question.feedback_type == "numerical_response"
         if params["Digits"] == "#"
           return render :inline => twiml_for_reasking_current_question
+        end
+        if ["1","2"].include?(params["Digits"]) == false
+          if session[:wrong_digit_entered] == nil
+            session[:wrong_digit_entered] = true
+            return render :inline => twiml_for_reasking_current_question
+          else
+            error_and_hangup_xml = Twilio::TwiML::Response.new do |r|
+              r.Play VoiceFile.find_by_short_name("error2").url
+              r.Hangup
+            end.text
+            return render :inline => error_and_hangup_xml
+          end
         end
         FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: session[:neighborhood_id], :property_id => session[:property_id], numerical_response: params["Digits"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
       elsif @current_question.feedback_type == "voice_file"
@@ -95,6 +105,7 @@ class VoiceFeedbackController < ApplicationController
         if @current_question.feedback_type == "numerical_response"
           r.Gather :timeout => 10, :numDigits => 1, :finishOnKey => '' do |g|
             #r.Say @current_question.voice_text
+            r.Play VoiceFile.find_by_short_name("error1").url if session[:wrong_digit_entered]
             r.Play @current_question.voice_file.url
           end
         else
@@ -171,6 +182,20 @@ class VoiceFeedbackController < ApplicationController
     else
       return "error: from #{twilio_number}"
     end
+  end
+
+  def ask_for_code(first_time: true)
+    Twilio::TwiML::Response.new do |r|
+      r.Gather :timeout => 15, :numDigits => @call_in_code_digits, :finishOnKey => '' do |g|
+        if first_time
+          g.Play VoiceFile.find_by_short_name("welcome").url
+        else
+          g.Play VoiceFile.find_by_short_name("error1").url
+        end
+        g.Play VoiceFile.find_by_short_name("code_prompt").url
+      end
+      r.Redirect "route_to_survey"
+    end.text
   end
 
 end
