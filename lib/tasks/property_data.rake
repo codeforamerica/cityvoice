@@ -112,5 +112,29 @@ namespace :property_data do
      p "Added property code #{prop_code} to #{target.name}"
     end
   end
+
+  desc "Adds phone codes from CSV for all properties"
+  task :add_all_codes => :environment do
+    CSV.foreach("#{Rails.root}/lib/data/property_codes_201309261616420700.csv") do |row|
+      target = Property.find_by_name(row[1])
+      if target == nil
+        p "problem with #{row} -- address not found" if target == nil
+        binding.pry
+      else
+        if target.property_code
+          p "#{target.name} already has property code -- skipping"
+        else
+          target.update_attribute(:property_code, row[0])
+          p "#{row[1]} done"
+        end
+      end
+    end
+    # Check for uniqueness and coverage
+    all_codes = Property.all.map { |p| p.property_code }
+    p "# of codes: #{all_codes.count}"
+    p "# of unique codes in DB: #{all_codes.uniq.count}"
+    p "# of properties: #{Property.count}"
+    p "# of properties without codes: #{Property.where(:property_code => nil).count}"
+  end
 end
 
