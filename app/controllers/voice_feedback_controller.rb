@@ -45,6 +45,18 @@ class VoiceFeedbackController < ApplicationController
         if params["Digits"] == "#"
           return render :inline => twiml_for_reasking_current_question
         end
+        if ["1","2"].include?(params["Digits"]) == false
+          if session[:wrong_digit_entered] == nil
+            session[:wrong_digit_entered] = true
+            return render :inline => twiml_for_reasking_current_question
+          else
+            error_and_hangup_xml = Twilio::TwiML::Response.new do |r|
+              r.Play VoiceFile.find_by_short_name("error2").url
+              r.Hangup
+            end.text
+            return render :inline => error_and_hangup_xml
+          end
+        end
         FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: session[:neighborhood_id], :property_id => session[:property_id], numerical_response: params["Digits"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
       elsif @current_question.feedback_type == "voice_file"
         FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: session[:neighborhood_id], :property_id => session[:property_id], voice_file_url: params["RecordingUrl"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
@@ -93,6 +105,7 @@ class VoiceFeedbackController < ApplicationController
         if @current_question.feedback_type == "numerical_response"
           r.Gather :timeout => 10, :numDigits => 1, :finishOnKey => '' do |g|
             #r.Say @current_question.voice_text
+            r.Play VoiceFile.find_by_short_name("error1").url if session[:wrong_digit_entered]
             r.Play @current_question.voice_file.url
           end
         else
