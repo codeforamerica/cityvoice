@@ -141,5 +141,36 @@ namespace :property_data do
     p "# of properties: #{Property.count}"
     p "# of properties without codes: #{Property.where(:property_code => nil).count}"
   end
-end
 
+  desc "Adds property codes for all properties"
+  task :generate_codes => :environment do
+    props_with_codes = Property.where.not(:property_code => nil)
+    properties_hash = Hash.new
+    props_with_codes.each do |prop|
+      properties_hash[prop.property_code] = prop.name
+    end
+    props_without = Property.where(:property_code => nil)
+    props_without.each do |prop|
+      street_number = prop.name[0..prop.name.index(" ")-1]
+      if street_number.length == 3
+        code = "0" + street_number.to_s + "0"
+      elsif street_number.length == 4
+        code = street_number.to_s + "0"
+      else
+        raise "ERROR - Property has non 3 or 4 digit street number: #{p}"
+      end
+      index = 1
+      while properties_hash[code] != nil
+        code = code[0..-2] + index.to_s
+        index += 1
+      end
+      properties_hash[code] = prop.name
+    end
+    CSV.open("/tmp/property_codes_#{Time.now.to_s.gsub(/\D/,"")}.csv", "wb") do |csv|
+      properties_array = properties_hash.to_a
+      properties_array.each do |property_pair|
+        csv << property_pair
+      end
+    end
+  end
+end
