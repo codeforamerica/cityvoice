@@ -6,7 +6,16 @@ function placeMarkers(dataArray) {
     markerFeatureGroup = new L.FeatureGroup();
   }
   else {
-    markerFeatureGroup = new L.MarkerClusterGroup( { showCoverageOnHover: false } );
+    markerFeatureGroup = new L.MarkerClusterGroup({
+      showCoverageOnHover: false,
+      iconCreateFunction: function (cluster) {
+        return L.divIcon({
+          html: cluster.getChildCount(),
+          className: 'marker-cluster',
+          iconSize: L.point(40,40)
+        });
+      }
+    });
   }
   for(var i = 0; i < dataArray.length; i++) {
     var subject = dataArray[i];

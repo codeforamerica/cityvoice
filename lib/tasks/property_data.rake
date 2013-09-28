@@ -112,5 +112,65 @@ namespace :property_data do
      p "Added property code #{prop_code} to #{target.name}"
     end
   end
-end
 
+  desc "Adds phone codes from CSV for all properties"
+  task :add_all_codes => :environment do
+    CSV.foreach("#{Rails.root}/lib/data/property_codes_201309261616420700.csv") do |row|
+      target = Property.find_by_name(row[1])
+      if target == nil
+        # Street name changed
+        new_name = row[1].gsub("N College", "College").gsub("N Elmer", "Elmer")
+        target = Property.find_by_name(new_name)
+      end
+      if target == nil
+        p "problem with #{row} -- address not found" if target == nil
+        binding.pry
+      else
+        if target.property_code
+          p "#{target.name} already has property code -- skipping"
+        else
+          target.update_attribute(:property_code, row[0])
+          p "#{row[1]} done"
+        end
+      end
+    end
+    # Check for uniqueness and coverage
+    all_codes = Property.all.map { |p| p.property_code }
+    p "# of codes: #{all_codes.count}"
+    p "# of unique codes in DB: #{all_codes.uniq.count}"
+    p "# of properties: #{Property.count}"
+    p "# of properties without codes: #{Property.where(:property_code => nil).count}"
+  end
+
+  desc "Adds property codes for all properties"
+  task :generate_codes => :environment do
+    props_with_codes = Property.where.not(:property_code => nil)
+    properties_hash = Hash.new
+    props_with_codes.each do |prop|
+      properties_hash[prop.property_code] = prop.name
+    end
+    props_without = Property.where(:property_code => nil)
+    props_without.each do |prop|
+      street_number = prop.name[0..prop.name.index(" ")-1]
+      if street_number.length == 3
+        code = "0" + street_number.to_s + "0"
+      elsif street_number.length == 4
+        code = street_number.to_s + "0"
+      else
+        raise "ERROR - Property has non 3 or 4 digit street number: #{p}"
+      end
+      index = 1
+      while properties_hash[code] != nil
+        code = code[0..-2] + index.to_s
+        index += 1
+      end
+      properties_hash[code] = prop.name
+    end
+    CSV.open("/tmp/property_codes_#{Time.now.to_s.gsub(/\D/,"")}.csv", "wb") do |csv|
+      properties_array = properties_hash.to_a
+      properties_array.each do |property_pair|
+        csv << property_pair
+      end
+    end
+  end
+end
