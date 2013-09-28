@@ -24,7 +24,6 @@ describe "Voice Survey Interface" do
       end
     end
 
-
     describe "property survey" do
 
       describe "error handling on property input" do
@@ -43,6 +42,9 @@ describe "Voice Survey Interface" do
             @play_array[0].should include("error1.mp3")
             @play_array[1].should include("code_prompt.mp3")
           end
+          it "should ask for 5 digits" do
+            @body_hash["Response"]["Gather"]["numDigits"].should eq("5")
+          end
 
           describe "second wrong property code" do
             before(:all) do
@@ -54,7 +56,7 @@ describe "Voice Survey Interface" do
             end
             it "should play second error message and hang up" do
               @body_hash["Response"]["Play"].should include("error2.mp3")
-              @body_hash["Response"].keys.should include("HangUp")
+              @body_hash["Response"].keys.should include("Hangup")
             end
           end
         end

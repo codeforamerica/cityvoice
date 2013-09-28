@@ -1,10 +1,10 @@
 class VoiceFeedbackController < ApplicationController
 
   def route_to_survey
+    @call_in_code_digits = AppContentSet.select(:call_in_code_digits).first.call_in_code_digits
     if !session[:survey_started]
       session[:survey_started] = true
       session[:call_source] = call_source_from_twilio_phone_number(params["To"])
-      @call_in_code_digits = AppContentSet.select(:call_in_code_digits).first.call_in_code_digits
       response_xml = ask_for_code(first_time: true)
     else
       target_subject = Subject.find_by_property_code(params["Digits"])
@@ -21,7 +21,7 @@ class VoiceFeedbackController < ApplicationController
         else
           response_xml = Twilio::TwiML::Response.new do |r|
             r.Play VoiceFile.find_by_short_name("error2").url
-            r.HangUp
+            r.Hangup
           end.text
         end
       end
