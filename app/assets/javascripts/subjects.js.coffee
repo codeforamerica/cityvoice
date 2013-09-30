@@ -21,9 +21,6 @@ jQuery ($) ->
       success: (data) ->
         loadData(data)
     })
-    audiojs.events.ready ->
-      as = audiojs.createAll()
-
 
 
 # `$(document).ready(makeRequest)`
