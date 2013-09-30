@@ -19,14 +19,14 @@ function placeMarkers(dataArray) {
   }
   for(var i = 0; i < dataArray.length; i++) {
     var subject = dataArray[i];
-    var MapIcon = L.Icon({ 
+    var mapIcon = L.icon({ 
         iconUrl: '/assets/marker_icon_white.png' 
       }); 
-    var mapIcon = new MapIcon();
+    //var mapIcon = new MapIcon();
     // Turn on below once we've fixed the positioning and have implemented color icons
     //var marker = L.marker(new L.LatLng(a[1],a[2]) , {icon: mapIcon} , { address: address });
     if (subject.lat && subject.long) {
-      var marker = L.marker(new L.LatLng(subject.lat,subject.long) , { name: subject.name } , {icon: mapIcon});
+      var marker = L.marker(new L.LatLng(subject.lat,subject.long), { name: subject.name, icon: mapIcon });
       marker.bindPopup("<a href='/subjects/" + subject.name.replace(/\s/g,"-") + "'>" + subject.name + "</a>");
       //marker.addTo(map);
       markerFeatureGroup.addLayer(marker);
