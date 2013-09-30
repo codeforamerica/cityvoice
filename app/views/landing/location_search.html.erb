@@ -61,7 +61,10 @@
                   <% unless ["", nil].include?(@content.message_url) %>
                     <h3 style="margin-top: 1.25em;">Message: <%= @content.message_from %></h3>
                     <div class="audiojsZ">
-                      <audio src="<%= @content.message_url %>" controls></audio>
+                      <audio controls>
+                        <source src="<%= @content.message_url %>">
+                        <source src="<%= @content.message_url %>.wav">
+                      </audio>
                    </div>
                   <% end %>
 						
@@ -93,7 +96,10 @@
 
             <div class="vmessage">
               <div class="audiojsZ">
-                <audio src="<%= voice_feedback.voice_file_url %>" controls></audio>
+                <audio src="<%= voice_feedback.voice_file_url %>" controls>
+                  <source src="<%= voice_feedback.voice_file_url %>.mp3">
+                  <source src="<%= voice_feedback.voice_file_url %>.wav">
+              </audio>
               </div>
             </div>
           <% end %>
