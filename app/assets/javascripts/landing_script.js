@@ -19,17 +19,14 @@ function placeMarkers(dataArray) {
   }
   for(var i = 0; i < dataArray.length; i++) {
     var subject = dataArray[i];
-    var mapIcon = L.icon({
-        iconUrl: '/assets/marker-icon-vacant.png',
-        shadowUrl: '/assets/marker-shadow.png',
-        iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
-        shadowAnchor: [4, 62],  // the same for the shadow
-        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-    });
+    var MapIcon = L.Icon({ 
+        iconUrl: '/assets/marker_icon_white.png' 
+      }); 
+    var mapIcon = new MapIcon();
     // Turn on below once we've fixed the positioning and have implemented color icons
     //var marker = L.marker(new L.LatLng(a[1],a[2]) , {icon: mapIcon} , { address: address });
     if (subject.lat && subject.long) {
-      var marker = L.marker(new L.LatLng(subject.lat,subject.long) , { name: subject.name });
+      var marker = L.marker(new L.LatLng(subject.lat,subject.long) , { name: subject.name } , {icon: mapIcon});
       marker.bindPopup("<a href='/subjects/" + subject.name.replace(/\s/g,"-") + "'>" + subject.name + "</a>");
       //marker.addTo(map);
       markerFeatureGroup.addLayer(marker);
@@ -38,6 +35,8 @@ function placeMarkers(dataArray) {
   map.fitBounds(markerFeatureGroup.getBounds());
   markerFeatureGroup.addTo(map);
 }
+
+
 
 
 
