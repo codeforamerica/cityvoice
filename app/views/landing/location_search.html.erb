@@ -38,9 +38,11 @@
 		<div class="row" style="text-align: left;">
 			<div class="span4">
 				<div class="info_box learn content">
+                                    <% unless @content.issue.empty? %>
 					<h5 style="display:inline;">Issue:</h5>
                                         <h3><%= @content.issue %></h3><br>
-                                        <p><%= @content.learn_text %></p>
+                                    <% end %>
+                                        <p><%= raw(@content.learn_text) %></p>
 				</div>
 			</div>
 			<div class="span4">
