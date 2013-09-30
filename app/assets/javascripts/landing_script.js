@@ -8,6 +8,7 @@ function placeMarkers(dataArray) {
   else {
     markerFeatureGroup = new L.MarkerClusterGroup({
       showCoverageOnHover: false,
+      maxClusterRadius: 60,
       iconCreateFunction: function (cluster) {
         return L.divIcon({
           html: cluster.getChildCount(),
@@ -20,7 +21,9 @@ function placeMarkers(dataArray) {
   for(var i = 0; i < dataArray.length; i++) {
     var subject = dataArray[i];
     var mapIcon = L.icon({ 
-        iconUrl: '/assets/marker_icon_white.png' 
+        iconUrl: '/assets/marker_icon_gray.png',
+        iconAnchor: [12, 12],
+        popupAnchor: [0, -4], 
       }); 
     //var mapIcon = new MapIcon();
     // Turn on below once we've fixed the positioning and have implemented color icons
