@@ -62,8 +62,7 @@
                     <h3 style="margin-top: 1.25em;">Message: <%= @content.message_from %></h3>
                     <div class="audiojsZ">
                       <audio controls>
-                        <source src="<%= @content.message_url %>">
-                        <source src="<%= @content.message_url %>.wav">
+                        <source src="<%= @content.message_url %>" type="audio/mpeg">
                       </audio>
                    </div>
                   <% end %>
