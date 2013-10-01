@@ -26,6 +26,31 @@ describe "Voice Survey Interface" do
 
     describe "property survey" do
 
+      describe "phone number" do
+        before(:all) do
+          post 'route_to_survey', "To" => "+15745842979" #sign
+          post 'route_to_survey', "Digits" => @property_code
+          @body_hash = hash_from_xml(response.body)
+        end
+        it "redirects to consent url" do
+          @body_hash["Response"]["Redirect"].should eq("consent")
+        end
+        describe "consent screen" do
+          before (:all) do
+            post 'consent'
+            @body_hash = hash_from_xml(response.body)
+          end
+          it "plays consent message" do
+            @body_hash["Response"]["Gather"]["Play"].should include("consent.mp3")
+          end
+        end
+=begin
+        it "redirects to voice survey" do
+          pending
+        end
+=end
+      end
+
       describe "error handling on property input" do
 
         describe "first wrong property code" do

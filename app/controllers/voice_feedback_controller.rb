@@ -12,7 +12,7 @@ class VoiceFeedbackController < ApplicationController
         session[:property_id] = target_subject.id
         session[:survey] = ENV["SURVEY_NAME"] #"property"
         response_xml = Twilio::TwiML::Response.new do |r|
-          r.Redirect "voice_survey"
+          r.Redirect "consent"
         end.text
       else
         if session[:attempts] == nil
@@ -28,6 +28,10 @@ class VoiceFeedbackController < ApplicationController
     end
     puts response_xml
     render :inline => response_xml
+  end
+
+  def consent
+
   end
 
   def voice_survey
