@@ -63,7 +63,7 @@ describe "Voice Survey Interface" do
               post 'consent', { "Digits" => "2", "From" => "+16175551212" }
               @body_hash = hash_from_xml(response.body)
             end
-            it "saves 'yes' consent" do
+            it "saves 'no' consent" do
               Caller.find_by_phone_number(@caller_phone_number).consented_to_callback.should be_false
             end
             it "redirects to voice survey" do
