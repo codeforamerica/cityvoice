@@ -37,7 +37,7 @@ class VoiceFeedbackController < ApplicationController
     else
       if ["1","2"].include?(params["Digits"])
         session[:consent_attempts] = nil
-        @caller = Caller.find_or_create_by(:phone_number => params["From"][1..-1].to_i)
+        @caller = Caller.find_or_create_by(:phone_number => params["From"][1..-1])
         if params["Digits"] == "1"
           @caller.update_attribute(:consented_to_callback, true)
         else
