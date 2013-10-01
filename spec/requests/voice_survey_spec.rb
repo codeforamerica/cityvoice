@@ -36,6 +36,9 @@ describe "Voice Survey Interface" do
           @body_hash["Response"]["Redirect"].should eq("consent")
         end
         describe "consent screen" do
+          before(:all) do
+            @caller_phone_number = "+16175551212"
+          end
           before (:each) do
             post 'consent'
             @body_hash = hash_from_xml(response.body)
@@ -48,8 +51,11 @@ describe "Voice Survey Interface" do
           end
           describe "yes to callback" do
             before(:each) do
-              post 'consent', { "Digits" => "1", "From" => "+16175551212" }
+              post 'consent', { "Digits" => "1", "From" => @caller_phone_number }
               @body_hash = hash_from_xml(response.body)
+            end
+            it "creates a caller" do
+              Caller.find_by_phone_number(@caller_phone_number).should_not be_nil
             end
             it "saves 'yes' consent" do
               Caller.find_by_phone_number(@caller_phone_number).consented_to_callback.should be_true
@@ -60,7 +66,7 @@ describe "Voice Survey Interface" do
           end
           describe "no to callback" do
             before(:each) do
-              post 'consent', { "Digits" => "2", "From" => "+16175551212" }
+              post 'consent', { "Digits" => "2", "From" => @caller_phone_number }
               @body_hash = hash_from_xml(response.body)
             end
             it "saves 'no' consent" do
@@ -72,7 +78,7 @@ describe "Voice Survey Interface" do
           end
           describe "bad input to callback" do
             before(:each) do
-              post 'consent', { "Digits" => "0", "From" => "+16175551212" }
+              post 'consent', { "Digits" => "0", "From" => @caller_phone_number }
               @body_hash = hash_from_xml(response.body)
             end
             it "redirects back to consent" do
@@ -83,7 +89,7 @@ describe "Voice Survey Interface" do
             end
             describe "second bad input" do
               before(:each) do
-                post 'consent', { "Digits" => "8", "From" => "+16175551212" }
+                post 'consent', { "Digits" => "8", "From" => @caller_phone_number }
                 @body_hash = hash_from_xml(response.body)
               end
               it "plays second error message" do
