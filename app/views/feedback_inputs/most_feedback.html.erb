@@ -1,4 +1,57 @@
-<% @sorted_array.each do |element| %>
-  <%= element %>
-  <br>
-<% end %>
+<div class="container">
+	<div class="row">
+		<div class="span4 offset1">
+		  <h1>Feedback Index</h1><br>
+		</div>
+	</div>
+	<div class="row" style="border-bottom: 1px solid #eeeeee; border-top: 1px solid #eeeeee; margin-bottom: .5em;" >
+		<div class="span1 offset1">
+		  <h4>total</h4>
+		</div>
+		<div class="span2">
+		  <h4>address</h4>
+		</div>
+		<div class="span5">
+		  <h4>poll</h4>
+		</div>
+	</div>
+	<% @sorted_array.each do |element| %>
+		<% total = element[1].fetch(:total) { 0 } %>
+		<% address = element[0] %>
+		<% repair = element[1].fetch(:repair) { 0 } %>
+		<% remove = element[1].fetch(:remove) { 0 } %>
+
+
+		<%= element %>
+
+
+		<div class="row" style="margin-top: 0em;">
+			<div class="span1 offset1">
+			<h3><%= total %></h3>
+			</div>
+			<div class="span2">
+			<h3><%= address %></h3>
+			</div>
+			<div class="span5">
+				<div class="row">
+					<div class="span1" style="text-align: right;"><h4>repair</h4></div>
+					<div class="span4">
+						<div style=" background: #27BDE0; border-left: 1px solid #eeeeee; height: 1.2em; width: <%= repair * 30 %>px;">
+							<h3 style="margin-left: .5em;"><%= repair %></h3>
+			        	</div>
+		        	</div>
+		        </div>
+		        <div class="row">
+					<div class="span1" style="color: black; text-align: right;"><h4>remove</h4></div>
+					<div class="span4">
+						<div style=" background: #FDBB11; border-left: 1px solid #eeeeee; height: 1.2em; width: <%= remove * 30 %>px;">
+							<h3 style="margin-left: .5em;"><%= remove %></h3>
+			        	</div>
+		        	</div>
+		        </div>
+		    </div>
+		</div>
+	<% end %>
+</div>
+
+
