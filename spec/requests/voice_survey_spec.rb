@@ -78,6 +78,9 @@ describe "Voice Survey Interface" do
             it "redirects back to consent" do
               @body_hash["Response"]["Redirect"].should eq("consent")
             end
+            it "sets session[:consent_attempts] to 1" do
+              session[:consent_attempts].should eq(1)
+            end
           end
         end
       end
