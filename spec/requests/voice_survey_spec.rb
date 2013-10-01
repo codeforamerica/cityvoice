@@ -81,6 +81,18 @@ describe "Voice Survey Interface" do
             it "sets session[:consent_attempts] to 1" do
               session[:consent_attempts].should eq(1)
             end
+            describe "second bad input" do
+              before(:each) do
+                post 'consent', { "Digits" => "8", "From" => "+16175551212" }
+                @body_hash = hash_from_xml(response.body)
+              end
+              it "plays second error message" do
+                @body_hash["Response"]["Play"].should include("error2.mp3")
+              end
+              it "hangs up" do
+                @body_hash["Response"].keys.should include("Hangup")
+              end
+            end
           end
         end
       end
