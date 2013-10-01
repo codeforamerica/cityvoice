@@ -31,7 +31,33 @@ class VoiceFeedbackController < ApplicationController
   end
 
   def consent
-
+    if !session[:consent_started]
+      session[:consent_started] = true
+      response_xml = ask_for_consent
+    else
+      if ["1","2"].include?(params["Digits"])
+        session[:consent_attempts] = nil
+        if params["Digits"] == "1"
+          # Find_or_create
+          # Save YES
+        else
+          # Find_or_create
+          # Save NO
+        end
+        response_xml = Twilio::TwiML::Response.new do |r|
+          r.Redirect "voice_survey"
+        end.text
+      elsif session[:consent_attempts] == nil
+        session[:consent_attempts] = 1
+        response_xml = ask_for_consent(first_time: false)
+      else
+        response_xml = Twilio::TwiML::Response.new do |r|
+          r.Play VoiceFile.find_by_short_name("error2").url
+          r.Hangup
+        end.text
+      end
+    end
+    render :inline => response_xml
   end
 
   def voice_survey
@@ -199,6 +225,16 @@ class VoiceFeedbackController < ApplicationController
         g.Play VoiceFile.find_by_short_name("code_prompt").url
       end
       r.Redirect "route_to_survey"
+    end.text
+  end
+
+  def ask_for_consent(first_time: true)
+    Twilio::TwiML::Response.new do |r|
+      r.Gather :timeout => 15, :numDigits => 1, :finishOnKey => '' do |g|
+        g.Play VoiceFile.find_by_short_name("error1").url unless first_time
+        g.Play VoiceFile.find_by_short_name("consent").url
+      end
+      r.Redirect "consent"
     end.text
   end
 

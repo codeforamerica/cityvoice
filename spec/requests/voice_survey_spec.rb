@@ -27,7 +27,7 @@ describe "Voice Survey Interface" do
     describe "property survey" do
 
       describe "phone number" do
-        before(:all) do
+        before(:each) do
           post 'route_to_survey', "To" => "+15745842979" #sign
           post 'route_to_survey', "Digits" => @property_code
           @body_hash = hash_from_xml(response.body)
@@ -36,12 +36,24 @@ describe "Voice Survey Interface" do
           @body_hash["Response"]["Redirect"].should eq("consent")
         end
         describe "consent screen" do
-          before (:all) do
+          before (:each) do
             post 'consent'
             @body_hash = hash_from_xml(response.body)
           end
           it "plays consent message" do
             @body_hash["Response"]["Gather"]["Play"].should include("consent.mp3")
+          end
+          it "sets started session var" do
+            session[:consent_started].should be_true
+          end
+          describe "yes to callback" do
+            before(:each) do
+              post 'consent', { "Digits" => "1" }
+              @body_hash = hash_from_xml(response.body)
+            end
+            it "redirects to voice survey" do
+              @body_hash["Response"]["Redirect"].should eq("voice_survey")
+            end
           end
         end
 =begin
