@@ -26,6 +26,83 @@ describe "Voice Survey Interface" do
 
     describe "property survey" do
 
+      describe "phone number" do
+        before(:each) do
+          post 'route_to_survey', "To" => "+15745842979" #sign
+          post 'route_to_survey', "Digits" => @property_code
+          @body_hash = hash_from_xml(response.body)
+        end
+        it "redirects to consent url" do
+          @body_hash["Response"]["Redirect"].should eq("consent")
+        end
+        describe "consent screen" do
+          before(:all) do
+            @caller_phone_number = "+16175551212"
+          end
+          before (:each) do
+            post 'consent'
+            @body_hash = hash_from_xml(response.body)
+          end
+          it "plays consent message" do
+            @body_hash["Response"]["Gather"]["Play"].should include("consent.mp3")
+          end
+          it "sets started session var" do
+            session[:consent_started].should be_true
+          end
+          describe "yes to callback" do
+            before(:each) do
+              post 'consent', { "Digits" => "1", "From" => @caller_phone_number }
+              @body_hash = hash_from_xml(response.body)
+            end
+            it "creates a caller" do
+              Caller.find_by_phone_number(@caller_phone_number).should_not be_nil
+            end
+            it "saves 'yes' consent" do
+              Caller.find_by_phone_number(@caller_phone_number).consented_to_callback.should be_true
+            end
+            it "redirects to voice survey" do
+              @body_hash["Response"]["Redirect"].should eq("voice_survey")
+            end
+          end
+          describe "no to callback" do
+            before(:each) do
+              post 'consent', { "Digits" => "2", "From" => @caller_phone_number }
+              @body_hash = hash_from_xml(response.body)
+            end
+            it "saves 'no' consent" do
+              Caller.find_by_phone_number(@caller_phone_number).consented_to_callback.should be_false
+            end
+            it "redirects to voice survey" do
+              @body_hash["Response"]["Redirect"].should eq("voice_survey")
+            end
+          end
+          describe "bad input to callback" do
+            before(:each) do
+              post 'consent', { "Digits" => "0", "From" => @caller_phone_number }
+              @body_hash = hash_from_xml(response.body)
+            end
+            it "redirects back to consent" do
+              @body_hash["Response"]["Redirect"].should eq("consent")
+            end
+            it "sets session[:consent_attempts] to 1" do
+              session[:consent_attempts].should eq(1)
+            end
+            describe "second bad input" do
+              before(:each) do
+                post 'consent', { "Digits" => "8", "From" => @caller_phone_number }
+                @body_hash = hash_from_xml(response.body)
+              end
+              it "plays second error message" do
+                @body_hash["Response"]["Play"].should include("error2.mp3")
+              end
+              it "hangs up" do
+                @body_hash["Response"].keys.should include("Hangup")
+              end
+            end
+          end
+        end
+      end
+
       describe "error handling on property input" do
 
         describe "first wrong property code" do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130930205219) do
+ActiveRecord::Schema.define(version: 20131001204306) do
 
   create_table "app_content_sets", force: true do |t|
     t.string   "issue"
@@ -28,6 +28,13 @@ ActiveRecord::Schema.define(version: 20130930205219) do
     t.string   "short_title"
     t.string   "call_in_code_digits", limit: 1
     t.string   "feedback_form_url"
+  end
+
+  create_table "callers", force: true do |t|
+    t.boolean  "consented_to_callback"
+    t.string   "phone_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "feedback_inputs", force: true do |t|
