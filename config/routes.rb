@@ -22,6 +22,8 @@ Automidnight::Application.routes.draw do
 
   get 'voice-messages', to: 'feedback_inputs#voice_messages', as: :voice_messages
 
+  get 'feedback', to: 'feedback_inputs#most_feedback', as: :most_feedback
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

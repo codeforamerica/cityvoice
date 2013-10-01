@@ -7,6 +7,19 @@ class FeedbackInputsController < ApplicationController
     @feedback_inputs = FeedbackInput.all
   end
 
+  def most_feedback
+    @total_counts = FeedbackInput.where.not(:numerical_response => nil).joins(:subject).group(:subject).count(:numerical_response)#.map { |item| { item[0].name => { :total => item[1] } } }
+    @repair_counts = FeedbackInput.where(:numerical_response => 1).joins(:subject).group(:subject).count(:numerical_response)
+    @remove_counts = FeedbackInput.where(:numerical_response => 2).joins(:subject).group(:subject).count(:numerical_response)
+    @counts_hash = Hash.new
+    @total_counts.each { |tc| @counts_hash[tc[0].name] = { :total => tc[1] } }
+    @repair_counts.each { |rc| @counts_hash[rc[0].name][:repair] = rc[1] }
+    @remove_counts.each { |rc| @counts_hash[rc[0].name][:remove] = rc[1] }
+    @counts_array = Array.new
+    @counts_hash.each { |elem| @counts_array << elem }
+    @sorted_array = @counts_array.sort_by { |elem| elem[1][:total].to_i }.reverse
+  end
+
   # GET /feedback_inputs/1
   # GET /feedback_inputs/1.json
   def show
