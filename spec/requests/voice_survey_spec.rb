@@ -51,16 +51,25 @@ describe "Voice Survey Interface" do
               post 'consent', { "Digits" => "1" }
               @body_hash = hash_from_xml(response.body)
             end
+            it "saves preference" do
+              Caller.find_by_phone_number(@caller_phone_number).consented_to_callback.should be_true
+            end
             it "redirects to voice survey" do
               @body_hash["Response"]["Redirect"].should eq("voice_survey")
             end
           end
+          describe "no to callback" do
+            before(:each) do
+              post 'consent', { "Digits" => "2" }
+              @body_hash = hash_from_xml(response.body)
+            end
+            it "redirects to voice survey" do
+              @body_hash["Response"]["Redirect"].should eq("voice_survey")
+            end
+          end
+          describe "bad input to callback" do
+          end
         end
-=begin
-        it "redirects to voice survey" do
-          pending
-        end
-=end
       end
 
       describe "error handling on property input" do
