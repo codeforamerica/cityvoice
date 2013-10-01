@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130926162042) do
+ActiveRecord::Schema.define(version: 20130930205219) do
 
   create_table "app_content_sets", force: true do |t|
     t.string   "issue"
-    t.string   "learn_text"
+    t.text     "learn_text",          limit: 400
     t.string   "call_text"
     t.string   "call_instruction"
     t.string   "app_phone_number"
