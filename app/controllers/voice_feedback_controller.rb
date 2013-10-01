@@ -37,12 +37,11 @@ class VoiceFeedbackController < ApplicationController
     else
       if ["1","2"].include?(params["Digits"])
         session[:consent_attempts] = nil
+        @caller = Caller.find_or_create_by(:phone_number => params["From"][1..-1].to_i)
         if params["Digits"] == "1"
-          # Find_or_create
-          # Save YES
+          @caller.update_attribute(:consented_to_callback, true)
         else
-          # Find_or_create
-          # Save NO
+          @caller.update_attribute(:consented_to_callback, false)
         end
         response_xml = Twilio::TwiML::Response.new do |r|
           r.Redirect "voice_survey"

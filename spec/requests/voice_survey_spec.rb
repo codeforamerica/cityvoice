@@ -48,10 +48,10 @@ describe "Voice Survey Interface" do
           end
           describe "yes to callback" do
             before(:each) do
-              post 'consent', { "Digits" => "1" }
+              post 'consent', { "Digits" => "1", "From" => "+16175551212" }
               @body_hash = hash_from_xml(response.body)
             end
-            it "saves preference" do
+            it "saves 'yes' consent" do
               Caller.find_by_phone_number(@caller_phone_number).consented_to_callback.should be_true
             end
             it "redirects to voice survey" do
@@ -60,14 +60,24 @@ describe "Voice Survey Interface" do
           end
           describe "no to callback" do
             before(:each) do
-              post 'consent', { "Digits" => "2" }
+              post 'consent', { "Digits" => "2", "From" => "+16175551212" }
               @body_hash = hash_from_xml(response.body)
+            end
+            it "saves 'yes' consent" do
+              Caller.find_by_phone_number(@caller_phone_number).consented_to_callback.should be_false
             end
             it "redirects to voice survey" do
               @body_hash["Response"]["Redirect"].should eq("voice_survey")
             end
           end
           describe "bad input to callback" do
+            before(:each) do
+              post 'consent', { "Digits" => "0", "From" => "+16175551212" }
+              @body_hash = hash_from_xml(response.body)
+            end
+            it "redirects back to consent" do
+              @body_hash["Response"]["Redirect"].should eq("consent")
+            end
           end
         end
       end
