@@ -92,6 +92,7 @@ class VoiceFeedbackController < ApplicationController
           end
         end.text
       else # No voice messages left
+        session[:end_of_messages] = true
         response_xml = Twilio::TwiML::Response.new do |r|
           r.Gather :timeout => 15, :numDigits => 1, :finishOnKey => '' do |g|
             r.Play VoiceFile.find_by_short_name("last_message_reached").url
