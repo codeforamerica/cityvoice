@@ -57,6 +57,7 @@ group :production do
   gem 'pg'
   gem 'rails_12factor'
   gem 'unicorn'
+  gem 'newrelic_rpm'
 end
 
 #use bootstrap as front-end framework

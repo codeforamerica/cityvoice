@@ -22,6 +22,8 @@ Automidnight::Application.routes.draw do
 
   get 'voice-messages', to: 'feedback_inputs#voice_messages', as: :voice_messages
 
+  get 'feedback', to: 'feedback_inputs#most_feedback', as: :most_feedback
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -31,8 +33,9 @@ Automidnight::Application.routes.draw do
   #post '/respond_to_property_code' => 'voice_feedback#respond_to_property_code'
   #post '/solicit_comment' => 'voice_feedback#solicit_comment'
 
-  post '/voice_survey' => 'voice_feedback#voice_survey'
   post '/route_to_survey' => 'voice_feedback#route_to_survey'
+  post '/consent' => 'voice_feedback#consent'
+  post '/voice_survey' => 'voice_feedback#voice_survey'
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'

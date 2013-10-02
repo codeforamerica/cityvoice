@@ -12,7 +12,7 @@ class VoiceFeedbackController < ApplicationController
         session[:property_id] = target_subject.id
         session[:survey] = ENV["SURVEY_NAME"] #"property"
         response_xml = Twilio::TwiML::Response.new do |r|
-          r.Redirect "voice_survey"
+          r.Redirect "consent"
         end.text
       else
         if session[:attempts] == nil
@@ -27,6 +27,35 @@ class VoiceFeedbackController < ApplicationController
       end
     end
     puts response_xml
+    render :inline => response_xml
+  end
+
+  def consent
+    if !session[:consent_started]
+      session[:consent_started] = true
+      response_xml = ask_for_consent
+    else
+      if ["1","2"].include?(params["Digits"])
+        session[:consent_attempts] = nil
+        @caller = Caller.find_or_create_by(:phone_number => params["From"])
+        if params["Digits"] == "1"
+          @caller.update_attribute(:consented_to_callback, true)
+        else
+          @caller.update_attribute(:consented_to_callback, false)
+        end
+        response_xml = Twilio::TwiML::Response.new do |r|
+          r.Redirect "voice_survey"
+        end.text
+      elsif session[:consent_attempts] == nil
+        session[:consent_attempts] = 1
+        response_xml = ask_for_consent(first_time: false)
+      else
+        response_xml = Twilio::TwiML::Response.new do |r|
+          r.Play VoiceFile.find_by_short_name("error2").url
+          r.Hangup
+        end.text
+      end
+    end
     render :inline => response_xml
   end
 
@@ -195,6 +224,16 @@ class VoiceFeedbackController < ApplicationController
         g.Play VoiceFile.find_by_short_name("code_prompt").url
       end
       r.Redirect "route_to_survey"
+    end.text
+  end
+
+  def ask_for_consent(first_time: true)
+    Twilio::TwiML::Response.new do |r|
+      r.Gather :timeout => 15, :numDigits => 1, :finishOnKey => '' do |g|
+        g.Play VoiceFile.find_by_short_name("error1").url unless first_time
+        g.Play VoiceFile.find_by_short_name("consent").url
+      end
+      r.Redirect "consent"
     end.text
   end
 
