@@ -87,7 +87,7 @@ class VoiceFeedbackController < ApplicationController
       if @voice_messages[session[:current_message_index]]
         response_xml = Twilio::TwiML::Response.new do |r|
           r.Gather :timeout => 8, :numDigits => 1, :finishOnKey => '' do |g|
-            r.Play @voice_messages[0].voice_file_url # URL for message
+            r.Play @voice_messages[session[:current_message_index]].voice_file_url # URL for message
             r.Play VoiceFile.find_by_short_name("listen_to_another").url
           end
         end.text
