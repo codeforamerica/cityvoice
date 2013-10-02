@@ -57,12 +57,11 @@ class VoiceFeedbackController < ApplicationController
   end
 
   def check_for_messages
-    Subject.find(session[:property_id]).feedback_inputs
-=begin
-    if
-    else
-    end
-=end
+    feedback = Subject.find(session[:property_id]).feedback_inputs
+    response_xml = Twilio::TwiML::Response.new do |r|
+        r.Play VoiceFile.find_by_short_name("no_feedback_yet").url
+        r.Redirect "voice_survey"
+    end.text
     render :inline => response_xml
   end
 

@@ -165,6 +165,7 @@ describe "Voice Survey Interface" do
           end
         end
         describe "caller gives bad input" do
+          # Pending
         end
       end
 
@@ -178,9 +179,14 @@ describe "Voice Survey Interface" do
         describe "subject without feedback" do
           before(:each) do
             session[:property_id] = @subj_without_vmessages.id
-            #post 'check_for_messages'
+            post 'check_for_messages'
+            @hash_response = hash_from_xml(response.body)["Response"]
           end
-          it "plays no_voice_feedback_yet message and prompt" do
+          it "plays no_voice_feedback_yet message" do
+            @hash_response["Play"].should include("no_feedback_yet.mp3")
+          end
+          it "redirects to voice_survey" do
+            @hash_response["Redirect"].should eq("voice_survey")
           end
         end
       end
