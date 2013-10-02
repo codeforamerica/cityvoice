@@ -31,7 +31,29 @@ class VoiceFeedbackController < ApplicationController
   end
 
   def listen_to_messages_prompt
-
+    if !session[:listen_to_messages_started]
+      session[:listen_to_messages_started] = true
+      response_xml = ask_about_listening
+    else
+      if ["1","2"].include?(params["Digits"])
+        response_xml = Twilio::TwiML::Response.new do |r|
+          if params["Digits"] == "1"
+            r.Redirect "check_for_messages"
+          else
+            r.Redirect "voice_survey"
+          end
+        end.text
+      elsif session[:listen_attempts] == nil
+        session[:listen_attempts] = 1
+        response_xml = ask_about_listening(first_time: false)
+      else
+        response_xml = Twilio::TwiML::Response.new do |r|
+          r.Play VoiceFile.find_by_short_name("error2").url
+          r.Hangup
+        end.text
+      end
+    end
+    render :inline => response_xml
   end
 
   def check_for_messages
@@ -242,6 +264,16 @@ class VoiceFeedbackController < ApplicationController
         g.Play VoiceFile.find_by_short_name("code_prompt").url
       end
       r.Redirect "route_to_survey"
+    end.text
+  end
+
+  def ask_about_listening(first_time: true)
+    Twilio::TwiML::Response.new do |r|
+      r.Gather :timeout => 15, :numDigits => 1, :finishOnKey => '' do |g|
+        g.Play VoiceFile.find_by_short_name("error1").url unless first_time
+        g.Play VoiceFile.find_by_short_name("listen_to_messages_prompt").url
+      end
+      r.Redirect "listen_to_messages_prompt"
     end.text
   end
 

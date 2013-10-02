@@ -165,7 +165,7 @@ describe "Voice Survey Interface" do
         describe "subject without feedback" do
           before(:each) do
             session[:property_id] = @subj_without_vmessages.id
-            post 'check_for_messages'
+            #post 'check_for_messages'
           end
           it "plays no_voice_feedback_yet message and prompt" do
           end
