@@ -73,14 +73,32 @@ class VoiceFeedbackController < ApplicationController
   end
 
   def message_playback
-    @voice_messages = FeedbackInput.where('property_id = ? and voice_file_url != ?', session[:property_id], "null")
-    response_xml = Twilio::TwiML::Response.new do |r|
-      r.Gather :timeout => 8, :numDigits => 1, :finishOnKey => '' do |g|
-        r.Play @voice_messages[0].voice_file_url # URL for message
-        r.Play VoiceFile.find_by_short_name("listen_to_another").url
-        #r.Redirect "voice_survey"
+    if params["Digits"] == "2" or session[:end_of_messages]
+      response_xml = Twilio::TwiML::Response.new do |r|
+        r.Redirect "voice_survey"
       end
-    end.text
+    else
+      @voice_messages = FeedbackInput.where('property_id = ? and voice_file_url != ?', session[:property_id], "null").order('created_at ASC')
+      if session[:current_message_index] == nil
+        session[:current_message_index] = 0
+      else
+        session[:current_message_index] += 1
+      end
+      if @voice_messages[session[:current_message_index]]
+        response_xml = Twilio::TwiML::Response.new do |r|
+          r.Gather :timeout => 8, :numDigits => 1, :finishOnKey => '' do |g|
+            r.Play @voice_messages[0].voice_file_url # URL for message
+            r.Play VoiceFile.find_by_short_name("listen_to_another").url
+          end
+        end.text
+      else # No voice messages left
+        response_xml = Twilio::TwiML::Response.new do |r|
+          r.Gather :timeout => 15, :numDigits => 1, :finishOnKey => '' do |g|
+            r.Play VoiceFile.find_by_short_name("last_message_reached").url
+          end
+        end.text
+      end
+    end
     render :inline => response_xml
   end
 
