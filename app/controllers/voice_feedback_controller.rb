@@ -76,7 +76,7 @@ class VoiceFeedbackController < ApplicationController
     if params["Digits"] == "2" or session[:end_of_messages]
       response_xml = Twilio::TwiML::Response.new do |r|
         r.Redirect "consent"
-      end
+      end.text
     else
       @voice_messages = FeedbackInput.where('property_id = ? and voice_file_url != ?', session[:property_id], "null").order('created_at ASC')
       if session[:current_message_index] == nil
