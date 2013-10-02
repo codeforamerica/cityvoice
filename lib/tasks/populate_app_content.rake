@@ -4,7 +4,7 @@ namespace :populate_app_content do
   task :abandoned_property_deploy => :environment do
     AppContentSet.configure_contents do |content|
       content.issue = ""
-      content.learn_text = "To learn more about getting involved in South Bend's vacant and abandoned property initiative, including:<ul><li>Indiana's Good Samaritan law</li><li>How to acquire an abandoned property</li><li>Property reuse options</li></ul><p><strong><a href=\"http://www.ci.south-bend.in.us/sites/default/files/files/Code_VATF_ResidentInfoBook.pdf\">Click here to read the city's \"Helpful Information\" guide</a></strong>.</p>"
+      content.learn_text = "To learn more about getting involved in South Bend's vacant and abandoned property initiative, including:<ul><li>Indiana's Good Samaritan law</li><li>How to acquire an abandoned property</li><li>Property reuse options</li></ul><p><strong><a href=\"http://southbendin.gov/government/content/information-residents\">Click here to read the city's \"Helpful Information\" guide</a></strong>.</p>"
       content.call_text = "Is this information inaccurate? Have a plan for a property? Share your thoughts and knowledge."
       content.call_instruction = "Find a property's call-in code on this website"
       content.app_phone_number = "(574) 584-2969"
