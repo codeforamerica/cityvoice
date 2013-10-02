@@ -211,12 +211,12 @@ describe "Voice Survey Interface" do
       end
 
       describe "message_playback" do
-        before(:each) do
+        before(:all) do
           @code_for_playback_subject = "33333"
-          @subj_with_vmessages = Subject.create(:name => "Subject with Voice Messages3", :property_code => @code_for_playback_subject)
-          FeedbackInput.create(property_id: @subj_with_vmessages.id, voice_file_url: "myurl1")
-          FeedbackInput.create(property_id: @subj_with_vmessages.id, voice_file_url: "myurl2")
-          FeedbackInput.create(property_id: @subj_with_vmessages.id, numerical_response: "1")
+          @subj_with_vmessages_to_play = Subject.create(:name => "Subject with Voice Messages3", :property_code => @code_for_playback_subject)
+          FeedbackInput.create(property_id: @subj_with_vmessages_to_play.id, voice_file_url: "myurl1")
+          FeedbackInput.create(property_id: @subj_with_vmessages_to_play.id, voice_file_url: "myurl2")
+          FeedbackInput.create(property_id: @subj_with_vmessages_to_play.id, numerical_response: "1")
           post 'route_to_survey'
           post 'route_to_survey', "Digits" => @code_for_playback_subject
           post 'check_for_messages'
@@ -233,7 +233,43 @@ describe "Voice Survey Interface" do
           it "gathers input for next step" do
             @hash_response["Gather"]["numDigits"].should eq("1")
           end
+          it "plays the second voice message" do
+            post 'message_playback', "Digits" => "1"
+            @hash_response["Gather"]["Play"][0].should eq("myurl2")
+            @hash_response["Gather"]["numDigits"].should eq("1")
+          end
+          it "plays the prompt about no more messages" do
+            #@hash_response["Gather"]["Play"][1].should include("listen_to_another.mp3")
+          end
+          it "gathers input for next step" do
+          end
         end
+=begin
+        describe "listening to second message" do
+          before(:all) do
+            @code_for_playback_subject = "33333"
+            @subj_with_vmessages_to_play = Subject.create(:name => "Subject with Voice Messages3", :property_code => @code_for_playback_subject)
+            FeedbackInput.create(property_id: @subj_with_vmessages_to_play.id, voice_file_url: "myurl1")
+            FeedbackInput.create(property_id: @subj_with_vmessages_to_play.id, voice_file_url: "myurl2")
+            FeedbackInput.create(property_id: @subj_with_vmessages_to_play.id, numerical_response: "1")
+            post 'route_to_survey'
+            post 'route_to_survey', "Digits" => @code_for_playback_subject
+            post 'check_for_messages'
+            post 'message_playback'
+            @hash_response = hash_from_xml(response.body)["Response"]
+            post 'message_playback', "Digits" => "1"
+          end
+            it "plays the second voice message" do
+              @hash_response["Gather"]["Play"][0].should eq("myurl2")
+            end
+            it "plays the prompt about no more messages" do
+              #@hash_response["Gather"]["Play"][1].should include("listen_to_another.mp3")
+            end
+            it "gathers input for next step" do
+              @hash_response["Gather"]["numDigits"].should eq("1")
+            end
+        end
+=end
       end
 
       before(:each) do
