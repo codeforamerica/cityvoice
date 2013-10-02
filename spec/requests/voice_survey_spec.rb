@@ -144,14 +144,27 @@ describe "Voice Survey Interface" do
           @body_hash = hash_from_xml(response.body)
         end
         it "prompts correctly" do
-          # Check voice file
           @body_hash["Response"]["Gather"]["Play"].should include("listen_to_messages_prompt")
         end
         describe "caller wants to listen" do
-          # TEST: redirects to check_for_messages if wants to listen
+          before(:each) do
+            post 'listen_to_messages_prompt', { "Digits" => "1" }
+            @body_hash = hash_from_xml(response.body)
+          end
+          it "redirects to check_for_messages" do
+            @body_hash["Response"]["Redirect"].should eq("check_for_messages")
+          end
         end
         describe "caller does NOT want to listen" do
-
+          before(:each) do
+            post 'listen_to_messages_prompt', { "Digits" => "2" }
+            @body_hash = hash_from_xml(response.body)
+          end
+          it "redirects to voice_survey" do
+            @body_hash["Response"]["Redirect"].should eq("voice_survey")
+          end
+        end
+        describe "caller gives bad input" do
         end
       end
 
