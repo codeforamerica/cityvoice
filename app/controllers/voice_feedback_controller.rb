@@ -30,6 +30,24 @@ class VoiceFeedbackController < ApplicationController
     render :inline => response_xml
   end
 
+  def listen_to_messages_prompt
+
+  end
+
+  def check_for_messages
+    Subject.find(session[:property_id]).feedback_inputs
+=begin
+    if
+    else
+    end
+=end
+    render :inline => response_xml
+  end
+
+  def message_playback
+
+  end
+
   def consent
     if !session[:consent_started]
       session[:consent_started] = true

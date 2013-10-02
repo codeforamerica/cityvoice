@@ -26,7 +26,7 @@ describe "Voice Survey Interface" do
 
     describe "property survey" do
 
-      describe "phone number" do
+      describe "Consent feature" do
         before(:each) do
           post 'route_to_survey', "To" => "+15745842979" #sign
           post 'route_to_survey', "Digits" => @property_code
@@ -104,7 +104,6 @@ describe "Voice Survey Interface" do
       end
 
       describe "error handling on property input" do
-
         describe "first wrong property code" do
           before(:all) do
             post 'route_to_survey', "To" => "+15745842979" #sign
@@ -137,8 +136,42 @@ describe "Voice Survey Interface" do
             end
           end
         end
-
       end
+
+      describe "Asking caller about listening to feedback" do
+        before(:each) do
+          post 'listen_to_messages_prompt'
+          @body_hash = hash_from_xml(response.body)
+        end
+        it "prompts correctly" do
+          # Check voice file
+          @body_hash["Response"]["Gather"]["Play"].should include("listen_to_messages_prompt")
+        end
+        describe "caller wants to listen" do
+          # TEST: redirects to check_for_messages if wants to listen
+        end
+        describe "caller does NOT want to listen" do
+
+        end
+      end
+
+      describe "playback of existing messages" do
+        before(:all) do
+          @subj_with_vmessages = Subject.create(:name => "Subject with Voice Messages")
+          FeedbackInput.create(property_id: @subj_with_vmessages.id, voice_file_url: "myurl1")
+          FeedbackInput.create(property_id: @subj_with_vmessages.id, voice_file_url: "myurl2")
+          @subj_without_vmessages = Subject.create(:name => "Subject without Voice Messages")
+        end
+        describe "subject without feedback" do
+          before(:each) do
+            session[:property_id] = @subj_without_vmessages.id
+            post 'check_for_messages'
+          end
+          it "plays no_voice_feedback_yet message and prompt" do
+          end
+        end
+      end
+
 
       before(:each) do
         post 'route_to_survey', "To" => "+15745842979" #sign
