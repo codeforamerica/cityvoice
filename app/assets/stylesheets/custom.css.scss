@@ -79,7 +79,7 @@ h4 {
   color: #545454;
   font-size: 1em;
   letter-spacing: 0;
-  line-height: .6em;
+  line-height: .3em;
   text-align: left;
   font-weight: normal;
   font-style: italic;
@@ -154,11 +154,10 @@ margin-top: 5em;
   border: 1px solid white;
   -moz-border-radius: 3px;
   border-radius: 3px;
+  display: inline;
   font-size: .9em;
-  margin-top: .35em;
-  padding: .1em;
-  padding-left: .28em;
-  padding-right: .28em;
+  margin-right: .5em;
+  padding: .15em .3em;
   a {
     color: white;
     font-family: 'Varela Round', sans-serif;
