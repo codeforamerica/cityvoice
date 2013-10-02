@@ -12,7 +12,7 @@ class VoiceFeedbackController < ApplicationController
         session[:property_id] = target_subject.id
         session[:survey] = ENV["SURVEY_NAME"] #"property"
         response_xml = Twilio::TwiML::Response.new do |r|
-          r.Redirect "consent"
+          r.Redirect "listen_to_messages_prompt"
         end.text
       else
         if session[:attempts] == nil
@@ -40,7 +40,7 @@ class VoiceFeedbackController < ApplicationController
           if params["Digits"] == "1"
             r.Redirect "check_for_messages"
           else
-            r.Redirect "voice_survey"
+            r.Redirect "consent"
           end
         end.text
       elsif session[:listen_attempts] == nil
@@ -61,7 +61,7 @@ class VoiceFeedbackController < ApplicationController
     if @voice_message_count == 0
       response_xml = Twilio::TwiML::Response.new do |r|
         r.Play VoiceFile.find_by_short_name("no_feedback_yet").url
-        r.Redirect "voice_survey"
+        r.Redirect "consent"
       end.text
     else
       # Voice messages exist
@@ -75,7 +75,7 @@ class VoiceFeedbackController < ApplicationController
   def message_playback
     if params["Digits"] == "2" or session[:end_of_messages]
       response_xml = Twilio::TwiML::Response.new do |r|
-        r.Redirect "voice_survey"
+        r.Redirect "consent"
       end
     else
       @voice_messages = FeedbackInput.where('property_id = ? and voice_file_url != ?', session[:property_id], "null").order('created_at ASC')
