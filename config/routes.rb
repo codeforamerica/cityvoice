@@ -34,6 +34,7 @@ Automidnight::Application.routes.draw do
   post '/route_to_survey' => 'voice_feedback#route_to_survey'
   post '/listen_to_messages_prompt' => 'voice_feedback#listen_to_messages_prompt'
   post '/check_for_messages' => 'voice_feedback#check_for_messages'
+  post '/message_playback' => 'voice_feedback#message_playback'
   post '/consent' => 'voice_feedback#consent'
   post '/voice_survey' => 'voice_feedback#voice_survey'
 

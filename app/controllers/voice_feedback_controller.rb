@@ -73,7 +73,15 @@ class VoiceFeedbackController < ApplicationController
   end
 
   def message_playback
-
+    @voice_messages = FeedbackInput.where('property_id = ? and voice_file_url != ?', session[:property_id], "null")
+    response_xml = Twilio::TwiML::Response.new do |r|
+      r.Gather :timeout => 8, :numDigits => 1, :finishOnKey => '' do |g|
+        r.Play @voice_messages[0].voice_file_url # URL for message
+        r.Play VoiceFile.find_by_short_name("listen_to_another").url
+        #r.Redirect "voice_survey"
+      end
+    end.text
+    render :inline => response_xml
   end
 
   def consent
