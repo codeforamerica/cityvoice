@@ -5,7 +5,7 @@ namespace :manage_deploy_data do
     desc "Resets voice files"
     task voice_files: :environment do
       def s3_path_for(filename)
-        "https://s3.amazonaws.com/south-bend-cityvoice-abandoneds/v3/#{filename}.mp3"
+        "https://s3.amazonaws.com/south-bend-cityvoice-abandoneds/v4/#{filename}.mp3"
       end
       ["property_comments", "property_outcome", "thanks", "welcome", "code_prompt", "error1", "error2", "consent", "listen_to_messages_prompt", "no_feedback_yet", "listen_to_another", "last_message_reached"].each do |short_name|
         vf = VoiceFile.find_or_create_by(short_name: short_name)

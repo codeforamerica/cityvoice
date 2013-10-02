@@ -11,11 +11,34 @@ $cvOrange: #F15E2C;
 .marker-cluster{
   width: 40px;
   height: 40px;
-  padding-top: 3px;
-  background-color: gray;
+  padding-top: 2px;
+  padding-bottom: 0px;
+  background-color: #757575;
+
+  color: white;
+  text-align: center;
+  font-size: 23px;
+  -moz-box-shadow: 0px 0px 5px 4px #ccc;
+  -webkit-box-shadow: 0px 0px 5px 4px #ccc;
+  box-shadow: 0px 0px 5px 4px #ccc;
+}
+/*
+
+{
+  width: 40px;
+  height: 40px;
+  padding-top: 2px;
+  background-color: white;
+  border: 2px solid #A6A6A6;
+  color: #545454;
   text-align: center;
   font-size: 24px;
+  -moz-box-shadow: 0px 0px 6px 4px #ccc;
+  -webkit-box-shadow: 0px 0px 6px 4px #ccc;
+  box-shadow: 0px 0px 6px 4px #ccc;
 }
+
+*/
 
 .landingBar{
 margin-top: .5em; 
