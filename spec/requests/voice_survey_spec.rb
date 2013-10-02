@@ -170,15 +170,10 @@ describe "Voice Survey Interface" do
       end
 
       describe "playback of existing messages" do
-        before(:all) do
-          @subj_with_vmessages = Subject.create(:name => "Subject with Voice Messages")
-          FeedbackInput.create(property_id: @subj_with_vmessages.id, voice_file_url: "myurl1")
-          FeedbackInput.create(property_id: @subj_with_vmessages.id, voice_file_url: "myurl2")
-          @subj_without_vmessages = Subject.create(:name => "Subject without Voice Messages")
-        end
         describe "subject without feedback" do
-          before(:each) do
-            session[:property_id] = @subj_without_vmessages.id
+          before(:all) do
+            @subj_without_vmessages = Subject.create(:name => "Subject without Voice Messages")
+            stub(:session => { :property_id => @subj_without_vmessages.id } )
             post 'check_for_messages'
             @hash_response = hash_from_xml(response.body)["Response"]
           end
@@ -189,8 +184,34 @@ describe "Voice Survey Interface" do
             @hash_response["Redirect"].should eq("voice_survey")
           end
         end
+        describe "subject WITH feedback" do
+          before(:all) do
+            @code_for_subject = "22222"
+            @subj_with_vmessages = Subject.create(:name => "Subject with Voice Messages2", :property_code => @code_for_subject)
+            FeedbackInput.create(property_id: @subj_with_vmessages.id, voice_file_url: "myurl1")
+            FeedbackInput.create(property_id: @subj_with_vmessages.id, voice_file_url: "myurl2")
+            FeedbackInput.create(property_id: @subj_with_vmessages.id, numerical_response: "1")
+            post 'route_to_survey'
+            post 'route_to_survey', "Digits" => @code_for_subject
+            post 'check_for_messages'
+            @hash_response = hash_from_xml(response.body)["Response"]
+          end
+=begin
+          it "sets session var" do
+            session[:property_id].should eq(@subj_with_vmessages.id)
+          end
+          it "counts 2 voice files" do
+            @voice_message_count.should eq(2)
+          end
+=end
+          it "redirects to message_playback" do
+            @hash_response["Redirect"].should eq("message_playback")
+          end
+        end
       end
 
+      describe "message_playback" do
+      end
 
       before(:each) do
         post 'route_to_survey', "To" => "+15745842979" #sign

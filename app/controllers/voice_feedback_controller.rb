@@ -57,11 +57,18 @@ class VoiceFeedbackController < ApplicationController
   end
 
   def check_for_messages
-    feedback = Subject.find(session[:property_id]).feedback_inputs
-    response_xml = Twilio::TwiML::Response.new do |r|
+    @voice_message_count = FeedbackInput.where('property_id = ? and voice_file_url != ?', session[:property_id], "null").count
+    if @voice_message_count == 0
+      response_xml = Twilio::TwiML::Response.new do |r|
         r.Play VoiceFile.find_by_short_name("no_feedback_yet").url
         r.Redirect "voice_survey"
-    end.text
+      end.text
+    else
+      # Voice messages exist
+      response_xml = Twilio::TwiML::Response.new do |r|
+        r.Redirect "message_playback"
+      end.text
+    end
     render :inline => response_xml
   end
 
