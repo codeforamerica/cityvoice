@@ -58,7 +58,7 @@ function drawMap () {
   else {
     window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg').setView([41.665, -86.28], 13);
   }
-  $.getJSON('subjects.json', placeMarkers);
+  $.getJSON('/subjects.json', placeMarkers);
   $( "#dialog" ).dialog();
   $( "#dialog" ).dialog({ width: 295 });
   $( "#dialog" ).dialog({ position: { my: "left top", at: "left+50 bottom+60", of: "head"} });
