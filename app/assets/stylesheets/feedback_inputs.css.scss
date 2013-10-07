@@ -4,14 +4,18 @@
 
 // voice-messages page
 .pagination {
+  color: #545454;
 	font-family: 'Varela Round', sans-serif;
-	font-size: 1.6em;
+	font-size: 1.4em;
 	margin-top: 3em;
 	margin-bottom: 3em;
   text-align: center;
   .current {
-    color: #6DC6AD;
+    color: black;
     font-weight: bold;
-    font-size: 1.7em;
+    font-size: 1.5em;
+  }
+  .gap {
+    color: #545454;
   }
 }
