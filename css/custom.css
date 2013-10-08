@@ -1,0 +1,45 @@
+h1 {
+  color: #545454;
+  font-size: 1.75em;
+  text-align: left;
+  margin-bottom: 0em;
+  font-family: 'Varela Round', sans-serif;
+}
+h2 {
+  color: #545454;
+  font-size: 1.5em;
+  font-weight: bold;
+  font-family: 'Varela Round', sans-serif;
+  letter-spacing: 0;
+  text-align: left;
+}
+h5 {
+  color: #545454;
+  font-size: .85em;
+  text-align: left;
+  margin-bottom: 0em;
+}
+
+p {
+  color: #545454;
+  font-size: 1.1em;
+  text-align: left;
+  margin-bottom: 0em;
+}
+
+.icons{
+	margin-top: -.2em; 
+	margin-bottom: .5em;"
+}
+.talking_points{
+	margin-top: 1.5em; 
+	margin-bottom: .2em;
+}
+
+footer{
+	margin-bottom: 2em;
+}
+
+.explain{
+	text-align: justify;
+}
