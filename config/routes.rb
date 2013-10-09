@@ -8,6 +8,8 @@ Automidnight::Application.routes.draw do
 
   get "/" => "landing#location_search"
 
+  get "/.well-known/status" => "status#check"
+
   resources :notification_subscriptions, only: [:create]
 
   #resources :questions
