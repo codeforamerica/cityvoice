@@ -30,6 +30,39 @@ namespace :manage_deploy_data do
         q.destroy if q
       end
     end
+
+    task :replace_voice_files => :environment do
+      filenames = %w(RE2687363f93b3e54ac6fbf617984ebf27 \
+        RE31d35440d5048be9e8d79f3dc703298a \
+        RE360a8f58278ac0aba6009e854bfbd2ae \
+        RE49411d6895e5f5c57010985406518670 \
+        RE49f3dccc87b1ac6a41799632531e1e9d \
+        RE52c2e2d4ee3a6e54d2042a885f811903 \
+        RE5302724ea9cce221cbbb8c4190815572 \
+        RE568100e0aa9334ab5ad3797d0b8f7276 \
+        RE6414f6cf32f51412b480366642e0a036 \
+        RE64f51402e34345e9815a4dd6ec1fee0a \
+        RE6e53aa8a2f87fa7f0e2b4311848b5edb \
+        RE6e759e973ee6757a9c701f61f4c315b6 \
+        RE71ed861815b7b28f3b435073ef0cb952 \
+        RE73a42d00e4528b2c1e4806f409f490e4 \
+        RE795845a924ed1a1bed8dd493bdd1d83e \
+        RE7b3b23b512a8d811d73a5fd0545f0b0f \
+        RE8d279d467d814607aa5dc7d1b50146a6 \
+        RE9998f7ebea56907ce158289454465140 \
+        REae3152621376b255e04cc0ab0169e4bd \
+        REdc7ab17f0589911b8d741705df6aa2f1 \
+        REfa3948da145f7c393e04e1c55edaa1f5).select { |e| e != "\n" }
+      filenames.each do |filename|
+        target_fi = FeedbackInput.where("voice_file_url like ?", "%#{filename}")
+        if target_fi
+          p "Replacing #{target_fi.voice_file_url}"
+          target_fi.update_attribute(:voice_file_url, "https://s3.amazonaws.com/south-bend-cityvoice-abandoneds/modified-voice-files/#{filename}")
+        else
+          p "#{filename} not found"
+        end
+      end
+    end
   end # namespace: abandoned_properties
 
 
