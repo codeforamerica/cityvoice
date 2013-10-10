@@ -60,6 +60,7 @@ namespace :manage_deploy_data do
         elsif target_fi_set.count == 0
           p "ERROR: #{filename} not found"
         else
+          target_fi = target_fi_set[0]
           p "Replacing #{target_fi.voice_file_url}"
           target_fi.update_attribute(:voice_file_url, "https://s3.amazonaws.com/south-bend-cityvoice-abandoneds/modified-voice-files/#{filename}")
         end
