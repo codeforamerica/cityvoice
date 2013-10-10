@@ -54,12 +54,14 @@ namespace :manage_deploy_data do
         REdc7ab17f0589911b8d741705df6aa2f1 \
         REfa3948da145f7c393e04e1c55edaa1f5).select { |e| e != "\n" }
       filenames.each do |filename|
-        target_fi = FeedbackInput.where("voice_file_url like ?", "%#{filename}")
-        if target_fi
+        target_fi_set = FeedbackInput.where("voice_file_url like ?", "%#{filename}")
+        if target_fi_set.count > 1
+          p "ERROR: More than one voice file found for #{filename}"
+        elsif target_fi_set.count == 0
+          p "ERROR: #{filename} not found"
+        else
           p "Replacing #{target_fi.voice_file_url}"
           target_fi.update_attribute(:voice_file_url, "https://s3.amazonaws.com/south-bend-cityvoice-abandoneds/modified-voice-files/#{filename}")
-        else
-          p "#{filename} not found"
         end
       end
     end
