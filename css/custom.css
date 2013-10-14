@@ -27,6 +27,18 @@ p {
   margin-bottom: 0em;
 }
 
+.btn-success{
+  background: #6DC6AD;
+  padding: .35em 1.5em;
+  font-size: 1.75em;
+  -moz-box-shadow:    0px 0px 7px 4px #ccc;
+  -webkit-box-shadow: 0px 0px 7px 4px #ccc;
+  box-shadow:         0px 0px 7px 4px #ccc;
+}
+.btn-success:hover{
+  background: #69C2A9;
+}
+
 .icons{
 	margin-top: -.2em; 
 	margin-bottom: .5em;"
