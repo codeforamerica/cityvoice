@@ -55,6 +55,10 @@ footer{
 	margin-bottom: 2em;
 }
 
+#twitter {
+  float: right;
+}
+
 .explain{
 	text-align: justify;
 }
