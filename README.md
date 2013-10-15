@@ -7,7 +7,7 @@ CityVoice is a place-based call-in system to collect community feedback on geogr
 
 ### Status
 
-CityVoice's current code base is *early stage software* and so has a lot of implementation-specific logic hard-coded in. If you're interested in using CityVoice, you're best served by contacting the team at [http://www.cityvoiceapp.com](CityVoiceApp.com) or pinging the lead back-end dev Dave ([@allafarce](http://www.twitter.com/allafarce) on Twitter).
+CityVoice's current code base is *early stage software* and so has a lot of implementation-specific logic hard-coded in. If you're interested in using CityVoice, you're best served by contacting the team at [CityVoiceApp.com](http://www.cityvoiceapp.com) or pinging the lead back-end dev Dave ([@allafarce](http://www.twitter.com/allafarce) on Twitter).
 
 This documentation will be improved to make the project more accessible as the code base is refactored.
 
