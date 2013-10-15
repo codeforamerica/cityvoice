@@ -1,8 +1,21 @@
-Automidnight
+CityVoice
 =====
 
+### About
 
-![alt text](http://ecx.images-amazon.com/images/I/515oQdDHwmL.jpg "Automatic midnight")
+CityVoice is a place-based call-in system to collect community feedback on geographic entities (like vacant properties) using the simple, accessible medium of the telephone.
+
+### Status
+
+CityVoice's current code base is *early stage software* and so has a lot of implementation-specific logic hard-coded in. If you're interested in using CityVoice, you're best served by contacting the team at [http://www.cityvoiceapp.com](CityVoiceApp.com) or pinging the lead back-end dev Dave ([@allafarce](http://www.twitter.com/allafarce) on Twitter).
+
+This documentation will be improved to make the project more accessible as the code base is refactored.
+
+### Dependencies
+
+The main dependencies for the app are Twilio (a voice phone number) and Mapbox.
+
+### Setup (Internal Documentation)
 
 To set up the Monroe Park pilot, you'll want to set a MONROE\_PILOT environment variable on your server to true.
 
