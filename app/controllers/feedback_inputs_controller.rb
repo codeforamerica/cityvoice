@@ -18,6 +18,19 @@ class FeedbackInputsController < ApplicationController
     @counts_array = Array.new
     @counts_hash.each { |elem| @counts_array << elem }
     @sorted_array = @counts_array.sort_by { |elem| elem[1][:total].to_i }.reverse
+    respond_to do |format|
+      format.html { render 'most_feedback' }
+      format.csv do
+        require 'csv'
+        csv_output = CSV.generate do |csv|
+          csv << ["Address", "Total", "Repair", "Remove"]
+          @sorted_array.each do |element|
+            csv << [element[0], element[1].fetch(:total) { 0 }, element[1].fetch(:repair) { 0 }, element[1].fetch(:remove) { 0 }]
+          end
+        end
+        send_data csv_output
+      end
+    end
   end
 
   # GET /feedback_inputs/1
