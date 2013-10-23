@@ -18,7 +18,6 @@ class FeedbackInputsController < ApplicationController
     @counts_array = Array.new
     @counts_hash.each { |elem| @counts_array << elem }
     @sorted_array = @counts_array.sort_by { |elem| elem[1][:total].to_i }.reverse
-    binding.pry
     respond_to do |format|
       format.html { render 'most_feedback' }
       format.csv do
