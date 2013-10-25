@@ -41,6 +41,7 @@ end
 
 group :test do
   gem 'factory_girl_rails'
+  gem 'timecop'
 end
 
 group :development, :test do
