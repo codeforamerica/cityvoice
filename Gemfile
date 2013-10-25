@@ -40,6 +40,7 @@ group :doc do
 end
 
 group :test do
+  gem 'factory_girl'
 end
 
 group :development, :test do
