@@ -4,6 +4,7 @@ class StatusController < ApplicationController
     #{ :status => "ok", :updated => "", :dependencies => "", :resources => "" }
     response_hash[:dependencies] = [ "twilio", "sendgrid", "postgres", "mapbox", "s3", "data.southbendin.gov" ]
     response_hash[:status] = everything_ok? ? "ok" : "NOT OK"
+    response_hash[:updated] = Time.now.to_i
     response_hash[:resources] = {}
     # Dependencies explanation
     # Twilio - core part of app interaction and storage for voice messages left by users

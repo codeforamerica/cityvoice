@@ -40,6 +40,7 @@ group :doc do
 end
 
 group :test do
+  gem 'timecop'
 end
 
 group :development, :test do
