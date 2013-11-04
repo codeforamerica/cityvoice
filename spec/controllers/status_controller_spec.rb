@@ -4,7 +4,7 @@ describe StatusController do
   let(:response_hash) { JSON.parse response.body }
 
   before do
-    @my_subject = Subject.find_or_create_by(:name => "My little pony")
+    @my_subject = FactoryGirl.create(:property)
     get :check
   end
 
@@ -22,10 +22,6 @@ describe StatusController do
 
   it "returns a status of 'ok'" do
     response_hash["status"].should eq("ok")
-  end
-
-  after do
-    @my_subject.destroy
   end
 
 end
