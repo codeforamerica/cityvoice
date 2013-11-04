@@ -4,7 +4,7 @@ describe StatusController do
   let(:response_hash) { JSON.parse response.body }
 
   before do
-    @my_subject = Subject.find_or_create_by(:name => "My little pony")
+    @my_subject = FactoryGirl.create(:property)
     Timecop.freeze
     @time_in_seconds_at_request = Time.now.to_i
     get :check
@@ -32,7 +32,6 @@ describe StatusController do
 
   after do
     Timecop.return
-    @my_subject.destroy
   end
 
 end
