@@ -1,17 +1,20 @@
+# Dependencies explanation
+# Twilio - core part of app interaction and storage for voice messages left by users
+# Postgres - normal Heroku add-on
+# Mapbox - on CFA account currently
+#   Look into how to check status on this
+# S3 - stores voice files played back by voice app
+# data.southbendin.gov - SB's Socrata portal, from which we pull private data
+
 class StatusController < ApplicationController
+
   def check
     response_hash = Hash.new
     #{ :status => "ok", :updated => "", :dependencies => "", :resources => "" }
     response_hash[:dependencies] = [ "twilio", "sendgrid", "postgres", "mapbox", "s3", "data.southbendin.gov" ]
     response_hash[:status] = everything_ok? ? "ok" : "NOT OK"
+    response_hash[:updated] = Time.now.to_i
     response_hash[:resources] = {}
-    # Dependencies explanation
-    # Twilio - core part of app interaction and storage for voice messages left by users
-    # Postgres - normal Heroku add-on
-    # Mapbox - on CFA account currently
-    #   Look into how to check status on this
-    # S3 - stores voice files played back by voice app
-    # data.southbendin.gov - SB's Socrata portal, from which we pull private data
     render :inline => response_hash.to_json
   end
 
@@ -35,4 +38,5 @@ class StatusController < ApplicationController
       false
     end
   end
+
 end
