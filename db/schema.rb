@@ -13,9 +13,12 @@
 
 ActiveRecord::Schema.define(version: 20131105015734) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "app_content_sets", force: true do |t|
     t.string   "issue"
-    t.text     "learn_text",          limit: 400
+    t.text     "learn_text"
     t.string   "call_text"
     t.string   "call_instruction"
     t.string   "app_phone_number"
@@ -50,6 +53,13 @@ ActiveRecord::Schema.define(version: 20131105015734) do
     t.string   "call_source"
   end
 
+  create_table "most_recent_outcome_choices", id: false, force: true do |t|
+    t.integer "id"
+    t.integer "numerical_response"
+    t.string  "phone_number"
+    t.integer "property_id"
+  end
+
   create_table "notification_subscriptions", force: true do |t|
     t.string   "email"
     t.boolean  "confirmed"
@@ -64,7 +74,7 @@ ActiveRecord::Schema.define(version: 20131105015734) do
 
   create_table "property_info_sets", force: true do |t|
     t.integer  "property_id"
-    t.integer  "condition_code",          limit: 1
+    t.integer  "condition_code",          limit: 2
     t.string   "condition"
     t.string   "estimated_cost_exterior"
     t.string   "estimated_cost_interior"
@@ -95,10 +105,10 @@ ActiveRecord::Schema.define(version: 20131105015734) do
     t.datetime "updated_at"
     t.string   "property_code"
     t.string   "parcel_id"
-    t.datetime "most_recent_activity"
     t.string   "lat"
     t.string   "long"
     t.text     "description"
+    t.datetime "most_recent_activity"
   end
 
   create_table "voice_files", force: true do |t|
