@@ -1,5 +1,5 @@
 class NotificationMailer < ActionMailer::Base
-  default from: "notifications@cityvoice.com"
+  default from: "notifications@cityvoiceapp.com"
   include NotificationsMailerHelper
   helper :notifications_mailer
 
@@ -11,7 +11,7 @@ class NotificationMailer < ActionMailer::Base
 
   def weekly_activity(notification_subscription)
     @property = notification_subscription.property
-    mail(to: notification_subscription.email, subject: 'Weekly Activity')
+    mail(to: notification_subscription.email, subject: 'New Activity on CityVoice')
   end
 
   # properties array: [{property: property_object, unsubscribe_token: '23423jfsdf', activity: [feedback_input1, feedback_input2]}]
