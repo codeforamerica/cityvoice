@@ -37,6 +37,18 @@ rake property_data:add_monroe_phone_codes
 Also, for now, we set the name of the survey in the environment. Example:
 `SURVEY_NAME=iwtw`
 
+### Email notifications
+
+Email notifications are sent via the `rake notifications:send` task, which should be scheduled as a regularly-run job.
+
+On Heroku, this is most easily done using the scheduler add-on:
+```
+heroku addons:add scheduler:standard
+heroku addons:open scheduler
+```
+
+Once in the web interface, set up a new scheduled job with the `rake notifications:task` to be run at whatever interval you want.
+
 ### Heroku Deployment
 
 To deploy on Heroku, you'll need to do the following:
