@@ -4,7 +4,9 @@ describe StatusController do
   let(:response_hash) { JSON.parse response.body }
 
   before do
-    @my_subject = Subject.find_or_create_by(:name => "My little pony")
+    @my_subject = FactoryGirl.create(:property)
+    Timecop.freeze
+    @time_in_seconds_at_request = Time.now.to_i
     get :check
   end
 
@@ -24,8 +26,12 @@ describe StatusController do
     response_hash["status"].should eq("ok")
   end
 
+  it "returns an 'updated' attribute with the current time" do
+    response_hash["updated"].should eq(@time_in_seconds_at_request)
+  end
+
   after do
-    @my_subject.destroy
+    Timecop.return
   end
 
 end
