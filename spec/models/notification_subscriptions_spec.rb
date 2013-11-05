@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe NotificationSubscription do
+
   let(:property) { FactoryGirl.create(:property) }
+
   context "given a normal web form create (non-bulk)" do
     it "calls the send_confirmation_email callback" do
       NotificationSubscription.any_instance.stub(:send_confirmation_email)
@@ -10,6 +12,7 @@ describe NotificationSubscription do
       @ns.save
     end
   end
+
   context "given the intent to insert without confirmation emails" do
     it "can create a subscription without triggering an email" do
       NotificationSubscription.any_instance.stub(:send_confirmation_email)
@@ -18,4 +21,5 @@ describe NotificationSubscription do
       @ns.save
     end
   end
+
 end
