@@ -39,6 +39,14 @@ Also, for now, we set the name of the survey in the environment. Example:
 
 ### Email notifications
 
+The first step for email notifications is to set the APP_URL environment variable to your root application URL. It should include http:// but exclude the trailing forward slash.
+
+An example for setting this up on Heroku with a custom domain of `myappdomain.com`:
+
+```
+heroku config:set APP_URL=http://www.myappdomain.com
+```
+
 Email notifications are sent via the `rake notifications:send` task, which should be scheduled as a regularly-run job.
 
 On Heroku, this is most easily done using the scheduler add-on:
