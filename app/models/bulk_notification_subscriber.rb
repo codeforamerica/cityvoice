@@ -28,6 +28,10 @@ module BulkNotificationSubscriber
       puts "Subject with parcel ID #{parcel_id} not found."
       return false
     end
+    if NotificationSubscription.find_all_by(:property_id => target_subject.id, :email => email)
+      puts "#{email} already subscribed to #{parcel_id}"
+      return false
+    end
     subscription = NotificationSubscription.create(:property_id => target_subject.id, :email => email, :bulk_added => true)
     yield subscription if block_given?
     subscription
