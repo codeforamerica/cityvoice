@@ -1,5 +1,4 @@
 class Property < Subject
-  belongs_to :neighborhood
   has_one :property_info_set
   has_many :feedback_inputs
   has_many :notification_subscriptions
@@ -9,7 +8,7 @@ class Property < Subject
 
   # called by feedback_inputs to indicate activity
   def new_activity!
-    self.update_attributes(most_recent_activity: DateTime.now)
+    update_attributes(most_recent_activity: DateTime.now)
   end
 
   def url_to

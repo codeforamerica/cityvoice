@@ -11,7 +11,7 @@ class NotificationSubscription < ActiveRecord::Base
   }
 
   before_create :create_auth_token, :set_last_email_sent_at
-  after_create :send_confirmation_email
+  after_create :send_confirmation_email, unless: "bulk_added"
 
   def confirm!
     self.update_attributes(confirmed: true)

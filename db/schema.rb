@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131001204306) do
+ActiveRecord::Schema.define(version: 20131105015734) do
 
   create_table "app_content_sets", force: true do |t|
     t.string   "issue"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20131001204306) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "last_email_sent_at"
+    t.boolean  "bulk_added"
   end
 
   create_table "property_info_sets", force: true do |t|
