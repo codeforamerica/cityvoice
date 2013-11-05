@@ -7,6 +7,7 @@ module BulkNotificationSubscriber
       return false
     end
     subscription = NotificationSubscription.create(:property_id => target_subject.id, :email => email, :bulk_added => true)
+    yield subscription if block_given?
     subscription
   end
 
