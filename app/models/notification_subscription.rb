@@ -25,6 +25,10 @@ class NotificationSubscription < ActiveRecord::Base
     !self.confirmation_sent_at.nil?
   end
 
+  def override_last_email_sent_at_to!(datetime)
+    self.update_attribute(:last_email_sent_at, datetime)
+  end
+
   private
 
   def send_confirmation_email
