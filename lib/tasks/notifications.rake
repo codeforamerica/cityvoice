@@ -7,6 +7,12 @@ namespace :notifications do
     BulkNotificationSubscriber.bulk_subscribe_from_csv("/tmp/parcel_ids_and_emails.csv", true)
   end
 
+  task :send => :environment do
+    Notifier.send_weekly_notifications
+  end
+
+# Mike's old code
+=begin
   desc "Sends out emails to all qualify property subscribers"
   task :send => :environment do
     # This code needs to be better
@@ -29,9 +35,6 @@ namespace :notifications do
     end
 
   end
-
-  task :send2 => :environment do
-    Notifier.send_weekly_notifications
-  end
+=end
 
 end
