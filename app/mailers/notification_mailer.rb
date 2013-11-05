@@ -18,7 +18,7 @@ class NotificationMailer < ActionMailer::Base
   def weekly_activity2(email, properties_array)
     @properties_array = properties_array
     @unsubscribe_all_token = properties_array.last[:unsubscribe_token]
-    mail(to: email, subject: 'Weekly Activity')
+    mail(to: email, subject: 'New Activity on CityVoice!')
   end
 
 end
