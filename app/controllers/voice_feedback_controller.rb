@@ -1,4 +1,5 @@
 class VoiceFeedbackController < ApplicationController
+  skip_before_action :verify_authenticity_token
 
   def route_to_survey
     @call_in_code_digits = AppContentSet.select(:call_in_code_digits).first.call_in_code_digits
