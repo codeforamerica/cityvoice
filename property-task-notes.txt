@@ -1,0 +1,21 @@
+Notes
+
+Load property data CSV from URL (currently checks for file first)
+Load Centroids data CSV from URL (currently checks for file first)
+For each row:
+  [RM] Filter for only if Monroe Park properties if the Monroe Park pilot flag is on
+  Find the target property by parcel_id
+  Load centroids file for lat/long lookup
+  Create property if it doesn't exist using clean address
+    (Can move below to inside create)
+    Extract the address
+    Clean the address for the Columbia/Carroll properties
+      >> Check to see if this has been fixed in source data
+    Assign lat+long
+      Special case for the two Carroll properties
+    Extract property_info_set
+
+What do we want:
+  Pull down property data CSV from Socrata
+  Creates properties and info sets for any data that doesn't exist
+
