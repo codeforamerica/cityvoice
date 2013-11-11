@@ -14,4 +14,10 @@ class ApplicationController < ActionController::Base
   def load_app_content
     @content = AppContentSet.first
   end
+
+  def render_not_found
+    respond_to do |f|
+      f.html { render 'pages/404', status: 404 }
+    end
+  end
 end

@@ -43,11 +43,19 @@
 			      	<nav class="pull-right">
 			        	<ul class="nav" style="margin-top: .6em; margin-left: 2em;">
 			        		<div class="header_links">
-                                <%= link_to "ACTIVITY", most_feedback_path %>
-				          	</div>
+                    <%= link_to "ACTIVITY", most_feedback_path %>
+				          </div>
 			        		<div class="header_links">
-                                <%= link_to "ALL MESSAGES", voice_messages_path %>
-				          	</div>
+                    <%= link_to "ALL MESSAGES", voice_messages_path %>
+				          </div>
+				          <% if admin_signed_in? %>
+				          <div class="header_links">
+				            <%= link_to "ACCOUNT", edit_admin_registration_path %>
+				          </div>
+				          <div class="header_links">
+				            <%= link_to "SIGN OUT", destroy_admin_session_path, method: :delete %>
+				          </div>
+				          <% end %>
 			        	</ul>
 			      	</nav>
 			    </div>
