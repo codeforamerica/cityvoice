@@ -34,6 +34,8 @@ gem 'high_voltage'
 
 gem 'pry'
 
+gem 'soda-ruby', require: "soda"
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
