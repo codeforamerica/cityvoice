@@ -1,4 +1,5 @@
 Automidnight::Application.routes.draw do
+  devise_for :admins, controllers: { registrations: 'registrations' }
 
   get "notification_subscriptions/confirm"
   get "notification_subscriptions/unsubscribe"

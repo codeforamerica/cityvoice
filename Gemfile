@@ -6,6 +6,8 @@ gem 'rails', '4.0.0'
 
 gem 'protected_attributes'
 
+gem 'devise', '~> 3.2.0'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
