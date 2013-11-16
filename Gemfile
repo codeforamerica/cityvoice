@@ -44,6 +44,8 @@ end
 group :test do
   gem 'factory_girl_rails'
   gem 'timecop'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :development, :test do
@@ -52,10 +54,9 @@ group :development, :test do
   gem 'sqlite3'
   gem 'nokogiri'
   gem 'capybara'
-  #gem 'vcr'
-  #gem 'webmock'
   gem 'rspec-rails', '~> 2.0'
   gem "letter_opener"
+  gem 'dotenv-rails'
 end
 
 group :production do
