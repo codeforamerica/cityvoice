@@ -63,6 +63,9 @@ GEM
     hashie (1.2.0)
     high_voltage (1.2.4)
     hike (1.2.3)
+    httparty (0.12.0)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.6.4)
     jbuilder (1.0.2)
       activesupport (>= 3.0.0)
@@ -86,6 +89,7 @@ GEM
     mini_portile (0.5.1)
     minitest (4.7.5)
     multi_json (1.7.8)
+    multi_xml (0.5.5)
     newrelic_rpm (3.6.7.159)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
@@ -195,6 +199,7 @@ DEPENDENCIES
   dotenv-rails
   factory_girl_rails
   high_voltage
+  httparty
   jbuilder (~> 1.0.1)
   jquery-rails
   leaflet-rails (~> 0.6.0)
