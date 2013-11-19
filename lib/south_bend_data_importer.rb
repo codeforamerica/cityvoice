@@ -9,7 +9,6 @@ module SouthBendDataImporter
       pw = ENV["SOCRATA_PASSWORD"]
       token = ENV["SOCRATA_APP_TOKEN"]
       super(domain: "data.southbendin.gov", app_token: token, username: username, password: pw)
-      #@soda_client = SODA::Client.new(domain: "data.southbendin.gov", app_token: token, username: username, password: pw)
     end
 
     def fetch_property_json

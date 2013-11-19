@@ -1,17 +1,16 @@
-=> Add details for new properties
-
 Notes
 
 X Load property data CSV from URL (currently checks for file first)
-Load Centroids data CSV from URL (currently checks for file first)
+X Load Centroids data CSV from URL (currently checks for file first)
 For each row of property data:
 X  Find the target property by parcel_id
-  Create property if it doesn't exist using clean address
-    Extract the address
+X   Create property if it doesn't exist using clean address
+    Assign property code
+X    Extract the address
     Clean the address for the Columbia/Carroll properties
       >> Check to see if this has been fixed in source data
-    Load centroids file for lat/long lookup
-    Assign lat+long
+X    Load centroids file for lat/long lookup
+X    Assign lat+long
       Special case for the two Carroll properties
 X  Load fresh data for the property: extract property_info_set and update data
 Verbose error message, saved in Postgres (probably)
