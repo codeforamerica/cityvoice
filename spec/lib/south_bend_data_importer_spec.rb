@@ -11,11 +11,11 @@ describe SouthBendDataImporter do
   let(:parcel_centroid_from_socrata) { Hashie::Mash.new({parcelid: "111-1111-1111", parcelstat: "71-11-11-111-111.111-111", prop_addr: "", xcoord: "-86.242722", ycoord: "41.668511"}) }
 
   before do
-    client = SODA::Client.new
+    client = SouthBendDataImporter::SBSocrataClient.new
     client.stub(:get).with("edja-ktsm").and_return([new_property, existing_property])
     client.stub(:get).with("9v3y-4upv", {"parcelid" => "111-1111-1111"})
       .and_return([parcel_centroid_from_socrata])
-    SODA::Client.stub(:new).and_return(client)
+    SouthBendDataImporter::SBSocrataClient.stub(:new).and_return(client)
   end
 
   it "creates a property in the db if it isn't there but is in the source data" do
