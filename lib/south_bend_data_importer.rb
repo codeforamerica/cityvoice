@@ -3,20 +3,21 @@ require 'csv'
 module SouthBendDataImporter
   extend self
 
-  class SBSocrataClient
+  class SBSocrataClient < SODA::Client
     def initialize
       username = ENV["SOCRATA_USERNAME"]
       pw = ENV["SOCRATA_PASSWORD"]
       token = ENV["SOCRATA_APP_TOKEN"]
-      @soda_client = SODA::Client.new(domain: "data.southbendin.gov", app_token: token, username: username, password: pw)
+      super(domain: "data.southbendin.gov", app_token: token, username: username, password: pw)
+      #@soda_client = SODA::Client.new(domain: "data.southbendin.gov", app_token: token, username: username, password: pw)
     end
 
     def fetch_property_json
-      @soda_client.get("edja-ktsm")
+      get("edja-ktsm")
     end
 
     def fetch_lat_long_for_parcel(parcel_id)
-      result = @soda_client.get("9v3y-4upv", { "parcelid" => parcel_id } ).first
+      result = get("9v3y-4upv", { "parcelid" => parcel_id } ).first
       [result.ycoord, result.xcoord]
     end
   end
