@@ -8,6 +8,9 @@ module SouthBendDataImporter
       username = ENV["SOCRATA_USERNAME"]
       pw = ENV["SOCRATA_PASSWORD"]
       token = ENV["SOCRATA_APP_TOKEN"]
+      if !username or !pw or !token
+        raise "Environment variable(s) missing for data import (SOCRATA_USERNAME, SOCRATA_PASSWORD, and SOCRATA_APP_TOKEN are required)"
+      end
       super(domain: "data.southbendin.gov", app_token: token, username: username, password: pw)
     end
 
