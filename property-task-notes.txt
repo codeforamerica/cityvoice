@@ -1,0 +1,35 @@
+Notes
+
+X Load property data CSV from URL (currently checks for file first)
+X Load Centroids data CSV from URL (currently checks for file first)
+For each row of property data:
+X  Find the target property by parcel_id
+X   Create property if it doesn't exist using clean address
+    Assign property code
+X    Extract the address
+    Clean the address for the Columbia/Carroll properties
+      >> Check to see if this has been fixed in source data
+X    Load centroids file for lat/long lookup
+X    Assign lat+long
+      Special case for the two Carroll properties
+X  Load fresh data for the property: extract property_info_set and update data
+Verbose error message, saved in Postgres (probably)
+
+
+What do we want:
+  Pull down property data CSV from Socrata
+  Creates properties and info sets for any data that doesn't exist
+
+
+
+  [RM] Filter for only if Monroe Park properties if the Monroe Park pilot flag is on
+
+
+
+
+
+
+
+Since all we're doing is a bunch of shit, focus on improving readability by encapsulating things in methods
+
+Define custom exceptions for verbose stuff

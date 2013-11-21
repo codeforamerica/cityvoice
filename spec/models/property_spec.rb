@@ -14,4 +14,8 @@ describe Property do
       prop.most_recent_activity.should eq(DateTime.now)
     end
   end
+
+  it "adds an appropriate call-in code based on street number (in name)" do
+
+  end
 end

@@ -34,6 +34,8 @@ gem 'high_voltage'
 
 gem 'pry'
 
+gem 'soda-ruby', require: "soda"
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -42,6 +44,8 @@ end
 group :test do
   gem 'factory_girl_rails'
   gem 'timecop'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :development, :test do
@@ -50,8 +54,6 @@ group :development, :test do
   gem 'sqlite3'
   gem 'nokogiri'
   gem 'capybara'
-  #gem 'vcr'
-  #gem 'webmock'
   gem 'rspec-rails', '~> 2.0'
   gem "letter_opener"
 end
@@ -72,6 +74,8 @@ gem "leaflet-rails", "~> 0.6.0"
 gem 'audiojs'
 
 gem 'will_paginate'
+
+gem 'httparty'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
