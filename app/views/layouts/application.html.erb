@@ -21,6 +21,9 @@
 		  })();
       	</script>
     <% end %>
+        <script>
+          var mapboxMapID = "<%= ENV["MAPBOX_MAP_ID"] %>";
+        </script>
 	</head>
 	<body class="<%= controller_name %> <%= action_name %>" data-no-turbolink>
 		<header class="navbar navbar-fixed-top navbar-inverse">
