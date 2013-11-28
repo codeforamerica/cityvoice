@@ -37,6 +37,11 @@ rake property_data:add_monroe_phone_codes
 Also, for now, we set the name of the survey in the environment. Example:
 `SURVEY_NAME=iwtw`
 
+Lastly, you will need to link your instance of the app to a Mapbox map via setting an environment variable called MAPBOX_MAP_ID. For example:
+
+`MAPBOX_MAP_ID=myaccountname.h8hskena`
+
+
 ### Email notifications
 
 The first step for email notifications is to set the APP_URL environment variable to your root application URL. It should include http:// but exclude the trailing forward slash.
