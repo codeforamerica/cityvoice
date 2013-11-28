@@ -8,7 +8,7 @@ jQuery ($) ->
   loadData = (json_representation) ->
       latitude = json_representation.lat
       longitude = json_representation.long
-      window.map = L.mapbox.map('map','codeforamerica.map-stwhr1eg').setView([latitude, longitude], 16)
+      window.map = L.mapbox.map('map',mapboxMapID).setView([latitude, longitude], 16)
       L.Icon.Default.imagePath = "/assets"
       marker = L.marker([latitude, longitude]).addTo(map)
 
