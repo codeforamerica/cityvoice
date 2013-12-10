@@ -1,6 +1,13 @@
 require 'csv'
+require "#{Rails.root}/lib/south_bend_data_importer"
 
 namespace :property_data do
+  desc "Runs the (newer, better!) property data load/update ('upsert')"
+  task :load_or_update => :environment do
+    SouthBendDataImporter.load_or_update_property_data
+  end
+
+=begin
   desc "Import data from the property data file and create an addresses JSON file for typeahead search"
   task :import => :environment do
     property_data_path = "/tmp/Vacant_and_Abandoned_Property_Data.csv"
@@ -83,6 +90,8 @@ namespace :property_data do
     File.delete(lats_and_longs_array_path) if File.exist?(lats_and_longs_array_path)
     File.open(lats_and_longs_array_path, 'w') { |file| file.write(lats_and_longs_array.to_json) }
   end
+
+=end
 
   desc "Migrates lat/long data from property info set to subject"
   task :migrate_latlongs_to_subject => :environment do

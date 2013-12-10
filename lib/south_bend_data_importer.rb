@@ -55,11 +55,12 @@ module SouthBendDataImporter
       "Occupied / Not Repaired"
     when "legal_hold"
       "Legal Hold"
+    when nil
+      "Vacant and Abandoned"
     else
       found_outcome[0] = found_outcome[0].capitalize
       found_outcome
     end
-    formatted_outcome || "Vacant and Abandoned"
   end
 
 end
