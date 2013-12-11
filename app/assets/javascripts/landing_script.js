@@ -31,9 +31,6 @@ function placeMarkers(dataArray) {
     if (subject.lat && subject.long) {
       var marker = L.marker(new L.LatLng(subject.lat,subject.long), { name: subject.name, icon: mapIcon });
       marker.bindPopup("<a href=\"/subjects/" + subject.name.replace(/\s/g,"-") + "\">" + subject.name + "</a>");
-      if (subject.name.indexOf("O'Brien") != -1) {
-        console.log("<a href='/subjects/" + subject.name.replace(/\s/g,"-") + "'>" + subject.name + "</a>");
-      }
       //marker.addTo(map);
       markerFeatureGroup.addLayer(marker);
     }
