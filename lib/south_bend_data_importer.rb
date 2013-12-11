@@ -5,8 +5,11 @@ module SouthBendDataImporter
 
   def load_or_update_property_data
     client = SBSocrataClient.new
+    puts "Retrieving property data..."
     property_data = client.fetch_property_json
+    puts "Loading property data..."
     property_data.each do |property_row|
+      puts "Processing parcel_id: #{property_row.parcel_id}"
       db_property = Property.find_by_parcel_id(property_row.parcel_id)
       if db_property.nil?
         lat, long = client.fetch_lat_long_for_parcel(property_row.parcel_id)
