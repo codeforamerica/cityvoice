@@ -73,6 +73,8 @@ heroku addons:add heroku-postgresql
 # Find the URL for the database by running the config command and set a DATABASE_URL variable
 heroku config # Look for your postgres URL in the output!
 heroku config:set DATABASE_URL=yourpostgresURLgoeshere
+# Asset pipeline complains without its secret token.
+heroku config:set SECRET_TOKEN=<alphanumeric secret string>
 ```
 
 In production, you may want to set up Google Analytics (hard-coded ID for now, so need to tinker) with the environment variable used as a flag:
