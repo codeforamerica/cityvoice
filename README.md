@@ -42,6 +42,7 @@ Lastly, you will need to link your instance of the app to a Mapbox map via setti
 `MAPBOX_MAP_ID=myaccountname.h8hskena`
 
 
+
 ### Email notifications
 
 The first step for email notifications is to set the APP_URL environment variable to your root application URL. It should include http:// but exclude the trailing forward slash.

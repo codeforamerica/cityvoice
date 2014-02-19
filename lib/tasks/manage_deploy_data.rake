@@ -102,4 +102,17 @@ namespace :manage_deploy_data do
       s4.update_attributes(:lat => "41.674697", :long => "-86.250034", :property_code => "13")
     end
   end # namespace: iwtw
+
+  namespace :example do
+    desc "Adds example subjects"
+    task :subjects => :environment do
+      s1 = Subject.find_or_create_by(name: "Eli's Mile High Club")
+      s1.update_attributes(:lat => "37.826650", :long => "-122.269507", :property_code => "123")
+      s2 = Subject.find_or_create_by(name: "Beer Revolution")
+      s2.update_attributes(:lat => "37.797077", :long => "-122.276297", :property_code => "456")
+      s3 = Subject.find_or_create_by(name: "Stork Club")
+      s3.update_attributes(:lat => "37.813142", :long => "-122.268321", :property_code => "789")
+    end
+  end
+
 end
