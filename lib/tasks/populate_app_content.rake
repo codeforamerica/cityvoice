@@ -13,7 +13,7 @@ namespace :populate_app_content do
       content.message_url = "https://s3-us-west-1.amazonaws.com/south-bend-secrets/121gigawatts.mp3"
       content.header_color = "#6DC6AD" # Color of the top header bar (useful for unique branding)
       content.short_title = "" # If this is empty, the CityVoice logo will be shown in the upper right
-      content.call_in_code_digits = "5" # The number of digits for a subject's call-in code
+      content.call_in_code_digits = "3" # The number of digits for a subject's call-in code
       content.feedback_form_url = "" # A URL for a feedback form (on the left side)
     end
   end
