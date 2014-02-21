@@ -12,9 +12,11 @@ Then, install Ruby gem dependencies:
 
 #### Database setup
 
-Postgres is the officially supported database for CityVoice (see "Note on database options" below.) If you're on a Mac, we suggest running [Postgres.app](http://postgresapp.com/).
+Postgres is the "known-to-run" database for CityVoice (see "Note on database options" below.) If you're on a Mac, we suggest running [Postgres.app](http://postgresapp.com/).
 
-Review the [database.yml](config/database.yml) file and make any necessary changes based on your local setup. By default, the app will look for your Postgres credentials in the `POSTGRES_USERNAME` and `POSTGRES_PASSWORD` environment variables.
+By default, the `database.yml` in this repo will look for your Postgres credentials in the `POSTGRES_USERNAME` and `POSTGRES_PASSWORD` environment variables and expect a normal localhost connection.
+
+Feel free to edit [database.yml](config/database.yml) for your own local database setup if if differs from this opinionated default
 
 Create the database tables:
 
