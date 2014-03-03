@@ -3,10 +3,14 @@ CityVoice
 CityVoice is a place-based call-in system to collect community feedback on geographic entities (like vacant properties) using the simple, accessible medium of the telephone.
 
 
-WARNING: Early Stage Software
------------------------------
-CityVoice's current code base is *early stage software* and so has a lot of implementation-specific logic hard-coded in. If you're interested in using CityVoice, you're best served by contacting the team at [CityVoiceApp.com](http://www.cityvoiceapp.com) or pinging the lead back-end dev Dave ([@allafarce](http://www.twitter.com/allafarce) on Twitter).
+CityVoice's current code base is *early stage software*. The project was a rapid-iteration experiment for South Bend, IN during the 2013 CfA fellowship, and still has a lot of South Bend-specific logic hard-coded in. Generalizing for reuse is an ongoing project.
 
+For details on the status of CityVoice, check out the ["State of the CityVoice" document](https://github.com/codeforamerica/cityvoice/blob/revamp-for-local-setup/code-base-overview.md#state-of-the-cityvoice), in particular:
+
+- [High-level status summary](https://github.com/codeforamerica/cityvoice/blob/revamp-for-local-setup/code-base-overview.md#high-level-summary)
+- [Proposed strategy for generalizing for reuse](https://github.com/codeforamerica/cityvoice/blob/revamp-for-local-setup/code-base-overview.md#a-proposal-for-generalizationredeployability)
+
+If you're interested in using (or helping out with!) CityVoice, please contact Dave ([@allafarce on Twitter](https://twitter.com/allafarce)) or open an Issue with a description of how you're thinking of using it (this is helpful in informing the code base's generalization.)
 
 Required Accounts
 -----------------
@@ -49,7 +53,6 @@ Set the survey name, the Mapbox id and the secret token:
     $ heroku config:set MAPBOX_MAP_ID=xxxxxxxx.xxxxx
     $ heroku config:set SECRET_TOKEN=`rake secret`
 
-
 #### Twilio
 
 CityVoice uses the awesome [Twilio](www.twilio.com) telephony API. To hook up your app to Twilio, go to their site, create an account, and buy a phone number. To configure your number on Twilio's site, go to 'Numbers' -> 'Twilio Numbers' and click on the phone number you want to hook up.
@@ -70,7 +73,6 @@ Then, open the Heroku scheduled jobs console:
     $ heroku addons:open scheduler
 
 Once in the web interface, set up a new scheduled job with the `rake notifications:task` to be run at whatever interval you want.
-
 
 #### Google Analytics
 
