@@ -1,12 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
-
 Question.create!( \
   [ \
     {voice_text: "On a scale of 1-5 how important is public safety in your neighborhood? Press the corresponding number on your phone to record your response 1 being not important and 5 being very important.", \
@@ -27,20 +18,3 @@ Question.create!( \
       short_name: "property_comments", \
       feedback_type: "voice_file" } \
   ] )
-
-=begin
-# A sample neighborhood and property
-n = Neighborhood.create!(name: "Monroe Park Neighborhood")
-p = Property.create!(property_code: 1234, name: "1234 Fake St", neighborhood_id: n.id)
-
-# Some sample feedback
-# Property outcomes
-FeedbackInput.create!(:property_id => 2, :question_id => Question.find_by_short_name("property_outcome").id, :numerical_response => 1)
-FeedbackInput.create!(:property_id => 2, :question_id => Question.find_by_short_name("property_outcome").id, :numerical_response => 1)
-FeedbackInput.create!(:property_id => 2, :question_id => Question.find_by_short_name("property_outcome").id, :numerical_response => 3)
-
-# Property voice feedback
-FeedbackInput.create!(:property_id => 2, :question_id => Question.find_by_short_name("property_comments").id, :voice_file_url => "https://s3-us-west-1.amazonaws.com/south-bend-secrets/121gigawatts.mp3", :phone_number => "19998887777")
-FeedbackInput.create!(:neighborhood_id => 1, :question_id => Question.find_by_short_name("neighborhood_comments").id, :voice_file_url => "https://s3-us-west-1.amazonaws.com/south-bend-secrets/121gigawatts.mp3", :phone_number => "12223334444")
-=end
-
