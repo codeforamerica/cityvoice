@@ -20,18 +20,17 @@ function placeMarkers(dataArray) {
   }
   for(var i = 0; i < dataArray.length; i++) {
     var subject = dataArray[i];
-    var mapIcon = L.icon({ 
+    var mapIcon = L.icon({
         iconUrl: '/assets/marker_icon_gray.png',
         iconAnchor: [12, 12],
-        popupAnchor: [0, -4], 
-      }); 
-    //var mapIcon = new MapIcon();
+        popupAnchor: [0, -4],
+      });
+
     // Turn on below once we've fixed the positioning and have implemented color icons
     //var marker = L.marker(new L.LatLng(a[1],a[2]) , {icon: mapIcon} , { address: address });
     if (subject.lat && subject.long) {
       var marker = L.marker(new L.LatLng(subject.lat,subject.long), { name: subject.name, icon: mapIcon });
       marker.bindPopup("<a href=\"/subjects/" + subject.name.replace(/\s/g,"-") + "\">" + subject.name + "</a>");
-      //marker.addTo(map);
       markerFeatureGroup.addLayer(marker);
     }
   }
@@ -47,7 +46,6 @@ function placeMarkers(dataArray) {
 $(document).ready(function() {
   drawMap();
   audiojs.events.ready(function() {
-    //var as = audiojs.createAll();
   });
 });
 
