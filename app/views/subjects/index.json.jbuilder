@@ -6,6 +6,5 @@ if params[:only] && Subject.column_names.include?(params[:only])
 else
   json.array!(@subjects) do |subject|
     json.extract! subject, :name, :lat, :long, :type
-    #json.url subject_url(subject, format: :json)
   end
 end
