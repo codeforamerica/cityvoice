@@ -33,12 +33,4 @@ class Property < Subject
     name_link = self.name.gsub(' ', '-')
     path = "/subjects/#{name_link}"
   end
-
-
-  # Using scoping instead, delete soon
-  # def recently_active?(since = 7.days.ago)
-  #   return false if self.most_recent_activity.nil?
-  #   since < self.most_recent_activity
-  # end
-
 end
