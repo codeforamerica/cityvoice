@@ -22,26 +22,9 @@ $cvOrange: #F15E2C;
   -webkit-box-shadow: 0px 0px 5px 4px #ccc;
   box-shadow: 0px 0px 5px 4px #ccc;
 }
-/*
-
-{
-  width: 40px;
-  height: 40px;
-  padding-top: 2px;
-  background-color: white;
-  border: 2px solid #A6A6A6;
-  color: #545454;
-  text-align: center;
-  font-size: 24px;
-  -moz-box-shadow: 0px 0px 6px 4px #ccc;
-  -webkit-box-shadow: 0px 0px 6px 4px #ccc;
-  box-shadow: 0px 0px 6px 4px #ccc;
-}
-
-*/
 
 .landingBar{
-margin-top: .5em; 
+margin-top: .5em;
 background: white;
 }
 .landing_content{
@@ -63,11 +46,11 @@ background: white;
 	text-align: left;
 }
 
-.ui-dialog{ 
+.ui-dialog{
 box-shadow: 0 0 10px 0px #545454;
 	.ui-dialog-content{
-		padding-left: .7em; 
-		padding-right: .75em; 
+		padding-left: .7em;
+		padding-right: .75em;
 		padding-top: 1em;
 	}
 	.ui-dialog-titlebar{
