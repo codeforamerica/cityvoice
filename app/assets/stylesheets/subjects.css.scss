@@ -59,70 +59,25 @@ $cvGray: #545454;
 	}
 }
 
-/*
-	a {
-	  color: #fff;
-	  &:visited {
-	    color: #fff;
-	  }
-	  &:hover {
-	    color: gray;
-	    text-decoration: none;
-	  }
-	}
-	.learn_bar{
-		border-top: 5px solid $cvBlue;
-	}
-	.call_bar{
-		border-top: 5px solid $cvOrange;
-	}
-	.listen_bar{
-		border-top: 5px solid $cvYellow;
-	}
-	.upper{
-		background: #BABABA;
-		padding-left: 1em;
-		padding-top: .5em;
-		padding-bottom: .75em;
-		.address{
-			font-family: 'Varela Round', sans-serif;
-			font-size: 3.5em;
-			line-height: 45px;
-		}
-		.infoLogo{
-			padding-top: .5em;
-		}
-		
-	}
-	.lower{
-		background: #CCCCCC;
-		border-top: 1px solid #F2F2F2;
-		padding-left: 2.5em;
-		padding-right: 2em;
-		padding-top: 1em;
-		padding-bottom: 1em;
-		
-	}
-*/
-	div{
-		color: white;
-	}
-	h1{
-		margin-bottom: 0em;
-		margin-right: .5em;
-		margin-top: .25em;
-	}
-	h2{
-		padding-bottom: 0em;
-		margin-bottom: 0em;
-		margin-right: .5em;
-	}
-	.tags{
-		margin-bottom: .5em;
-	}
-	.label{
-		margin-bottom: .5em;
-	}
+div{
+	color: white;
+}
+h1{
+	margin-bottom: 0em;
+	margin-right: .5em;
+	margin-top: .25em;
+}
+h2{
+	padding-bottom: 0em;
+	margin-bottom: 0em;
+	margin-right: .5em;
+}
+.tags{
+	margin-bottom: .5em;
+}
+.label{
+	margin-bottom: .5em;
+}
 
 .infoHeader{
 	background: #C4C4C4;
