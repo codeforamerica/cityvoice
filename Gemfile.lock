@@ -142,6 +142,8 @@ GEM
     sdoc (0.4.0)
       json (~> 1.8)
       rdoc (~> 4.0, < 5.0)
+    shoulda-matchers (2.5.0)
+      activesupport (>= 3.0.0)
     slop (3.4.6)
     soda-ruby (0.2.4)
       hashie
@@ -210,6 +212,7 @@ DEPENDENCIES
   rspec-rails (~> 2.0)
   sass-rails (~> 4.0.0)
   sdoc
+  shoulda-matchers
   soda-ruby
   sqlite3
   timecop

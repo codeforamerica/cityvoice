@@ -2,6 +2,9 @@ class Property < Subject
   has_one :property_info_set
   has_many :feedback_inputs
   has_many :notification_subscriptions
+
+  validates :name, presence: true
+
   before_save :add_call_in_code
   attr_protected
 
