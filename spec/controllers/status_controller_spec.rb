@@ -4,6 +4,8 @@ describe StatusController do
   let(:response_hash) { JSON.parse response.body }
 
   before do
+    stub_request(:post, "http://www.southbendvoices.com/route_to_survey").
+         to_return(:status => 201, :body => "here's welcome.mp3")
     @my_subject = FactoryGirl.create(:property)
     Timecop.freeze
     @time_in_seconds_at_request = Time.now.to_i
