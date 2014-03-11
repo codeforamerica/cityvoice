@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe FeedbackSms do
+  pending "flagged for deletion #{__FILE__}"
+
   it "validates 1234O" do
     @f = FeedbackSms.new({ "Body" => "1234O" })
     @f.valid?.should be_true
