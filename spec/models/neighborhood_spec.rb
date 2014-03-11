@@ -1,5 +1,5 @@
 require 'spec_helper'
 
 describe Neighborhood do
-  pending "add some examples to (or delete) #{__FILE__}"
+  pending "flagged for deletion #{__FILE__}"
 end
