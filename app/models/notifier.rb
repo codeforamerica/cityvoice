@@ -24,6 +24,7 @@ class Notifier
     NotificationSubscription.includes(property: :feedback_inputs)
                             .where("confirmed = ? or bulk_added = ?", true, true)
                             .where('feedback_inputs.created_at >= notification_subscriptions.last_email_sent_at')
+                            .references(:feedback_inputs)
   end
 
   # Group all the <NotificationSubscription>'s by email
