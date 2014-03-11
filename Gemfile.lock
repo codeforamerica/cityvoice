@@ -57,6 +57,7 @@ GEM
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
+    ffaker (1.23.0)
     hashie (1.2.0)
     high_voltage (1.2.4)
     hike (1.2.3)
@@ -196,6 +197,7 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 4.0.0)
   factory_girl_rails
+  ffaker
   high_voltage
   httparty
   jbuilder (~> 1.0.1)
