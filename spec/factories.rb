@@ -37,15 +37,23 @@ FactoryGirl.define do
     end
   end
 
+  factory :voice_file do
+    short_name { Faker::Name.first_name }
+    url { "#{Faker::Internet.http_url}/#{short_name}" }
+  end
+
   factory :question do
     voice_text { Faker::Company.bs }
     short_name { Faker::Name.first_name }
-    feedback_type { %w(numerical_response voice_file).sample }
-  end
+    voice_file { create(:voice_file, short_name: short_name) }
 
-  factory :voice_file do
-    short_name { Faker::Name.first_name }
-    url { Faker::Internet.http_url }
+    trait :number do
+      feedback_type 'numerical_response'
+    end
+
+    trait :voice do
+      feedback_type 'voice_file'
+    end
   end
 
   factory :caller do
