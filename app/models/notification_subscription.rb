@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: notification_subscriptions
+#
+#  id                   :integer          not null, primary key
+#  email                :string(255)
+#  confirmed            :boolean
+#  confirmation_sent_at :datetime
+#  auth_token           :string(255)
+#  property_id          :integer
+#  created_at           :datetime
+#  updated_at           :datetime
+#  last_email_sent_at   :datetime
+#  bulk_added           :boolean
+#
+
 class NotificationSubscription < ActiveRecord::Base
 
   attr_protected
