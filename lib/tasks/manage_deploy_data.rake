@@ -106,12 +106,13 @@ namespace :manage_deploy_data do
   namespace :example do
     desc "Adds example subjects"
     task :subjects => :environment do
-      s1 = Subject.find_or_create_by(name: "Eli's Mile High Club")
-      s1.update_attributes(:lat => "37.826650", :long => "-122.269507", :property_code => "123")
-      s2 = Subject.find_or_create_by(name: "Beer Revolution")
-      s2.update_attributes(:lat => "37.797077", :long => "-122.276297", :property_code => "456")
-      s3 = Subject.find_or_create_by(name: "Stork Club")
-      s3.update_attributes(:lat => "37.813142", :long => "-122.268321", :property_code => "789")
+      content_path = Rails.root.join('data/subjects.csv.example')
+      importer = PropertyImporter.import_file(content_path)
+      unless importer.valid?
+        importer.errors.each do |error|
+          puts error
+        end
+      end
     end
   end
 
