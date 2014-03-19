@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe NotificationMailer do
-  let(:property) { Property.create!(name: '1313 mockingbird lane') }
+  let(:property) { create(:property, name: '1313 mockingbird lane') }
   let!(:notification_subscription) { property.notification_subscriptions.create!(email: 'tacos@example.com') }
 
   describe '#confirmation_email' do

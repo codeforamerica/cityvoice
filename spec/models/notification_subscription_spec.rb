@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe NotificationSubscription do
-  let(:property) { Property.create!(name: '1313 mockingbird lane') }
+  let(:property) { create(:property) }
 
   it { should belong_to(:property) }
   it { should allow_value('user@example.com', 'us.er@example.com', 'user+plus@example.com').for(:email) }

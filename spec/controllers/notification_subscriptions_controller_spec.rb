@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe NotificationSubscriptionsController do
+  let(:property) { create(:property) }
+
   describe 'POST #create' do
     before { make_request }
 
@@ -12,7 +14,6 @@ describe NotificationSubscriptionsController do
   end
 
   describe 'GET #confirm' do
-    let(:property) { Property.create!(name: '1313 mockingbird lane') }
     let(:notification_subscription) { property.notification_subscriptions.create!(email: 'tacos@example.com') }
 
     before { make_request }
@@ -25,7 +26,6 @@ describe NotificationSubscriptionsController do
   end
 
   describe 'GET #unsubscribe' do
-    let(:property) { Property.create!(name: '1313 mockingbird lane') }
     let(:notification_subscription) { property.notification_subscriptions.create!(email: 'tacos@example.com') }
 
     before { make_request }

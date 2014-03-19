@@ -12,7 +12,7 @@ describe SubjectsController do
   end
 
   describe 'GET #show' do
-    let(:property) { Property.create!(name: '1313 mockingbird lane') }
+    let(:property) { create(:property) }
 
     before { make_request }
 
