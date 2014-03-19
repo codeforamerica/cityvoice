@@ -89,4 +89,22 @@ describe PropertyImporter do
       end
     end
   end
+
+  describe '.import_file' do
+    context 'with valid data' do
+      it 'creates a property' do
+        expect do
+          PropertyImporter.import_file(Rails.root.join('spec/support/fixtures/subject.csv'))
+        end.to change(Property, :count)
+      end
+    end
+
+    context 'with invalid data' do
+      it 'does not create a property' do
+        expect do
+          PropertyImporter.import_file(Rails.root.join('spec/support/fixtures/invalid_subject.csv'))
+        end.not_to change(Property, :count)
+      end
+    end
+  end
 end

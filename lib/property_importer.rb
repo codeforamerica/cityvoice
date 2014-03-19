@@ -3,6 +3,11 @@ require 'csv'
 class PropertyImporter < Struct.new(:content)
   REQUIRED_HEADERS = %w(name property_code lat long).map(&:to_sym)
 
+  def self.import_file(path)
+    content = File.read(path)
+    new(content).tap(&:import)
+  end
+
   def has_valid_headers?
     missing_headers.empty?
   end
