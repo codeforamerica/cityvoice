@@ -20,6 +20,19 @@
 #
 
 class AppContentSet < ActiveRecord::Base
+  attr_accessible :issue,
+                  :learn_text,
+                  :call_text,
+                  :call_instruction,
+                  :app_phone_number,
+                  :listen_text,
+                  :message_from,
+                  :message_url,
+                  :header_color,
+                  :short_title,
+                  :call_in_code_digits,
+                  :feedback_form_url
+
   def self.configure_contents
     raise "Error: more than one instance of app content!" if self.count > 1
     if AppContentSet.count == 1

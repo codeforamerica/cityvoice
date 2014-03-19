@@ -61,6 +61,8 @@ GEM
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
     ffaker (1.23.0)
+    formtastic (2.2.1)
+      actionpack (>= 3.0)
     hashie (1.2.0)
     high_voltage (1.2.4)
     hike (1.2.3)
@@ -202,6 +204,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   factory_girl_rails
   ffaker
+  formtastic
   high_voltage
   httparty
   jbuilder (~> 1.0.1)

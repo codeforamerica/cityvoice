@@ -12,4 +12,5 @@
  *= require leaflet
  *= require ./landing
  *= require_tree .
+ *= require formtastic
  */
