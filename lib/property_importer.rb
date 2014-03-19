@@ -17,8 +17,7 @@ class PropertyImporter < Struct.new(:content)
   end
 
   def errors
-    header_errors +
-    properties.reject(&:valid?).map(&:errors).map(&:full_messages).flatten
+    header_errors + ImporterErrors.messages_for(properties)
   end
 
   def import

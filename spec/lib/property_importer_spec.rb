@@ -57,7 +57,7 @@ describe PropertyImporter do
     context 'when the content is not valid' do
       let(:content) { invalid_content }
 
-      its(:errors) { should include("Property code can't be blank") }
+      its(:errors) { should include("Line 2: Property code can't be blank") }
     end
   end
 
