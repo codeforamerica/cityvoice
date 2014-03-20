@@ -18,4 +18,6 @@ Automidnight::Application.routes.draw do
   post '/message_playback' => 'voice_feedback#message_playback'
   post '/route_to_survey' => 'voice_feedback#route_to_survey'
   post '/voice_survey' => 'voice_feedback#voice_survey'
+
+  root to: 'landing#location_search'
 end
