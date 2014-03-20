@@ -1,3 +1,5 @@
+require 'csv'
+
 module BulkNotificationSubscriber
 
   # Bulk subscribes from a csv with columns "parcel_id" and "email"

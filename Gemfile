@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
-ruby "2.0.0"
+
+ruby '2.1.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
@@ -34,7 +35,7 @@ gem 'high_voltage'
 
 gem 'pry'
 
-gem 'soda-ruby', require: "soda"
+gem 'soda-ruby', require: 'soda'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -46,6 +47,7 @@ group :test do
   gem 'timecop'
   gem 'vcr'
   gem 'webmock'
+  gem 'shoulda-matchers'
 end
 
 group :development, :test do
@@ -55,7 +57,8 @@ group :development, :test do
   gem 'nokogiri'
   gem 'capybara'
   gem 'rspec-rails', '~> 2.0'
-  gem "letter_opener"
+  gem 'letter_opener'
+  gem 'ffaker'
 end
 
 group :production do
@@ -69,7 +72,7 @@ end
 gem 'bootstrap-sass', '2.3.2.0'
 
 #leaflet maps
-gem "leaflet-rails", "~> 0.6.0"
+gem 'leaflet-rails', '~> 0.6.0'
 
 gem 'audiojs'
 

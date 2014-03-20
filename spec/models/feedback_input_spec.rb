@@ -1,5 +1,7 @@
 require 'spec_helper'
 
 describe FeedbackInput do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should belong_to(:subject) }
+  it { should belong_to(:property) }
+  it { should belong_to(:question) }
 end
