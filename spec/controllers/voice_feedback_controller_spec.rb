@@ -471,7 +471,7 @@ describe VoiceFeedbackController do
     let!(:code_prompt) { create(:voice_file, short_name: 'code_prompt') }
 
     before do
-      AppContentSet.create!(call_in_code_digits: '777')
+      AppContentSet.create!(call_in_code_digits: '1')
       ENV['SURVEY_NAME'] ||= 'taquerias'
     end
 
