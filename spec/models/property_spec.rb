@@ -6,8 +6,6 @@ describe Property do
   it { should have_one :property_info_set }
   it { should have_many :feedback_inputs }
   it { should have_many :notification_subscriptions }
-  it { should validate_presence_of :name }
-  it { should validate_presence_of :property_code }
 
   describe '.activity_since' do
     let!(:property) { create(:property, most_recent_activity: Time.now) }
