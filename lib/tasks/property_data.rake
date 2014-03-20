@@ -1,12 +1,6 @@
 require 'csv'
-require "#{Rails.root}/lib/south_bend_data_importer"
 
 namespace :property_data do
-  desc "Runs the (newer, better!) property data load/update ('upsert')"
-  task :load_or_update => :environment do
-    SouthBendDataImporter.load_or_update_property_data
-  end
-
 =begin
   desc "Import data from the property data file and create an addresses JSON file for typeahead search"
   task :import => :environment do
