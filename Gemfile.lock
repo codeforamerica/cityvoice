@@ -205,6 +205,7 @@ DEPENDENCIES
   httparty
   jbuilder (~> 1.0.1)
   jquery-rails
+  launchy
   leaflet-rails (~> 0.6.0)
   letter_opener
   newrelic_rpm

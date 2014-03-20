@@ -56,6 +56,7 @@ group :development, :test do
   gem 'sqlite3'
   gem 'nokogiri'
   gem 'capybara'
+  gem 'launchy'
   gem 'rspec-rails', '~> 2.0'
   gem 'letter_opener'
   gem 'ffaker'
