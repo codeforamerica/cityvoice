@@ -12,6 +12,6 @@ class ApplicationController < ActionController::Base
   end
 
   def load_app_content
-    @content = AppContentSet.first
+    @content = Rails.application.config.app_content_set
   end
 end
