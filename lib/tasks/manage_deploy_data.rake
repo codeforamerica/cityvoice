@@ -107,7 +107,7 @@ namespace :manage_deploy_data do
     desc "Adds example subjects"
     task :subjects => :environment do
       content_path = Rails.root.join('data/subjects.csv.example')
-      importer = PropertyImporter.import_file(content_path)
+      importer = SubjectImporter.import_file(content_path)
       unless importer.valid?
         importer.errors.each do |error|
           puts error

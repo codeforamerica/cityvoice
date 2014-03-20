@@ -1,7 +1,7 @@
 require 'csv'
 
-class PropertyImporter < Struct.new(:content)
-  REQUIRED_HEADERS = %w(name property_code lat long).map(&:to_sym)
+class SubjectImporter < Struct.new(:content)
+  REQUIRED_HEADERS = %w(name lat long).map(&:to_sym)
 
   def self.import_file(path)
     content = File.read(path)
@@ -13,15 +13,15 @@ class PropertyImporter < Struct.new(:content)
   end
 
   def valid?
-    has_valid_headers? && properties.all?(&:valid?)
+    has_valid_headers? && subjects.all?(&:valid?)
   end
 
   def errors
-    header_errors + ImporterErrors.messages_for(properties)
+    header_errors + ImporterErrors.messages_for(subjects)
   end
 
   def import
-    properties.each(&:save!) if valid?
+    subjects.each(&:save!) if valid?
   end
 
   protected
@@ -38,8 +38,8 @@ class PropertyImporter < Struct.new(:content)
     @csv_entries ||= CSV.new(content, headers: true, header_converters: :symbol).entries
   end
 
-  def properties
-    csv_entries.map(&:to_hash).map { |p| Property.new(p) }
+  def subjects
+    csv_entries.map(&:to_hash).map { |p| Subject.new(p) }
   end
 
   def headers
