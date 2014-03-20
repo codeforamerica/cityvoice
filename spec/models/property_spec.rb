@@ -34,19 +34,4 @@ describe Property do
       end
     end
   end
-
-  describe '#add_call_in_code' do
-    let(:property) { create(:property, name: '13 Dead End Alley', parcel_id: '131') }
-    before { create(:property, name: '131 Dead End Alley', parcel_id: '132') }
-
-    it 'does not change the property' do
-      expect {
-        property.add_call_in_code
-      }.not_to change { property.reload.attributes }
-    end
-
-    it 'returns an empty array' do
-      expect(property.add_call_in_code).to be_empty
-    end
-  end
 end
