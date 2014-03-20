@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131105015734) do
+ActiveRecord::Schema.define(version: 20140320211732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,13 +53,6 @@ ActiveRecord::Schema.define(version: 20131105015734) do
     t.string   "call_source"
   end
 
-  create_table "most_recent_outcome_choices", id: false, force: true do |t|
-    t.integer "id"
-    t.integer "numerical_response"
-    t.string  "phone_number"
-    t.integer "property_id"
-  end
-
   create_table "notification_subscriptions", force: true do |t|
     t.string   "email"
     t.boolean  "confirmed"
@@ -99,16 +92,13 @@ ActiveRecord::Schema.define(version: 20131105015734) do
 
   create_table "subjects", force: true do |t|
     t.string   "name"
-    t.integer  "neighborhood_id"
     t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "property_code"
-    t.string   "parcel_id"
+    t.datetime "most_recent_activity"
     t.string   "lat"
     t.string   "long"
     t.text     "description"
-    t.datetime "most_recent_activity"
   end
 
   create_table "voice_files", force: true do |t|

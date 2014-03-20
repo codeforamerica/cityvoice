@@ -7,7 +7,7 @@ class VoiceFeedbackController < ApplicationController
       session[:call_source] = call_source_from_twilio_phone_number(params["To"])
       response_xml = ask_for_code(first_time: true)
     else
-      target_subject = Subject.find_by_property_code(params["Digits"])
+      target_subject = Subject.find_by(id: params["Digits"])
       if target_subject
         session[:property_id] = target_subject.id
         session[:survey] = ENV["SURVEY_NAME"] #"property"

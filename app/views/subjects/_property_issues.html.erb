@@ -5,9 +5,9 @@
         <div class="text">
           <%= single_numerical.question_text %>
         </div>
-        
+
         <% single_numerical.response_hash.each_pair do |choice, count_of_choice| %>
-          
+
             <div class="span2">
               <% if choice == "Repair" %>
                 <img src="/assets/Repair.png" />
@@ -22,18 +22,6 @@
               </div>
             </div>
           </div>
-            <!--
-            <div class="progressAnnotate">
-              <span class="alignleft">
-                less 
-              </span>
-              <span class="alignright">
-                more 
-              </span>
-              <div style="clear: both;"></div>
-            </div>
-          -->
-          
         <% end %>
 
       </div>

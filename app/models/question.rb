@@ -1,6 +1,5 @@
 class Question < ActiveRecord::Base
+  belongs_to :voice_file
+
   attr_protected
-  def voice_file
-    VoiceFile.find(voice_file_id)
-  end
 end

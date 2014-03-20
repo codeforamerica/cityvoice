@@ -102,4 +102,18 @@ namespace :manage_deploy_data do
       s4.update_attributes(:lat => "41.674697", :long => "-86.250034", :property_code => "13")
     end
   end # namespace: iwtw
+
+  namespace :example do
+    desc "Adds example subjects"
+    task :subjects => :environment do
+      content_path = Rails.root.join('data/subjects.csv.example')
+      importer = SubjectImporter.import_file(content_path)
+      unless importer.valid?
+        importer.errors.each do |error|
+          puts error
+        end
+      end
+    end
+  end
+
 end

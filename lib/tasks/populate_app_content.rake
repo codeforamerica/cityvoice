@@ -1,5 +1,23 @@
 namespace :populate_app_content do
 
+  desc "Loads default front page content"
+  task :default => :environment do
+    AppContentSet.configure_contents do |content|
+      content.issue = "" # Optional: will put "Issue: ..." at top of the "Learn" box
+      content.learn_text = "To learn more about this issue...(add text here)"
+      content.call_text = "The text at the top of the 'Call' box goes here."
+      content.call_instruction = "Call instruction goes here"
+      content.app_phone_number = "(123) 456-7890"
+      content.listen_text = "CityVoice is about having a conversation. (Add more 'Listen' text here.)"
+      content.message_from = "(Name of the person speaking in the message below)"
+      content.message_url = "https://s3-us-west-1.amazonaws.com/south-bend-secrets/121gigawatts.mp3"
+      content.header_color = "#6DC6AD" # Color of the top header bar (useful for unique branding)
+      content.short_title = "" # If this is empty, the CityVoice logo will be shown in the upper right
+      content.call_in_code_digits = "3" # The number of digits for a subject's call-in code
+      content.feedback_form_url = "" # A URL for a feedback form (on the left side)
+    end
+  end
+
   desc "Loads app content for the SB abandoned property deploy"
   task :abandoned_property_deploy => :environment do
     AppContentSet.configure_contents do |content|
@@ -34,11 +52,6 @@ namespace :populate_app_content do
       content.call_in_code_digits = "2"
       content.feedback_form_url = "https://docs.google.com/a/codeforamerica.org/forms/d/1NeC7Yq-bNK3tPeJd2gNVjB4Ave4k5EZhG4Kpbomh0j8/viewform"
     end
-  end
-
-  desc "Loads default front page content"
-  task :default => :environment do
-    # Pending default content
   end
 
 end
