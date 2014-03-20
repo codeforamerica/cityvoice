@@ -4,6 +4,7 @@ class Property < Subject
   has_many :notification_subscriptions
 
   validates :name, presence: true
+  validates :property_code, presence: true
 
   before_save :add_call_in_code
   attr_protected
