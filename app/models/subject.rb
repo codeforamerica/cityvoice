@@ -1,7 +1,6 @@
 class Subject < ActiveRecord::Base
   attr_protected
   validates :name, presence: true
-  belongs_to :neighborhood
 
   def property_code
     digits = content_set.call_in_code_digits.to_i

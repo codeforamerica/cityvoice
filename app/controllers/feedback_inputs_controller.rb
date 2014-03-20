@@ -4,7 +4,7 @@ class FeedbackInputsController < ApplicationController
     @repair_counts = FeedbackInput.where(:numerical_response => 1).joins(:subject).group(:subject).count(:numerical_response)
     @remove_counts = FeedbackInput.where(:numerical_response => 2).joins(:subject).group(:subject).count(:numerical_response)
     @counts_hash = Hash.new
-    @total_counts.each { |tc| @counts_hash[tc[0].name] = { :total => tc[1], :parcel_id => tc[0].parcel_id } }
+    @total_counts.each { |tc| @counts_hash[tc[0].name] = { :total => tc[1] } }
     @repair_counts.each { |rc| @counts_hash[rc[0].name][:repair] = rc[1] }
     @remove_counts.each { |rc| @counts_hash[rc[0].name][:remove] = rc[1] }
     @counts_array = Array.new
@@ -15,9 +15,9 @@ class FeedbackInputsController < ApplicationController
       format.csv do
         require 'csv'
         csv_output = CSV.generate do |csv|
-          csv << ["Address", "Parcel ID", "Total", "Repair", "Remove"]
+          csv << ["Address", "Total", "Repair", "Remove"]
           @sorted_array.each do |element|
-            csv << [element[0], element[1].fetch(:parcel_id) { "N/A" }, element[1].fetch(:total) { 0 }, element[1].fetch(:repair) { 0 }, element[1].fetch(:remove) { 0 }]
+            csv << [element[0], element[1].fetch(:total) { 0 }, element[1].fetch(:repair) { 0 }, element[1].fetch(:remove) { 0 }]
           end
         end
         send_data csv_output

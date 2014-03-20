@@ -1,7 +1,6 @@
 FactoryGirl.define do
   factory :property do
     name "1234 Fake St"
-    parcel_id "111-2222-333"
 
     factory :property_with_info_set do
       after(:create) do |property|
