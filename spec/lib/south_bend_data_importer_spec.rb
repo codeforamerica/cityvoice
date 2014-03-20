@@ -13,6 +13,9 @@ describe SouthBendDataImporter do
   let(:parcel_centroid_from_socrata) { Hashie::Mash.new({parcelid: "111-1111-1111", parcelstat: "71-11-11-111-111.111-111", prop_addr: "", xcoord: "-86.242722", ycoord: "41.668511"}) }
 
   before do
+    ENV["SOCRATA_USERNAME"] ||= 'username'
+    ENV["SOCRATA_PASSWORD"] ||= 'pw'
+    ENV["SOCRATA_APP_TOKEN"] ||= 'token'
     client = SouthBendDataImporter::SBSocrataClient.new
     client.stub(:get).with("edja-ktsm").and_return([new_property, existing_property, property_without_outcome])
     client.stub(:get).with("9v3y-4upv", {"parcelid" => "111-1111-1111"})

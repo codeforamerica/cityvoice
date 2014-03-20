@@ -4,6 +4,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'capybara'
+require 'webmock/rspec'
 
 # From SaltonSea
 #require 'rspec'
