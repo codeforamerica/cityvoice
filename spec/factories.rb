@@ -28,7 +28,7 @@ FactoryGirl.define do
   end
 
   factory :feedback_input do
-    question
+    question { create :question, :voice }
 
     trait :with_voice_file do
       voice_file_url { Faker::Internet.http_url }
