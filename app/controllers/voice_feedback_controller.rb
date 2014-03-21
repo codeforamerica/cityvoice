@@ -183,12 +183,10 @@ class VoiceFeedbackController < ApplicationController
       else
         if @current_question.feedback_type == "numerical_response"
           r.Gather :timeout => 10, :numDigits => 1, :finishOnKey => '' do |g|
-            #r.Say @current_question.voice_text
             r.Play @current_question.voice_file.url
           end
         else
           # Handle the voice recording here
-          #r.Say @current_question.voice_text
           r.Play @current_question.voice_file.url
           r.Record :maxLength => 60
         end
@@ -207,13 +205,11 @@ class VoiceFeedbackController < ApplicationController
       else
         if @current_question.feedback_type == "numerical_response"
           r.Gather :timeout => 10, :numDigits => 1, :finishOnKey => '' do |g|
-            #r.Say @current_question.voice_text
             r.Play VoiceFile.find_by_short_name("error1").url if session[:wrong_digit_entered]
             r.Play @current_question.voice_file.url
           end
         else
           # Handle the voice recording here
-          #r.Say @current_question.voice_text
           r.Play @current_question.voice_file.url
           r.Record :maxLength => 60
         end
