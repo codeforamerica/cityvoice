@@ -470,10 +470,6 @@ describe VoiceFeedbackController do
     let!(:code_prompt) { create(:voice_file, short_name: 'code_prompt') }
     let!(:code_prompt) { create(:voice_file, short_name: 'code_prompt') }
 
-    before do
-      ENV['SURVEY_NAME'] ||= 'taquerias'
-    end
-
     def make_request(params = {'To' => '+15745842971'})
       post :route_to_survey, params
     end
@@ -551,12 +547,6 @@ describe VoiceFeedbackController do
           expect {
             make_request('Digits' => property.property_code)
           }.to change { session[:property_id] }.to(property.id)
-        end
-
-        it 'sets the survey name' do
-          expect {
-            make_request('Digits' => property.property_code)
-          }.to change { session[:survey] }.to('taquerias')
         end
 
         it 'redirects to the messages prompt' do
