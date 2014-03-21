@@ -41,7 +41,6 @@ FactoryGirl.define do
   end
 
   factory :question do
-    voice_text { Faker::Company.bs }
     short_name { Faker::Name.first_name }
     voice_file { create(:voice_file, short_name: short_name) }
 

@@ -16,9 +16,9 @@ namespace :manage_deploy_data do
     desc "Resets the Questions table with the correct questions"
     task questions: :environment do
       prop_outcome = Question.find_or_create_by(:short_name => "property_outcome")
-      prop_outcome.update_attributes(voice_text: "Press 1 if you want to repair this property. Press 2 if you want to  remove this property. Press 3 if you want to something else to happen to this property.", feedback_type: "numerical_response")
+      prop_outcome.update_attributes(feedback_type: "numerical_response")
       prop_comments = Question.find_or_create_by(:short_name => "property_comments")
-      prop_comments.update_attributes(voice_text: "Because you entered feedback on a specific property you will have an additional minute to leave voice feedback on that property after the tone. Again all feedback is public.", feedback_type: "voice_file")
+      prop_comments.update_attributes(feedback_type: "voice_file")
       Question.all.each do |question|
         question.update_attribute(:voice_file_id, VoiceFile.find_by_short_name(question.short_name).id)
       end
