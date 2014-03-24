@@ -94,3 +94,17 @@ If you want HTTP basic authentication enabled, you can set the following environ
 - CITYVOICE\_LOCK\_USERNAME=myusername
 - CITYVOICE\_LOCK\_PASSWORD=mypassword
 
+### Twilio Local Development
+
+In order to set up Twilio for local development, you'll need a way to connect Twilio to your local machine.  The easiest way for this to happen is to install [ngrok](https://ngrok.com).
+
+Then, run `ngrok 3000` to open a tunnel:
+
+    $ ngrok 3000
+    Tunnel Status                 online
+    Version                       1.6/1.5
+    Forwarding                    http://xxx.ngrok.com -> 127.0.0.1:3000
+    Forwarding                    https://xxx.ngrok.com -> 127.0.0.1:3000
+    Web Interface                 127.0.0.1:4040
+
+Log into your Twilio application, open up your [phone number](https://www.twilio.com/user/account/phone-numbers/incoming) and change the Voice Request URL to the `https://xxx.ngrok.com` redirection address.
