@@ -1,9 +1,15 @@
 class VoiceFeedbackController < ApplicationController
+  CALL_SOURCES = {
+    '+15745842971' => 'flyer',
+    '+15745842979' => 'sign',
+    '+15745842969' => 'web',
+  }
+
   def route_to_survey
     @call_in_code_digits = AppContentSet.select(:call_in_code_digits).first.call_in_code_digits
     if !session[:survey_started]
       session[:survey_started] = true
-      session[:call_source] = call_source_from_twilio_phone_number(params["To"])
+      session[:call_source] = CALL_SOURCES[params["To"]] || "error: from #{params['To']}"
       render action: 'ask_for_code.xml.builder', layout: false
     else
       target_subject = Subject.find_by(id: params["Digits"])
@@ -132,19 +138,5 @@ class VoiceFeedbackController < ApplicationController
     end
 
     render action: 'ask_current_question.xml.builder', layout: false
-  end
-
-  private
-  def call_source_from_twilio_phone_number(twilio_number)
-    case twilio_number
-    when "+15745842971"
-      return "flyer"
-    when "+15745842979"
-      return "sign"
-    when "+15745842969"
-      return "web"
-    else
-      return "error: from #{twilio_number}"
-    end
   end
 end
