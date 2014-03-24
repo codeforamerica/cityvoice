@@ -1,82 +1,59 @@
 class VoiceFeedbackController < ApplicationController
-
   def route_to_survey
     @call_in_code_digits = AppContentSet.select(:call_in_code_digits).first.call_in_code_digits
     if !session[:survey_started]
       session[:survey_started] = true
       session[:call_source] = call_source_from_twilio_phone_number(params["To"])
-      response_xml = ask_for_code(first_time: true)
+      render action: 'ask_for_code.xml.builder', layout: false
     else
       target_subject = Subject.find_by(id: params["Digits"])
       if target_subject
         session[:property_id] = target_subject.id
         session[:survey] = ENV["SURVEY_NAME"] #"property"
-        response_xml = Twilio::TwiML::Response.new do |r|
-          r.Redirect "listen_to_messages_prompt"
-        end.text
+        render action: 'redirect_to_listen_to_messages_prompt.xml.builder', layout: false
       else
         if session[:attempts] == nil
           session[:attempts] = 1
-          response_xml = ask_for_code(first_time: false)
+          render action: 'ask_for_code.xml.builder', layout: false
         else
-          response_xml = Twilio::TwiML::Response.new do |r|
-            r.Play VoiceFile.find_by_short_name("error2").url
-            r.Hangup
-          end.text
+          render action: 'error2.xml.builder', layout: false
         end
       end
     end
-    puts response_xml
-    render :inline => response_xml
   end
 
   def listen_to_messages_prompt
     if !session[:listen_to_messages_started]
       session[:listen_to_messages_started] = true
-      response_xml = ask_about_listening
+      render action: 'ask_about_listening.xml.builder', layout: false
     else
       if ["1","2"].include?(params["Digits"])
-        response_xml = Twilio::TwiML::Response.new do |r|
-          if params["Digits"] == "1"
-            r.Redirect "check_for_messages"
-          else
-            r.Redirect "consent"
-          end
-        end.text
+        if params['Digits'] == '1'
+          render action: 'redirect_to_check_for_messages.xml.builder', layout: false
+        else
+          render action: 'redirect_to_consent.xml.builder', layout: false
+        end
       elsif session[:listen_attempts] == nil
         session[:listen_attempts] = 1
-        response_xml = ask_about_listening(first_time: false)
+        render action: 'ask_about_listening.xml.builder', layout: false
       else
-        response_xml = Twilio::TwiML::Response.new do |r|
-          r.Play VoiceFile.find_by_short_name("error2").url
-          r.Hangup
-        end.text
+        render action: 'error2.xml.builder', layout: false
       end
     end
-    render :inline => response_xml
   end
 
   def check_for_messages
     @voice_message_count = FeedbackInput.where('property_id = ? and voice_file_url != ?', session[:property_id], "null").count
     if @voice_message_count == 0
-      response_xml = Twilio::TwiML::Response.new do |r|
-        r.Play VoiceFile.find_by_short_name("no_feedback_yet").url
-        r.Redirect "consent"
-      end.text
+      render action: 'no_feedback.xml.builder', layout: false
     else
-      # Voice messages exist
-      response_xml = Twilio::TwiML::Response.new do |r|
-        r.Redirect "message_playback"
-      end.text
+      render action: 'redirect_to_message_playback.xml.builder', layout: false
     end
-    render :inline => response_xml
   end
 
   def message_playback
     if params["Digits"] == "2" or session[:end_of_messages]
-      response_xml = Twilio::TwiML::Response.new do |r|
-        r.Redirect "consent"
-      end.text
+      render action: 'redirect_to_consent.xml.builder', layout: false
     else
       @voice_messages = FeedbackInput.where('property_id = ? and voice_file_url != ?', session[:property_id], "null").order('created_at ASC')
       if session[:current_message_index] == nil
@@ -85,29 +62,18 @@ class VoiceFeedbackController < ApplicationController
         session[:current_message_index] += 1
       end
       if @voice_messages[session[:current_message_index]]
-        response_xml = Twilio::TwiML::Response.new do |r|
-          r.Gather :timeout => 8, :numDigits => 1, :finishOnKey => '' do |g|
-            # MP3 addition below necessary for redacted messages, though not Twilio messages
-            r.Play @voice_messages[session[:current_message_index]].voice_file_url + ".mp3"
-            r.Play VoiceFile.find_by_short_name("listen_to_another").url
-          end
-        end.text
+        render action: 'message_playback.xml.builder', layout: false
       else # No voice messages left
         session[:end_of_messages] = true
-        response_xml = Twilio::TwiML::Response.new do |r|
-          r.Gather :timeout => 15, :numDigits => 1, :finishOnKey => '' do |g|
-            r.Play VoiceFile.find_by_short_name("last_message_reached").url
-          end
-        end.text
+        render action: 'last_message.xml.builder', layout: false
       end
     end
-    render :inline => response_xml
   end
 
   def consent
     if !session[:consent_started]
       session[:consent_started] = true
-      response_xml = ask_for_consent
+      render action: 'ask_for_consent.xml.builder', layout: false
     else
       if ["1","2"].include?(params["Digits"])
         session[:consent_attempts] = nil
@@ -117,20 +83,14 @@ class VoiceFeedbackController < ApplicationController
         else
           @caller.update_attribute(:consented_to_callback, false)
         end
-        response_xml = Twilio::TwiML::Response.new do |r|
-          r.Redirect "voice_survey"
-        end.text
+        render action: 'redirect_to_voice_survey.xml.builder', layout: false
       elsif session[:consent_attempts] == nil
         session[:consent_attempts] = 1
-        response_xml = ask_for_consent(first_time: false)
+        render action: 'ask_for_consent.xml.builder', layout: false
       else
-        response_xml = Twilio::TwiML::Response.new do |r|
-          r.Play VoiceFile.find_by_short_name("error2").url
-          r.Hangup
-        end.text
+        render action: 'error2.xml.builder', layout: false
       end
     end
-    render :inline => response_xml
   end
 
   def voice_survey
@@ -146,18 +106,14 @@ class VoiceFeedbackController < ApplicationController
       @current_question = Question.find(session[:current_question_id])
       if @current_question.feedback_type == "numerical_response"
         if params["Digits"] == "#"
-          return render :inline => twiml_for_reasking_current_question
+          return render action: 'ask_current_question.xml.builder', layout: false
         end
         if ["1","2"].include?(params["Digits"]) == false
           if session[:wrong_digit_entered] == nil
             session[:wrong_digit_entered] = true
-            return render :inline => twiml_for_reasking_current_question
+            return render action: 'ask_current_question.xml.builder', layout: false
           else
-            error_and_hangup_xml = Twilio::TwiML::Response.new do |r|
-              r.Play VoiceFile.find_by_short_name("error2").url
-              r.Hangup
-            end.text
-            return render :inline => error_and_hangup_xml
+            return render action: 'error2.xml.builder'
           end
         end
         FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: session[:neighborhood_id], :property_id => session[:property_id], numerical_response: params["Digits"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
@@ -175,27 +131,7 @@ class VoiceFeedbackController < ApplicationController
       end
     end
 
-    @response_xml = Twilio::TwiML::Response.new do |r|
-      if @hang_up
-        #r.Say "Thank you very much for your feedback. Good bye."
-        r.Play VoiceFile.find_by_short_name("thanks").url
-        r.Hangup
-      else
-        if @current_question.feedback_type == "numerical_response"
-          r.Gather :timeout => 10, :numDigits => 1, :finishOnKey => '' do |g|
-            #r.Say @current_question.voice_text
-            r.Play @current_question.voice_file.url
-          end
-        else
-          # Handle the voice recording here
-          #r.Say @current_question.voice_text
-          r.Play @current_question.voice_file.url
-          r.Record :maxLength => 60
-        end
-      end
-    end.text
-    puts @response_xml
-    render :inline => @response_xml
+    render action: 'ask_current_question.xml.builder', layout: false
   end
 
   def twiml_for_reasking_current_question
