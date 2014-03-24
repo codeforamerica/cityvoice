@@ -1,4 +1,4 @@
-					    
+
 
 					<% if @numerical_responses_exist %>
                                           <div class="info_box listen">
@@ -16,7 +16,7 @@
 							<img class="action_icon" src="/assets/listenicon.png" /><h1 style="display:inline;">MESSAGES</h1>
 						</div>
 							<div class="lower">
-								
+
 							<% @user_voice_messages.each do |message| %>
 								<div class="vmessage">
 									<div class="row-fluid">
@@ -25,8 +25,10 @@
 												<div style="display: inline; margin-bottom: .75em; padding-right: 1em;">
 									      </div>
 												<strong><%= @choice %></strong>&nbsp;&nbsp;
-											  date: <strong><%= message.created_at.to_date %></strong> &nbsp; 
-											  from: <strong><%= "XXX-XXX-" + message.phone_number.to_s[-4..-1] %></strong>
+											  date: <strong><%= message.created_at.to_date %></strong> &nbsp;
+                        <% if message.phone_number.present? %>
+											   from: <strong><%= "XXX-XXX-" + message.phone_number.to_s[-4..-1] %></strong>
+                        <% end %>
 											</div>
 											<div>
                         <style>
@@ -46,16 +48,3 @@
 							<% end %>
 						</div>
 					</div>
-
-
-
-
-
-
- 
-
-    
-
-
-					
-				

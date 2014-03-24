@@ -51,5 +51,13 @@ describe 'Listening to messages' do
     it 'has the feedback input audio file' do
       expect(page).to have_selector(%|source[src='#{feedback_input.voice_file_url}.mp3']|)
     end
+
+    context 'when the user has not consented to publicly display their number' do
+      let!(:feedback_input) { create(:feedback_input, :with_voice_file, phone_number: nil, property: property, created_at: create_date) }
+
+      it 'does not display a number' do
+        expect(page).not_to have_content('XXX-XXX-')
+      end
+    end
   end
 end
