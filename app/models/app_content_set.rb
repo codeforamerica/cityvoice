@@ -1,5 +1,5 @@
 class AppContentSet < ActiveRecord::Base
-  attr_accessible :call_in_code_digits
+  attr_accessible :call_in_code_digits, :issue, :feedback_form_url
 
   validates_length_of :call_in_code_digits, is: 1
 

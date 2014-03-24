@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe AppContentSet do
   it { should allow_mass_assignment_of :call_in_code_digits }
+  it { should allow_mass_assignment_of :issue }
+  it { should allow_mass_assignment_of :feedback_form_url }
   it { should ensure_length_of(:call_in_code_digits).is_equal_to(1) }
 
   describe '.configure_contents' do
