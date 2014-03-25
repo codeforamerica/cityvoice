@@ -1,6 +1,8 @@
 class VoiceFeedbackController < ApplicationController
   include TwilioControllerUtility
 
+  rescue_from TwilioSessionError, with: :handle_session_error
+
   CALL_SOURCES = {
     '+15745842971' => 'flyer',
     '+15745842979' => 'sign',
@@ -24,7 +26,7 @@ class VoiceFeedbackController < ApplicationController
           session[:attempts] = 1
           render action: 'ask_for_code.xml.builder', layout: false
         else
-          render action: 'error2.xml.builder', layout: false
+          raise TwilioSessionError.new(:error2)
         end
       end
     end
@@ -45,7 +47,7 @@ class VoiceFeedbackController < ApplicationController
         session[:listen_attempts] = 1
         render action: 'ask_about_listening.xml.builder', layout: false
       else
-        render action: 'error2.xml.builder', layout: false
+        raise TwilioSessionError.new(:error2)
       end
     end
   end
@@ -96,7 +98,7 @@ class VoiceFeedbackController < ApplicationController
         session[:consent_attempts] = 1
         render action: 'ask_for_consent.xml.builder', layout: false
       else
-        render action: 'error2.xml.builder', layout: false
+        raise TwilioSessionError.new(:error2)
       end
     end
   end
@@ -118,7 +120,7 @@ class VoiceFeedbackController < ApplicationController
             session[:wrong_digit_entered] = true
             return render action: 'ask_current_question.xml.builder', layout: false
           else
-            return render action: 'error2.xml.builder'
+            raise TwilioSessionError.new(:error2)
           end
         end
         FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: session[:neighborhood_id], :property_id => session[:property_id], numerical_response: params["Digits"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
