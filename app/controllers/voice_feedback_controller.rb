@@ -1,4 +1,6 @@
 class VoiceFeedbackController < ApplicationController
+  include TwilioControllerUtility
+
   CALL_SOURCES = {
     '+15745842971' => 'flyer',
     '+15745842979' => 'sign',
@@ -16,7 +18,7 @@ class VoiceFeedbackController < ApplicationController
       if target_subject
         session[:property_id] = target_subject.id
         session[:survey] = ENV["SURVEY_NAME"] #"property"
-        render action: 'redirect_to_listen_to_messages_prompt.xml.builder', layout: false
+        redirect_twilio_to listen_to_messages_prompt_path
       else
         if session[:attempts] == nil
           session[:attempts] = 1
@@ -35,9 +37,9 @@ class VoiceFeedbackController < ApplicationController
     else
       if ["1","2"].include?(params["Digits"])
         if params['Digits'] == '1'
-          render action: 'redirect_to_check_for_messages.xml.builder', layout: false
+          redirect_twilio_to check_for_messages_path
         else
-          render action: 'redirect_to_consent.xml.builder', layout: false
+          redirect_twilio_to consent_path
         end
       elsif session[:listen_attempts] == nil
         session[:listen_attempts] = 1
@@ -53,13 +55,13 @@ class VoiceFeedbackController < ApplicationController
     if @voice_message_count == 0
       render action: 'no_feedback.xml.builder', layout: false
     else
-      render action: 'redirect_to_message_playback.xml.builder', layout: false
+      redirect_twilio_to message_playback_path
     end
   end
 
   def message_playback
     if params["Digits"] == "2" or session[:end_of_messages]
-      render action: 'redirect_to_consent.xml.builder', layout: false
+      redirect_twilio_to consent_path
     else
       @voice_messages = FeedbackInput.where('property_id = ? and voice_file_url != ?', session[:property_id], "null").order('created_at ASC')
       if session[:current_message_index] == nil
@@ -89,7 +91,7 @@ class VoiceFeedbackController < ApplicationController
         else
           @caller.update_attribute(:consented_to_callback, false)
         end
-        render action: 'redirect_to_voice_survey.xml.builder', layout: false
+        redirect_twilio_to voice_survey_path
       elsif session[:consent_attempts] == nil
         session[:consent_attempts] = 1
         render action: 'ask_for_consent.xml.builder', layout: false
