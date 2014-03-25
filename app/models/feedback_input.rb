@@ -12,4 +12,8 @@ class FeedbackInput < ActiveRecord::Base
   def self.total_responses(numerical_response)
     where(numerical_response: numerical_response).joins(:subject).group(:subject).count(:numerical_response)
   end
+
+  def self.voice_messages
+    includes(:subject).where.not(voice_file_url: nil).order('created_at DESC')
+  end
 end

@@ -20,4 +20,24 @@ describe FeedbackInput do
       expect(FeedbackInput.total_responses('1')).to eq(input.property => 1)
     end
   end
+
+  describe '.voice_messages' do
+    context 'when the feedback input does not have a voice file' do
+      before do
+        create(:feedback_input)
+      end
+
+      it 'does not return the feedback input' do
+        expect(FeedbackInput.voice_messages).to be_empty
+      end
+    end
+
+    context 'when the feedback input has a voice file' do
+      let!(:feedback) {create(:feedback_input, :with_voice_file)}
+
+      it 'returns the feedback input' do
+        expect(FeedbackInput.voice_messages).to include(feedback)
+      end
+    end
+  end
 end
