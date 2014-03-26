@@ -64,7 +64,7 @@ describe SubjectsController do
         end
 
         it 'does not assign the numerical response existence flag' do
-          expect(assigns(:numerical_responses_exist)).to be_nil
+          expect(assigns(:numerical_responses_exist)).to be_false
         end
 
         it 'assigns user voice responses' do
@@ -74,7 +74,7 @@ describe SubjectsController do
 
       context 'when there is no response for the property' do
         it 'does not assign the numerical response existence flag' do
-          expect(assigns(:numerical_responses_exist)).to be_nil
+          expect(assigns(:numerical_responses_exist)).to be_false
         end
       end
     end
