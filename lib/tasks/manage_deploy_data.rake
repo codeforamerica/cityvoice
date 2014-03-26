@@ -114,6 +114,17 @@ namespace :manage_deploy_data do
         end
       end
     end
+
+    desc "Adds example questions"
+    task :questions => :environment do
+      content_path = Rails.root.join('data/questions.csv.example')
+      importer = QuestionImporter.import_file(content_path)
+      unless importer.valid?
+        importer.errors.each do |error|
+          puts error
+        end
+      end
+    end
   end
 
 end
