@@ -2,6 +2,12 @@ require 'spec_helper'
 
 describe Subject do
   it { should validate_presence_of :name }
+  it { should have_many :feedback_inputs }
+
+  it { should allow_mass_assignment_of :name }
+  it { should allow_mass_assignment_of :lat }
+  it { should allow_mass_assignment_of :long }
+  it { should allow_mass_assignment_of :description }
 
   describe '#property_code' do
     it 'is the zero-padded version of the id' do
@@ -32,5 +38,23 @@ describe Subject do
         expect { Subject.find_by_param('Taco-Trucks') }.to raise_error
       end
     end
+  end
+
+  describe '#numerical_responses' do
+    let(:question) { create(:question, :number) }
+
+    subject(:property) { create(:property) }
+
+    before { create(:feedback_input, property: property, question: question, numerical_response: 1) }
+
+    its(:numerical_responses) { should have(1).numerical_response }
+  end
+
+  describe '#voice_messages' do
+    subject(:property) { create(:property) }
+
+    before { create(:feedback_input, :with_voice_file, property: property) }
+
+    its(:voice_messages) { should have(1).voice_message }
   end
 end
