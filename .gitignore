@@ -24,3 +24,4 @@ next-steps*.txt
 git-merge-steps.txt
 .env
 /notes
+/config/database.yml

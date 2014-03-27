@@ -1,9 +1,8 @@
 development:
   adapter: postgresql
   database: cityvoice_development
-  host: localhost
-  username: <%= ENV["POSTGRES_USERNAME"] %>
-  password: <%= ENV["POSTGRES_PASSWORD"] %>
+  username: postgres
+  password:
   pool: 5
   timeout: 5000
 
@@ -13,17 +12,15 @@ development:
 test:
   adapter: postgresql
   database: cityvoice_test
-  host: localhost
-  username: <%= ENV["POSTGRES_USERNAME"] %>
-  password: <%= ENV["POSTGRES_PASSWORD"] %>
+  username: postgres
+  password:
   pool: 5
   timeout: 5000
 
 production:
   adapter: postgresql
   database: cityvoice_production
-  host: localhost
-  username: <%= ENV["POSTGRES_USERNAME"] %>
-  password: <%= ENV["POSTGRES_PASSWORD"] %>
+  username: postgres
+  password:
   pool: 5
   timeout: 5000
