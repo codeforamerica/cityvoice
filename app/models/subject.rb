@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: subjects
+#
+#  id                   :integer          not null, primary key
+#  name                 :string(255)
+#  type                 :string(255)
+#  created_at           :datetime
+#  updated_at           :datetime
+#  most_recent_activity :datetime
+#  lat                  :string(255)
+#  long                 :string(255)
+#  description          :text
+#
+
 class Subject < ActiveRecord::Base
   has_many :feedback_inputs, foreign_key: :property_id
 

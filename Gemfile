@@ -60,6 +60,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.0'
   gem 'letter_opener'
   gem 'ffaker'
+  gem "annotate"
 end
 
 group :production do
