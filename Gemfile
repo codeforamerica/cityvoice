@@ -3,93 +3,51 @@ source 'https://rubygems.org'
 ruby '2.1.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'pg'
 gem 'rails', '4.0.0'
+gem 'unicorn'
 
+gem 'high_voltage'
+gem 'jbuilder', '~> 1.0.1'
 gem 'protected_attributes'
+gem 'will_paginate'
 
-# Use SCSS for stylesheets
+gem 'audiojs'
+gem 'bootstrap-sass', '2.3.2.0'
+gem 'coffee-rails', '~> 4.0.0'
+gem 'jquery-rails'
+gem 'leaflet-rails', '~> 0.6.0'
 gem 'sass-rails', '~> 4.0.0'
-
-# Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
-# Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
-
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
-
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.0.1'
-
-gem 'twilio-ruby'
-
-#making static pages
-gem 'high_voltage'
-
-gem 'pry'
-
 gem 'soda-ruby', require: 'soda'
-
-group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', require: false
-end
+gem 'twilio-ruby'
 
 group :test do
   gem 'factory_girl_rails'
+  gem 'shoulda-matchers'
   gem 'timecop'
   gem 'vcr'
   gem 'webmock'
-  gem 'shoulda-matchers'
 end
 
 group :development, :test do
-  # Use sqlite3 as the database for Active Record
-  gem 'pg'
-  gem 'sqlite3'
-  gem 'nokogiri'
+  gem 'annotate'
   gem 'capybara'
-  gem 'launchy'
-  gem 'rspec-rails', '~> 2.0'
-  gem 'letter_opener'
+  gem 'dotenv-rails'
   gem 'ffaker'
-  gem "annotate"
+  gem 'launchy'
+  gem 'letter_opener'
+  gem 'nokogiri'
+  gem 'pry'
+  gem 'rspec-rails', '~> 2.0'
+end
+
+group :development do
+  gem 'foreman'
 end
 
 group :production do
-  gem 'pg'
-  gem 'rails_12factor'
-  gem 'unicorn'
   gem 'newrelic_rpm'
+  gem 'rails_12factor'
 end
-
-#use bootstrap as front-end framework
-gem 'bootstrap-sass', '2.3.2.0'
-
-#leaflet maps
-gem 'leaflet-rails', '~> 0.6.0'
-
-gem 'audiojs'
-
-gem 'will_paginate'
-
-gem 'httparty'
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
