@@ -3,7 +3,6 @@
 # Table name: questions
 #
 #  id            :integer          not null, primary key
-#  voice_text    :text
 #  short_name    :string(255)
 #  feedback_type :string(255)
 #  question_text :string(255)
