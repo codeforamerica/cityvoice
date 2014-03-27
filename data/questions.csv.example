@@ -1,0 +1,3 @@
+Short Name,Feedback Type,Question Text,Voice File URL
+has_scrimshaw,voice_file,Does this bar have Scrimshaw?,http://example.com/scrimshaw.mp3
+has_racer_5,voice_file,Does this bar have Racer 5?,http://example.com/racer5.mp3

@@ -17,7 +17,7 @@ class SubjectsController < ApplicationController
         @count_of_response = FeedbackInput.where(:question_id => q.id, :property_id => params[:id], :numerical_response => (index+1)).count
         response_hash[choice] = @count_of_response
       end
-      @numerical_responses << OpenStruct.new(:voice_text => q.voice_text , :short_name => q.short_name, :response_hash => response_hash, :question_text => q.question_text)
+      @numerical_responses << OpenStruct.new(:short_name => q.short_name, :response_hash => response_hash, :question_text => q.question_text)
     end
     # Brittle: will want to deal with multiple possible voice questions in the future
     @user_voice_messages = FeedbackInput.where(:property_id => params[:id]).where.not(:voice_file_url => nil)

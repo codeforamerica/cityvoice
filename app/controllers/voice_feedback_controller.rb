@@ -10,7 +10,6 @@ class VoiceFeedbackController < ApplicationController
       target_subject = Subject.find_by(id: params["Digits"])
       if target_subject
         session[:property_id] = target_subject.id
-        session[:survey] = ENV["SURVEY_NAME"] #"property"
         response_xml = Twilio::TwiML::Response.new do |r|
           r.Redirect "listen_to_messages_prompt"
         end.text
@@ -138,8 +137,8 @@ class VoiceFeedbackController < ApplicationController
     # Set the index if none exists
     if session[:current_question_id] == nil
       p "session[:survey] => #{session[:survey]}"
-      p "Survey.questions_for it => #{Survey.questions_for(session[:survey])}"
-      @current_question = Question.find_by_short_name(Survey.questions_for(session[:survey])[0])
+      p "Survey.questions_for it => #{Survey.questions_for}"
+      @current_question = Survey.questions_for.first
       session[:current_question_id] = @current_question.id
     else
       # Process data for existing question
@@ -165,8 +164,8 @@ class VoiceFeedbackController < ApplicationController
         FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: session[:neighborhood_id], :property_id => session[:property_id], voice_file_url: params["RecordingUrl"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
       end
       # Then iterate counter
-      current_index = Survey.questions_for(session[:survey]).index(@current_question.short_name)
-      @current_question = Question.find_by_short_name(Survey.questions_for(session[:survey])[current_index+1])
+      current_index = Survey.questions_for.index { |q| q.short_name == @current_question.short_name }
+      @current_question = Survey.questions_for[current_index+1]
       # If there remains a question
       if @current_question
         session[:current_question_id] = @current_question.id
@@ -183,12 +182,10 @@ class VoiceFeedbackController < ApplicationController
       else
         if @current_question.feedback_type == "numerical_response"
           r.Gather :timeout => 10, :numDigits => 1, :finishOnKey => '' do |g|
-            #r.Say @current_question.voice_text
             r.Play @current_question.voice_file.url
           end
         else
           # Handle the voice recording here
-          #r.Say @current_question.voice_text
           r.Play @current_question.voice_file.url
           r.Record :maxLength => 60
         end
@@ -207,13 +204,11 @@ class VoiceFeedbackController < ApplicationController
       else
         if @current_question.feedback_type == "numerical_response"
           r.Gather :timeout => 10, :numDigits => 1, :finishOnKey => '' do |g|
-            #r.Say @current_question.voice_text
             r.Play VoiceFile.find_by_short_name("error1").url if session[:wrong_digit_entered]
             r.Play @current_question.voice_file.url
           end
         else
           # Handle the voice recording here
-          #r.Say @current_question.voice_text
           r.Play @current_question.voice_file.url
           r.Record :maxLength => 60
         end
