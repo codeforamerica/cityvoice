@@ -4,7 +4,6 @@ describe Property do
   subject(:property) { create(:property) }
 
   it { should have_one :property_info_set }
-  it { should have_many :feedback_inputs }
   it { should have_many :notification_subscriptions }
 
   describe '.activity_since' do

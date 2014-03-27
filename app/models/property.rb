@@ -1,6 +1,5 @@
 class Property < Subject
   has_one :property_info_set
-  has_many :feedback_inputs
   has_many :notification_subscriptions
 
   attr_protected
