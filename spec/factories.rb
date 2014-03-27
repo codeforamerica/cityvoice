@@ -2,6 +2,10 @@ FactoryGirl.define do
   factory :property do
     name "1234 Fake St"
 
+    trait :with_info_set do
+      property_info_set
+    end
+
     factory :property_with_info_set do
       after(:create) do |property|
         FactoryGirl.create(:property_info_set, property_id: property.id)
@@ -28,10 +32,15 @@ FactoryGirl.define do
   end
 
   factory :feedback_input do
-    question
+    question { create :question, :voice }
+    phone_number '000-555-1212'
 
     trait :with_voice_file do
       voice_file_url { Faker::Internet.http_url }
+    end
+
+    trait :with_property do
+      property
     end
   end
 
@@ -41,7 +50,6 @@ FactoryGirl.define do
   end
 
   factory :question do
-    voice_text { Faker::Company.bs }
     short_name { Faker::Name.first_name }
     voice_file { create(:voice_file, short_name: short_name) }
 

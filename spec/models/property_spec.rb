@@ -1,10 +1,24 @@
+# == Schema Information
+#
+# Table name: subjects
+#
+#  id                   :integer          not null, primary key
+#  name                 :string(255)
+#  type                 :string(255)
+#  created_at           :datetime
+#  updated_at           :datetime
+#  most_recent_activity :datetime
+#  lat                  :string(255)
+#  long                 :string(255)
+#  description          :text
+#
+
 require 'spec_helper'
 
 describe Property do
   subject(:property) { create(:property) }
 
   it { should have_one :property_info_set }
-  it { should have_many :feedback_inputs }
   it { should have_many :notification_subscriptions }
 
   describe '.activity_since' do

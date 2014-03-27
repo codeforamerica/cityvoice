@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe VoiceFeedbackController do
+  render_views
+
   let(:body_xml) { Nokogiri::XML::Document.parse(response.body) }
   let!(:first_error) { create(:voice_file, short_name: 'error1') }
   let!(:second_error) { create(:voice_file, short_name: 'error2') }
@@ -20,7 +22,7 @@ describe VoiceFeedbackController do
       end
 
       it 'redirects twilio to the consent path' do
-        expect(response.body).to redirect_twilio_to('consent')
+        expect(response.body).to redirect_twilio_to('/consent')
       end
 
       it 'plays the no feedback yet voice file' do
@@ -42,7 +44,7 @@ describe VoiceFeedbackController do
       end
 
       it 'redirects twilio to the playback path' do
-        expect(response.body).to redirect_twilio_to('message_playback')
+        expect(response.body).to redirect_twilio_to('/message_playback')
       end
     end
   end
@@ -66,7 +68,7 @@ describe VoiceFeedbackController do
 
       it 'redirects to the consent path' do
         make_request
-        expect(response.body).to redirect_twilio_to('consent')
+        expect(response.body).to redirect_twilio_to('/consent')
       end
     end
 
@@ -96,7 +98,7 @@ describe VoiceFeedbackController do
 
           it 'redirects to consent' do
             make_request
-            expect(response.body).to redirect_twilio_to('consent')
+            expect(response.body).to redirect_twilio_to('/consent')
           end
         end
 
@@ -144,7 +146,7 @@ describe VoiceFeedbackController do
 
         it 'redirects to consent' do
           make_request('Digits' => '3')
-          expect(response.body).to redirect_twilio_to('consent')
+          expect(response.body).to redirect_twilio_to('/consent')
         end
       end
 
@@ -157,7 +159,7 @@ describe VoiceFeedbackController do
 
           it 'redirects to the voice survey' do
             make_request('Digits' => '1')
-            expect(response.body).to redirect_twilio_to('voice_survey')
+            expect(response.body).to redirect_twilio_to('/voice_survey')
           end
 
           context 'when no caller exists' do
@@ -225,7 +227,7 @@ describe VoiceFeedbackController do
 
       it 'redirects to the listen path' do
         make_request
-        expect(response.body).to redirect_twilio_to('listen_to_messages_prompt')
+        expect(response.body).to redirect_twilio_to('/listen_to_messages_prompt')
       end
     end
 
@@ -257,7 +259,7 @@ describe VoiceFeedbackController do
 
           it 'redirects to the message playback flow' do
             make_request
-            expect(response.body).to redirect_twilio_to('listen_to_messages_prompt')
+            expect(response.body).to redirect_twilio_to('/listen_to_messages_prompt')
           end
         end
 
@@ -305,7 +307,7 @@ describe VoiceFeedbackController do
 
         it 'redirects to consent' do
           make_request('Digits' => '3')
-          expect(response.body).to redirect_twilio_to('listen_to_messages_prompt')
+          expect(response.body).to redirect_twilio_to('/listen_to_messages_prompt')
         end
       end
 
@@ -318,7 +320,7 @@ describe VoiceFeedbackController do
 
           it 'redirects to the message check flow' do
             make_request('Digits' => '1')
-            expect(response.body).to redirect_twilio_to('check_for_messages')
+            expect(response.body).to redirect_twilio_to('/check_for_messages')
           end
         end
 
@@ -330,7 +332,7 @@ describe VoiceFeedbackController do
 
           it 'redirects to the consent flow' do
             make_request('Digits' => '2')
-            expect(response.body).to redirect_twilio_to('consent')
+            expect(response.body).to redirect_twilio_to('/consent')
           end
         end
       end
@@ -445,7 +447,7 @@ describe VoiceFeedbackController do
       end
 
       it 'redirects to consent' do
-        expect(response.body).to redirect_twilio_to('consent')
+        expect(response.body).to redirect_twilio_to('/consent')
       end
     end
 
@@ -459,7 +461,7 @@ describe VoiceFeedbackController do
       end
 
       it 'redirects to consent' do
-        expect(response.body).to redirect_twilio_to('consent')
+        expect(response.body).to redirect_twilio_to('/consent')
       end
     end
   end
@@ -468,12 +470,6 @@ describe VoiceFeedbackController do
     let(:property) { create :property }
     let!(:welcome) { create(:voice_file, short_name: 'welcome') }
     let!(:code_prompt) { create(:voice_file, short_name: 'code_prompt') }
-    let!(:code_prompt) { create(:voice_file, short_name: 'code_prompt') }
-
-    before do
-      AppContentSet.create!(call_in_code_digits: '1')
-      ENV['SURVEY_NAME'] ||= 'taquerias'
-    end
 
     def make_request(params = {'To' => '+15745842971'})
       post :route_to_survey, params
@@ -503,7 +499,7 @@ describe VoiceFeedbackController do
 
       it 'redirects to the survey' do
         make_request
-        expect(response.body).to redirect_twilio_to('route_to_survey')
+        expect(response.body).to redirect_twilio_to('/route_to_survey')
       end
 
       context 'when called from the flyer number' do
@@ -554,15 +550,9 @@ describe VoiceFeedbackController do
           }.to change { session[:property_id] }.to(property.id)
         end
 
-        it 'sets the survey name' do
-          expect {
-            make_request('Digits' => property.property_code)
-          }.to change { session[:survey] }.to('taquerias')
-        end
-
         it 'redirects to the messages prompt' do
           make_request('Digits' => property.property_code)
-          expect(response.body).to redirect_twilio_to('listen_to_messages_prompt')
+          expect(response.body).to redirect_twilio_to('/listen_to_messages_prompt')
         end
       end
 

@@ -26,8 +26,11 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     addressable (2.3.5)
-    arel (4.0.2)
-    atomic (1.1.16)
+    annotate (2.6.2)
+      activerecord (>= 2.3.0)
+      rake (>= 0.8.7)
+    arel (4.0.0)
+    atomic (1.1.12)
     audiojs (0.1.2)
       railties (>= 3.1)
     bootstrap-sass (2.3.2.0)
@@ -195,6 +198,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  annotate
   audiojs
   bootstrap-sass (= 2.3.2.0)
   capybara
@@ -205,6 +209,7 @@ DEPENDENCIES
   httparty
   jbuilder (~> 1.0.1)
   jquery-rails
+  launchy
   leaflet-rails (~> 0.6.0)
   letter_opener
   newrelic_rpm

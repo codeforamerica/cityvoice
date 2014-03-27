@@ -11,27 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140320211732) do
+ActiveRecord::Schema.define(version: 20140320233345) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "app_content_sets", force: true do |t|
-    t.string   "issue"
-    t.text     "learn_text"
-    t.string   "call_text"
-    t.string   "call_instruction"
-    t.string   "app_phone_number"
-    t.string   "listen_text"
-    t.string   "message_from"
-    t.string   "message_url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "header_color"
-    t.string   "short_title"
-    t.string   "call_in_code_digits", limit: 1
-    t.string   "feedback_form_url"
-  end
 
   create_table "callers", force: true do |t|
     t.boolean  "consented_to_callback"
@@ -81,7 +64,6 @@ ActiveRecord::Schema.define(version: 20140320211732) do
   end
 
   create_table "questions", force: true do |t|
-    t.text     "voice_text"
     t.string   "short_name"
     t.string   "feedback_type"
     t.string   "question_text"
