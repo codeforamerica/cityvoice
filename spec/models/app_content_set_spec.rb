@@ -4,7 +4,6 @@ describe AppContentSet do
   let(:valid_content_path) { Rails.root.join('spec/support/fixtures/app_content_set.csv') }
   let(:invalid_headers_path) { Rails.root.join('spec/support/fixtures/invalid_app_content_set_headers.csv') }
   let(:invalid_content_path) { Rails.root.join('spec/support/fixtures/invalid_app_content_set.csv') }
-
   let(:content) { valid_content_path.read }
 
   subject(:app_content_set) { AppContentSet.new(content) }
