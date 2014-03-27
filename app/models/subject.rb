@@ -10,6 +10,6 @@ class Subject < ActiveRecord::Base
   protected
 
   def content_set
-    AppContentSet.first
+    Rails.application.config.app_content_set
   end
 end

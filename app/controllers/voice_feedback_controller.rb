@@ -1,7 +1,7 @@
 class VoiceFeedbackController < ApplicationController
 
   def route_to_survey
-    @call_in_code_digits = AppContentSet.select(:call_in_code_digits).first.call_in_code_digits
+    @call_in_code_digits = Rails.application.config.app_content_set.call_in_code_digits
     if !session[:survey_started]
       session[:survey_started] = true
       session[:call_source] = call_source_from_twilio_phone_number(params["To"])
