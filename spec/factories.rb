@@ -33,6 +33,10 @@ FactoryGirl.define do
     trait :with_voice_file do
       voice_file_url { Faker::Internet.http_url }
     end
+
+    trait :with_property do
+      property
+    end
   end
 
   factory :voice_file do
