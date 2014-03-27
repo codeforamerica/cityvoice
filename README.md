@@ -47,12 +47,10 @@ Next, push the code to Heroku:
 Load some example data:
 
     $ heroku run rake manage_deploy_data:example:subjects
-    $ heroku run rake manage_deploy_data:abandoned_properties:voice_files
-    $ heroku run rake manage_deploy_data:abandoned_properties:questions
+    $ heroku run rake manage_deploy_data:example:questions
 
 Set the survey name, the Mapbox id and the secret token:
 
-    $ heroku config:set SURVEY_NAME=property
     $ heroku config:set MAPBOX_MAP_ID=xxxxxxxx.xxxxx
     $ heroku config:set SECRET_TOKEN=`rake secret`
 
@@ -120,11 +118,9 @@ Next, load some sample data:
     $ rake manage_deploy_data:example:subjects
     $ rake manage_deploy_data:example:questions
 
-Note that loading abandoned properties means that we will need to set `SURVEY_NAME=property` when starting Rails.
-
 Then, create a [MapBox](https://www.mapbox.com) account and pass its id when starting Rails:
 
-    $ MAPBOX_MAP_ID=xxxxx.xxxxxxxx SURVEY_NAME=property rails s
+    $ MAPBOX_MAP_ID=xxxxx.xxxxxxxx rails s
 
 
 ### Twilio Local Setup
