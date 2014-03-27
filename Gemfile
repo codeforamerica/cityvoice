@@ -45,7 +45,10 @@ end
 
 group :development do
   gem 'foreman'
+  gem 'guard-livereload'
+  gem 'rack-livereload'
   gem 'rails_email_preview'
+  gem 'style-guide'
 end
 
 group :production do

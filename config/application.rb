@@ -11,9 +11,11 @@ require "sprockets/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 
+I18n.enforce_available_locales = true
+
 module Automidnight
   class Application < Rails::Application
-    config.i18n.enforce_available_locales = true
+    config.style_guide.paths << Rails.root.join('app/views/style-guide/**/*') if defined?(StyleGuide::Engine)
     config.autoload_paths << Rails.root.join('lib')
   end
 end
