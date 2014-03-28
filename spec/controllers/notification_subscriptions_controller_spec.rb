@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe NotificationSubscriptionsController do
-  let(:property) { create(:property) }
+  let(:property) { create(:subject) }
 
   describe 'POST #create' do
     before { make_request }

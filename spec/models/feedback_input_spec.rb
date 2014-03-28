@@ -5,7 +5,6 @@
 #  id                 :integer          not null, primary key
 #  question_id        :integer
 #  subject_id         :integer
-#  property_id        :integer
 #  voice_file_url     :string(255)
 #  numerical_response :integer
 #  phone_number       :string(255)
@@ -18,22 +17,21 @@ require 'spec_helper'
 
 describe FeedbackInput do
   it { should belong_to(:subject) }
-  it { should belong_to(:property) }
   it { should belong_to(:question) }
 
   describe '.total_calls' do
-    let!(:input) { create(:feedback_input, :with_property, numerical_response: '1') }
+    let!(:input) { create(:feedback_input, :with_subject, numerical_response: '1') }
 
     it 'returns the total number of calls for each property' do
-      expect(FeedbackInput.total_calls).to eq(input.property => 1)
+      expect(FeedbackInput.total_calls).to eq(input.subject => 1)
     end
   end
 
   describe '.total_responses' do
-    let!(:input) { create(:feedback_input, :with_property, numerical_response: '1') }
+    let!(:input) { create(:feedback_input, :with_subject, numerical_response: '1') }
 
     it 'returns the number of responses for each property' do
-      expect(FeedbackInput.total_responses('1')).to eq(input.property => 1)
+      expect(FeedbackInput.total_responses('1')).to eq(input.subject => 1)
     end
   end
 

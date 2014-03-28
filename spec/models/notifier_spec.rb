@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 describe Notifier do
-  let(:property) { create(:property) }
+  let(:property) { create(:subject) }
 
   describe '.subscription_with_activity_since_last_email_sent' do
     context 'when feedback happened since the last email was sent' do
-      before { create(:feedback_input, property: property, created_at: Time.now + 1.day) }
+      before { create(:feedback_input, subject: property, created_at: Time.now + 1.day) }
 
       context 'when the subscription is bulk-added' do
-        let(:notification_subscription) { create(:notification_subscription, :bulk_added, property: property) }
+        let(:notification_subscription) { create(:notification_subscription, :bulk_added, subject: property) }
 
         it 'returns the subscription' do
           expect(Notifier.subscription_with_activity_since_last_email_sent).to eq [notification_subscription]
@@ -16,7 +16,7 @@ describe Notifier do
       end
 
       context 'when the subscription is confirmed' do
-        let(:notification_subscription) { create(:notification_subscription, :confirmed, property: property) }
+        let(:notification_subscription) { create(:notification_subscription, :confirmed, subject: property) }
 
         it 'returns the subscription' do
           expect(Notifier.subscription_with_activity_since_last_email_sent).to eq [notification_subscription]
@@ -25,7 +25,7 @@ describe Notifier do
     end
 
     context 'when no feedback happened since the last email was sent' do
-      before { create(:notification_subscription, :confirmed, property: property) }
+      before { create(:notification_subscription, :confirmed, subject: property) }
 
       it 'does not return anything' do
         expect(Notifier.subscription_with_activity_since_last_email_sent).to be_empty
@@ -33,7 +33,7 @@ describe Notifier do
     end
 
     context 'when the subscription is not confirmed or bulk-added' do
-      before { create(:notification_subscription, property: property) }
+      before { create(:notification_subscription, subject: property) }
 
       it 'does not return anything' do
         expect(Notifier.subscription_with_activity_since_last_email_sent).to be_empty
@@ -42,7 +42,7 @@ describe Notifier do
   end
 
   describe '.build_hash_for_mailer' do
-    let!(:notification_subscription) { create(:notification_subscription, email: 'mitty@example.com', property: property) }
+    let!(:notification_subscription) { create(:notification_subscription, email: 'mitty@example.com', subject: property) }
     let(:result) { Notifier.build_hash_for_mailer([notification_subscription]) }
 
     let(:property_hash) { result['mitty@example.com'][:properties].first }
@@ -64,7 +64,7 @@ describe Notifier do
     end
 
     context 'when a feedback input is fresher than the last notification email' do
-      let!(:feedback_input) { create(:feedback_input, created_at: Time.now + 1.day, property: property) }
+      let!(:feedback_input) { create(:feedback_input, created_at: Time.now + 1.day, subject: property) }
 
       it 'includes the feedback input' do
         expect(property_hash[:feedback_inputs]).to include(feedback_input)
@@ -72,7 +72,7 @@ describe Notifier do
     end
 
     context 'when a feedback input is staler than the last notification email' do
-      before { create(:feedback_input, created_at: 1.year.ago, property: property) }
+      before { create(:feedback_input, created_at: 1.year.ago, subject: property) }
 
       it 'does not include the feedback input' do
         expect(property_hash[:feedback_inputs]).to be_empty
@@ -116,8 +116,8 @@ describe Notifier do
 
   describe '.send_weekly_notifications' do
     before do
-      create(:feedback_input, property: property, created_at: Time.now + 1.day)
-      create(:notification_subscription, :bulk_added, property: property)
+      create(:feedback_input, subject: property, created_at: Time.now + 1.day)
+      create(:notification_subscription, :bulk_added, subject: property)
     end
 
     it 'sends a single email' do

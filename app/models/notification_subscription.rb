@@ -7,7 +7,7 @@
 #  confirmed            :boolean
 #  confirmation_sent_at :datetime
 #  auth_token           :string(255)
-#  property_id          :integer
+#  subject_id           :integer
 #  created_at           :datetime
 #  updated_at           :datetime
 #  last_email_sent_at   :datetime
@@ -15,14 +15,14 @@
 #
 
 class NotificationSubscription < ActiveRecord::Base
+  belongs_to :subject
 
   attr_protected
-  belongs_to :property
 
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validates :email, uniqueness: {
     case_sensitive: false,
-    scope: :property_id,
+    scope: :subject_id,
     message: "You've already subscribed to this property"
   }
 
@@ -60,5 +60,4 @@ class NotificationSubscription < ActiveRecord::Base
   def create_auth_token
     self.auth_token = SecureRandom.urlsafe_base64(nil, false)
   end
-
 end

@@ -5,7 +5,6 @@
 #  id                 :integer          not null, primary key
 #  question_id        :integer
 #  subject_id         :integer
-#  property_id        :integer
 #  voice_file_url     :string(255)
 #  numerical_response :integer
 #  phone_number       :string(255)
@@ -16,10 +15,9 @@
 
 class FeedbackInput < ActiveRecord::Base
   attr_protected
-  belongs_to :subject, foreign_key: :property_id
 
   belongs_to :question
-  belongs_to :property
+  belongs_to :subject
 
   def self.total_calls
     where.not(numerical_response: nil).joins(:subject).group(:subject).count(:numerical_response)

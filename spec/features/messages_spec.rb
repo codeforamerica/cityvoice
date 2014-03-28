@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe 'Listening to messages' do
   let(:create_date) { Time.zone.now }
-  let(:property) { create(:property, :with_info_set, name: '1313 Mockingbird Lane') }
-  let!(:feedback_input) { create(:feedback_input, :with_voice_file, property: property, created_at: create_date) }
+  let(:property) { create(:subject, name: '1313 Mockingbird Lane') }
+  let!(:feedback_input) { create(:feedback_input, :with_voice_file, subject: property, created_at: create_date) }
 
   context 'on the landing page' do
     before do
@@ -49,7 +49,7 @@ describe 'Listening to messages' do
     end
 
     context 'when the user has not consented to publicly display their number' do
-      let!(:feedback_input) { create(:feedback_input, :with_voice_file, phone_number: nil, property: property, created_at: create_date) }
+      let!(:feedback_input) { create(:feedback_input, :with_voice_file, phone_number: nil, subject: property, created_at: create_date) }
 
       it 'does not display a number' do
         expect(page).not_to have_content('XXX-XXX-')
