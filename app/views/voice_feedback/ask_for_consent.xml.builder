@@ -1,10 +1,10 @@
 xml.instruct!
 xml.Response do
-  xml.Gather :timeout => 15, :numDigits => 1, :finishOnKey => '' do
+  xml.Gather timeout: 15, numDigits: 1, finishOnKey: '' do
     if session[:consent_attempts].present?
-      xml.Play VoiceFile.find_by_short_name("error1").url
+      xml.Play voice_file_path('error1')
     end
-    xml.Play VoiceFile.find_by_short_name("consent").url
+    xml.Play voice_file_path('consent')
   end
   xml.Redirect consent_path
 end
