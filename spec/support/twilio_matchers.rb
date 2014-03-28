@@ -12,7 +12,11 @@ RSpec::Matchers.define :play_twilio_url do |expected|
   match do |actual|
     doc = Nokogiri::XML::Document.parse(actual)
     node = doc.xpath('Response//Play')
-    !node.empty? && node.map(&:text).include?(expected)
+    if expected.is_a?(Regexp)
+      !node.empty? && expected =~ node.map(&:text).join(' ')
+    else
+      !node.empty? && node.map(&:text).include?(expected)
+    end
   end
 end
 
