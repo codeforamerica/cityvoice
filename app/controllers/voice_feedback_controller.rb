@@ -52,7 +52,8 @@ class VoiceFeedbackController < ApplicationController
   end
 
   def check_for_messages
-    @voice_message_count = FeedbackInput.where('property_id = ? and voice_file_url != ?', session[:property_id], "null").count
+    subject = Subject.find(session[:property_id])
+    @voice_message_count = subject.feedback_inputs.where.not(voice_file_url: nil).count
     if @voice_message_count == 0
       render action: 'no_feedback.xml.builder', layout: false
     else
@@ -64,7 +65,8 @@ class VoiceFeedbackController < ApplicationController
     if params["Digits"] == "2" or session[:end_of_messages]
       redirect_twilio_to consent_path
     else
-      @voice_messages = FeedbackInput.where('property_id = ? and voice_file_url != ?', session[:property_id], "null").order('created_at ASC')
+      subject = Subject.find(session[:property_id])
+      @voice_messages = subject.feedback_inputs.where.not(voice_file_url: nil).order('created_at ASC')
       if session[:current_message_index] == nil
         session[:current_message_index] = 0
       else
@@ -110,6 +112,7 @@ class VoiceFeedbackController < ApplicationController
     else
       # Process data for existing question
       @current_question = Question.find(session[:current_question_id])
+      subject = Subject.find(session[:property_id])
       if @current_question.feedback_type == "numerical_response"
         if params["Digits"] == "#"
           return render action: 'ask_current_question.xml.builder', layout: false
@@ -122,9 +125,9 @@ class VoiceFeedbackController < ApplicationController
             raise TwilioSessionError.new(:error2)
           end
         end
-        FeedbackInput.create!(question_id: @current_question.id, property_id: session[:property_id], numerical_response: params["Digits"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
+        subject.feedback_inputs.create!(question_id: @current_question.id, numerical_response: params["Digits"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
       elsif @current_question.feedback_type == "voice_file"
-        FeedbackInput.create!(question_id: @current_question.id, property_id: session[:property_id], voice_file_url: params["RecordingUrl"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
+        subject.feedback_inputs.create!(question_id: @current_question.id, voice_file_url: params["RecordingUrl"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
       end
       # Then iterate counter
       current_index = Survey.questions_for.index { |q| q.short_name == @current_question.short_name }

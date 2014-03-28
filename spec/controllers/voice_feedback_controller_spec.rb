@@ -7,7 +7,10 @@ describe VoiceFeedbackController do
   let!(:second_error) { VoiceFile.find_by(short_name: 'error2') }
 
   describe 'POST #check_for_messages' do
+    let(:property) { create :property }
     let!(:no_feedback_yet) { VoiceFile.find_by(short_name: 'no_feedback_yet') }
+
+    before { session[:property_id] = property.id }
 
     def make_request
       post :check_for_messages
@@ -30,10 +33,7 @@ describe VoiceFeedbackController do
     end
 
     context 'when there is feedback' do
-      let(:property) { create :property }
-
       before do
-        session[:property_id] = property.id
         create :feedback_input, :with_voice_file, property: property
         make_request
       end
