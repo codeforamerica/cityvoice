@@ -68,7 +68,7 @@
                       </audio>
                    </div>
                   <% end %>
-						
+
                     <style>
                       p { clear: both; }
                     </style>
@@ -83,7 +83,7 @@
     <div class="span4">
         <div class="info_box listen">
           <h1>RECENT MESSAGES</h1><hr>
-          
+
           <% @most_recent_messages.each do |voice_feedback| %>
             <h3 style="display:inline;">
             <% if voice_feedback.subject %>
@@ -92,7 +92,7 @@
             </h3>
               &nbsp;&nbsp;&nbsp;
             <p style="display:inline;">
-              <%= voice_feedback.created_at.to_date %>
+              <%= voice_feedback.created_at.strftime('%Y-%m-%d') %>
             </p>
 
             <div class="vmessage">

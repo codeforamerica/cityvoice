@@ -84,7 +84,7 @@ describe Notifier do
       Timecop.freeze(current_time) do
         expect {
           Notifier.build_hash_for_mailer([notification_subscription])
-        }.to change { notification_subscription.reload.last_email_sent_at.to_datetime }.to(current_time.to_datetime)
+        }.to change { notification_subscription.reload.last_email_sent_at.utc.to_datetime }.to(current_time.utc.to_datetime)
       end
     end
   end
