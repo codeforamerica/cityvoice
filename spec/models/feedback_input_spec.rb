@@ -5,7 +5,6 @@
 #  id                 :integer          not null, primary key
 #  question_id        :integer
 #  subject_id         :integer
-#  neighborhood_id    :integer
 #  property_id        :integer
 #  voice_file_url     :string(255)
 #  numerical_response :integer

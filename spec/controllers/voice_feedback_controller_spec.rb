@@ -661,12 +661,6 @@ describe VoiceFeedbackController do
           expect(FeedbackInput.last.question).to eq(property_outcome)
         end
 
-        it 'saves the neighborhood' do
-          pending 'flagged for deletion'
-          make_request('Digits' => '1', 'From' => '+5551212')
-          expect(FeedbackInput.last.neighborhood_id).to be_nil
-        end
-
         it 'saves the property' do
           make_request('Digits' => '1', 'From' => '+5551212')
           expect(FeedbackInput.last.property).to eq(property)
@@ -770,12 +764,6 @@ describe VoiceFeedbackController do
       it 'saves the question' do
         make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
         expect(FeedbackInput.last.question).to eq(property_comments)
-      end
-
-      it 'saves the neighborhood' do
-        pending 'flagged for deletion'
-        make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
-        expect(FeedbackInput.last.neighborhood_id).to be_nil
       end
 
       it 'saves the property' do

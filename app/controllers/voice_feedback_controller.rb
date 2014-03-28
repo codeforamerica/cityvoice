@@ -122,9 +122,9 @@ class VoiceFeedbackController < ApplicationController
             raise TwilioSessionError.new(:error2)
           end
         end
-        FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: session[:neighborhood_id], :property_id => session[:property_id], numerical_response: params["Digits"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
+        FeedbackInput.create!(question_id: @current_question.id, property_id: session[:property_id], numerical_response: params["Digits"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
       elsif @current_question.feedback_type == "voice_file"
-        FeedbackInput.create!(question_id: @current_question.id, neighborhood_id: session[:neighborhood_id], :property_id => session[:property_id], voice_file_url: params["RecordingUrl"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
+        FeedbackInput.create!(question_id: @current_question.id, property_id: session[:property_id], voice_file_url: params["RecordingUrl"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
       end
       # Then iterate counter
       current_index = Survey.questions_for.index { |q| q.short_name == @current_question.short_name }

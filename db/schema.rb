@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140328054555) do
+ActiveRecord::Schema.define(version: 20140328055351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,7 +26,6 @@ ActiveRecord::Schema.define(version: 20140328054555) do
   create_table "feedback_inputs", force: true do |t|
     t.integer  "question_id"
     t.integer  "subject_id"
-    t.integer  "neighborhood_id"
     t.integer  "property_id"
     t.string   "voice_file_url"
     t.integer  "numerical_response"
