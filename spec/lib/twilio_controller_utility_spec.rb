@@ -36,7 +36,7 @@ describe TwilioControllerUtility, type: :controller do
 
     it 'plays the fatal error message' do
       get :index
-      expect(response.body).to play_twilio_url(error.url)
+      expect(response.body).to play_twilio_url(/hilarious_error.mp3/)
     end
 
     it 'hangs up' do

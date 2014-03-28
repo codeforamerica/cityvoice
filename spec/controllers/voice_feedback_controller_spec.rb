@@ -3,12 +3,8 @@ require 'spec_helper'
 describe VoiceFeedbackController do
   render_views
 
-  let!(:first_error) { VoiceFile.find_by(short_name: 'error1') }
-  let!(:second_error) { VoiceFile.find_by(short_name: 'error2') }
-
   describe 'POST #check_for_messages' do
     let(:property) { create(:subject) }
-    let!(:no_feedback_yet) { VoiceFile.find_by(short_name: 'no_feedback_yet') }
 
     before { session[:property_id] = property.id }
 
@@ -28,7 +24,7 @@ describe VoiceFeedbackController do
       end
 
       it 'plays the no feedback yet voice file' do
-        expect(response.body).to play_twilio_url(no_feedback_yet.url)
+        expect(response.body).to play_twilio_url(/no_feedback_yet/)
       end
     end
 
@@ -49,8 +45,6 @@ describe VoiceFeedbackController do
   end
 
   describe 'POST #consent' do
-    let!(:consent) { VoiceFile.find_by(short_name: 'consent') }
-
     def make_request(params = {})
       post :consent, params
     end
@@ -87,12 +81,12 @@ describe VoiceFeedbackController do
 
           it 'plays the consent message' do
             make_request
-            expect(response.body).to play_twilio_url(consent.url)
+            expect(response.body).to play_twilio_url(/consent/)
           end
 
           it 'plays the warning message' do
             make_request
-            expect(response.body).to play_twilio_url(first_error.url)
+            expect(response.body).to play_twilio_url(/error1/)
           end
 
           it 'redirects to consent' do
@@ -111,7 +105,7 @@ describe VoiceFeedbackController do
 
           it 'plays the fatal error message' do
             make_request
-            expect(response.body).to play_twilio_url(second_error.url)
+            expect(response.body).to play_twilio_url(/error2/)
           end
 
           it 'hangs up' do
@@ -135,12 +129,12 @@ describe VoiceFeedbackController do
 
         it 'plays the consent message' do
           make_request('Digits' => '3')
-          expect(response.body).to play_twilio_url(consent.url)
+          expect(response.body).to play_twilio_url(/consent/)
         end
 
         it 'plays the first error message' do
           make_request('Digits' => '3')
-          expect(response.body).to play_twilio_url(first_error.url)
+          expect(response.body).to play_twilio_url(/error1/)
         end
 
         it 'redirects to consent' do
@@ -206,8 +200,6 @@ describe VoiceFeedbackController do
   end
 
   describe 'POST #listen_to_messages_prompt' do
-    let!(:prompt) { VoiceFile.find_by(short_name: 'listen_to_messages_prompt') }
-
     def make_request(params = {})
       post :listen_to_messages_prompt, params
     end
@@ -248,12 +240,12 @@ describe VoiceFeedbackController do
 
           it 'plays the prompt message' do
             make_request
-            expect(response.body).to play_twilio_url(prompt.url)
+            expect(response.body).to play_twilio_url(/listen_to_messages_prompt/)
           end
 
           it 'plays the first error message' do
             make_request
-            expect(response.body).to play_twilio_url(first_error.url)
+            expect(response.body).to play_twilio_url(/error1/)
           end
 
           it 'redirects to the message playback flow' do
@@ -272,7 +264,7 @@ describe VoiceFeedbackController do
 
           it 'plays the second error' do
             make_request
-            expect(response.body).to play_twilio_url(second_error.url)
+            expect(response.body).to play_twilio_url(/error2/)
           end
 
           it 'hangs up' do
@@ -296,12 +288,12 @@ describe VoiceFeedbackController do
 
         it 'plays the prompt message' do
           make_request('Digits' => '3')
-          expect(response.body).to play_twilio_url(prompt.url)
+          expect(response.body).to play_twilio_url(/prompt/)
         end
 
         it 'plays the first error message' do
           make_request('Digits' => '3')
-          expect(response.body).to play_twilio_url(first_error.url)
+          expect(response.body).to play_twilio_url(/error1/)
         end
 
         it 'redirects to consent' do
@@ -340,8 +332,6 @@ describe VoiceFeedbackController do
 
   describe 'POST #message_playback' do
     let!(:property) { create(:subject) }
-    let!(:last_message) { VoiceFile.find_by(short_name: 'last_message_reached') }
-    let!(:listen_to_another) { VoiceFile.find_by(short_name: 'listen_to_another') }
 
     def make_request(params = {})
       post :message_playback, params
@@ -369,7 +359,7 @@ describe VoiceFeedbackController do
 
       it 'plays the last message reached url' do
         make_request
-        expect(response.body).to play_twilio_url(last_message.url)
+        expect(response.body).to play_twilio_url(/last_message/)
       end
     end
 
@@ -398,7 +388,7 @@ describe VoiceFeedbackController do
 
       it 'plays the last message reached url' do
         make_request
-        expect(response.body).to play_twilio_url(last_message.url)
+        expect(response.body).to play_twilio_url(/last_message/)
       end
     end
 
@@ -426,12 +416,12 @@ describe VoiceFeedbackController do
 
       it 'plays the voice file url' do
         make_request
-        expect(response.body).to play_twilio_url("#{input.voice_file_url}.mp3")
+        expect(response.body).to play_twilio_url(/#{input.voice_file_url}.mp3/)
       end
 
       it 'plays the last message reached url' do
         make_request
-        expect(response.body).to play_twilio_url(listen_to_another.url)
+        expect(response.body).to play_twilio_url(/listen_to_another/)
       end
     end
 
@@ -467,8 +457,6 @@ describe VoiceFeedbackController do
 
   describe 'POST #route_to_survey' do
     let(:property) { create(:subject) }
-    let!(:welcome) { VoiceFile.find_by(short_name: 'welcome') }
-    let!(:code_prompt) { VoiceFile.find_by(short_name: 'code_prompt') }
 
     def make_request(params = {'To' => '+15745842971'})
       post :route_to_survey, params
@@ -488,12 +476,12 @@ describe VoiceFeedbackController do
 
       it 'plays the welcome message' do
         make_request
-        expect(response.body).to play_twilio_url(welcome.url)
+        expect(response.body).to play_twilio_url(/welcome/)
       end
 
       it 'plays the code prompt' do
         make_request
-        expect(response.body).to play_twilio_url(code_prompt.url)
+        expect(response.body).to play_twilio_url(/code_prompt/)
       end
 
       it 'redirects to the survey' do
@@ -570,7 +558,7 @@ describe VoiceFeedbackController do
 
           it 'plays the error message' do
             make_request
-            expect(response.body).to play_twilio_url(first_error.url)
+            expect(response.body).to play_twilio_url(/error1/)
           end
         end
 
@@ -584,7 +572,7 @@ describe VoiceFeedbackController do
 
           it 'plays the fatal error message' do
             make_request
-            expect(response.body).to play_twilio_url(second_error.url)
+            expect(response.body).to play_twilio_url(/error2/)
           end
 
           it 'hangs up' do
@@ -600,7 +588,6 @@ describe VoiceFeedbackController do
     let(:property) { create(:subject) }
     let!(:property_outcome) { create :question, :number, short_name: 'property_outcome' }
     let!(:property_comments) { create :question, :voice, short_name: 'property_comments' }
-    let!(:thanks) { VoiceFile.find_by(short_name: 'thanks') }
 
     before do
       session[:property_id] = property.id
@@ -728,7 +715,7 @@ describe VoiceFeedbackController do
 
           it 'plays the fatal error message' do
             make_request
-            expect(response.body).to play_twilio_url(second_error.url)
+            expect(response.body).to play_twilio_url(/error2/)
           end
         end
       end
@@ -751,7 +738,7 @@ describe VoiceFeedbackController do
 
         it 'plays the thank you message' do
           make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
-          expect(response.body).to play_twilio_url(thanks.url)
+          expect(response.body).to play_twilio_url(/thanks/)
         end
       end
 
