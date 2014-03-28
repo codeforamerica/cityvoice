@@ -6,11 +6,9 @@ require 'rspec/autorun'
 require 'capybara'
 require 'webmock/rspec'
 
-# From SaltonSea
-#require 'rspec'
-#require 'rack/test'
 require 'pry'
 require 'nokogiri'
+require 'rake'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

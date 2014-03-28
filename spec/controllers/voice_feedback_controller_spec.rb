@@ -3,12 +3,11 @@ require 'spec_helper'
 describe VoiceFeedbackController do
   render_views
 
-  let(:body_xml) { Nokogiri::XML::Document.parse(response.body) }
-  let!(:first_error) { create(:voice_file, short_name: 'error1') }
-  let!(:second_error) { create(:voice_file, short_name: 'error2') }
+  let!(:first_error) { VoiceFile.find_by(short_name: 'error1') }
+  let!(:second_error) { VoiceFile.find_by(short_name: 'error2') }
 
   describe 'POST #check_for_messages' do
-    let!(:no_feedback_yet) { create(:voice_file, short_name: 'no_feedback_yet') }
+    let!(:no_feedback_yet) { VoiceFile.find_by(short_name: 'no_feedback_yet') }
 
     def make_request
       post :check_for_messages
@@ -50,7 +49,7 @@ describe VoiceFeedbackController do
   end
 
   describe 'POST #consent' do
-    let!(:consent) { create(:voice_file, short_name: 'consent') }
+    let!(:consent) { VoiceFile.find_by(short_name: 'consent') }
 
     def make_request(params = {})
       post :consent, params
@@ -207,7 +206,7 @@ describe VoiceFeedbackController do
   end
 
   describe 'POST #listen_to_messages_prompt' do
-    let!(:prompt) { create(:voice_file, short_name: 'listen_to_messages_prompt') }
+    let!(:prompt) { VoiceFile.find_by(short_name: 'listen_to_messages_prompt') }
 
     def make_request(params = {})
       post :listen_to_messages_prompt, params
@@ -341,8 +340,8 @@ describe VoiceFeedbackController do
 
   describe 'POST #message_playback' do
     let!(:property) { create :property }
-    let!(:last_message) { create(:voice_file, short_name: 'last_message_reached') }
-    let!(:listen_to_another) { create(:voice_file, short_name: 'listen_to_another') }
+    let!(:last_message) { VoiceFile.find_by(short_name: 'last_message_reached') }
+    let!(:listen_to_another) { VoiceFile.find_by(short_name: 'listen_to_another') }
 
     def make_request(params = {})
       post :message_playback, params
@@ -468,8 +467,8 @@ describe VoiceFeedbackController do
 
   describe 'POST #route_to_survey' do
     let(:property) { create :property }
-    let!(:welcome) { create(:voice_file, short_name: 'welcome') }
-    let!(:code_prompt) { create(:voice_file, short_name: 'code_prompt') }
+    let!(:welcome) { VoiceFile.find_by(short_name: 'welcome') }
+    let!(:code_prompt) { VoiceFile.find_by(short_name: 'code_prompt') }
 
     def make_request(params = {'To' => '+15745842971'})
       post :route_to_survey, params
@@ -601,7 +600,7 @@ describe VoiceFeedbackController do
     let(:property) { create :property }
     let!(:property_outcome) { create :question, :number, short_name: 'property_outcome' }
     let!(:property_comments) { create :question, :voice, short_name: 'property_comments' }
-    let!(:thanks) { create(:voice_file, short_name: 'thanks') }
+    let!(:thanks) { VoiceFile.find_by(short_name: 'thanks') }
 
     before do
       session[:property_id] = property.id
