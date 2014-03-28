@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'Listening to messages' do
-  let(:create_date) { Time.now }
+  let(:create_date) { Time.zone.now }
   let(:property) { create(:property, :with_info_set, name: '1313 Mockingbird Lane') }
   let!(:feedback_input) { create(:feedback_input, :with_voice_file, property: property, created_at: create_date) }
 
