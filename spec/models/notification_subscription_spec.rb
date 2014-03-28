@@ -7,7 +7,7 @@
 #  confirmed            :boolean
 #  confirmation_sent_at :datetime
 #  auth_token           :string(255)
-#  property_id          :integer
+#  subject_id           :integer
 #  created_at           :datetime
 #  updated_at           :datetime
 #  last_email_sent_at   :datetime
@@ -17,9 +17,9 @@
 require 'spec_helper'
 
 describe NotificationSubscription do
-  let(:property) { create(:property) }
+  let(:property) { create(:subject) }
 
-  it { should belong_to(:property) }
+  it { should belong_to(:subject) }
   it { should allow_value('user@example.com', 'us.er@example.com', 'user+plus@example.com').for(:email) }
   it { should_not allow_value('wat').for(:email) }
 

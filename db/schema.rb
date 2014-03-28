@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140320233345) do
+ActiveRecord::Schema.define(version: 20140328202854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,8 +26,6 @@ ActiveRecord::Schema.define(version: 20140320233345) do
   create_table "feedback_inputs", force: true do |t|
     t.integer  "question_id"
     t.integer  "subject_id"
-    t.integer  "neighborhood_id"
-    t.integer  "property_id"
     t.string   "voice_file_url"
     t.integer  "numerical_response"
     t.string   "phone_number"
@@ -41,26 +39,11 @@ ActiveRecord::Schema.define(version: 20140320233345) do
     t.boolean  "confirmed"
     t.datetime "confirmation_sent_at"
     t.string   "auth_token"
-    t.integer  "property_id"
+    t.integer  "subject_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "last_email_sent_at"
     t.boolean  "bulk_added"
-  end
-
-  create_table "property_info_sets", force: true do |t|
-    t.integer  "property_id"
-    t.integer  "condition_code",          limit: 2
-    t.string   "condition"
-    t.string   "estimated_cost_exterior"
-    t.string   "estimated_cost_interior"
-    t.string   "demo_order"
-    t.string   "recommendation"
-    t.string   "outcome"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "lat"
-    t.string   "long"
   end
 
   create_table "questions", force: true do |t|
@@ -74,7 +57,6 @@ ActiveRecord::Schema.define(version: 20140320233345) do
 
   create_table "subjects", force: true do |t|
     t.string   "name"
-    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "most_recent_activity"
@@ -88,12 +70,6 @@ ActiveRecord::Schema.define(version: 20140320233345) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "short_name"
-  end
-
-  create_table "voice_transcriptions", force: true do |t|
-    t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
 end

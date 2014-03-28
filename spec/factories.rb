@@ -1,26 +1,11 @@
 FactoryGirl.define do
-  factory :property do
-    name "1234 Fake St"
-
-    trait :with_info_set do
-      property_info_set
-    end
-
-    factory :property_with_info_set do
-      after(:create) do |property|
-        FactoryGirl.create(:property_info_set, property_id: property.id)
-      end
-    end
-  end
-
-  factory :property_info_set do
-    outcome "Vacant and Abandoned"
-    demo_order "Affirmed"
+  factory :subject do
+    name { Faker::Address.street_address }
   end
 
   factory :notification_subscription do
     email { Faker::Internet.email }
-    property
+    subject
 
     trait :confirmed do
       confirmed true
@@ -39,8 +24,8 @@ FactoryGirl.define do
       voice_file_url { Faker::Internet.http_url }
     end
 
-    trait :with_property do
-      property
+    trait :with_subject do
+      subject
     end
   end
 

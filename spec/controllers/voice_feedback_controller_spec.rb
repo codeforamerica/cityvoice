@@ -7,7 +7,10 @@ describe VoiceFeedbackController do
   let!(:second_error) { VoiceFile.find_by(short_name: 'error2') }
 
   describe 'POST #check_for_messages' do
+    let(:property) { create(:subject) }
     let!(:no_feedback_yet) { VoiceFile.find_by(short_name: 'no_feedback_yet') }
+
+    before { session[:property_id] = property.id }
 
     def make_request
       post :check_for_messages
@@ -30,11 +33,8 @@ describe VoiceFeedbackController do
     end
 
     context 'when there is feedback' do
-      let(:property) { create :property }
-
       before do
-        session[:property_id] = property.id
-        create :feedback_input, :with_voice_file, property: property
+        create(:feedback_input, :with_voice_file, subject: property)
         make_request
       end
 
@@ -339,7 +339,7 @@ describe VoiceFeedbackController do
   end
 
   describe 'POST #message_playback' do
-    let!(:property) { create :property }
+    let!(:property) { create(:subject) }
     let!(:last_message) { VoiceFile.find_by(short_name: 'last_message_reached') }
     let!(:listen_to_another) { VoiceFile.find_by(short_name: 'listen_to_another') }
 
@@ -376,7 +376,7 @@ describe VoiceFeedbackController do
     context 'when there is a feedback input without a voice file' do
       before do
         session[:property_id] = property.id
-        create :feedback_input, property: property
+        create(:feedback_input, subject: property)
       end
 
       it 'is successful' do
@@ -403,7 +403,7 @@ describe VoiceFeedbackController do
     end
 
     context 'when there is a feedback input with a voice file' do
-      let!(:input) { create :feedback_input, :with_voice_file, property: property }
+      let!(:input) { create(:feedback_input, :with_voice_file, subject: property) }
 
       before { session[:property_id] = property.id }
 
@@ -466,7 +466,7 @@ describe VoiceFeedbackController do
   end
 
   describe 'POST #route_to_survey' do
-    let(:property) { create :property }
+    let(:property) { create(:subject) }
     let!(:welcome) { VoiceFile.find_by(short_name: 'welcome') }
     let!(:code_prompt) { VoiceFile.find_by(short_name: 'code_prompt') }
 
@@ -597,7 +597,7 @@ describe VoiceFeedbackController do
   end
 
   describe 'POST #voice_survey' do
-    let(:property) { create :property }
+    let(:property) { create(:subject) }
     let!(:property_outcome) { create :question, :number, short_name: 'property_outcome' }
     let!(:property_comments) { create :question, :voice, short_name: 'property_comments' }
     let!(:thanks) { VoiceFile.find_by(short_name: 'thanks') }
@@ -661,15 +661,9 @@ describe VoiceFeedbackController do
           expect(FeedbackInput.last.question).to eq(property_outcome)
         end
 
-        it 'saves the neighborhood' do
-          pending 'flagged for deletion'
-          make_request('Digits' => '1', 'From' => '+5551212')
-          expect(FeedbackInput.last.neighborhood_id).to be_nil
-        end
-
         it 'saves the property' do
           make_request('Digits' => '1', 'From' => '+5551212')
-          expect(FeedbackInput.last.property).to eq(property)
+          expect(FeedbackInput.last.subject).to eq(property)
         end
 
         it 'saves the numerical response' do
@@ -772,15 +766,9 @@ describe VoiceFeedbackController do
         expect(FeedbackInput.last.question).to eq(property_comments)
       end
 
-      it 'saves the neighborhood' do
-        pending 'flagged for deletion'
-        make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
-        expect(FeedbackInput.last.neighborhood_id).to be_nil
-      end
-
       it 'saves the property' do
         make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
-        expect(FeedbackInput.last.property).to eq(property)
+        expect(FeedbackInput.last.subject).to eq(property)
       end
 
       it 'saves the recording url' do

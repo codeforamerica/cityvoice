@@ -5,7 +5,7 @@ class NotificationMailer < ActionMailer::Base
 
   def confirmation_email(notification_subscription)
     @token = notification_subscription.auth_token
-    @property = notification_subscription.property
+    @property = notification_subscription.subject
     mail(to: notification_subscription.email, subject: 'Confirm to get notifications')
   end
 

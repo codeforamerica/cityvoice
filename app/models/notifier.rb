@@ -21,7 +21,7 @@ class Notifier
 
   # Get the NotificationSubscriptions which have had activity since last notification email was sent
   def self.subscription_with_activity_since_last_email_sent
-    NotificationSubscription.includes(property: :feedback_inputs)
+    NotificationSubscription.includes(subject: :feedback_inputs)
                             .where("confirmed = ? or bulk_added = ?", true, true)
                             .where('feedback_inputs.created_at >= notification_subscriptions.last_email_sent_at')
                             .references(:feedback_inputs)
@@ -33,7 +33,7 @@ class Notifier
     result.tap do |result|
       subs.each do |sub|
         email    = sub.email
-        property = sub.property
+        property = sub.subject
 
         result[email][:properties] ||= []
         result[email][:properties] << {

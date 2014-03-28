@@ -14,11 +14,7 @@
 							</div>
 						</div>
 						<div class="span3" id="subject_description_box">
-							<% if @subject.respond_to? :property_info_set %>
-							<%= render :partial => "property_info" %>
-							<% else %>
 							<%= render :inline => raw(@subject.description) %>
-							<% end %>
 						</div>
 					</div>
 					<div id="map" style="margin-top: 1em; margin-bottom: 1em;"></div>
@@ -27,7 +23,7 @@
 					<div class="row">
 						<div class="span5">
 							<h2 style="display: inline;">Email Notifications</h2>
-							<%= render 'subscribe_form' %>	
+							<%= render 'subscribe_form' %>
 							<p>Sign up to receive an email when there is new information on this location. Emails are sent out once a week and only if there is new information.</p>
 						</div>
 					</div>

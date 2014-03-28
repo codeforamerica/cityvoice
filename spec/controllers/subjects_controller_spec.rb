@@ -12,7 +12,7 @@ describe SubjectsController do
   end
 
   describe 'GET #show' do
-    let!(:property) { create(:property, name: '123 Main Street') }
+    let!(:property) { create(:subject, name: '123 Main Street') }
 
     def make_request(property_id = property.id)
       get :show, id: property_id
@@ -34,7 +34,7 @@ describe SubjectsController do
       context 'when there is a numerical response for the property' do
         let(:question) { create(:question, :number) }
         before do
-          create(:feedback_input, property: property, question: question, numerical_response: 1)
+          create(:feedback_input, subject: property, question: question, numerical_response: 1)
           make_request
         end
 
@@ -57,7 +57,7 @@ describe SubjectsController do
 
       context 'when there is a voice response for the property' do
         let(:question) { create(:question, :voice) }
-        let!(:feedback_input) { create(:feedback_input, :with_voice_file, property: property, question: question) }
+        let!(:feedback_input) { create(:feedback_input, :with_voice_file, subject: property, question: question) }
 
         before do
           make_request
