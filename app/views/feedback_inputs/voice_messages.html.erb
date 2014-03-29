@@ -22,7 +22,7 @@
   <% @messages.each do |message| %>
     <% location = message.subject.name if message.subject %>
     <% created_at = message.created_at.to_date %>
-    <% phone = "XXX-XXX-" + message.phone_number.to_s[-4..-1] %>
+    <% phone = "XXX-XXX-#{message.phone_number.to_s[-4..-1]}" %>
 
     <div class="row" style="margin-top: 2em;">
       <div class="span2 offset1">
