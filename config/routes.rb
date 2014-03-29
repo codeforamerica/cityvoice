@@ -1,4 +1,5 @@
 Automidnight::Application.routes.draw do
+  mount RailsEmailPreview::Engine, at: 'emails' if defined?(RailsEmailPreview::Engine)
   get 'feedback', to: 'answers#most_feedback', as: :most_feedback
   get 'voice-messages', to: 'answers#voice_messages', as: :voice_messages
 
