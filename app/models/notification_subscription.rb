@@ -7,7 +7,7 @@
 #  confirmed            :boolean
 #  confirmation_sent_at :datetime
 #  auth_token           :string(255)
-#  subject_id           :integer
+#  location_id          :integer
 #  created_at           :datetime
 #  updated_at           :datetime
 #  last_email_sent_at   :datetime
@@ -15,14 +15,14 @@
 #
 
 class NotificationSubscription < ActiveRecord::Base
-  belongs_to :subject
+  belongs_to :location
 
   attr_protected
 
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validates :email, uniqueness: {
     case_sensitive: false,
-    scope: :subject_id,
+    scope: :location_id,
     message: "You've already subscribed to this property"
   }
 

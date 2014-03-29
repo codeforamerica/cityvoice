@@ -25,7 +25,7 @@ class StatusController < ApplicationController
   end
 
   def database_okay?
-    Subject.first.present?
+    Location.first.present?
   end
 
   def twilio_response_okay?

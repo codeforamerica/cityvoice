@@ -1,6 +1,6 @@
 require 'csv'
 
-class SubjectImporter < Struct.new(:content)
+class LocationImporter < Struct.new(:content)
   REQUIRED_HEADERS = %w(name lat long).map(&:to_sym)
 
   def self.import_file(path)
@@ -13,15 +13,15 @@ class SubjectImporter < Struct.new(:content)
   end
 
   def valid?
-    has_valid_headers? && subjects.all?(&:valid?)
+    has_valid_headers? && locations.all?(&:valid?)
   end
 
   def errors
-    header_errors + ImporterErrors.messages_for(subjects)
+    header_errors + ImporterErrors.messages_for(locations)
   end
 
   def import
-    subjects.each(&:save!) if valid?
+    locations.each(&:save!) if valid?
   end
 
   protected
@@ -38,8 +38,8 @@ class SubjectImporter < Struct.new(:content)
     @csv_entries ||= CSV.new(content, headers: true, header_converters: :symbol).entries
   end
 
-  def subjects
-    csv_entries.map(&:to_hash).map { |p| Subject.new(p) }
+  def locations
+    csv_entries.map(&:to_hash).map { |p| Location.new(p) }
   end
 
   def headers

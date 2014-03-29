@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe FeedbackInputsController do
+describe AnswersController do
   describe 'GET #most_feedback' do
-    let(:property) { create :subject, name: '1313 Mockingbird Lane' }
-    let!(:input) { create(:feedback_input, subject: property, numerical_response: '1') }
+    let(:location) { create :location, name: '1313 Mockingbird Lane' }
+    let!(:input) { create(:answer, location: location, numerical_response: '1') }
 
     before { make_request }
 
@@ -43,8 +43,8 @@ describe FeedbackInputsController do
       its(:response) { should be_success }
 
       context 'with voice messages' do
-        let!(:first_input) { create(:feedback_input, :with_voice_file) }
-        let!(:second_input) { create(:feedback_input, :with_voice_file) }
+        let!(:first_input) { create(:answer, :with_voice_file) }
+        let!(:second_input) { create(:answer, :with_voice_file) }
 
         it 'assigns the messages' do
           expect(assigns(:messages)).to eq([second_input, first_input])
@@ -52,7 +52,7 @@ describe FeedbackInputsController do
       end
 
       context 'with other messages' do
-        before { create(:feedback_input) }
+        before { create(:answer) }
 
         it 'does not assign the messages' do
           expect(assigns(:messages)).to be_empty
@@ -68,8 +68,8 @@ describe FeedbackInputsController do
       its(:response) { should be_success }
 
       context 'with voice messages' do
-        let!(:first_input) { create(:feedback_input, :with_voice_file) }
-        let!(:second_input) { create(:feedback_input, :with_voice_file) }
+        let!(:first_input) { create(:answer, :with_voice_file) }
+        let!(:second_input) { create(:answer, :with_voice_file) }
 
         it 'assigns the messages' do
           expect(assigns(:messages)).to eq([second_input, first_input])
@@ -77,7 +77,7 @@ describe FeedbackInputsController do
 
         context 'with more than 10 messages' do
           before do
-            9.times {create(:feedback_input, :with_voice_file)}
+            9.times {create(:answer, :with_voice_file)}
           end
 
           it 'does not contain the first message' do
@@ -99,7 +99,7 @@ describe FeedbackInputsController do
       end
 
       context 'with other messages' do
-        before { create(:feedback_input) }
+        before { create(:answer) }
 
         it 'does not assign the messages' do
           expect(assigns(:messages)).to be_empty

@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe NumericalResponse do
-  let(:property) { create(:subject) }
+  let(:location) { create(:location) }
   let(:question) { create(:question, :number, short_name: 'short_name', question_text: 'question_text') }
 
-  before { create(:feedback_input, subject: property, question: question, numerical_response: 1) }
+  before { create(:answer, location: location, question: question, numerical_response: 1) }
 
-  subject(:response) { NumericalResponse.new(question, property) }
+  subject(:response) { NumericalResponse.new(question, location) }
 
   its(:short_name) { should == 'short_name' }
   its(:question_text) { should == 'question_text' }

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: subjects
+# Table name: locations
 #
 #  id                   :integer          not null, primary key
 #  name                 :string(255)
@@ -12,9 +12,9 @@
 #  description          :text
 #
 
-class Subject < ActiveRecord::Base
+class Location < ActiveRecord::Base
   has_many :notification_subscriptions
-  has_many :feedback_inputs
+  has_many :answers
 
   attr_accessible :name, :lat, :long, :description, :most_recent_activity
 
@@ -42,7 +42,7 @@ class Subject < ActiveRecord::Base
   end
 
   def voice_messages
-    self.feedback_inputs.where.not(voice_file_url: nil)
+    answers.where.not(voice_file_url: nil)
   end
 
   def new_activity!
@@ -50,7 +50,7 @@ class Subject < ActiveRecord::Base
   end
 
   def url_to
-    "/subjects/#{slug}"
+    "/locations/#{slug}"
   end
 
   protected

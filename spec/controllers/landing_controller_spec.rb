@@ -2,12 +2,21 @@ require 'spec_helper'
 
 describe LandingController do
   describe 'GET #location_search' do
-    before { make_request }
 
     def make_request
       get :location_search
     end
 
-    its(:response) { should be_success }
+    context 'after a request' do
+      before { make_request }
+
+      its(:response) { should be_success }
+    end
+
+    it 'assigns the 3 most recent messages' do
+      4.times { create :answer, :with_voice_file }
+      make_request
+      expect(assigns(:most_recent_messages)).to have(3).answers
+    end
   end
 end

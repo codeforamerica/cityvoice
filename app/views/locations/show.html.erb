@@ -10,11 +10,11 @@
 						<div class="span2">
 							<img class="action_icon" src="/assets/learnicon.png" />
 							<div class="address" style="margin-top: .25em;">
-							  	<%= @subject.name %><br>
+							  	<%= @location.name %><br>
 							</div>
 						</div>
 						<div class="span3" id="subject_description_box">
-							<%= render :inline => raw(@subject.description) %>
+							<%= render :inline => raw(@location.description) %>
 						</div>
 					</div>
 					<div id="map" style="margin-top: 1em; margin-bottom: 1em;"></div>
@@ -37,7 +37,7 @@
 					<div class="lower">
 						<div class="infoSet_below">
                                                   <br><%= @content.app_phone_number %>
-		    				<br>call-in code: <%= @subject.property_code %>
+		    				<br>call-in code: <%= @location.property_code %>
 						</div>
 					</div>
 				</div>

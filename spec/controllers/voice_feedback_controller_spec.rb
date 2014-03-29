@@ -4,9 +4,9 @@ describe VoiceFeedbackController do
   render_views
 
   describe 'POST #check_for_messages' do
-    let(:property) { create(:subject) }
+    let(:location) { create(:location) }
 
-    before { session[:property_id] = property.id }
+    before { session[:location_id] = location.id }
 
     def make_request
       post :check_for_messages
@@ -30,7 +30,7 @@ describe VoiceFeedbackController do
 
     context 'when there is feedback' do
       before do
-        create(:feedback_input, :with_voice_file, subject: property)
+        create(:answer, :with_voice_file, location: location)
         make_request
       end
 
@@ -331,14 +331,14 @@ describe VoiceFeedbackController do
   end
 
   describe 'POST #message_playback' do
-    let!(:property) { create(:subject) }
+    let!(:location) { create(:location) }
 
     def make_request(params = {})
       post :message_playback, params
     end
 
     context 'when there are no feedback inputs' do
-      before { session[:property_id] = property.id }
+      before { session[:location_id] = location.id }
 
       it 'is successful' do
         make_request
@@ -365,8 +365,8 @@ describe VoiceFeedbackController do
 
     context 'when there is a feedback input without a voice file' do
       before do
-        session[:property_id] = property.id
-        create(:feedback_input, subject: property)
+        session[:location_id] = location.id
+        create(:answer, location: location)
       end
 
       it 'is successful' do
@@ -393,9 +393,9 @@ describe VoiceFeedbackController do
     end
 
     context 'when there is a feedback input with a voice file' do
-      let!(:input) { create(:feedback_input, :with_voice_file, subject: property) }
+      let!(:input) { create(:answer, :with_voice_file, location: location) }
 
-      before { session[:property_id] = property.id }
+      before { session[:location_id] = location.id }
 
       it 'is successful' do
         make_request
@@ -456,7 +456,7 @@ describe VoiceFeedbackController do
   end
 
   describe 'POST #route_to_survey' do
-    let(:property) { create(:subject) }
+    let(:location) { create(:location) }
 
     def make_request(params = {'To' => '+15745842971'})
       post :route_to_survey, params
@@ -525,25 +525,25 @@ describe VoiceFeedbackController do
     context 'when the survey has been started' do
       before { session[:survey_started] = true }
 
-      context 'when the property exists' do
+      context 'when the location exists' do
         it 'is successful' do
-          make_request('Digits' => property.property_code)
+          make_request('Digits' => location.property_code)
           expect(response).to be_successful
         end
 
-        it 'sets the property in the session' do
+        it 'sets the location in the session' do
           expect {
-            make_request('Digits' => property.property_code)
-          }.to change { session[:property_id] }.to(property.id)
+            make_request('Digits' => location.property_code)
+          }.to change { session[:location_id] }.to(location.id)
         end
 
         it 'redirects to the messages prompt' do
-          make_request('Digits' => property.property_code)
+          make_request('Digits' => location.property_code)
           expect(response.body).to redirect_twilio_to('/listen_to_messages_prompt')
         end
       end
 
-      context 'when the property does not exist' do
+      context 'when the location does not exist' do
         context 'when there are no previous attempts' do
           it 'is successful' do
             make_request
@@ -585,14 +585,14 @@ describe VoiceFeedbackController do
   end
 
   describe 'POST #voice_survey' do
-    let(:property) { create(:subject) }
-    let!(:property_outcome) { create :question, :number, short_name: 'property_outcome' }
-    let!(:property_comments) { create :question, :voice, short_name: 'property_comments' }
+    let(:location) { create(:location) }
+    let!(:location_outcome) { create :question, :number, short_name: 'location_outcome' }
+    let!(:location_comments) { create :question, :voice, short_name: 'location_comments' }
 
     before do
-      session[:property_id] = property.id
+      session[:location_id] = location.id
       session[:call_source] = 'web'
-      session[:survey] = 'property'
+      session[:survey] = 'location'
     end
 
     def make_request(params = {})
@@ -608,17 +608,17 @@ describe VoiceFeedbackController do
       it 'sets the current question id' do
         expect {
           make_request
-        }.to change { session[:current_question_id] }.to(property_outcome.id)
+        }.to change { session[:current_question_id] }.to(location_outcome.id)
       end
 
       it 'plays the voice file for the question' do
         make_request
-        expect(response.body).to play_twilio_url(/property_outcome.mp3/)
+        expect(response.body).to play_twilio_url(/location_outcome.mp3/)
       end
     end
 
     context 'when a question with a numerical response is current' do
-      before { session[:current_question_id] = property_outcome.id }
+      before { session[:current_question_id] = location_outcome.id }
 
       context 'when a number is entered' do
         it 'is successful' do
@@ -629,43 +629,43 @@ describe VoiceFeedbackController do
         it 'sets the current question to the next question' do
           expect {
             make_request('Digits' => '1', 'From' => '+5551212')
-          }.to change { session[:current_question_id] }.to(property_comments.id)
+          }.to change { session[:current_question_id] }.to(location_comments.id)
         end
 
         it 'plays the voice file for the question' do
           make_request('Digits' => '1', 'From' => '+5551212')
-          expect(response.body).to play_twilio_url(/property_comments.mp3/)
+          expect(response.body).to play_twilio_url(/location_comments.mp3/)
         end
 
         it 'saves the feedback input' do
           expect {
             make_request('Digits' => '1', 'From' => '+5551212')
-          }.to change(FeedbackInput, :count).by(1)
+          }.to change(Answer, :count).by(1)
         end
 
         it 'saves the question' do
           make_request('Digits' => '1', 'From' => '+5551212')
-          expect(FeedbackInput.last.question).to eq(property_outcome)
+          expect(Answer.last.question).to eq(location_outcome)
         end
 
-        it 'saves the property' do
+        it 'saves the location' do
           make_request('Digits' => '1', 'From' => '+5551212')
-          expect(FeedbackInput.last.subject).to eq(property)
+          expect(Answer.last.location).to eq(location)
         end
 
         it 'saves the numerical response' do
           make_request('Digits' => '1', 'From' => '+5551212')
-          expect(FeedbackInput.last.numerical_response).to eq(1)
+          expect(Answer.last.numerical_response).to eq(1)
         end
 
         it 'saves the phone number' do
           make_request('Digits' => '1', 'From' => '+5551212')
-          expect(FeedbackInput.last.phone_number).to eq('5551212')
+          expect(Answer.last.phone_number).to eq('5551212')
         end
 
         it 'saves the call source' do
           make_request('Digits' => '1', 'From' => '+5551212')
-          expect(FeedbackInput.last.call_source).to eq('web')
+          expect(Answer.last.call_source).to eq('web')
         end
       end
 
@@ -683,7 +683,7 @@ describe VoiceFeedbackController do
 
         it 'replays the voice file for the question' do
           make_request('Digits' => '#')
-          expect(response.body).to play_twilio_url(/property_outcome.mp3/)
+          expect(response.body).to play_twilio_url(/location_outcome.mp3/)
         end
       end
 
@@ -702,7 +702,7 @@ describe VoiceFeedbackController do
 
         it 'replays the voice file for the question' do
           make_request
-          expect(response.body).to play_twilio_url(/property_outcome.mp3/)
+          expect(response.body).to play_twilio_url(/location_outcome.mp3/)
         end
 
         context 'when an incorrect digit is entered again' do
@@ -722,7 +722,7 @@ describe VoiceFeedbackController do
     end
 
     context 'when a question with a voice response is current' do
-      before { session[:current_question_id] = property_comments.id }
+      before { session[:current_question_id] = location_comments.id }
 
       it 'is successful' do
         make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
@@ -745,32 +745,32 @@ describe VoiceFeedbackController do
       it 'saves the feedback input' do
         expect {
           make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
-        }.to change(FeedbackInput, :count).by(1)
+        }.to change(Answer, :count).by(1)
       end
 
       it 'saves the question' do
         make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
-        expect(FeedbackInput.last.question).to eq(property_comments)
+        expect(Answer.last.question).to eq(location_comments)
       end
 
-      it 'saves the property' do
+      it 'saves the location' do
         make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
-        expect(FeedbackInput.last.subject).to eq(property)
+        expect(Answer.last.location).to eq(location)
       end
 
       it 'saves the recording url' do
         make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
-        expect(FeedbackInput.last.voice_file_url).to eq('http://example.com')
+        expect(Answer.last.voice_file_url).to eq('http://example.com')
       end
 
       it 'saves the phone number' do
         make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
-        expect(FeedbackInput.last.phone_number).to eq('5551212')
+        expect(Answer.last.phone_number).to eq('5551212')
       end
 
       it 'saves the call source' do
         make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
-        expect(FeedbackInput.last.call_source).to eq('web')
+        expect(Answer.last.call_source).to eq('web')
       end
     end
   end

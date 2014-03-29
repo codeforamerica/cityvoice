@@ -2,17 +2,17 @@ require 'spec_helper'
 
 describe 'Listening to messages' do
   let(:create_date) { Time.zone.now }
-  let(:property) { create(:subject, name: '1313 Mockingbird Lane') }
-  let!(:feedback_input) { create(:feedback_input, :with_voice_file, subject: property, created_at: create_date) }
+  let(:location) { create(:location, name: '1313 Mockingbird Lane') }
+  let!(:answer) { create(:answer, :with_voice_file, location: location, created_at: create_date) }
   let(:number_question) { create(:question, :number) }
-  let!(:numeric_input) { create(:feedback_input, numerical_response: '1', question: number_question, subject: property, created_at: create_date) }
+  let!(:numeric_input) { create(:answer, numerical_response: '1', question: number_question, location: location, created_at: create_date) }
 
   context 'on the landing page' do
     before do
       visit '/'
     end
 
-    it 'shows location of the subject' do
+    it 'shows name of the location' do
       expect(page).to have_content('1313 Mockingbird Lane')
     end
 
@@ -25,13 +25,13 @@ describe 'Listening to messages' do
     end
 
     it 'has the feedback input audio file' do
-      expect(page).to have_selector(%|source[src='#{feedback_input.voice_file_url}.mp3']|)
+      expect(page).to have_selector(%|source[src='#{answer.voice_file_url}.mp3']|)
     end
   end
 
-  context 'on a subject page' do
+  context 'on a location page' do
     before do
-      visit subject_path('1313-Mockingbird-Lane')
+      visit location_path('1313-Mockingbird-Lane')
     end
 
     it 'shows the date the call was made' do
@@ -47,11 +47,11 @@ describe 'Listening to messages' do
     end
 
     it 'has the feedback input audio file' do
-      expect(page).to have_selector(%|source[src='#{feedback_input.voice_file_url}.mp3']|)
+      expect(page).to have_selector(%|source[src='#{answer.voice_file_url}.mp3']|)
     end
 
     context 'when the user has not consented to publicly display their number' do
-      let!(:feedback_input) { create(:feedback_input, :with_voice_file, phone_number: nil, subject: property, created_at: create_date) }
+      let!(:answer) { create(:answer, :with_voice_file, phone_number: nil, location: location, created_at: create_date) }
 
       it 'does not display a number' do
         expect(page).not_to have_content('XXX-XXX-')
@@ -99,7 +99,7 @@ describe 'Listening to messages' do
     end
 
     it 'has the feedback input audio file' do
-      expect(page).to have_selector(%|source[src='#{feedback_input.voice_file_url}.mp3']|)
+      expect(page).to have_selector(%|source[src='#{answer.voice_file_url}.mp3']|)
     end
 
     it 'shows the masked number from which the call was made' do
@@ -107,7 +107,7 @@ describe 'Listening to messages' do
     end
 
     context 'when the user has not consented to publicly display their number' do
-      let!(:feedback_input) { create(:feedback_input, :with_voice_file, phone_number: nil, subject: property, created_at: create_date) }
+      let!(:answer) { create(:answer, :with_voice_file, phone_number: nil, location: location, created_at: create_date) }
 
       it 'does not display a number' do
         expect(page).not_to have_content('XXX-XXX-')

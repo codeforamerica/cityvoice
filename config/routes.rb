@@ -1,6 +1,6 @@
 Automidnight::Application.routes.draw do
-  get 'feedback', to: 'feedback_inputs#most_feedback', as: :most_feedback
-  get 'voice-messages', to: 'feedback_inputs#voice_messages', as: :voice_messages
+  get 'feedback', to: 'answers#most_feedback', as: :most_feedback
+  get 'voice-messages', to: 'answers#voice_messages', as: :voice_messages
 
   get '/' => 'landing#location_search'
 
@@ -10,7 +10,7 @@ Automidnight::Application.routes.draw do
 
   get '/.well-known/status' => 'status#check'
 
-  resources :subjects, only: [:index, :show]
+  resources :locations, only: [:index, :show]
 
   post '/check_for_messages' => 'voice_feedback#check_for_messages'
   post '/consent' => 'voice_feedback#consent'

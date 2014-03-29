@@ -51,20 +51,20 @@
                                                 You're receiving this email to help keep you informed about the properties you care about. Click on the properties below to see them in full detail. Feel free to unsubscribe at any time.
                                                 <br>
                                                 <br>
-                                                <% @properties_array.each do |property_hash| %>
+                                                <% @properties_array.each do |location_hash| %>
                                                   <h1 class="property-name" style="display: block;font-family: Helvetica;font-size: 22px;font-style: normal;font-weight: bold;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: left;color: #202020;">
                                                     <% host = ActionMailer::Base.default_url_options[:host] %>
-                                                    <%= property_hash[:property].name %> <%= link_to 'View', "#{host}#{property_hash[:property].url_to}" %>
+                                                    <%= location_hash[:location].name %> <%= link_to 'View', "#{host}#{location_hash[:location].url_to}" %>
                                                   </h1>
 
                                                   <%= link_to 'Unsubscribe from this property',
-                                                      notification_subscriptions_unsubscribe_url(token: property_hash[:unsubscribe_token]),
+                                                      notification_subscriptions_unsubscribe_url(token: location_hash[:unsubscribe_token]),
                                                       class: 'property-unsubscribe' %>
-                                                  <% property_hash[:feedback_inputs].each do |feedback_item| %>
-                                                    <% if feedback_input_type(feedback_item) == :voice %>
-                                                      <h4 style="display: block;font-family: Helvetica;font-size: 14px;font-style: italic;font-weight: normal;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: left;color: #808080;"><strong>Messages</strong> - <%= feedback_item.created_at.to_date %></h4>
+                                                  <% location_hash[:answers].each do |answer| %>
+                                                    <% if feedback_input_type(answer) == :voice %>
+                                                      <h4 style="display: block;font-family: Helvetica;font-size: 14px;font-style: italic;font-weight: normal;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: left;color: #808080;"><strong>Messages</strong> - <%= answer.created_at.to_date %></h4>
                                                     <% else %>
-                                                      <h4 style="display: block;font-family: Helvetica;font-size: 14px;font-style: italic;font-weight: normal;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: left;color: #808080;"><strong>Opinions</strong> - <%= feedback_item.created_at.to_date %></h4>
+                                                      <h4 style="display: block;font-family: Helvetica;font-size: 14px;font-style: italic;font-weight: normal;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: left;color: #808080;"><strong>Opinions</strong> - <%= answer.created_at.to_date %></h4>
                                                     <% end %>
                                                   <% end %>
                                                 <% end %>
