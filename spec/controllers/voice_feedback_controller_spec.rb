@@ -613,7 +613,7 @@ describe VoiceFeedbackController do
 
       it 'plays the voice file for the question' do
         make_request
-        expect(response.body).to play_twilio_url(property_outcome.voice_file.url)
+        expect(response.body).to play_twilio_url(/property_outcome.mp3/)
       end
     end
 
@@ -634,7 +634,7 @@ describe VoiceFeedbackController do
 
         it 'plays the voice file for the question' do
           make_request('Digits' => '1', 'From' => '+5551212')
-          expect(response.body).to play_twilio_url(property_comments.voice_file.url)
+          expect(response.body).to play_twilio_url(/property_comments.mp3/)
         end
 
         it 'saves the feedback input' do
@@ -683,7 +683,7 @@ describe VoiceFeedbackController do
 
         it 'replays the voice file for the question' do
           make_request('Digits' => '#')
-          expect(response.body).to play_twilio_url(property_outcome.voice_file.url)
+          expect(response.body).to play_twilio_url(/property_outcome.mp3/)
         end
       end
 
@@ -702,7 +702,7 @@ describe VoiceFeedbackController do
 
         it 'replays the voice file for the question' do
           make_request
-          expect(response.body).to play_twilio_url(property_outcome.voice_file.url)
+          expect(response.body).to play_twilio_url(/property_outcome.mp3/)
         end
 
         context 'when an incorrect digit is entered again' do

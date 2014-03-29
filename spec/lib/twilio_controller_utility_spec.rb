@@ -17,8 +17,6 @@ describe TwilioControllerUtility, type: :controller do
   end
 
   describe '#handle_session_error' do
-    let!(:error) { create(:voice_file, short_name: 'hilarious_error') }
-
     controller(ApplicationController) do
       include TwilioControllerUtility
 

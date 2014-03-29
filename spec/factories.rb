@@ -36,7 +36,6 @@ FactoryGirl.define do
 
   factory :question do
     short_name { Faker::Name.first_name }
-    voice_file { create(:voice_file, short_name: short_name) }
 
     trait :number do
       feedback_type 'numerical_response'

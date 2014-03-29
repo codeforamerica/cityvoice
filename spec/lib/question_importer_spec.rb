@@ -69,17 +69,12 @@ describe QuestionImporter do
         expect { importer.import }.to change(Question, :count).by(1)
       end
 
-      it 'creates a voice file' do
-        expect { importer.import }.to change(VoiceFile, :count).by(1)
-      end
-
       describe 'the question' do
         before { importer.import }
 
         subject(:question) { Question.first }
 
         its(:short_name) { should == 'love_of_tacos' }
-        its(:voice_file) { should_not be_nil }
         its(:feedback_type) { should == 'voice_file' }
         its(:question_text) { should == 'How much do you like tacos in 50 words or more' }
       end
@@ -91,10 +86,6 @@ describe QuestionImporter do
       it 'does not create a question' do
         expect { importer.import }.not_to change(Question, :count)
       end
-
-      it 'does not create a voice file' do
-        expect { importer.import }.not_to change(VoiceFile, :count)
-      end
     end
   end
 
@@ -104,12 +95,6 @@ describe QuestionImporter do
         expect do
           QuestionImporter.import_file(Rails.root.join('spec/support/fixtures/question.csv'))
         end.to change(Question, :count)
-      end
-
-      it 'creates a voice file' do
-        expect do
-          QuestionImporter.import_file(Rails.root.join('spec/support/fixtures/question.csv'))
-        end.to change(VoiceFile, :count)
       end
     end
 

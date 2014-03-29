@@ -1,7 +1,7 @@
 require 'csv'
 
 class QuestionImporter < Struct.new(:content)
-  REQUIRED_HEADERS = %w(short_name feedback_type question_text voice_file_url).map(&:to_sym)
+  REQUIRED_HEADERS = %w(short_name feedback_type question_text).map(&:to_sym)
 
   def self.import_file(path)
     content = File.read(path)

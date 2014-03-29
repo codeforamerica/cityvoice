@@ -9,11 +9,11 @@ xml.Response do
         if session[:wrong_digit_entered]
           xml.Play voice_file_path('error1')
         end
-        xml.Play @current_question.voice_file.url
+        xml.Play voice_file_path(@current_question.short_name)
       end
     else
       # Handle the voice recording here
-      xml.Play @current_question.voice_file.url
+      xml.Play voice_file_path(@current_question.short_name)
       xml.Record maxLength: 60
     end
   end
