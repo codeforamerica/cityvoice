@@ -6,10 +6,15 @@ describe StatusController do
   before do
     stub_request(:post, "http://www.southbendvoices.com/route_to_survey").
          to_return(:status => 201, :body => "here's welcome.mp3")
-    @my_subject = FactoryGirl.create(:subject)
-    Timecop.freeze
-    @time_in_seconds_at_request = Time.now.to_i
-    get :check
+    create(:location)
+    make_request
+  end
+
+  def make_request
+    Timecop.freeze do
+      @time_in_seconds_at_request = Time.now.to_i
+      get :check
+    end
   end
 
   it "returns a json response" do

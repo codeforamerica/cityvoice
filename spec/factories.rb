@@ -1,11 +1,11 @@
 FactoryGirl.define do
-  factory :subject do
+  factory :location do
     name { Faker::Address.street_address }
   end
 
   factory :notification_subscription do
     email { Faker::Internet.email }
-    subject
+    location
 
     trait :confirmed do
       confirmed true
@@ -24,18 +24,18 @@ FactoryGirl.define do
       voice_file_url { Faker::Internet.http_url }
     end
 
-    trait :with_subject do
-      subject
+    trait :with_location do
+      location
     end
   end
 
   factory :voice_file do
-    short_name { Faker::Name.first_name }
+    short_name { Faker::Name.name }
     url { "#{Faker::Internet.http_url}/#{short_name}" }
   end
 
   factory :question do
-    short_name { Faker::Name.first_name }
+    short_name { Faker::Name.name }
 
     trait :number do
       feedback_type 'numerical_response'

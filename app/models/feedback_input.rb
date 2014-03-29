@@ -4,7 +4,7 @@
 #
 #  id                 :integer          not null, primary key
 #  question_id        :integer
-#  subject_id         :integer
+#  location_id        :integer
 #  voice_file_url     :string(255)
 #  numerical_response :integer
 #  phone_number       :string(255)
@@ -17,17 +17,17 @@ class FeedbackInput < ActiveRecord::Base
   attr_protected
 
   belongs_to :question
-  belongs_to :subject
+  belongs_to :location
 
   def self.total_calls
-    where.not(numerical_response: nil).joins(:subject).group(:subject).count(:numerical_response)
+    where.not(numerical_response: nil).joins(:location).group(:location).count(:numerical_response)
   end
 
   def self.total_responses(numerical_response)
-    where(numerical_response: numerical_response).joins(:subject).group(:subject).count(:numerical_response)
+    where(numerical_response: numerical_response).joins(:location).group(:location).count(:numerical_response)
   end
 
   def self.voice_messages
-    includes(:subject).where.not(voice_file_url: nil).order('created_at DESC')
+    includes(:location).where.not(voice_file_url: nil).order('created_at DESC')
   end
 end

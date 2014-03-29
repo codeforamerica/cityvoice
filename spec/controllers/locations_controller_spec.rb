@@ -1,7 +1,9 @@
 require 'spec_helper'
 
-describe SubjectsController do
+describe LocationsController do
   describe 'GET #index' do
+    let!(:location) { create(:location) }
+
     before { make_request }
 
     def make_request
@@ -9,32 +11,36 @@ describe SubjectsController do
     end
 
     its(:response) { should be_success }
+
+    it 'assigns locations' do
+      expect(assigns(:locations)).to eq([location])
+    end
   end
 
   describe 'GET #show' do
-    let!(:property) { create(:subject, name: '123 Main Street') }
+    let!(:location) { create(:location, name: '123 Main Street') }
 
-    def make_request(property_id = property.id)
-      get :show, id: property_id
+    def make_request(location_id = location.id)
+      get :show, id: location_id
     end
 
-    context 'when requesting a subject by property id' do
+    context 'when requesting a location by location id' do
       before { make_request }
 
       its(:response) { should be_success }
 
-      it 'assigns subject' do
-        expect(assigns(:subject)).to eq(property)
+      it 'assigns location' do
+        expect(assigns(:location)).to eq(location)
       end
 
       it 'assigns content' do
         expect(assigns(:content)).to_not be_nil
       end
 
-      context 'when there is a numerical response for the property' do
+      context 'when there is a numerical response for the location' do
         let(:question) { create(:question, :number) }
         before do
-          create(:feedback_input, subject: property, question: question, numerical_response: 1)
+          create(:feedback_input, location: location, question: question, numerical_response: 1)
           make_request
         end
 
@@ -55,9 +61,9 @@ describe SubjectsController do
         end
       end
 
-      context 'when there is a voice response for the property' do
+      context 'when there is a voice response for the location' do
         let(:question) { create(:question, :voice) }
-        let!(:feedback_input) { create(:feedback_input, :with_voice_file, subject: property, question: question) }
+        let!(:feedback_input) { create(:feedback_input, :with_voice_file, location: location, question: question) }
 
         before do
           make_request
@@ -72,20 +78,20 @@ describe SubjectsController do
         end
       end
 
-      context 'when there is no response for the property' do
+      context 'when there is no response for the location' do
         it 'does not assign the numerical response existence flag' do
           expect(assigns(:numerical_responses_exist)).to be_false
         end
       end
     end
 
-    context 'when requesting a subject by name' do
+    context 'when requesting a location by name' do
       before { make_request('123-Main-Street') }
 
       its(:response) { should be_success }
 
-      it 'assigns subject' do
-        expect(assigns(:subject)).to eq(property)
+      it 'assigns location' do
+        expect(assigns(:location)).to eq(location)
       end
     end
   end

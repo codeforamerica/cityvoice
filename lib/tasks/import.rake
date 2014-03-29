@@ -1,8 +1,8 @@
 namespace :import do
-  desc 'Adds example subjects'
-  task :subjects, [:path] => :environment do |t, args|
-    args.with_defaults(path: Rails.root.join('data/subjects.csv.example'))
-    importer = SubjectImporter.import_file(args[:path])
+  desc 'Adds example locations'
+  task :locations, [:path] => :environment do |t, args|
+    args.with_defaults(path: Rails.root.join('data/locations.csv.example'))
+    importer = LocationImporter.import_file(args[:path])
     importer.errors.each { |e| Kernel.puts(e) } unless importer.valid?
   end
 

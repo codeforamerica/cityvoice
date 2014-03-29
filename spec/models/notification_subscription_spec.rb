@@ -7,7 +7,7 @@
 #  confirmed            :boolean
 #  confirmation_sent_at :datetime
 #  auth_token           :string(255)
-#  subject_id           :integer
+#  location_id          :integer
 #  created_at           :datetime
 #  updated_at           :datetime
 #  last_email_sent_at   :datetime
@@ -17,22 +17,22 @@
 require 'spec_helper'
 
 describe NotificationSubscription do
-  let(:property) { create(:subject) }
+  let(:location) { create(:location) }
 
-  it { should belong_to(:subject) }
+  it { should belong_to(:location) }
   it { should allow_value('user@example.com', 'us.er@example.com', 'user+plus@example.com').for(:email) }
   it { should_not allow_value('wat').for(:email) }
 
   it 'validates the uniqueness of the email' do
-    property.notification_subscriptions.create!(email: 'tacos@example.com')
+    location.notification_subscriptions.create!(email: 'tacos@example.com')
 
     expect {
-      property.notification_subscriptions.create!(email: 'tacos@example.com')
+      location.notification_subscriptions.create!(email: 'tacos@example.com')
     }.to raise_error
   end
 
   describe '#confirm!' do
-    subject(:notification_subscription) { property.notification_subscriptions.create!(email: 'wat@example.com') }
+    subject(:notification_subscription) { location.notification_subscriptions.create!(email: 'wat@example.com') }
 
     it 'sets the confirmed flag' do
       expect { notification_subscription.confirm! }.to change { notification_subscription.reload.confirmed }.to(true)
@@ -40,7 +40,7 @@ describe NotificationSubscription do
   end
 
   describe '#confirmed?' do
-    subject(:notification_subscription) { property.notification_subscriptions.create!(email: 'wat@example.com') }
+    subject(:notification_subscription) { location.notification_subscriptions.create!(email: 'wat@example.com') }
 
     context 'when the notification subscription has not been confirmed' do
       it { should_not be_confirmed }
@@ -54,7 +54,7 @@ describe NotificationSubscription do
   end
 
   describe '#confirmation_sent?' do
-    subject(:notification_subscription) { property.notification_subscriptions.build(email: 'wat@example.com') }
+    subject(:notification_subscription) { location.notification_subscriptions.build(email: 'wat@example.com') }
 
     context 'when the notification subscription has not been saved' do
       it { should_not be_confirmation_sent }
@@ -68,7 +68,7 @@ describe NotificationSubscription do
   end
 
   describe '#override_last_email_sent_at_to!' do
-    subject(:notification_subscription) { property.notification_subscriptions.create!(email: 'wat@example.com') }
+    subject(:notification_subscription) { location.notification_subscriptions.create!(email: 'wat@example.com') }
     let(:last_sent) { Time.parse('December 30, 1981') }
 
     it 'sets the last email sent at field' do

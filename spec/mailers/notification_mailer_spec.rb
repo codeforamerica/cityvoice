@@ -1,11 +1,10 @@
-require "spec_helper"
+require 'spec_helper'
 
 describe NotificationMailer do
-  let(:property) { create(:subject, name: '1313 mockingbird lane') }
-  let!(:notification_subscription) { property.notification_subscriptions.create!(email: 'tacos@example.com') }
+  let(:location) { create(:location, name: '1313 mockingbird lane') }
+  let!(:notification_subscription) { location.notification_subscriptions.create!(email: 'tacos@example.com') }
 
   describe '#confirmation_email' do
-
     subject(:mail) { NotificationMailer.confirmation_email(notification_subscription) }
 
     it 'renders the subject' do
@@ -30,8 +29,8 @@ describe NotificationMailer do
   end
 
   describe '#weekly_activity2' do
-    let(:properties) { [{property: property, feedback_inputs: [], unsubscribe_token: 'i-like-geese'}] }
-    let(:mail) { NotificationMailer.weekly_activity2('user@example.com', properties) }
+    let(:locations) { [{location: location, feedback_inputs: [], unsubscribe_token: 'i-like-geese'}] }
+    let(:mail) { NotificationMailer.weekly_activity2('user@example.com', locations) }
 
     it 'renders the subject' do
       mail.subject.should == 'New Activity on CityVoice!'
@@ -46,7 +45,7 @@ describe NotificationMailer do
     end
 
     it 'assigns @properties_array' do
-      mail.body.encoded.should =~ /localhost:3000#{property.url_to}/
+      mail.body.encoded.should =~ /localhost:3000#{location.url_to}/
     end
 
     it 'assigns @unsubscribe_all_token' do

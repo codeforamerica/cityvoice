@@ -19,7 +19,7 @@ function placeMarkers(dataArray) {
     });
   }
   for(var i = 0; i < dataArray.length; i++) {
-    var subject = dataArray[i];
+    var location = dataArray[i];
     var mapIcon = L.icon({
         iconUrl: '/assets/marker_icon_gray.png',
         iconAnchor: [12, 12],
@@ -28,9 +28,9 @@ function placeMarkers(dataArray) {
 
     // Turn on below once we've fixed the positioning and have implemented color icons
     //var marker = L.marker(new L.LatLng(a[1],a[2]) , {icon: mapIcon} , { address: address });
-    if (subject.lat && subject.long) {
-      var marker = L.marker(new L.LatLng(subject.lat,subject.long), { name: subject.name, icon: mapIcon });
-      marker.bindPopup("<a href=\"/subjects/" + subject.name.replace(/\s/g,"-") + "\">" + subject.name + "</a>");
+    if (location.lat && location.long) {
+      var marker = L.marker(new L.LatLng(location.lat,location.long), { name: location.name, icon: mapIcon });
+      marker.bindPopup("<a href=\"/locations/" + location.name.replace(/\s/g,"-") + "\">" + location.name + "</a>");
       markerFeatureGroup.addLayer(marker);
     }
   }
@@ -56,7 +56,7 @@ function drawMap () {
   else {
     window.map = L.mapbox.map('map',mapboxMapID).setView([41.665, -86.28], 13);
   }
-  $.getJSON('/subjects.json', placeMarkers);
+  $.getJSON('/locations.json', placeMarkers);
   $( "#dialog" ).dialog();
   $( "#dialog" ).dialog({ width: 295 });
   $( "#dialog" ).dialog({ position: { my: "left top", at: "left+50 bottom+60", of: "head"} });

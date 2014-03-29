@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe FeedbackInputsController do
   describe 'GET #most_feedback' do
-    let(:property) { create :subject, name: '1313 Mockingbird Lane' }
-    let!(:input) { create(:feedback_input, subject: property, numerical_response: '1') }
+    let(:location) { create :location, name: '1313 Mockingbird Lane' }
+    let!(:input) { create(:feedback_input, location: location, numerical_response: '1') }
 
     before { make_request }
 

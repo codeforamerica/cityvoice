@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe SubjectImporter do
-  let(:invalid_header_content) { Rails.root.join('spec/support/fixtures/invalid_subject_headers.csv').read }
-  let(:invalid_content) { Rails.root.join('spec/support/fixtures/invalid_subject.csv').read }
-  let(:valid_content) { Rails.root.join('spec/support/fixtures/subject.csv').read }
+describe LocationImporter do
+  let(:invalid_header_content) { Rails.root.join('spec/support/fixtures/invalid_location_headers.csv').read }
+  let(:invalid_content) { Rails.root.join('spec/support/fixtures/invalid_location.csv').read }
+  let(:valid_content) { Rails.root.join('spec/support/fixtures/location.csv').read }
 
-  subject(:importer) { SubjectImporter.new(content) }
+  subject(:importer) { LocationImporter.new(content) }
 
   describe '#has_valid_headers?' do
     context 'when the headers are invalid' do
@@ -62,17 +62,17 @@ describe SubjectImporter do
   end
 
   describe '#import' do
-    context 'with all the required fields to create a subject' do
+    context 'with all the required fields to create a location' do
       let(:content) { valid_content }
 
-      it 'creates a subject' do
-        expect { importer.import }.to change { Subject.count }.by(1)
+      it 'creates a location' do
+        expect { importer.import }.to change(Location, :count).by(1)
       end
 
-      describe 'the subject' do
+      describe 'the location' do
         before { importer.import }
 
-        subject { Subject.first }
+        subject { Location.first }
 
         its(:name) { should == '1313 Mockingbird Lane' }
         its(:lat) { should == '34.123382' }
@@ -80,29 +80,29 @@ describe SubjectImporter do
       end
     end
 
-    context 'when one of the fields required for a subject is blank' do
+    context 'when one of the fields required for a location is blank' do
       let(:content) { invalid_content }
 
-      it 'does not create a subject' do
-        expect { importer.import }.to change(Subject, :count).by(0)
+      it 'does not create a location' do
+        expect { importer.import }.to change(Location, :count).by(0)
       end
     end
   end
 
   describe '.import_file' do
     context 'with valid data' do
-      it 'creates a subject' do
+      it 'creates a location' do
         expect do
-          SubjectImporter.import_file(Rails.root.join('spec/support/fixtures/subject.csv'))
-        end.to change(Subject, :count)
+          LocationImporter.import_file(Rails.root.join('spec/support/fixtures/location.csv'))
+        end.to change(Location, :count)
       end
     end
 
     context 'with invalid data' do
-      it 'does not create a subject' do
+      it 'does not create a location' do
         expect do
-          SubjectImporter.import_file(Rails.root.join('spec/support/fixtures/invalid_subject.csv'))
-        end.not_to change(Subject, :count)
+          LocationImporter.import_file(Rails.root.join('spec/support/fixtures/invalid_location.csv'))
+        end.not_to change(Location, :count)
       end
     end
   end

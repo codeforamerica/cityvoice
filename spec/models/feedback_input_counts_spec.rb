@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe FeedbackInputCounts do
-  let(:property) { create :subject, name: '1313 Mockingbird Lane' }
-  let!(:input) { create(:feedback_input, subject: property, numerical_response: '1') }
+  let(:location) { create :location, name: '1313 Mockingbird Lane' }
+  let!(:input) { create(:feedback_input, location: location, numerical_response: '1') }
 
   let(:total_counts) { FeedbackInput.total_calls }
   let(:repair_counts) { FeedbackInput.total_responses(1) }

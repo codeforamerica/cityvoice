@@ -10,7 +10,7 @@ Automidnight::Application.routes.draw do
 
   get '/.well-known/status' => 'status#check'
 
-  resources :subjects, only: [:index, :show]
+  resources :locations, only: [:index, :show]
 
   post '/check_for_messages' => 'voice_feedback#check_for_messages'
   post '/consent' => 'voice_feedback#consent'

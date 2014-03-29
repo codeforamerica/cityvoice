@@ -20,20 +20,16 @@
   </div>
 
   <% @messages.each do |message| %>
-    <% location = message.subject.name if message.subject %>
-    <% created_at = message.created_at.to_date %>
-    <% phone = "XXX-XXX-#{message.phone_number.to_s[-4..-1]}" %>
-
     <div class="row" style="margin-top: 2em;">
       <div class="span2 offset1">
         <h3>
-          <% if message.subject %>
-            <a href="<%= message.subject.url_to %>"><%= message.subject.name %></a>
+          <% if message.location %>
+            <a href="<%= message.location.url_to %>"><%= message.location.name %></a>
           <% end %>
         </h3>
       </div>
       <div class="span2">
-        <h3><%= created_at %></h3>
+        <h3><%= message.created_at.to_date %></h3>
       </div>
       <div class="span2">
         <h3>

@@ -46,7 +46,7 @@ Next, push the code to Heroku:
 
 Load some example data:
 
-    $ heroku run rake import:subjects[data/subjects.csv.example]
+    $ heroku run rake import:locations[data/locations.csv.example]
     $ heroku run rake import:questions[data/questions.csv.example]
 
 Set the survey name, the Mapbox id and the secret token:
@@ -115,7 +115,7 @@ Then, edit it for your local Postgres installation and run:
 
 Next, load some sample data:
 
-    $ rake import:subjects[data/subjects.csv.example]
+    $ rake import:locations[data/locations.csv.example]
     $ rake import:questions[data/questions.csv.example]
 
 Then, create a [MapBox](https://www.mapbox.com) account and pass its id when starting Rails:

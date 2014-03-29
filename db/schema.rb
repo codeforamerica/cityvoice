@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140329000115) do
+ActiveRecord::Schema.define(version: 20140329002225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20140329000115) do
 
   create_table "feedback_inputs", force: true do |t|
     t.integer  "question_id"
-    t.integer  "subject_id"
+    t.integer  "location_id"
     t.string   "voice_file_url"
     t.integer  "numerical_response"
     t.string   "phone_number"
@@ -34,12 +34,22 @@ ActiveRecord::Schema.define(version: 20140329000115) do
     t.string   "call_source"
   end
 
+  create_table "locations", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "most_recent_activity"
+    t.string   "lat"
+    t.string   "long"
+    t.text     "description"
+  end
+
   create_table "notification_subscriptions", force: true do |t|
     t.string   "email"
     t.boolean  "confirmed"
     t.datetime "confirmation_sent_at"
     t.string   "auth_token"
-    t.integer  "subject_id"
+    t.integer  "location_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "last_email_sent_at"
@@ -52,16 +62,6 @@ ActiveRecord::Schema.define(version: 20140329000115) do
     t.string   "question_text"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "subjects", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "most_recent_activity"
-    t.string   "lat"
-    t.string   "long"
-    t.text     "description"
   end
 
 end
