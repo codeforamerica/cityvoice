@@ -17,7 +17,9 @@
 class NotificationSubscription < ActiveRecord::Base
   belongs_to :location
 
-  attr_protected
+  has_many :answers, through: :location
+
+  attr_accessible :email, :confirmed, :confirmation_sent_at, :last_email_sent_at, :bulk_added
 
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validates :email, uniqueness: {
@@ -28,6 +30,25 @@ class NotificationSubscription < ActiveRecord::Base
 
   before_create :create_auth_token, :set_last_email_sent_at
   after_create :send_confirmation_email, unless: "bulk_added"
+
+  def self.confirmed
+    table = NotificationSubscription.arel_table
+    where(table[:confirmed].eq(true).or(table[:bulk_added]).eq(true))
+  end
+
+  def self.bulk_added
+    where(bulk_added: true)
+  end
+
+  def self.with_new_answers
+    includes(location: :answers)
+    .where('answers.created_at >= notification_subscriptions.last_email_sent_at')
+    .references(:answers)
+  end
+
+  def newest_answers
+    answers.where('answers.created_at >= ?', last_email_sent_at)
+  end
 
   def confirm!
     self.update_attributes(confirmed: true)
