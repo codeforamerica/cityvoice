@@ -8,7 +8,7 @@ module TwilioControllerUtility
 
   def handle_session_error(exception)
     response = Twilio::TwiML::Response.new do |r|
-      r.Play exception.voice_file.url
+      r.Play exception.voice_file
       r.Hangup
     end
     self.response_body = response.text

@@ -17,8 +17,6 @@ describe TwilioControllerUtility, type: :controller do
   end
 
   describe '#handle_session_error' do
-    let!(:error) { create(:voice_file, short_name: 'hilarious_error') }
-
     controller(ApplicationController) do
       include TwilioControllerUtility
 
@@ -36,7 +34,7 @@ describe TwilioControllerUtility, type: :controller do
 
     it 'plays the fatal error message' do
       get :index
-      expect(response.body).to play_twilio_url(error.url)
+      expect(response.body).to play_twilio_url(/hilarious_error.mp3/)
     end
 
     it 'hangs up' do

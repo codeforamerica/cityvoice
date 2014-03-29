@@ -1,3 +1,3 @@
-Short Name,Feedback Type,Question Text,Voice File URL
-property_outcome,numerical_response,What should be done about this property?,https://s3.amazonaws.com/south-bend-cityvoice-abandoneds/v5/property_outcome.mp3
-property_comments,voice_file,Please leave some comments about this property.  Do not leave self-identifying information.,https://s3.amazonaws.com/south-bend-cityvoice-abandoneds/v5/property_comments.mp3
+Short Name,Feedback Type,Question Text
+property_outcome,numerical_response,What should be done about this property?
+property_comments,voice_file,Please leave some comments about this property.  Do not leave self-identifying information.

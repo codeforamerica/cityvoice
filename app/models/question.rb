@@ -8,12 +8,9 @@
 #  question_text :string(255)
 #  created_at    :datetime
 #  updated_at    :datetime
-#  voice_file_id :integer
 #
 
 class Question < ActiveRecord::Base
-  belongs_to :voice_file
-
   validates_presence_of :short_name, :feedback_type
   validates_uniqueness_of :short_name
 
