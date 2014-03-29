@@ -27,7 +27,7 @@
 												<strong><%= @choice %></strong>&nbsp;&nbsp;
 											  date: <strong><%= message.created_at.to_date %></strong> &nbsp;
                         <% if message.phone_number.present? %>
-											   from: <strong><%= "XXX-XXX-" + message.phone_number.to_s[-4..-1] %></strong>
+											   from: <strong><%= "XXX-XXX-#{message.phone_number.to_s[-4..-1]}" %></strong>
                         <% end %>
 											</div>
 											<div>
