@@ -1,52 +1,24 @@
-# Logic for DB roundup queries & email sending
-class Notifier
-
-  # Construct a hash of the form:
-  # {
-  #   mike@gmail.com:
-  #    {
-  #      locations: [{location: <Property>, answers: [<FeedbackInput>, <FeedbackInput>, ...], unsubscribe_token: 'nf897e623'}, {...}]
-  #    },
-  #   another@email.com: {...}
-  # }
+class Notifier < Struct.new(:notification_subscription)
   def self.send_weekly_notifications
-    subs = self.subscription_with_activity_since_last_email_sent
-    emails_hash = self.build_hash_for_mailer(subs)
-    self.deliver_emails(emails_hash)
+    NotificationSubscription.confirmed.with_new_answers.map { |s| new(s) }.each(&:deliver)
   end
 
-  # Get the NotificationSubscriptions which have had activity since last notification email was sent
-  def self.subscription_with_activity_since_last_email_sent
-    NotificationSubscription.includes(location: :answers)
-                            .where("confirmed = ? or bulk_added = ?", true, true)
-                            .where('answers.created_at >= notification_subscriptions.last_email_sent_at')
-                            .references(:answers)
+  def deliver
+    notification_subscription.override_last_email_sent_at_to!(Time.zone.now)
+    NotificationMailer.weekly_activity2(email, [to_hash]).deliver
   end
 
-  # Group all the <NotificationSubscription>'s by email
-  def self.build_hash_for_mailer(subs)
-    result = Hash.new { |hash, k| hash[k] = {} }
-    result.tap do |result|
-      subs.each do |sub|
-        email    = sub.email
-        location = sub.location
-
-        result[email][:locations] ||= []
-        result[email][:locations] << {
-          location: location,
-          unsubscribe_token: sub.auth_token,
-          answers: location.answers.where('created_at >= ?', sub.last_email_sent_at)
-        }
-        sub.update_attributes(last_email_sent_at: DateTime.now)
-      end
-    end
+  def to_hash
+    {
+      answers: notification_subscription.newest_answers,
+      location: notification_subscription.location,
+      unsubscribe_token: notification_subscription.auth_token,
+    }
   end
 
-  # Deliver for each email address in hash
-  def self.deliver_emails(emails_hash)
-    emails_hash.each do |email, locations|
-      NotificationMailer.weekly_activity2(email, locations[:locations]).deliver
-    end
-  end
+  protected
 
+  def email
+    notification_subscription.email
+  end
 end
