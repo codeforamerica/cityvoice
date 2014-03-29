@@ -60,11 +60,11 @@
                                                   <%= link_to 'Unsubscribe from this property',
                                                       notification_subscriptions_unsubscribe_url(token: location_hash[:unsubscribe_token]),
                                                       class: 'property-unsubscribe' %>
-                                                  <% location_hash[:feedback_inputs].each do |feedback_item| %>
-                                                    <% if feedback_input_type(feedback_item) == :voice %>
-                                                      <h4 style="display: block;font-family: Helvetica;font-size: 14px;font-style: italic;font-weight: normal;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: left;color: #808080;"><strong>Messages</strong> - <%= feedback_item.created_at.to_date %></h4>
+                                                  <% location_hash[:answers].each do |answer| %>
+                                                    <% if feedback_input_type(answer) == :voice %>
+                                                      <h4 style="display: block;font-family: Helvetica;font-size: 14px;font-style: italic;font-weight: normal;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: left;color: #808080;"><strong>Messages</strong> - <%= answer.created_at.to_date %></h4>
                                                     <% else %>
-                                                      <h4 style="display: block;font-family: Helvetica;font-size: 14px;font-style: italic;font-weight: normal;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: left;color: #808080;"><strong>Opinions</strong> - <%= feedback_item.created_at.to_date %></h4>
+                                                      <h4 style="display: block;font-family: Helvetica;font-size: 14px;font-style: italic;font-weight: normal;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: left;color: #808080;"><strong>Opinions</strong> - <%= answer.created_at.to_date %></h4>
                                                     <% end %>
                                                   <% end %>
                                                 <% end %>

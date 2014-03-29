@@ -53,7 +53,7 @@ class VoiceFeedbackController < ApplicationController
 
   def check_for_messages
     location = Location.find(session[:location_id])
-    @voice_message_count = location.feedback_inputs.where.not(voice_file_url: nil).count
+    @voice_message_count = location.answers.where.not(voice_file_url: nil).count
     if @voice_message_count == 0
       render action: 'no_feedback.xml.builder', layout: false
     else
@@ -66,7 +66,7 @@ class VoiceFeedbackController < ApplicationController
       redirect_twilio_to consent_path
     else
       location = Location.find(session[:location_id])
-      @voice_messages = location.feedback_inputs.where.not(voice_file_url: nil).order('created_at ASC')
+      @voice_messages = location.answers.where.not(voice_file_url: nil).order('created_at ASC')
       if session[:current_message_index] == nil
         session[:current_message_index] = 0
       else
@@ -125,9 +125,9 @@ class VoiceFeedbackController < ApplicationController
             raise TwilioSessionError.new(:error2)
           end
         end
-        location.feedback_inputs.create!(question_id: @current_question.id, numerical_response: params["Digits"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
+        location.answers.create!(question_id: @current_question.id, numerical_response: params["Digits"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
       elsif @current_question.feedback_type == "voice_file"
-        location.feedback_inputs.create!(question_id: @current_question.id, voice_file_url: params["RecordingUrl"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
+        location.answers.create!(question_id: @current_question.id, voice_file_url: params["RecordingUrl"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
       end
       # Then iterate counter
       current_index = Survey.questions_for.index { |q| q.short_name == @current_question.short_name }

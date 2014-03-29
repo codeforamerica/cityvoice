@@ -5,7 +5,7 @@ class NumericalResponse < Struct.new(:question, :location)
 
   def response_hash
     %w(Repair Remove).each_with_index.reduce({}) do |hash, (choice, index)|
-      hash[choice] = location.feedback_inputs
+      hash[choice] = location.answers
                              .where(question: question)
                              .where(numerical_response: (index+1))
                              .count

@@ -1,14 +1,14 @@
 require 'spec_helper'
 
-describe FeedbackInputCounts do
+describe AnswerCounts do
   let(:location) { create :location, name: '1313 Mockingbird Lane' }
-  let!(:input) { create(:feedback_input, location: location, numerical_response: '1') }
+  let!(:input) { create(:answer, location: location, numerical_response: '1') }
 
-  let(:total_counts) { FeedbackInput.total_calls }
-  let(:repair_counts) { FeedbackInput.total_responses(1) }
-  let(:remove_counts) { FeedbackInput.total_responses(2) }
+  let(:total_counts) { Answer.total_calls }
+  let(:repair_counts) { Answer.total_responses(1) }
+  let(:remove_counts) { Answer.total_responses(2) }
 
-  subject(:counts) { FeedbackInputCounts.new(total_counts, repair_counts, remove_counts) }
+  subject(:counts) { AnswerCounts.new(total_counts, repair_counts, remove_counts) }
 
   its(:total_hash) { should == {'1313 Mockingbird Lane' => {total: 1}} }
   its(:repair_hash) { should == {'1313 Mockingbird Lane' => {repair: 1}} }

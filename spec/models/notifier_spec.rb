@@ -5,7 +5,7 @@ describe Notifier do
 
   describe '.subscription_with_activity_since_last_email_sent' do
     context 'when feedback happened since the last email was sent' do
-      before { create(:feedback_input, location: location, created_at: Time.now + 1.day) }
+      before { create(:answer, location: location, created_at: Time.now + 1.day) }
 
       context 'when the subscription is bulk-added' do
         let(:notification_subscription) { create(:notification_subscription, :bulk_added, location: location) }
@@ -64,18 +64,18 @@ describe Notifier do
     end
 
     context 'when a feedback input is fresher than the last notification email' do
-      let!(:feedback_input) { create(:feedback_input, created_at: Time.now + 1.day, location: location) }
+      let!(:answer) { create(:answer, created_at: Time.now + 1.day, location: location) }
 
       it 'includes the feedback input' do
-        expect(location_hash[:feedback_inputs]).to include(feedback_input)
+        expect(location_hash[:answers]).to include(answer)
       end
     end
 
     context 'when a feedback input is staler than the last notification email' do
-      before { create(:feedback_input, created_at: 1.year.ago, location: location) }
+      before { create(:answer, created_at: 1.year.ago, location: location) }
 
       it 'does not include the feedback input' do
-        expect(location_hash[:feedback_inputs]).to be_empty
+        expect(location_hash[:answers]).to be_empty
       end
     end
 
@@ -96,7 +96,7 @@ describe Notifier do
           locations: [{
             location: location,
             unsubscribe_token: 'up-in-smoke',
-            feedback_inputs: []
+            answers: []
           }]
         }
       }
@@ -116,7 +116,7 @@ describe Notifier do
 
   describe '.send_weekly_notifications' do
     before do
-      create(:feedback_input, location: location, created_at: Time.now + 1.day)
+      create(:answer, location: location, created_at: Time.now + 1.day)
       create(:notification_subscription, :bulk_added, location: location)
     end
 

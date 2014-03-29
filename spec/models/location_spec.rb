@@ -20,7 +20,7 @@ describe Location do
   it { should validate_presence_of :name }
 
   it { should have_many :notification_subscriptions }
-  it { should have_many :feedback_inputs }
+  it { should have_many :answers }
 
   it { should allow_mass_assignment_of :name }
   it { should allow_mass_assignment_of :lat }
@@ -93,7 +93,7 @@ describe Location do
 
     subject(:location) { create(:location) }
 
-    before { create(:feedback_input, location: location, question: question, numerical_response: 1) }
+    before { create(:answer, location: location, question: question, numerical_response: 1) }
 
     its(:numerical_responses) { should have(1).numerical_response }
   end
@@ -101,7 +101,7 @@ describe Location do
   describe '#voice_messages' do
     subject(:location) { create(:location) }
 
-    before { create(:feedback_input, :with_voice_file, location: location) }
+    before { create(:answer, :with_voice_file, location: location) }
 
     its(:voice_messages) { should have(1).voice_message }
   end

@@ -16,7 +16,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :feedback_input do
+  factory :answer do
     question { create :question, :voice }
     phone_number '000-555-1212'
 

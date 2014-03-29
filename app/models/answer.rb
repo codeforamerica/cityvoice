@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: feedback_inputs
+# Table name: answers
 #
 #  id                 :integer          not null, primary key
 #  question_id        :integer
@@ -13,7 +13,7 @@
 #  call_source        :string(255)
 #
 
-class FeedbackInput < ActiveRecord::Base
+class Answer < ActiveRecord::Base
   attr_protected
 
   belongs_to :question

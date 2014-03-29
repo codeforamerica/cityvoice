@@ -14,7 +14,7 @@
 
 class Location < ActiveRecord::Base
   has_many :notification_subscriptions
-  has_many :feedback_inputs
+  has_many :answers
 
   attr_accessible :name, :lat, :long, :description, :most_recent_activity
 
@@ -42,7 +42,7 @@ class Location < ActiveRecord::Base
   end
 
   def voice_messages
-    feedback_inputs.where.not(voice_file_url: nil)
+    answers.where.not(voice_file_url: nil)
   end
 
   def new_activity!

@@ -30,7 +30,7 @@ describe VoiceFeedbackController do
 
     context 'when there is feedback' do
       before do
-        create(:feedback_input, :with_voice_file, location: location)
+        create(:answer, :with_voice_file, location: location)
         make_request
       end
 
@@ -366,7 +366,7 @@ describe VoiceFeedbackController do
     context 'when there is a feedback input without a voice file' do
       before do
         session[:location_id] = location.id
-        create(:feedback_input, location: location)
+        create(:answer, location: location)
       end
 
       it 'is successful' do
@@ -393,7 +393,7 @@ describe VoiceFeedbackController do
     end
 
     context 'when there is a feedback input with a voice file' do
-      let!(:input) { create(:feedback_input, :with_voice_file, location: location) }
+      let!(:input) { create(:answer, :with_voice_file, location: location) }
 
       before { session[:location_id] = location.id }
 
@@ -640,32 +640,32 @@ describe VoiceFeedbackController do
         it 'saves the feedback input' do
           expect {
             make_request('Digits' => '1', 'From' => '+5551212')
-          }.to change(FeedbackInput, :count).by(1)
+          }.to change(Answer, :count).by(1)
         end
 
         it 'saves the question' do
           make_request('Digits' => '1', 'From' => '+5551212')
-          expect(FeedbackInput.last.question).to eq(location_outcome)
+          expect(Answer.last.question).to eq(location_outcome)
         end
 
         it 'saves the location' do
           make_request('Digits' => '1', 'From' => '+5551212')
-          expect(FeedbackInput.last.location).to eq(location)
+          expect(Answer.last.location).to eq(location)
         end
 
         it 'saves the numerical response' do
           make_request('Digits' => '1', 'From' => '+5551212')
-          expect(FeedbackInput.last.numerical_response).to eq(1)
+          expect(Answer.last.numerical_response).to eq(1)
         end
 
         it 'saves the phone number' do
           make_request('Digits' => '1', 'From' => '+5551212')
-          expect(FeedbackInput.last.phone_number).to eq('5551212')
+          expect(Answer.last.phone_number).to eq('5551212')
         end
 
         it 'saves the call source' do
           make_request('Digits' => '1', 'From' => '+5551212')
-          expect(FeedbackInput.last.call_source).to eq('web')
+          expect(Answer.last.call_source).to eq('web')
         end
       end
 
@@ -745,32 +745,32 @@ describe VoiceFeedbackController do
       it 'saves the feedback input' do
         expect {
           make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
-        }.to change(FeedbackInput, :count).by(1)
+        }.to change(Answer, :count).by(1)
       end
 
       it 'saves the question' do
         make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
-        expect(FeedbackInput.last.question).to eq(location_comments)
+        expect(Answer.last.question).to eq(location_comments)
       end
 
       it 'saves the location' do
         make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
-        expect(FeedbackInput.last.location).to eq(location)
+        expect(Answer.last.location).to eq(location)
       end
 
       it 'saves the recording url' do
         make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
-        expect(FeedbackInput.last.voice_file_url).to eq('http://example.com')
+        expect(Answer.last.voice_file_url).to eq('http://example.com')
       end
 
       it 'saves the phone number' do
         make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
-        expect(FeedbackInput.last.phone_number).to eq('5551212')
+        expect(Answer.last.phone_number).to eq('5551212')
       end
 
       it 'saves the call source' do
         make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
-        expect(FeedbackInput.last.call_source).to eq('web')
+        expect(Answer.last.call_source).to eq('web')
       end
     end
   end

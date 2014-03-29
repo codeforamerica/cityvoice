@@ -1,6 +1,6 @@
 require 'csv'
 
-class FeedbackInputCounts < Struct.new(:total_counts, :repair_counts, :remove_counts)
+class AnswerCounts < Struct.new(:total_counts, :repair_counts, :remove_counts)
   def total_hash
     total_counts.reduce({}) do |hash, (property, calls)|
       hash[property.name] = {total: calls}

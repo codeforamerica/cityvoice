@@ -40,7 +40,7 @@ describe LocationsController do
       context 'when there is a numerical response for the location' do
         let(:question) { create(:question, :number) }
         before do
-          create(:feedback_input, location: location, question: question, numerical_response: 1)
+          create(:answer, location: location, question: question, numerical_response: 1)
           make_request
         end
 
@@ -63,7 +63,7 @@ describe LocationsController do
 
       context 'when there is a voice response for the location' do
         let(:question) { create(:question, :voice) }
-        let!(:feedback_input) { create(:feedback_input, :with_voice_file, location: location, question: question) }
+        let!(:answer) { create(:answer, :with_voice_file, location: location, question: question) }
 
         before do
           make_request
@@ -74,7 +74,7 @@ describe LocationsController do
         end
 
         it 'assigns user voice responses' do
-          expect(assigns(:user_voice_messages)).to eq([feedback_input])
+          expect(assigns(:user_voice_messages)).to eq([answer])
         end
       end
 

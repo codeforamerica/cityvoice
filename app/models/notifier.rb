@@ -5,7 +5,7 @@ class Notifier
   # {
   #   mike@gmail.com:
   #    {
-  #      locations: [{location: <Property>, feedback_inputs: [<FeedbackInput>, <FeedbackInput>, ...], unsubscribe_token: 'nf897e623'}, {...}]
+  #      locations: [{location: <Property>, answers: [<FeedbackInput>, <FeedbackInput>, ...], unsubscribe_token: 'nf897e623'}, {...}]
   #    },
   #   another@email.com: {...}
   # }
@@ -17,10 +17,10 @@ class Notifier
 
   # Get the NotificationSubscriptions which have had activity since last notification email was sent
   def self.subscription_with_activity_since_last_email_sent
-    NotificationSubscription.includes(location: :feedback_inputs)
+    NotificationSubscription.includes(location: :answers)
                             .where("confirmed = ? or bulk_added = ?", true, true)
-                            .where('feedback_inputs.created_at >= notification_subscriptions.last_email_sent_at')
-                            .references(:feedback_inputs)
+                            .where('answers.created_at >= notification_subscriptions.last_email_sent_at')
+                            .references(:answers)
   end
 
   # Group all the <NotificationSubscription>'s by email
@@ -35,7 +35,7 @@ class Notifier
         result[email][:locations] << {
           location: location,
           unsubscribe_token: sub.auth_token,
-          feedback_inputs: location.feedback_inputs.where('created_at >= ?', sub.last_email_sent_at)
+          answers: location.answers.where('created_at >= ?', sub.last_email_sent_at)
         }
         sub.update_attributes(last_email_sent_at: DateTime.now)
       end
