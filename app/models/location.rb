@@ -41,6 +41,14 @@ class Location < ActiveRecord::Base
     Question.numerical.map { |question| NumericalResponse.new(question, self) }
   end
 
+  def has_numerical_responses?
+    numerical_responses.any?(&:has_numeric_response?)
+  end
+
+  def has_voice_messages?
+    voice_messages.count > 0
+  end
+
   def voice_messages
     answers.where.not(voice_file_url: nil)
   end
