@@ -5,9 +5,10 @@ Automidnight::Application.routes.draw do
 
   get '/' => 'landing#location_search'
 
-  resources :notification_subscriptions, only: [:create]
-  get 'notification_subscriptions/confirm'
-  get 'notification_subscriptions/unsubscribe'
+  resource :subscription, controller: :subscription, only: [:create] do
+    resource :confirm, module: :subscription, only: [:show]
+    resource :unsubscribe, module: :subscription, only: [:show]
+  end
 
   get '/.well-known/status' => 'status#check'
 

@@ -59,7 +59,7 @@
                                                   </h1>
 
                                                   <%= link_to 'Unsubscribe from this property',
-                                                      notification_subscriptions_unsubscribe_url(token: location_subscription.auth_token),
+                                                      subscription_unsubscribe_url(token: location_subscription.auth_token),
                                                       class: 'property-unsubscribe' %>
                                                   <% location_subscription.newest_answers.each do |answer| %>
                                                     <% if feedback_input_type(answer) == :voice %>
