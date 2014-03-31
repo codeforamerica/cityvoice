@@ -1,24 +1,14 @@
-class SubscriberNotifier < Struct.new(:notification_subscription)
+class SubscriberNotifier < Struct.new(:subscriber)
   def self.send_weekly_notifications
-    NotificationSubscription.confirmed.with_new_answers.map { |s| new(s) }.each(&:deliver)
+    NotificationSubscription.confirmed.with_new_answers.pluck(:subscriber_id).uniq.each do |subscriber_id|
+      new(Subscriber.find(subscriber_id)).deliver
+    end
   end
 
   def deliver
-    notification_subscription.override_last_email_sent_at_to!(Time.zone.now)
-    NotificationMailer.weekly_activity(email, [to_hash]).deliver
-  end
-
-  def to_hash
-    {
-      answers: notification_subscription.newest_answers,
-      location: notification_subscription.location,
-      unsubscribe_token: notification_subscription.auth_token,
-    }
-  end
-
-  protected
-
-  def email
-    notification_subscription.email
+    subscriber.notification_subscriptions.with_new_answers.each do |notification_subscription|
+      notification_subscription.update_attribute(:last_email_sent_at, Time.zone.now)
+    end
+    NotificationMailer.weekly_activity(subscriber).deliver
   end
 end

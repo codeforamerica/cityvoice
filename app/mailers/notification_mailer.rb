@@ -4,14 +4,13 @@ class NotificationMailer < ActionMailer::Base
   helper :notifications_mailer
 
   def confirmation_email(notification_subscription)
-    @token = notification_subscription.auth_token
-    @property = notification_subscription.location
-    mail(to: notification_subscription.email, subject: 'Confirm to get notifications')
+    @notification_subscription = notification_subscription
+    mail(to: notification_subscription.subscriber.email, subject: 'Confirm to get notifications')
   end
 
-  def weekly_activity(email, properties_array)
-    @properties_array = properties_array
-    @unsubscribe_all_token = properties_array.last[:unsubscribe_token]
-    mail(to: email, subject: 'New Activity on CityVoice!')
+  def weekly_activity(subscriber)
+    @subscriber = subscriber
+    @unsubscribe_all_token = subscriber.notification_subscriptions.first.auth_token
+    mail(to: subscriber.email, subject: 'New Activity on CityVoice!')
   end
 end

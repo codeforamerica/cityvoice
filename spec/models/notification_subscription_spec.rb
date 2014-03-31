@@ -3,7 +3,6 @@
 # Table name: notification_subscriptions
 #
 #  id                   :integer          not null, primary key
-#  email                :string(255)
 #  confirmed            :boolean
 #  confirmation_sent_at :datetime
 #  auth_token           :string(255)
@@ -12,6 +11,7 @@
 #  updated_at           :datetime
 #  last_email_sent_at   :datetime
 #  bulk_added           :boolean
+#  subscriber_id        :integer
 #
 
 require 'spec_helper'
@@ -23,27 +23,19 @@ describe NotificationSubscription do
 
   it { should belong_to(:location) }
   it { should have_many(:answers).through(:location) }
+  it { should belong_to(:subscriber) }
 
-  it { should allow_value('user@example.com', 'us.er@example.com', 'user+plus@example.com').for(:email) }
-  it { should_not allow_value('wat').for(:email) }
+  it { should allow_mass_assignment_of(:confirmed) }
+  it { should allow_mass_assignment_of(:bulk_added) }
+  it { should allow_mass_assignment_of(:last_email_sent_at) }
+  it { should allow_mass_assignment_of(:confirmation_sent_at) }
 
-  it { should allow_mass_assignment_of :email }
-  it { should allow_mass_assignment_of :confirmed }
-  it { should allow_mass_assignment_of :confirmation_sent_at }
-  it { should allow_mass_assignment_of :last_email_sent_at }
-  it { should allow_mass_assignment_of :bulk_added }
-
-  it 'validates the uniqueness of the email' do
-    location.notification_subscriptions.create!(email: 'tacos@example.com')
-
-    expect {
-      location.notification_subscriptions.create!(email: 'tacos@example.com')
-    }.to raise_error
-  end
+  it { should allow_mass_assignment_of(:location) }
+  it { should allow_mass_assignment_of(:subscription) }
 
   describe '.confirmed' do
     context 'when the notification subscription is confirmed' do
-      let!(:notification_subscription) { location.notification_subscriptions.create!(email: 'wat@example.com', confirmed: true) }
+      let!(:notification_subscription) { create(:notification_subscription, :confirmed) }
 
       it 'returns the notification subscription' do
         expect(NotificationSubscription.confirmed).to include(notification_subscription)
@@ -51,7 +43,7 @@ describe NotificationSubscription do
     end
 
     context 'when the notification subscription is not confirmed' do
-      let!(:notification_subscription) { location.notification_subscriptions.create!(email: 'wat@example.com', confirmed: false) }
+      let!(:notification_subscription) { create(:notification_subscription, confirmed: false) }
 
       it 'returns the notification subscription' do
         expect(NotificationSubscription.confirmed).not_to include(notification_subscription)
@@ -59,7 +51,7 @@ describe NotificationSubscription do
     end
 
     context 'when the notification subscription was added in bulk' do
-      let!(:notification_subscription) { location.notification_subscriptions.create!(email: 'wat@example.com', bulk_added: true) }
+      let!(:notification_subscription) { create(:notification_subscription, :bulk_added) }
 
       it 'returns the notification subscription' do
         expect(NotificationSubscription.confirmed).to include(notification_subscription)
@@ -67,7 +59,7 @@ describe NotificationSubscription do
     end
 
     context 'when the notification subscription was not added in bulk' do
-      let!(:notification_subscription) { location.notification_subscriptions.create!(email: 'wat@example.com', bulk_added: false) }
+      let!(:notification_subscription) { create(:notification_subscription, bulk_added: false) }
 
       it 'returns the notification subscription' do
         expect(NotificationSubscription.confirmed).not_to include(notification_subscription)
@@ -108,7 +100,7 @@ describe NotificationSubscription do
   end
 
   describe '#confirm!' do
-    subject(:notification_subscription) { location.notification_subscriptions.create!(email: 'wat@example.com') }
+    subject(:notification_subscription) { create(:notification_subscription) }
 
     it 'sets the confirmed flag' do
       expect { notification_subscription.confirm! }.to change { notification_subscription.reload.confirmed }.to(true)
@@ -116,7 +108,7 @@ describe NotificationSubscription do
   end
 
   describe '#confirmed?' do
-    subject(:notification_subscription) { location.notification_subscriptions.create!(email: 'wat@example.com') }
+    subject(:notification_subscription) { build(:notification_subscription) }
 
     context 'when the notification subscription has not been confirmed' do
       it { should_not be_confirmed }
@@ -130,27 +122,30 @@ describe NotificationSubscription do
   end
 
   describe '#confirmation_sent?' do
-    subject(:notification_subscription) { location.notification_subscriptions.build(email: 'wat@example.com') }
+    subject(:notification_subscription) { build(:notification_subscription) }
 
-    context 'when the notification subscription has not been saved' do
+    context 'when a confirmation email for the notification subscription has not been sent' do
       it { should_not be_confirmation_sent }
     end
 
-    context 'when the notification subscription has been saved' do
-      before { notification_subscription.save! }
+    context 'when a confirmation email for the notification subscription has been sent' do
+      before { notification_subscription.update_attribute(:confirmation_sent_at, Time.zone.now) }
 
       it { should be_confirmation_sent }
     end
   end
 
-  describe '#override_last_email_sent_at_to!' do
-    subject(:notification_subscription) { location.notification_subscriptions.create!(email: 'wat@example.com') }
-    let(:last_sent) { Time.parse('December 30, 1981') }
+  describe '#auth_token' do
+    subject(:notification_subscription) { build(:notification_subscription) }
 
-    it 'sets the last email sent at field' do
-      expect {
-        notification_subscription.override_last_email_sent_at_to!(last_sent)
-      }.to change { notification_subscription.last_email_sent_at }.to(last_sent)
+    context 'when the notification subscription has not been saved' do
+      its(:auth_token) { should be_nil }
+    end
+
+    context 'when the notification subscription has been saved' do
+      before { notification_subscription.save! }
+
+      its(:auth_token) { should_not be_nil }
     end
   end
 end

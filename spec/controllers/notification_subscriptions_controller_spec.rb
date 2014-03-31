@@ -1,10 +1,12 @@
 require 'spec_helper'
 
 describe NotificationSubscriptionsController do
-  let(:location) { create(:location) }
+  let!(:location) { create(:location) }
 
   describe 'POST #create' do
-    before { make_request }
+    before do
+      make_request(notification_subscription: {email: 'wat@example.com', location_id: location.id})
+    end
 
     def make_request(params = {})
       post :create, params
@@ -14,7 +16,7 @@ describe NotificationSubscriptionsController do
   end
 
   describe 'GET #confirm' do
-    let(:notification_subscription) { location.notification_subscriptions.create!(email: 'tacos@example.com') }
+    let(:notification_subscription) { create(:notification_subscription, location: location) }
 
     before { make_request }
 
@@ -26,7 +28,7 @@ describe NotificationSubscriptionsController do
   end
 
   describe 'GET #unsubscribe' do
-    let(:notification_subscription) { location.notification_subscriptions.create!(email: 'tacos@example.com') }
+    let(:notification_subscription) { create(:notification_subscription, location: location) }
 
     before { make_request }
 

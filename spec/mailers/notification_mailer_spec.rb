@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe NotificationMailer do
   let(:location) { create(:location, name: '1313 mockingbird lane') }
-  let!(:notification_subscription) { location.notification_subscriptions.create!(email: 'tacos@example.com') }
+  let(:subscriber) { create(:subscriber, email: 'tacos@example.com') }
+  let!(:notification_subscription) { create(:notification_subscription, subscriber: subscriber, location: location) }
 
   describe '#confirmation_email' do
     subject(:mail) { NotificationMailer.confirmation_email(notification_subscription) }
@@ -26,11 +27,17 @@ describe NotificationMailer do
     it 'assigns @property' do
       mail.body.encoded.should include('1313 mockingbird lane')
     end
+
+    it 'sends an email' do
+      expect { mail.deliver }.to change(ActionMailer::Base.deliveries, :count).by(1)
+    end
   end
 
   describe '#weekly_activity' do
-    let(:locations) { [{location: location, answers: [], unsubscribe_token: 'i-like-geese'}] }
-    let(:mail) { NotificationMailer.weekly_activity('user@example.com', locations) }
+    let(:subscriber) { create(:subscriber, email: 'user@example.com') }
+    let(:mail) { NotificationMailer.weekly_activity(subscriber) }
+
+    let!(:notification_subscription) { create(:notification_subscription, subscriber: subscriber, location: location) }
 
     it 'renders the subject' do
       mail.subject.should == 'New Activity on CityVoice!'
@@ -45,11 +52,11 @@ describe NotificationMailer do
     end
 
     it 'assigns @properties_array' do
-      mail.body.encoded.should =~ /localhost:3000#{location.url_to}/
+      mail.body.encoded.should include('localhost:3000/locations/1313-mockingbird-lane')
     end
 
     it 'assigns @unsubscribe_all_token' do
-      mail.body.encoded.should include('i-like-geese')
+      mail.body.encoded.should include(notification_subscription.auth_token)
     end
   end
 end

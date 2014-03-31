@@ -1,11 +1,10 @@
 class NotificationMailerPreview
   def confirmation_email
-    NotificationMailer.confirmation_email notification_subscription
+    NotificationMailer.confirmation_email(notification_subscription)
   end
 
-
-  def weekly_activity2
-    NotificationMailer.weekly_activity2 email, properties_array
+  def weekly_activity
+    NotificationMailer.weekly_activity(subscriber)
   end
 
   private
@@ -14,12 +13,10 @@ class NotificationMailerPreview
     FactoryGirl.create(:notification_subscription)
   end
 
-  def email
-    Faker::Internet.email
-  end
-
-  def properties_array
-    notification_hash = Notifier.new(notification_subscription).to_hash
-    [notification_hash, notification_hash]
+  def subscriber
+    subscriber = FactoryGirl.create(:subscriber)
+    FactoryGirl.create(:notification_subscription, subscriber: subscriber)
+    FactoryGirl.create(:notification_subscription, subscriber: subscriber)
+    subscriber
   end
 end

@@ -2,10 +2,11 @@ require 'spec_helper'
 
 describe SubscriberNotifier do
   let(:location) { create(:location) }
-  let!(:notification_subscription) { create(:notification_subscription, :bulk_added, location: location) }
+  let!(:notification_subscription) { create(:notification_subscription, :bulk_added, subscriber: subscriber, location: location) }
   let!(:answer) { create(:answer, created_at: Time.now + 1.day, location: location) }
+  let(:subscriber) { create(:subscriber) }
 
-  subject(:notifier) { SubscriberNotifier.new(notification_subscription) }
+  subject(:notifier) { SubscriberNotifier.new(subscriber) }
 
   describe '.send_weekly_notifications' do
     it 'sends a single email' do
@@ -28,11 +29,5 @@ describe SubscriberNotifier do
         }.to change { notification_subscription.reload.last_email_sent_at.utc.to_datetime }.to(current_time.utc.to_datetime)
       end
     end
-  end
-
-  describe '#to_hash' do
-    its(:to_hash) { should include(answers: [answer]) }
-    its(:to_hash) { should include(location: location) }
-    its(:to_hash) { should include(unsubscribe_token: notification_subscription.auth_token) }
   end
 end
