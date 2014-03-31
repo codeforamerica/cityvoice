@@ -19,7 +19,7 @@ describe Answer do
   it { should belong_to(:location) }
   it { should belong_to(:question) }
 
-  it { should have_many(:notification_subscriptions).through(:location) }
+  it { should have_many(:location_subscriptions).through(:location) }
 
   describe '.total_calls' do
     let!(:input) { create(:answer, :with_location, numerical_response: '1') }

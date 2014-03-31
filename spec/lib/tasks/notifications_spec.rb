@@ -8,7 +8,7 @@ describe 'notifications rake task' do
 
   describe 'notifications:send' do
     let(:location) { create(:location) }
-    let!(:notification_subscription) { create(:notification_subscription, :bulk_added, location: location) }
+    let!(:location_subscription) { create(:location_subscription, :bulk_added, location: location) }
     let!(:answer) { create(:answer, created_at: Time.now + 1.day, location: location) }
 
     before do

@@ -6,11 +6,11 @@ describe SubscriptionConfirmer do
 
   subject(:confirmer) { SubscriptionConfirmer.new(subscriber, location) }
 
-  describe '#notification_subscription' do
+  describe '#location_subscription' do
     it 'creates a notification subscription' do
       expect {
-        confirmer.notification_subscription
-      }.to change(NotificationSubscription, :count).by(1)
+        confirmer.location_subscription
+      }.to change(LocationSubscription, :count).by(1)
     end
   end
 
@@ -27,7 +27,7 @@ describe SubscriptionConfirmer do
         expect {
           confirmer.confirm
         }.to change {
-          NotificationSubscription.last.try(:last_email_sent_at)
+          LocationSubscription.last.try(:last_email_sent_at)
         }.from(nil)
       end
     end

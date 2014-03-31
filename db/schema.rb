@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140329212525) do
+ActiveRecord::Schema.define(version: 20140331070507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,17 +34,7 @@ ActiveRecord::Schema.define(version: 20140329212525) do
     t.datetime "updated_at"
   end
 
-  create_table "locations", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "most_recent_activity"
-    t.string   "lat"
-    t.string   "long"
-    t.text     "description"
-  end
-
-  create_table "notification_subscriptions", force: true do |t|
+  create_table "location_subscriptions", force: true do |t|
     t.boolean  "confirmed"
     t.datetime "confirmation_sent_at"
     t.string   "auth_token"
@@ -54,6 +44,16 @@ ActiveRecord::Schema.define(version: 20140329212525) do
     t.datetime "last_email_sent_at"
     t.boolean  "bulk_added"
     t.integer  "subscriber_id"
+  end
+
+  create_table "locations", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "most_recent_activity"
+    t.string   "lat"
+    t.string   "long"
+    t.text     "description"
   end
 
   create_table "questions", force: true do |t|

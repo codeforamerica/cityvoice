@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe SubscriberNotifier do
   let(:location) { create(:location) }
-  let!(:notification_subscription) { create(:notification_subscription, :bulk_added, subscriber: subscriber, location: location) }
+  let!(:location_subscription) { create(:location_subscription, :bulk_added, subscriber: subscriber, location: location) }
   let!(:answer) { create(:answer, created_at: Time.now + 1.day, location: location) }
   let(:subscriber) { create(:subscriber) }
 
@@ -26,7 +26,7 @@ describe SubscriberNotifier do
       Timecop.freeze(current_time) do
         expect {
           notifier.deliver
-        }.to change { notification_subscription.reload.last_email_sent_at.utc.to_datetime }.to(current_time.utc.to_datetime)
+        }.to change { location_subscription.reload.last_email_sent_at.utc.to_datetime }.to(current_time.utc.to_datetime)
       end
     end
   end

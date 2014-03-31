@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: notification_subscriptions
+# Table name: location_subscriptions
 #
 #  id                   :integer          not null, primary key
 #  confirmed            :boolean
@@ -14,7 +14,7 @@
 #  subscriber_id        :integer
 #
 
-class NotificationSubscription < ActiveRecord::Base
+class LocationSubscription < ActiveRecord::Base
   belongs_to :location
   belongs_to :subscriber
 
@@ -25,7 +25,7 @@ class NotificationSubscription < ActiveRecord::Base
   before_create :create_auth_token, :set_last_email_sent_at
 
   def self.confirmed
-    table = NotificationSubscription.arel_table
+    table = LocationSubscription.arel_table
     where(table[:confirmed].eq(true).or(table[:bulk_added]).eq(true))
   end
 
@@ -35,7 +35,7 @@ class NotificationSubscription < ActiveRecord::Base
 
   def self.with_new_answers
     includes(location: :answers)
-    .where('answers.created_at >= notification_subscriptions.last_email_sent_at')
+    .where('answers.created_at >= location_subscriptions.last_email_sent_at')
     .references(:answers)
   end
 

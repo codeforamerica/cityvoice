@@ -9,7 +9,7 @@
 #
 
 class Subscriber < ActiveRecord::Base
-  has_many :notification_subscriptions
+  has_many :location_subscriptions
 
   attr_accessible :email
 

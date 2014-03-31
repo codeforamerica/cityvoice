@@ -7,7 +7,7 @@ FactoryGirl.define do
     email { Faker::Internet.email }
   end
 
-  factory :notification_subscription do
+  factory :location_subscription do
     location
     subscriber
 

@@ -19,7 +19,7 @@ describe Location do
 
   it { should validate_presence_of :name }
 
-  it { should have_many :notification_subscriptions }
+  it { should have_many :location_subscriptions }
   it { should have_many :answers }
 
   it { should allow_mass_assignment_of :name }

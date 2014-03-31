@@ -16,11 +16,11 @@ describe NotificationSubscriptionsController do
   end
 
   describe 'GET #confirm' do
-    let(:notification_subscription) { create(:notification_subscription, location: location) }
+    let(:location_subscription) { create(:location_subscription, location: location) }
 
     before { make_request }
 
-    def make_request(token = notification_subscription.auth_token)
+    def make_request(token = location_subscription.auth_token)
       get :confirm, token: token
     end
 
@@ -28,11 +28,11 @@ describe NotificationSubscriptionsController do
   end
 
   describe 'GET #unsubscribe' do
-    let(:notification_subscription) { create(:notification_subscription, location: location) }
+    let(:location_subscription) { create(:location_subscription, location: location) }
 
     before { make_request }
 
-    def make_request(token = notification_subscription.auth_token)
+    def make_request(token = location_subscription.auth_token)
       get :unsubscribe, token: token
     end
 

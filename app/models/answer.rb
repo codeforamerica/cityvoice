@@ -19,7 +19,7 @@ class Answer < ActiveRecord::Base
   belongs_to :question
   belongs_to :location
 
-  has_many :notification_subscriptions, through: :location
+  has_many :location_subscriptions, through: :location
 
   def self.total_calls
     where.not(numerical_response: nil).joins(:location).group(:location).count(:numerical_response)

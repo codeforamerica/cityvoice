@@ -1,6 +1,6 @@
 class NotificationMailerPreview
   def confirmation_email
-    NotificationMailer.confirmation_email(notification_subscription)
+    NotificationMailer.confirmation_email(location_subscription)
   end
 
   def weekly_activity
@@ -9,14 +9,14 @@ class NotificationMailerPreview
 
   private
 
-  def notification_subscription
-    FactoryGirl.create(:notification_subscription)
+  def location_subscription
+    FactoryGirl.create(:location_subscription)
   end
 
   def subscriber
     subscriber = FactoryGirl.create(:subscriber)
-    FactoryGirl.create(:notification_subscription, subscriber: subscriber)
-    FactoryGirl.create(:notification_subscription, subscriber: subscriber)
+    FactoryGirl.create(:location_subscription, subscriber: subscriber)
+    FactoryGirl.create(:location_subscription, subscriber: subscriber)
     subscriber
   end
 end

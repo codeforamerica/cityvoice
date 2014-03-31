@@ -5,10 +5,10 @@
 				<h2>Email Notifications</h2>
 			</div>
 			<br>
-			<% if @errors.any? %>
+			<% if @subscription.location_subscription.errors.full_messages.any? %>
 			  <p>The subscription did not go through:</p>
 			  <ul>
-			  <% @errors.each do |error| %>
+			  <% @subscription.location_subscription.errors.full_messages.each do |error| %>
 			    <li><%= error %></li>
 			  <% end %>
 			  </ul>

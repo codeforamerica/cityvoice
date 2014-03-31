@@ -11,7 +11,7 @@
 require 'spec_helper'
 
 describe Subscriber do
-  it { should have_many(:notification_subscriptions) }
+  it { should have_many(:location_subscriptions) }
 
   it { should allow_mass_assignment_of(:email) }
 
