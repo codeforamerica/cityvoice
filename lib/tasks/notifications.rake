@@ -1,5 +1,5 @@
 namespace :notifications do
-  task :send => :environment do
-    Notifier.send_weekly_notifications
+  task send: :environment do
+    SubscriberNotifier.send_weekly_notifications
   end
 end

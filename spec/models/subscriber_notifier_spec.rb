@@ -1,16 +1,16 @@
 require 'spec_helper'
 
-describe Notifier do
+describe SubscriberNotifier do
   let(:location) { create(:location) }
   let!(:notification_subscription) { create(:notification_subscription, :bulk_added, location: location) }
   let!(:answer) { create(:answer, created_at: Time.now + 1.day, location: location) }
 
-  subject(:notifier) { Notifier.new(notification_subscription) }
+  subject(:notifier) { SubscriberNotifier.new(notification_subscription) }
 
   describe '.send_weekly_notifications' do
     it 'sends a single email' do
       expect {
-        Notifier.send_weekly_notifications
+        SubscriberNotifier.send_weekly_notifications
       }.to change(ActionMailer::Base.deliveries, :count).by(1)
     end
   end

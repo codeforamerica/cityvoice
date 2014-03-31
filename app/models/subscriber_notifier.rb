@@ -1,4 +1,4 @@
-class Notifier < Struct.new(:notification_subscription)
+class SubscriberNotifier < Struct.new(:notification_subscription)
   def self.send_weekly_notifications
     NotificationSubscription.confirmed.with_new_answers.map { |s| new(s) }.each(&:deliver)
   end
