@@ -59,7 +59,7 @@ class NotificationSubscription < ActiveRecord::Base
   end
 
   def confirmation_sent?
-    !self.confirmation_sent_at.nil?
+    self.confirmation_sent_at.present?
   end
 
   def override_last_email_sent_at_to!(datetime)
