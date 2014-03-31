@@ -1,7 +1,8 @@
 Automidnight::Application.routes.draw do
   mount RailsEmailPreview::Engine, at: 'emails' if defined?(RailsEmailPreview::Engine)
-  get 'feedback', to: 'answers#most_feedback', as: :most_feedback
-  get 'voice-messages', to: 'answers#voice_messages', as: :voice_messages
+
+  resources :voice_answers, only: [:index]
+  resources :numerical_answers, only: [:index]
 
   get '/' => 'landing#location_search'
 

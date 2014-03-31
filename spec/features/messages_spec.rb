@@ -67,7 +67,7 @@ describe 'Listening to messages' do
 
   context 'on the activity page' do
     before do
-      visit most_feedback_path
+      visit numerical_answers_path
     end
 
     it 'shows name of the location' do
@@ -89,7 +89,7 @@ describe 'Listening to messages' do
 
   context 'on the voice message summary page' do
     before do
-      visit voice_messages_path
+      visit voice_answers_path
     end
 
     it 'shows name of the location' do
