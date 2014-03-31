@@ -22,10 +22,13 @@ describe SubscriptionConfirmer do
     end
 
     it 'updates the last time a notification email was sent' do
-      current_time = Time.now + 1.year
+      current_time = Time.zone.now + 1.year
       Timecop.freeze(current_time) do
-        confirmer.confirm
-        expect(NotificationSubscription.last.last_email_sent_at).to eq(current_time.utc.to_datetime)
+        expect {
+          confirmer.confirm
+        }.to change {
+          NotificationSubscription.last.try(:last_email_sent_at)
+        }.from(nil)
       end
     end
   end
