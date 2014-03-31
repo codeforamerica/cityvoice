@@ -91,18 +91,40 @@ describe Location do
   describe '#numerical_responses' do
     let(:question) { create(:question, :number) }
 
-    subject(:location) { create(:location) }
-
     before { create(:answer, location: location, question: question, numerical_response: 1) }
 
     its(:numerical_responses) { should have(1).numerical_response }
   end
 
-  describe '#voice_messages' do
-    subject(:location) { create(:location) }
+  describe '#has_numerical_responses?' do
+    let(:question) { create(:question, :number) }
 
+    context 'when there are no numerical responses' do
+      it { should_not have_numerical_responses }
+    end
+
+    context 'when there is a numerical response' do
+      before { create(:answer, location: location, question: question, numerical_response: 1) }
+
+      it { should have_numerical_responses }
+    end
+  end
+
+  describe '#voice_messages' do
     before { create(:answer, :with_voice_file, location: location) }
 
     its(:voice_messages) { should have(1).voice_message }
+  end
+
+  describe '#has_voice_messages?' do
+    context 'when there are no voice messages' do
+      it { should_not have_voice_messages }
+    end
+
+    context 'when there is a voice message' do
+      before { create(:answer, :with_voice_file, location: location) }
+
+      it { should have_voice_messages }
+    end
   end
 end

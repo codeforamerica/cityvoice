@@ -41,7 +41,7 @@
 						</div>
 					</div>
 				</div>
-				<% if @numerical_responses_exist or !@user_voice_messages.empty? %>
+				<% if @location.has_numerical_responses? || @location.has_voice_messages? %>
 					<%= render partial: "feedback" %>
 				<% else %>
 				<div class="info_box listen">
