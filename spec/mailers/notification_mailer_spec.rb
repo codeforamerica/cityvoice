@@ -28,9 +28,9 @@ describe NotificationMailer do
     end
   end
 
-  describe '#weekly_activity2' do
+  describe '#weekly_activity' do
     let(:locations) { [{location: location, answers: [], unsubscribe_token: 'i-like-geese'}] }
-    let(:mail) { NotificationMailer.weekly_activity2('user@example.com', locations) }
+    let(:mail) { NotificationMailer.weekly_activity('user@example.com', locations) }
 
     it 'renders the subject' do
       mail.subject.should == 'New Activity on CityVoice!'

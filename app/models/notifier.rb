@@ -5,7 +5,7 @@ class Notifier < Struct.new(:notification_subscription)
 
   def deliver
     notification_subscription.override_last_email_sent_at_to!(Time.zone.now)
-    NotificationMailer.weekly_activity2(email, [to_hash]).deliver
+    NotificationMailer.weekly_activity(email, [to_hash]).deliver
   end
 
   def to_hash
