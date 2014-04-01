@@ -1,3 +1,3 @@
-if Rails.env.production? && ENV['GOOGLE_ANALYTICS_ON'] == "true"
-  GA.tracker = 'UA-43486781-1'
+if Rails.env.production? && ENV['GOOGLE_ANALYTICS_ID'].present?
+  GA.tracker = ENV['GOOGLE_ANALYTICS_ID']
 end
