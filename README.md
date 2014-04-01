@@ -79,9 +79,9 @@ Once in the web interface, set up a new scheduled job with the `rake notificatio
 
 #### Google Analytics
 
-In production, you may want to set up Google Analytics (hard-coded ID for now, so need to tinker) with the environment variable used as a flag:
+In production, you may want to set up Google Analytics with the environment variable used as a flag:
 
-    $ heroku config:set GOOGLE_ANALYTICS_ON=true
+    $ heroku config:set GOOGLE_ANALYTICS_ON=foo123
 
 
 #### Basic Authentication
