@@ -39,7 +39,7 @@ describe 'Listening to messages' do
     end
 
     it 'shows the masked number from which the call was made' do
-      expect(page).to have_content('XXX-XXX-1212')
+      expect(page).to have_content('XXX-XX12')
     end
 
     it 'displays audio player' do
@@ -54,7 +54,7 @@ describe 'Listening to messages' do
       let!(:answer) { create(:answer, :with_voice_file, phone_number: nil, location: location, created_at: create_date) }
 
       it 'does not display a number' do
-        expect(page).not_to have_content('XXX-XXX-')
+        expect(page).not_to have_content('XXX-XX12')
       end
     end
 
@@ -109,14 +109,14 @@ describe 'Listening to messages' do
     end
 
     it 'shows the masked number from which the call was made' do
-      expect(page).to have_content('XXX-XXX-1212')
+      expect(page).to have_content('XXX-XX12')
     end
 
     context 'when the user has not consented to publicly display their number' do
       let!(:answer) { create(:answer, :with_voice_file, phone_number: nil, location: location, created_at: create_date) }
 
       it 'does not display a number' do
-        expect(page).not_to have_content('XXX-XXX-')
+        expect(page).not_to have_content('XXX-XX12')
       end
     end
   end

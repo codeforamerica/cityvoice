@@ -34,7 +34,7 @@
       <div class="span2">
         <h3>
           <% if message.phone_number.present? %>
-            <%= "XXX-XXX-#{message.phone_number.to_s[-4..-1]}" %>
+            <%= "#{message.phone_number.to_s[-10..-8]}-XXX-XX#{message.phone_number.to_s[-2..-1]}" %>
           <% end %>
         </h3>
       </div>
