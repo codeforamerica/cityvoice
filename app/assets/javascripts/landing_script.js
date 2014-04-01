@@ -50,12 +50,7 @@ $(document).ready(function() {
 });
 
 function drawMap () {
-  if(monroePilot) {
-    window.map = L.mapbox.map('map',mapboxMapID).setView([41.6696, -86.246], 16);
-  }
-  else {
-    window.map = L.mapbox.map('map',mapboxMapID).setView([41.665, -86.28], 13);
-  }
+  window.map = L.mapbox.map('map',mapboxMapID).setView([41.665, -86.28], 13);
   $.getJSON('/locations.json', placeMarkers);
   $( "#dialog" ).dialog();
   $( "#dialog" ).dialog({ width: 295 });
