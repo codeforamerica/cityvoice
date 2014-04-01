@@ -3,9 +3,13 @@ FactoryGirl.define do
     name { Faker::Address.street_address }
   end
 
-  factory :notification_subscription do
+  factory :subscriber do
     email { Faker::Internet.email }
+  end
+
+  factory :location_subscription do
     location
+    subscriber
 
     trait :confirmed do
       confirmed true

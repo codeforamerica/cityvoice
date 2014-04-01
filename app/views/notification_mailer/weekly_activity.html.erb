@@ -51,16 +51,17 @@
                                                 You're receiving this email to help keep you informed about the properties you care about. Click on the properties below to see them in full detail. Feel free to unsubscribe at any time.
                                                 <br>
                                                 <br>
-                                                <% @properties_array.each do |location_hash| %>
+                                                <% @subscriber.location_subscriptions.each do |location_subscription| %>
                                                   <h1 class="property-name" style="display: block;font-family: Helvetica;font-size: 22px;font-style: normal;font-weight: bold;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: left;color: #202020;">
                                                     <% host = ActionMailer::Base.default_url_options[:host] %>
-                                                    <%= location_hash[:location].name %> <%= link_to 'View', "#{host}#{location_hash[:location].url_to}" %>
+                                                    <%= location_subscription.location.name %>
+                                                    <%= link_to 'View', "#{host}#{location_subscription.location.url_to}" %>
                                                   </h1>
 
                                                   <%= link_to 'Unsubscribe from this property',
-                                                      notification_subscriptions_unsubscribe_url(token: location_hash[:unsubscribe_token]),
+                                                      subscription_unsubscribe_url(token: location_subscription.auth_token),
                                                       class: 'property-unsubscribe' %>
-                                                  <% location_hash[:answers].each do |answer| %>
+                                                  <% location_subscription.newest_answers.each do |answer| %>
                                                     <% if feedback_input_type(answer) == :voice %>
                                                       <h4 style="display: block;font-family: Helvetica;font-size: 14px;font-style: italic;font-weight: normal;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: left;color: #808080;"><strong>Messages</strong> - <%= answer.created_at.to_date %></h4>
                                                     <% else %>

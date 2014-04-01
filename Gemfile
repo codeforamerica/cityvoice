@@ -24,7 +24,6 @@ gem 'soda-ruby', require: 'soda'
 gem 'twilio-ruby'
 
 group :test do
-  gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'timecop'
   gem 'vcr'
@@ -35,9 +34,9 @@ group :development, :test do
   gem 'annotate'
   gem 'capybara'
   gem 'dotenv-rails'
+  gem 'factory_girl_rails'
   gem 'ffaker'
   gem 'launchy'
-  gem 'letter_opener'
   gem 'nokogiri'
   gem 'pry'
   gem 'rspec-rails', '~> 2.0'
@@ -45,6 +44,7 @@ end
 
 group :development do
   gem 'foreman'
+  gem 'rails_email_preview'
 end
 
 group :production do

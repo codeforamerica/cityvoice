@@ -1,12 +1,14 @@
 Automidnight::Application.routes.draw do
+  mount RailsEmailPreview::Engine, at: 'emails' if defined?(RailsEmailPreview::Engine)
   get 'feedback', to: 'answers#most_feedback', as: :most_feedback
   get 'voice-messages', to: 'answers#voice_messages', as: :voice_messages
 
   get '/' => 'landing#location_search'
 
-  resources :notification_subscriptions, only: [:create]
-  get 'notification_subscriptions/confirm'
-  get 'notification_subscriptions/unsubscribe'
+  resource :subscription, controller: :subscription, only: [:create] do
+    resource :confirm, module: :subscription, only: [:show]
+    resource :unsubscribe, module: :subscription, only: [:show]
+  end
 
   get '/.well-known/status' => 'status#check'
 
