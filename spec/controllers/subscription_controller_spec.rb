@@ -10,27 +10,27 @@ describe SubscriptionController do
 
     context 'after requesting' do
       before do
-        make_request(notification_subscription: {email: 'wat@example.com', location_id: location.id})
+        make_request(subscription: {email: 'wat@example.com', location_id: location.id})
       end
 
       its(:response) { should be_success }
     end
 
-    it 'creates a notification subscription' do
+    it 'creates a location subscription' do
       expect {
-        make_request(notification_subscription: {email: 'wat@example.com', location_id: location.id})
+        make_request(subscription: {email: 'wat@example.com', location_id: location.id})
       }.to change(LocationSubscription, :count).by(1)
     end
 
     it 'creates a subscriber' do
       expect {
-        make_request(notification_subscription: {email: 'wat@example.com', location_id: location.id})
+        make_request(subscription: {email: 'wat@example.com', location_id: location.id})
       }.to change(Subscriber, :count).by(1)
     end
 
     it 'sends a subscription confirmation email' do
       expect {
-        make_request(notification_subscription: {email: 'wat@example.com', location_id: location.id})
+        make_request(subscription: {email: 'wat@example.com', location_id: location.id})
       }.to change(ActionMailer::Base.deliveries, :count).by(1)
     end
   end

@@ -1,7 +1,7 @@
-
 <div id="subscription-form-status"></div>
-<%= form_for(:notification_subscription) do |f| %>
-  <%= f.hidden_field :property_id, value: @location.id %>
+
+<%= form_for(:subscription, url: subscription_path) do |f| %>
+  <%= f.hidden_field :location_id, value: @location.id %>
   <%= f.text_field :email, placeholder: 'example@gmail.com' %>
   <%= f.submit 'Subscribe', :class => 'btn', :style => 'margin-top: -.8em;' %>
 <% end %>

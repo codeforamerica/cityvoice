@@ -3,7 +3,7 @@ class Subscription::UnsubscribesController < ApplicationController
     @subscription = LocationSubscription.find_by!(auth_token: auth_token)
     @property = @subscription.location
     if params[:all] # delete all under that email address
-      @subscription.subscriber.notification_subscriptions.delete_all
+      @subscription.subscriber.location_subscriptions.destroy_all
     else
       @subscription.delete
     end

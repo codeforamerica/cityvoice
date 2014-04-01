@@ -11,6 +11,6 @@ class SubscriptionController < ApplicationController
   protected
 
   def subscription_params
-    params.require(:notification_subscription).permit(:email, :location_id)
+    params.require(:subscription).permit(:email, :location_id)
   end
 end
