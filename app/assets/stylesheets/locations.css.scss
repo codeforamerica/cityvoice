@@ -82,12 +82,6 @@ h2{
 	margin-bottom: 1em;
 }
 
-.infoHeader{
-	background: #C4C4C4;
-	color: white;
-	padding: .25em;
-	margin-bottom: 1em;
-}
 .question{
 	margin-top: 1em;
 	padding-left: .25em;
@@ -115,7 +109,6 @@ h2{
 
 .vmessage{
 	padding-bottom: 1.5em;
-	padding-top: .5em;
 }
 .avatar{
 	background: #83d0d2;
@@ -124,7 +117,8 @@ h2{
 }
 .voiceAnnotate{
 	font-style:italic;
-	padding-top: .5em;
+	padding-bottom: 0em;
+	padding-top: 0em;
 	color: #545454;
 }
 
