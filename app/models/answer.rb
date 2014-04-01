@@ -7,17 +7,18 @@
 #  location_id        :integer
 #  voice_file_url     :string(255)
 #  numerical_response :integer
-#  phone_number       :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
 #  call_source        :string(255)
+#  caller_id          :integer
 #
 
 class Answer < ActiveRecord::Base
-  attr_protected
-
-  belongs_to :question
+  belongs_to :caller
   belongs_to :location
+  belongs_to :question
+
+  attr_accessible :caller, :location, :question, :call_source, :voice_file_url, :numerical_response
 
   has_many :location_subscriptions, through: :location
 

@@ -35,7 +35,7 @@
 											<div class="voiceAnnotate">
 												<strong><%= @choice %></strong>
 												date: <strong><%= message.created_at.to_date %></strong> &nbsp;
-												from: <strong><%= "#{message.phone_number.to_s[-10..-8]}-XXX-XX#{message.phone_number.to_s[-2..-1]}" %></strong>
+												from: <strong><%= "#{message.caller.phone_number.to_s[-10..-8]}-XXX-XX#{message.caller.phone_number.to_s[-2..-1]}" %></strong>
 											</div>
 										</div>
 									</div>

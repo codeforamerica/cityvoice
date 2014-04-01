@@ -7,10 +7,10 @@
 #  location_id        :integer
 #  voice_file_url     :string(255)
 #  numerical_response :integer
-#  phone_number       :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
 #  call_source        :string(255)
+#  caller_id          :integer
 #
 
 require 'spec_helper'
@@ -18,8 +18,16 @@ require 'spec_helper'
 describe Answer do
   it { should belong_to(:location) }
   it { should belong_to(:question) }
+  it { should belong_to(:caller) }
 
   it { should have_many(:location_subscriptions).through(:location) }
+
+  it { should allow_mass_assignment_of(:caller) }
+  it { should allow_mass_assignment_of(:location) }
+  it { should allow_mass_assignment_of(:question) }
+  it { should allow_mass_assignment_of(:call_source) }
+  it { should allow_mass_assignment_of(:voice_file_url) }
+  it { should allow_mass_assignment_of(:numerical_response) }
 
   describe '.total_calls' do
     let!(:input) { create(:answer, :with_location, numerical_response: '1') }

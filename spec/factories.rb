@@ -22,7 +22,7 @@ FactoryGirl.define do
 
   factory :answer do
     question { create :question, :voice }
-    phone_number '000-555-1212'
+    caller
 
     trait :with_voice_file do
       voice_file_url { Faker::Internet.http_url }

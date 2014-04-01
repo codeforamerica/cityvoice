@@ -105,6 +105,8 @@ class VoiceFeedbackController < ApplicationController
   end
 
   def voice_survey
+    @caller = Caller.find_or_create_by(:phone_number => params["From"])
+
     # Set the index if none exists
     if session[:current_question_id] == nil
       @current_question = Survey.questions_for.first
@@ -125,9 +127,9 @@ class VoiceFeedbackController < ApplicationController
             raise TwilioSessionError.new(:error2)
           end
         end
-        location.answers.create!(question_id: @current_question.id, numerical_response: params["Digits"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
+        location.answers.create!(caller: @caller, question: @current_question, numerical_response: params["Digits"], call_source: session[:call_source])
       elsif @current_question.feedback_type == "voice_file"
-        location.answers.create!(question_id: @current_question.id, voice_file_url: params["RecordingUrl"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
+        location.answers.create!(caller: @caller, question: @current_question, voice_file_url: params["RecordingUrl"], call_source: session[:call_source])
       end
       # Then iterate counter
       current_index = Survey.questions_for.index { |q| q.short_name == @current_question.short_name }

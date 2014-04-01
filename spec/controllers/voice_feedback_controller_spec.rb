@@ -660,7 +660,7 @@ describe VoiceFeedbackController do
 
         it 'saves the phone number' do
           make_request('Digits' => '1', 'From' => '+5551212')
-          expect(Answer.last.phone_number).to eq('5551212')
+          expect(Answer.last.caller.phone_number).to eq('+5551212')
         end
 
         it 'saves the call source' do
@@ -765,7 +765,7 @@ describe VoiceFeedbackController do
 
       it 'saves the phone number' do
         make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
-        expect(Answer.last.phone_number).to eq('5551212')
+        expect(Answer.last.caller.phone_number).to eq('+5551212')
       end
 
       it 'saves the call source' do
