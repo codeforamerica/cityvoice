@@ -4,8 +4,6 @@ Automidnight::Application.routes.draw do
   resources :voice_answers, only: [:index]
   resources :numerical_answers, only: [:index]
 
-  get '/' => 'landing#location_search'
-
   resource :subscription, controller: :subscription, only: [:create] do
     resource :confirm, module: :subscription, only: [:show]
     resource :unsubscribe, module: :subscription, only: [:show]
@@ -22,5 +20,5 @@ Automidnight::Application.routes.draw do
   post '/route_to_survey' => 'voice_feedback#route_to_survey'
   post '/voice_survey' => 'voice_feedback#voice_survey'
 
-  root to: 'landing#location_search'
+  root to: 'landing#index'
 end

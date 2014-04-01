@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe LandingController do
-  describe 'GET #location_search' do
+  describe 'GET #index' do
 
     def make_request
-      get :location_search
+      get :index
     end
 
     context 'after a request' do
