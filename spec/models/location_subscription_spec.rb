@@ -77,7 +77,9 @@ describe LocationSubscription do
     end
 
     context 'when feedback happened since the last email was sent' do
-      before { create(:answer, location: location, created_at: Time.now + 1.day) }
+      let(:call) { create(:call, location: location) }
+
+      before { create(:answer, call: call, created_at: Time.now + 1.day) }
 
       it 'returns the subscription' do
         expect(LocationSubscription.with_new_answers).to include(location_subscription)
@@ -87,7 +89,8 @@ describe LocationSubscription do
 
   describe '#newest_answers' do
     context 'when a feedback input is fresher than the last notification email' do
-      let!(:answer) { create(:answer, created_at: Time.now + 1.day, location: location) }
+      let(:call) { create(:call, location: location) }
+      let!(:answer) { create(:answer, created_at: Time.now + 1.day, call: call) }
 
       its(:newest_answers) { should include(answer) }
     end

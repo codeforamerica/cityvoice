@@ -4,32 +4,41 @@
 #
 #  id                 :integer          not null, primary key
 #  question_id        :integer
-#  location_id        :integer
 #  voice_file_url     :string(255)
 #  numerical_response :integer
-#  phone_number       :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
-#  call_source        :string(255)
+#  call_id            :integer
 #
 
 class Answer < ActiveRecord::Base
-  attr_protected
-
   belongs_to :question
-  belongs_to :location
+  belongs_to :call
+
+  has_one :caller, through: :call
+  has_one :location, through: :call
 
   has_many :location_subscriptions, through: :location
 
+  attr_accessible :call, :question, :voice_file_url, :numerical_response
+
   def self.total_calls
-    where.not(numerical_response: nil).joins(:location).group(:location).count(:numerical_response)
+    calls = where.not(numerical_response: nil).joins(:location).group(:location_id).count(:numerical_response)
+    calls.reduce({}) do |hash, (location_id, count)|
+      hash[Location.find(location_id)] = count
+      hash
+    end
   end
 
   def self.total_responses(numerical_response)
-    where(numerical_response: numerical_response).joins(:location).group(:location).count(:numerical_response)
+    calls = where(numerical_response: numerical_response).joins(:location).group(:location_id).count(:numerical_response)
+    calls.reduce({}) do |hash, (location_id, count)|
+      hash[Location.find(location_id)] = count
+      hash
+    end
   end
 
   def self.voice_messages
-    includes(:location).where.not(voice_file_url: nil).order('created_at DESC')
+    where.not(voice_file_url: nil).order('created_at DESC')
   end
 end

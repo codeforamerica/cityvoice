@@ -15,18 +15,21 @@
 require 'spec_helper'
 
 describe Location do
+  let(:call) { create(:call, location: location) }
+
   subject(:location) { create(:location, name: '123 Maple Street') }
 
-  it { should validate_presence_of :name }
+  it { should validate_presence_of(:name) }
 
-  it { should have_many :location_subscriptions }
-  it { should have_many :answers }
+  it { should have_many(:location_subscriptions) }
+  it { should have_many(:calls) }
+  it { should have_many(:answers).through(:calls) }
 
-  it { should allow_mass_assignment_of :name }
-  it { should allow_mass_assignment_of :lat }
-  it { should allow_mass_assignment_of :long }
-  it { should allow_mass_assignment_of :description }
-  it { should allow_mass_assignment_of :most_recent_activity }
+  it { should allow_mass_assignment_of(:name) }
+  it { should allow_mass_assignment_of(:lat) }
+  it { should allow_mass_assignment_of(:long) }
+  it { should allow_mass_assignment_of(:description) }
+  it { should allow_mass_assignment_of(:most_recent_activity) }
 
   its(:url_to) { should == '/locations/123-Maple-Street' }
 
@@ -97,6 +100,7 @@ describe Location do
   end
 
   describe '#has_numerical_responses?' do
+    let(:call) { create(:call, location: location) }
     let(:question) { create(:question, :number) }
 
     context 'when there are no numerical responses' do
@@ -104,14 +108,14 @@ describe Location do
     end
 
     context 'when there is a numerical response' do
-      before { create(:answer, location: location, question: question, numerical_response: 1) }
+      before { create(:answer, call: call, question: question, numerical_response: 1) }
 
       it { should have_numerical_responses }
     end
   end
 
   describe '#voice_messages' do
-    before { create(:answer, :with_voice_file, location: location) }
+    before { create(:answer, :with_voice_file, call: call) }
 
     its(:voice_messages) { should have(1).voice_message }
   end
@@ -122,7 +126,7 @@ describe Location do
     end
 
     context 'when there is a voice message' do
-      before { create(:answer, :with_voice_file, location: location) }
+      before { create(:answer, :with_voice_file, call: call) }
 
       it { should have_voice_messages }
     end

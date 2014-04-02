@@ -14,7 +14,8 @@
 
 class Location < ActiveRecord::Base
   has_many :location_subscriptions
-  has_many :answers
+  has_many :calls
+  has_many :answers, through: :calls
 
   attr_accessible :name, :lat, :long, :description, :most_recent_activity
 
@@ -46,11 +47,11 @@ class Location < ActiveRecord::Base
   end
 
   def has_voice_messages?
-    voice_messages.count > 0
+    answers.voice_messages.count > 0
   end
 
   def voice_messages
-    answers.where.not(voice_file_url: nil)
+    answers.voice_messages
   end
 
   def new_activity!

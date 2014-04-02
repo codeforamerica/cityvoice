@@ -14,11 +14,13 @@
 require 'spec_helper'
 
 describe Call do
-  it { should belong_to :caller }
-  it { should belong_to :location }
+  it { should belong_to(:caller) }
+  it { should belong_to(:location) }
 
-  it { should allow_mass_assignment_of :caller }
-  it { should allow_mass_assignment_of :location }
-  it { should allow_mass_assignment_of :source }
-  it { should allow_mass_assignment_of :consented_to_callback }
+  it { should have_many(:answers) }
+
+  it { should allow_mass_assignment_of(:caller) }
+  it { should allow_mass_assignment_of(:location) }
+  it { should allow_mass_assignment_of(:source) }
+  it { should allow_mass_assignment_of(:consented_to_callback) }
 end

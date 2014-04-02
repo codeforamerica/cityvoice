@@ -4,25 +4,30 @@
 #
 #  id                 :integer          not null, primary key
 #  question_id        :integer
-#  location_id        :integer
 #  voice_file_url     :string(255)
 #  numerical_response :integer
-#  phone_number       :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
-#  call_source        :string(255)
+#  call_id            :integer
 #
 
 require 'spec_helper'
 
 describe Answer do
-  it { should belong_to(:location) }
+  it { should belong_to(:call) }
   it { should belong_to(:question) }
 
+  it { should have_one(:caller).through(:call) }
+  it { should have_one(:location).through(:call) }
   it { should have_many(:location_subscriptions).through(:location) }
 
+  it { should allow_mass_assignment_of(:call) }
+  it { should allow_mass_assignment_of(:question) }
+  it { should allow_mass_assignment_of(:voice_file_url) }
+  it { should allow_mass_assignment_of(:numerical_response) }
+
   describe '.total_calls' do
-    let!(:input) { create(:answer, :with_location, numerical_response: '1') }
+    let!(:input) { create(:answer, numerical_response: '1') }
 
     it 'returns the total number of calls for each property' do
       expect(Answer.total_calls).to eq(input.location => 1)
@@ -30,10 +35,10 @@ describe Answer do
   end
 
   describe '.total_responses' do
-    let!(:input) { create(:answer, :with_location, numerical_response: '1') }
+    let!(:input) { create(:answer, numerical_response: '1') }
 
     it 'returns the number of responses for each property' do
-      expect(Answer.total_responses('1')).to eq(input.location => 1)
+      expect(Answer.total_responses('1')).to eq(input.call.location => 1)
     end
   end
 

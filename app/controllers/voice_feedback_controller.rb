@@ -3,22 +3,17 @@ class VoiceFeedbackController < ApplicationController
 
   rescue_from TwilioSessionError, with: :handle_session_error
 
-  CALL_SOURCES = {
-    '+15745842971' => 'flyer',
-    '+15745842979' => 'sign',
-    '+15745842969' => 'web',
-  }
-
   def route_to_survey
     @call_in_code_digits = Rails.application.config.app_content_set.call_in_code_digits
+    caller = Caller.find_or_create_by(phone_number: params['From'])
     if !session[:survey_started]
       session[:survey_started] = true
-      session[:call_source] = CALL_SOURCES[params["To"]] || "error: from #{params['To']}"
       render action: 'ask_for_code.xml.builder', layout: false
     else
-      target_location = Location.find_by(id: params["Digits"])
-      if target_location
-        session[:location_id] = target_location.id
+      location = Location.find_by(id: params['Digits'])
+      if location
+        call = caller.calls.find_or_create_by(location_id: location.id, source: params['To'])
+        session[:location_id] = location.id
         redirect_twilio_to listen_to_messages_prompt_path
       else
         if session[:attempts] == nil
@@ -62,10 +57,11 @@ class VoiceFeedbackController < ApplicationController
   end
 
   def message_playback
+    location = Location.find(session[:location_id])
+
     if params["Digits"] == "2" or session[:end_of_messages]
       redirect_twilio_to consent_path
     else
-      location = Location.find(session[:location_id])
       @voice_messages = location.answers.where.not(voice_file_url: nil).order('created_at ASC')
       if session[:current_message_index] == nil
         session[:current_message_index] = 0
@@ -82,18 +78,17 @@ class VoiceFeedbackController < ApplicationController
   end
 
   def consent
+    caller = Caller.find_or_create_by(phone_number: params['From'])
+    location = Location.find(session[:location_id])
+    call = caller.calls.find_or_create_by(location_id: location.id, source: params['To'])
+
     if !session[:consent_started]
       session[:consent_started] = true
       render action: 'ask_for_consent.xml.builder', layout: false
     else
-      if ["1","2"].include?(params["Digits"])
+      if %w[1 2].include?(params["Digits"])
         session[:consent_attempts] = nil
-        @caller = Caller.find_or_create_by(:phone_number => params["From"])
-        if params["Digits"] == "1"
-          @caller.update_attribute(:consented_to_callback, true)
-        else
-          @caller.update_attribute(:consented_to_callback, false)
-        end
+        call.update_attribute(:consented_to_callback, params['Digits'] == '1')
         redirect_twilio_to voice_survey_path
       elsif session[:consent_attempts] == nil
         session[:consent_attempts] = 1
@@ -105,6 +100,10 @@ class VoiceFeedbackController < ApplicationController
   end
 
   def voice_survey
+    caller = Caller.find_or_create_by(phone_number: params['From'])
+    location = Location.find(session[:location_id])
+    call = caller.calls.find_or_create_by(location: location, source: params['To'])
+
     # Set the index if none exists
     if session[:current_question_id] == nil
       @current_question = Survey.questions_for.first
@@ -112,7 +111,6 @@ class VoiceFeedbackController < ApplicationController
     else
       # Process data for existing question
       @current_question = Question.find(session[:current_question_id])
-      location = Location.find(session[:location_id])
       if @current_question.feedback_type == "numerical_response"
         if params["Digits"] == "#"
           return render action: 'ask_current_question.xml.builder', layout: false
@@ -125,9 +123,9 @@ class VoiceFeedbackController < ApplicationController
             raise TwilioSessionError.new(:error2)
           end
         end
-        location.answers.create!(question_id: @current_question.id, numerical_response: params["Digits"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
+        call.answers.create!(question: @current_question, numerical_response: params["Digits"])
       elsif @current_question.feedback_type == "voice_file"
-        location.answers.create!(question_id: @current_question.id, voice_file_url: params["RecordingUrl"], phone_number: params["From"][1..-1].to_i, call_source: session[:call_source])
+        call.answers.create!(question: @current_question, voice_file_url: params["RecordingUrl"])
       end
       # Then iterate counter
       current_index = Survey.questions_for.index { |q| q.short_name == @current_question.short_name }

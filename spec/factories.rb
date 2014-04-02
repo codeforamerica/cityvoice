@@ -1,38 +1,20 @@
 FactoryGirl.define do
   factory :location do
     name { Faker::Address.street_address }
-    lat { SecureRandom.random_number * 100 }
-    long { SecureRandom.random_number * 100 } 
+    description { Faker::Company.bs }
+    lat { (SecureRandom.random_number * 180) - 90 }
+    long { (SecureRandom.random_number * 360) - 180 }
   end
 
-  factory :subscriber do
-    email { Faker::Internet.email }
+  factory :caller do
+    phone_number { Faker::PhoneNumber.phone_number }
   end
 
-  factory :location_subscription do
+  factory :call do
     location
-    subscriber
-
-    trait :confirmed do
-      confirmed true
-    end
-
-    trait :bulk_added do
-      bulk_added true
-    end
-  end
-
-  factory :answer do
-    question { create :question, :voice }
-    phone_number '000-555-1212'
-
-    trait :with_voice_file do
-      voice_file_url { Faker::Internet.http_url }
-    end
-
-    trait :with_location do
-      location
-    end
+    association :caller, factory: :caller
+    source { Faker::PhoneNumber.phone_number }
+    consented_to_callback { [true, false].sample }
   end
 
   factory :voice_file do
@@ -52,7 +34,33 @@ FactoryGirl.define do
     end
   end
 
-  factory :caller do
-    phone_number { Faker::PhoneNumber.phone_number }
+  factory :answer do
+    question { create :question, :voice }
+    call
+
+    trait :with_voice_file do
+      voice_file_url { Faker::Internet.http_url }
+    end
+
+    trait :with_location do
+      call { create(:call, :with_location) }
+    end
+  end
+
+  factory :subscriber do
+    email { Faker::Internet.email }
+  end
+
+  factory :location_subscription do
+    location
+    subscriber
+
+    trait :confirmed do
+      confirmed true
+    end
+
+    trait :bulk_added do
+      bulk_added true
+    end
   end
 end

@@ -1,15 +1,16 @@
 require 'spec_helper'
 
 describe VoiceFeedbackController do
+  let(:location) { create(:location) }
+  let(:call) { create(:call, location: location) }
+
   render_views
 
   describe 'POST #check_for_messages' do
-    let(:location) { create(:location) }
-
     before { session[:location_id] = location.id }
 
-    def make_request
-      post :check_for_messages
+    def make_request(params = {})
+      post :check_for_messages, {'From' => '+14155551212', 'To' => '+14157672676'}.merge(params)
     end
 
     context 'when there is no feedback' do
@@ -30,7 +31,7 @@ describe VoiceFeedbackController do
 
     context 'when there is feedback' do
       before do
-        create(:answer, :with_voice_file, location: location)
+        create(:answer, :with_voice_file, call: call)
         make_request
       end
 
@@ -46,8 +47,10 @@ describe VoiceFeedbackController do
 
   describe 'POST #consent' do
     def make_request(params = {})
-      post :consent, params
+      post :consent, {'From' => '+14155551212', 'To' => '+14157672676'}.merge(params)
     end
+
+    before { session[:location_id] = location.id }
 
     context 'when consent has not been started' do
       it 'is successful' do
@@ -169,7 +172,7 @@ describe VoiceFeedbackController do
 
             it 'sets the callback consent to true' do
               make_request('Digits' => '1')
-              expect(Caller.last.consented_to_callback).to eq(true)
+              expect(Call.last.consented_to_callback).to eq(true)
             end
           end
 
@@ -190,9 +193,9 @@ describe VoiceFeedbackController do
             expect(response).to be_successful
           end
 
-          it 'sets the callback consent to true' do
+          it 'sets the callback consent to false' do
             make_request('Digits' => '2')
-            expect(Caller.last.consented_to_callback).to eq(false)
+            expect(Call.last.consented_to_callback).to eq(false)
           end
         end
       end
@@ -201,8 +204,10 @@ describe VoiceFeedbackController do
 
   describe 'POST #listen_to_messages_prompt' do
     def make_request(params = {})
-      post :listen_to_messages_prompt, params
+      post :listen_to_messages_prompt, {'From' => '+14155551212', 'To' => '+14157672676'}.merge(params)
     end
+
+    before { session[:location_id] = location.id }
 
     context 'when listening has not been started' do
       it 'is successful' do
@@ -334,10 +339,12 @@ describe VoiceFeedbackController do
     let!(:location) { create(:location) }
 
     def make_request(params = {})
-      post :message_playback, params
+      post :message_playback, {'From' => '+14155551212', 'To' => '+14157672676'}.merge(params)
     end
 
-    context 'when there are no feedback inputs' do
+    before { session[:location_id] = location.id }
+
+    context 'when there are no answers' do
       before { session[:location_id] = location.id }
 
       it 'is successful' do
@@ -363,11 +370,10 @@ describe VoiceFeedbackController do
       end
     end
 
-    context 'when there is a feedback input without a voice file' do
-      before do
-        session[:location_id] = location.id
-        create(:answer, location: location)
-      end
+    context 'when there is an answer without a voice file' do
+      let!(:answer) { create(:answer, call: call) }
+
+      before { session[:location_id] = location.id }
 
       it 'is successful' do
         make_request
@@ -392,8 +398,8 @@ describe VoiceFeedbackController do
       end
     end
 
-    context 'when there is a feedback input with a voice file' do
-      let!(:input) { create(:answer, :with_voice_file, location: location) }
+    context 'when there is an answer with a voice file' do
+      let!(:answer) { create(:answer, :with_voice_file, call: call) }
 
       before { session[:location_id] = location.id }
 
@@ -416,7 +422,7 @@ describe VoiceFeedbackController do
 
       it 'plays the voice file url' do
         make_request
-        expect(response.body).to play_twilio_url(/#{input.voice_file_url}.mp3/)
+        expect(response.body).to play_twilio_url(/#{answer.voice_file_url}.mp3/)
       end
 
       it 'plays the last message reached url' do
@@ -456,10 +462,8 @@ describe VoiceFeedbackController do
   end
 
   describe 'POST #route_to_survey' do
-    let(:location) { create(:location) }
-
-    def make_request(params = {'To' => '+15745842971'})
-      post :route_to_survey, params
+    def make_request(params = {})
+      post :route_to_survey, {'From' => '+14155551212', 'To' => '+14157672676'}.merge(params)
     end
 
     context 'when the survey has not been started' do
@@ -489,36 +493,8 @@ describe VoiceFeedbackController do
         expect(response.body).to redirect_twilio_to('/route_to_survey')
       end
 
-      context 'when called from the flyer number' do
-        it 'sets the call source' do
-          expect {
-            make_request('To' => '+15745842971')
-          }.to change { session[:call_source] }.to('flyer')
-        end
-      end
-
-      context 'when called from the sign number' do
-        it 'sets the call source' do
-          expect {
-            make_request('To' => '+15745842979')
-          }.to change { session[:call_source] }.to('sign')
-        end
-      end
-
-      context 'when called from the web number' do
-        it 'sets the call source' do
-          expect {
-            make_request('To' => '+15745842969')
-          }.to change { session[:call_source] }.to('web')
-        end
-      end
-
-      context 'when called from an unknown number' do
-        it 'sets the call source to be an error' do
-          expect {
-            make_request('To' => '+10005551212')
-          }.to change { session[:call_source] }.to('error: from +10005551212')
-        end
+      it 'creates a caller' do
+        expect { make_request }.to change(Caller, :count).by(1)
       end
     end
 
@@ -541,6 +517,20 @@ describe VoiceFeedbackController do
           make_request('Digits' => location.property_code)
           expect(response.body).to redirect_twilio_to('/listen_to_messages_prompt')
         end
+
+        it 'sets the inbound number on the call' do
+          expect {
+            make_request('Digits' => location.id.to_s)
+          }.to change { Call.last.try(:source) }.to('+14157672676')
+        end
+
+        it 'creates a call' do
+          expect { make_request('Digits' => location.property_code) }.to change(Call, :count).by(1)
+        end
+
+        it 'creates a caller' do
+          expect { make_request('Digits' => location.property_code) }.to change(Caller, :count).by(1)
+        end
       end
 
       context 'when the location does not exist' do
@@ -559,6 +549,14 @@ describe VoiceFeedbackController do
           it 'plays the error message' do
             make_request
             expect(response.body).to play_twilio_url(/error1/)
+          end
+
+          it 'creates a caller' do
+            expect { make_request }.to change(Caller, :count).by(1)
+          end
+
+          it 'does not create a call' do
+            expect { make_request }.not_to change(Call, :count)
           end
         end
 
@@ -585,18 +583,13 @@ describe VoiceFeedbackController do
   end
 
   describe 'POST #voice_survey' do
-    let(:location) { create(:location) }
     let!(:location_outcome) { create :question, :number, short_name: 'location_outcome' }
     let!(:location_comments) { create :question, :voice, short_name: 'location_comments' }
 
-    before do
-      session[:location_id] = location.id
-      session[:call_source] = 'web'
-      session[:survey] = 'location'
-    end
+    before { session[:location_id] = location.id }
 
     def make_request(params = {})
-      post :voice_survey, params
+      post :voice_survey, {'From' => '+14155551212', 'To' => '+14157672676'}.merge(params)
     end
 
     context 'when no question has been selected' do
@@ -622,50 +615,50 @@ describe VoiceFeedbackController do
 
       context 'when a number is entered' do
         it 'is successful' do
-          make_request('Digits' => '1', 'From' => '+5551212')
+          make_request('Digits' => '1')
           expect(response).to be_successful
         end
 
         it 'sets the current question to the next question' do
           expect {
-            make_request('Digits' => '1', 'From' => '+5551212')
+            make_request('Digits' => '1')
           }.to change { session[:current_question_id] }.to(location_comments.id)
         end
 
         it 'plays the voice file for the question' do
-          make_request('Digits' => '1', 'From' => '+5551212')
+          make_request('Digits' => '1')
           expect(response.body).to play_twilio_url(/location_comments.mp3/)
         end
 
-        it 'saves the feedback input' do
+        it 'saves the answer' do
           expect {
-            make_request('Digits' => '1', 'From' => '+5551212')
+            make_request('Digits' => '1')
           }.to change(Answer, :count).by(1)
         end
 
         it 'saves the question' do
-          make_request('Digits' => '1', 'From' => '+5551212')
+          make_request('Digits' => '1')
           expect(Answer.last.question).to eq(location_outcome)
         end
 
         it 'saves the location' do
-          make_request('Digits' => '1', 'From' => '+5551212')
+          make_request('Digits' => '1')
           expect(Answer.last.location).to eq(location)
         end
 
         it 'saves the numerical response' do
-          make_request('Digits' => '1', 'From' => '+5551212')
+          make_request('Digits' => '1')
           expect(Answer.last.numerical_response).to eq(1)
         end
 
-        it 'saves the phone number' do
+        it 'saves the phone number of the caller' do
           make_request('Digits' => '1', 'From' => '+5551212')
-          expect(Answer.last.phone_number).to eq('5551212')
+          expect(Caller.last.phone_number).to eq('+5551212')
         end
 
-        it 'saves the call source' do
-          make_request('Digits' => '1', 'From' => '+5551212')
-          expect(Answer.last.call_source).to eq('web')
+        it 'saves the inbound number for the call' do
+          make_request('Digits' => '1', 'To' => '+popcorn')
+          expect(Call.last.source).to eq('+popcorn')
         end
       end
 
@@ -725,52 +718,52 @@ describe VoiceFeedbackController do
       before { session[:current_question_id] = location_comments.id }
 
       it 'is successful' do
-        make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
+        make_request('RecordingUrl' => 'http://example.com')
         expect(response).to be_successful
       end
 
       context 'when the question is the last' do
         it 'sets the current question to the next question' do
           expect {
-            make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
+            make_request('RecordingUrl' => 'http://example.com')
           }.not_to change { session[:current_question_id] }
         end
 
         it 'plays the thank you message' do
-          make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
+          make_request('RecordingUrl' => 'http://example.com')
           expect(response.body).to play_twilio_url(/thanks/)
         end
       end
 
-      it 'saves the feedback input' do
+      it 'saves the answer' do
         expect {
-          make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
+          make_request('RecordingUrl' => 'http://example.com')
         }.to change(Answer, :count).by(1)
       end
 
       it 'saves the question' do
-        make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
+        make_request('RecordingUrl' => 'http://example.com')
         expect(Answer.last.question).to eq(location_comments)
       end
 
       it 'saves the location' do
-        make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
+        make_request('RecordingUrl' => 'http://example.com')
         expect(Answer.last.location).to eq(location)
       end
 
       it 'saves the recording url' do
-        make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
+        make_request('RecordingUrl' => 'http://example.com')
         expect(Answer.last.voice_file_url).to eq('http://example.com')
       end
 
       it 'saves the phone number' do
         make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
-        expect(Answer.last.phone_number).to eq('5551212')
+        expect(Caller.last.phone_number).to eq('+5551212')
       end
 
       it 'saves the call source' do
-        make_request('RecordingUrl' => 'http://example.com', 'From' => '+5551212')
-        expect(Answer.last.call_source).to eq('web')
+        make_request('RecordingUrl' => 'http://example.com')
+        expect(Call.last.source).to eq('+14157672676')
       end
     end
   end

@@ -15,5 +15,7 @@ class Call < ActiveRecord::Base
   belongs_to :location
   belongs_to :caller
 
+  has_many :answers
+
   attr_accessible :caller, :location, :consented_to_callback, :source
 end

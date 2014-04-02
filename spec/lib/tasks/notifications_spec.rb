@@ -8,8 +8,9 @@ describe 'notifications rake task' do
 
   describe 'notifications:send' do
     let(:location) { create(:location) }
+    let(:call) { create(:call, location: location) }
     let!(:location_subscription) { create(:location_subscription, :bulk_added, location: location) }
-    let!(:answer) { create(:answer, created_at: Time.now + 1.day, location: location) }
+    let!(:answer) { create(:answer, created_at: Time.now + 1.day, call: call) }
 
     before do
       Rake::Task['notifications:send'].reenable

@@ -12,11 +12,11 @@ describe VoiceAnswersController do
       its(:response) { should be_success }
 
       context 'with voice messages' do
-        let!(:first_input) { create(:answer, :with_voice_file) }
-        let!(:second_input) { create(:answer, :with_voice_file) }
+        let!(:first_answer) { create(:answer, :with_voice_file) }
+        let!(:second_answer) { create(:answer, :with_voice_file) }
 
         it 'assigns the messages' do
-          expect(assigns(:messages)).to eq([second_input, first_input])
+          expect(assigns(:messages)).to eq([second_answer, first_answer])
         end
       end
 
@@ -37,11 +37,11 @@ describe VoiceAnswersController do
       its(:response) { should be_success }
 
       context 'with voice messages' do
-        let!(:first_input) { create(:answer, :with_voice_file) }
-        let!(:second_input) { create(:answer, :with_voice_file) }
+        let!(:first_answer) { create(:answer, :with_voice_file) }
+        let!(:second_answer) { create(:answer, :with_voice_file) }
 
         it 'assigns the messages' do
-          expect(assigns(:messages)).to eq([second_input, first_input])
+          expect(assigns(:messages)).to eq([second_answer, first_answer])
         end
 
         context 'with more than 10 messages' do
@@ -50,7 +50,7 @@ describe VoiceAnswersController do
           end
 
           it 'does not contain the first message' do
-            expect(assigns(:messages)).not_to include(first_input)
+            expect(assigns(:messages)).not_to include(first_answer)
           end
 
           it 'only has 10 messages per page' do
@@ -61,7 +61,7 @@ describe VoiceAnswersController do
             let(:page) { 2 }
 
             it 'includes the first message' do
-              expect(assigns(:messages)).to include(first_input)
+              expect(assigns(:messages)).to include(first_answer)
             end
           end
         end

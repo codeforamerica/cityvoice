@@ -11,24 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140401145954) do
+ActiveRecord::Schema.define(version: 20140401151212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "answers", force: true do |t|
     t.integer  "question_id"
-    t.integer  "location_id"
     t.string   "voice_file_url"
     t.integer  "numerical_response"
-    t.string   "phone_number"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "call_source"
+    t.integer  "call_id"
   end
 
   create_table "callers", force: true do |t|
-    t.boolean  "consented_to_callback"
     t.string   "phone_number"
     t.datetime "created_at"
     t.datetime "updated_at"

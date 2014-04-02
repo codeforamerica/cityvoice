@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe LocationsController do
+  let(:call) { create(:call, location: location) }
+
   describe 'GET #index' do
     let!(:location) { create(:location) }
 
@@ -39,8 +41,9 @@ describe LocationsController do
 
       context 'when there is a numerical response for the location' do
         let(:question) { create(:question, :number) }
+
         before do
-          create(:answer, location: location, question: question, numerical_response: 1)
+          create(:answer, call: call, question: question, numerical_response: 1)
           make_request
         end
 
@@ -63,7 +66,7 @@ describe LocationsController do
 
       context 'when there is a voice response for the location' do
         let(:question) { create(:question, :voice) }
-        let!(:answer) { create(:answer, :with_voice_file, location: location, question: question) }
+        let!(:answer) { create(:answer, :with_voice_file, call: call, question: question) }
 
         before do
           make_request
