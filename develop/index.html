@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>CityVoice</title>
+    <LINK REL="SHORTCUT ICON" HREF="http://www.cityvoiceapp.com/favicon.ico" />
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/css/custom.css" rel="stylesheet" media="screen">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="jumbotron" style="background: #6DC6AD;">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <img style="margin-left: .3em;" src="/images/cityvoice_icon.png">
+            <h2 style="color: white;">Development Guide</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <h1 class="col-sm-12">Step 1: Signup for Accounts</h1>
+        <p class="col-sm-12">
+          The first step in setting up CityVoice is signing up for a bunch of services. Don't worry, there are just a few steps to getting this whole thing online.
+        </p>
+      </div>
+
+      <hr />
+
+      <div class="row">
+        <div class="col-sm-4">
+          <h2>Twilio</h2>
+          <p>
+            <a href="https://twilio.com">Sign up for Twilio</a> to buy a phone number that users can call.
+          </p>
+        </div>
+        <div class="col-sm-4">
+          <h2>Mapbox</h2>
+          <p>
+            <a href="https://mapbox.com">Sign up for Mapbox</a> to display maps on your copy of CityVoice.
+          </p>
+        </div>
+        <div class="col-sm-4">
+          <h2>Heroku</h2>
+          <p>
+            <a href="https://heroku.com">Sign up for Heroku</a> to host your copy of CityVoice. You'll also need to install the <a href="https://toolbelt.heroku.com">Heroku Toolbelt</a>.
+          </p>
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="row">
+        <div class="col-sm-12">
+          <h1>Step 2: Fork CityVoice</h1>
+          <p class="lead">
+            Create your own copy of CityVoice that will contain voice files, survey questions and settings.
+          </p>
+          <p>
+            You need to <a href="https://github.com/codeforamerica/cityvoice/fork">fork the CityVoice</a> application. Pick your GitHub user account on the fork screen. This makes a copy of the CityVoice app that you can easily change. Remember the URL for this fork.
+          </p>
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="row">
+        <div class="col-sm-12">
+          <h1>Step 3: Create Heroku App</h1>
+          <p class="lead">
+            Make a new hosting location for your app.
+          </p>
+          <p>
+            You should now <a href="https://dashboard.heroku.com/apps">Create a new app</a> on Heroku. If you don't fill in a name, it will pick a silly one for you.
+          </p>
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <h1>Step 4: Setup Continuous Deployment</h1>
+          <p class="lead">
+            Deploy CityVoice whenever you make a change.
+          </p>
+          <p>
+            You should <a href="https://addons.heroku.com/codeship">add CodeShip</a> (pick the free version) and then <a href="https://devcenter.heroku.com/articles/codeship">configure CodeShip</a> for your application. The default settings that CodeShip suggests should be fine. Remember to pick your user account's copy of CityVoice.
+          </p>
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <h1>Step 5: Customize Your Survey</h1>
+          <p class="lead">
+            Make important changes to the text and colors on the site.
+          </p>
+          <p>
+            Go to your fork of CityVoice and edit the <code>config/app_content_set.csv</code> file. It's just a CSV file, so you can download it, use Excel to make changes, then write a message in the "Commit changes" box before committing. For example, if you changed the color, write "Updated site color in app_content_set.csv"
+          </p>
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <h1>Step 6: Set Survey Questions</h1>
+          <p class="lead">
+            Write and record survey questions, then serve them.
+          </p>
+          <p>
+            Edit the <code>data/questions.csv.example</code> file. The Short Name you pick for your questions will be the name of the audio file for the question. All of your audio files will go into <code>app/assets/audios</code>.
+          </p>
+          <p>
+            To set the questions on your deployed application, run <code>heroku login</code> on the command line to log into your Heroku account, then <code>heroku run rake import:questions</code> to create the questions in the application's database.
+          </p>
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <h1>Step 7: Configure Locations</h1>
+          <p class="lead">
+            Set survey locations.
+          </p>
+          <p>
+            Edit the <code>data/locations.csv.example</code> file. The code for each location will be the row number in this file. For example, the user will hit 001 to answer questions about the first row.
+          </p>
+          <p>
+            To set the locations on your deployed application, run <code>heroku login</code> on the command line to log into your Heroku account, then <code>heroku run rake import:locations</code> to create the locations in the application's database.
+          </p>
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <h1>Step 8: Setup Twilio</h1>
+          <p class="lead">
+            Let incoming phone calls talk to your application.
+          </p>
+          <p>
+            Log into Twilio and go to <a href="https://www.twilio.com/user/account/phone-numbers/incoming">the phone numbers section</a>. Click on the first number. In the Voice URL field, enter the URL from Heroku, followed by <code>/route_to_survey</code>.  Like <code>http://should-we-get-a-taco-stand.herokuapp.com/route_to_survey</code>.
+          </p>
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <h1>Step 9: Set Mapbox Environment Variable</h1>
+          <p class="lead">
+            Let maps show on your survey site.
+          </p>
+          <p>
+            Log into Mapbox and copy the ID from the appropiate entry on the <a href="https://www.mapbox.com/projects">project page</a>.  From the command line, run <code>heroku config set MAPBOX_ID=xxxxxxxx.xxxxx</code>, where those x's are your Mapbox Project's ID.
+          </p>
+        </div>
+      </div>
+
+      <hr/>
+
+      <footer>
+        <div id="twitter">
+            <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.cityvoiceapp.com/" data-text="CityVoice: a place-based call-in system for gathering community feedback (from @codeforamerica)" data-via="gocityvoice" data-size="large">Tweet</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+          </div>
+          <div>
+            <h5> A project by Code for America in partnership with the City of South Bend</h5> <h5><a href="mailto:southbend@codeforamerica.org">southbend@codeforamerica.org</a> | <a href="https://twitter.com/gocityvoice" target="_blank">@gocityvoiceapp</a>  |  <a href="https://github.com/daguar/automidnight" target="_blank">Github</a></h5>
+          </div>
+      </footer>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-43486781-2']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </body>
+</html>
