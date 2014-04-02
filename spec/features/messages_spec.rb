@@ -53,7 +53,7 @@ describe 'Listening to messages' do
     end
 
     context 'when the user has not consented to publicly display their number' do
-      let(:call) { create(:call, location: location, consented_to_callback: false) }
+      let(:call) { create(:call, caller: caller, location: location, consented_to_callback: false) }
       let!(:answer) { create(:answer, :with_voice_file, call: call, created_at: create_date) }
 
       it 'does not display a number' do
@@ -116,7 +116,7 @@ describe 'Listening to messages' do
     end
 
     context 'when the user has not consented to publicly display their number' do
-      let(:call) { create(:call, location: location, consented_to_callback: false) }
+      let(:call) { create(:call, caller: caller, location: location, consented_to_callback: false) }
       let!(:answer) { create(:answer, :with_voice_file, call: call, created_at: create_date) }
 
       it 'does not display a number' do
