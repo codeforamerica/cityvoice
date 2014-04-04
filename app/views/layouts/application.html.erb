@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>CITYVOICE</title>
-    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-    <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
-    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-    <%= javascript_include_tag "application", controller_name %>
-    <%= csrf_meta_tags %>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
-    <link href='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css' rel='stylesheet' />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title><%= content_for?(:title) ? yield(:title) : @content.short_title.upcase %></title>
+
+    <%= stylesheet_link_tag 'application' %>
+    <link href="http://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" type="text/css">
+    <link href="http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css" rel="stylesheet" type="text/css">
+
     <script>
       var mapboxMapID = "<%= ENV["MAPBOX_MAP_ID"] %>";
     </script>
+    <%= csrf_meta_tags %>
     <%= analytics_init if Rails.env.production? && ENV['GOOGLE_ANALYTICS_ID'].present? %>
   </head>
   <body class="<%= controller_name %> <%= action_name %>" data-no-turbolink>
@@ -64,5 +66,6 @@
       <div class="footerLogo"><a href="http://codeforamerica.org/"><img src="/assets/cfa_logo_black.png" /></a></div>
       <div class="footerLogo"><a href="http://southbendin.gov/"><img src="/assets/southbendlogo.png" /><strong> City of South Bend</strong></a></div>
     </footer>
+    <%= javascript_include_tag 'application' %>
   </body>
 </html>
