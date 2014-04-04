@@ -10,9 +10,6 @@
     <link href="http://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" type="text/css">
     <link href="http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css" rel="stylesheet" type="text/css">
 
-    <script>
-      var mapboxMapID = "<%= ENV["MAPBOX_MAP_ID"] %>";
-    </script>
     <%= csrf_meta_tags %>
     <%= analytics_init if Rails.env.production? && ENV['GOOGLE_ANALYTICS_ID'].present? %>
   </head>
