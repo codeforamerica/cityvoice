@@ -14,12 +14,17 @@
 require 'spec_helper'
 
 describe Answer do
+  subject(:answer) { create(:answer) }
+
   it { should belong_to(:call) }
   it { should belong_to(:question) }
 
   it { should have_one(:caller).through(:call) }
   it { should have_one(:location).through(:call) }
   it { should have_many(:location_subscriptions).through(:location) }
+
+  it { should validate_presence_of(:call) }
+  it { should validate_presence_of(:question) }
 
   it { should allow_mass_assignment_of(:call) }
   it { should allow_mass_assignment_of(:question) }
@@ -44,9 +49,7 @@ describe Answer do
 
   describe '.voice_messages' do
     context 'when the feedback input does not have a voice file' do
-      before do
-        create(:answer)
-      end
+      before { create(:answer, :numerical_response) }
 
       it 'does not return the feedback input' do
         expect(Answer.voice_messages).to be_empty
@@ -54,7 +57,7 @@ describe Answer do
     end
 
     context 'when the feedback input has a voice file' do
-      let!(:feedback) {create(:answer, :with_voice_file)}
+      let!(:feedback) { create(:answer, :voice_file) }
 
       it 'returns the feedback input' do
         expect(Answer.voice_messages).to include(feedback)

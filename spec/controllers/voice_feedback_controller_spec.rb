@@ -31,7 +31,7 @@ describe VoiceFeedbackController do
 
     context 'when there is feedback' do
       before do
-        create(:answer, :with_voice_file, call: call)
+        create(:answer, :voice_file, call: call)
         make_request
       end
 
@@ -371,7 +371,7 @@ describe VoiceFeedbackController do
     end
 
     context 'when there is an answer without a voice file' do
-      let!(:answer) { create(:answer, call: call) }
+      let!(:answer) { create(:answer, :numerical_response, call: call) }
 
       before { session[:location_id] = location.id }
 
@@ -399,7 +399,7 @@ describe VoiceFeedbackController do
     end
 
     context 'when there is an answer with a voice file' do
-      let!(:answer) { create(:answer, :with_voice_file, call: call) }
+      let!(:answer) { create(:answer, :voice_file, call: call) }
 
       before { session[:location_id] = location.id }
 
@@ -411,7 +411,7 @@ describe VoiceFeedbackController do
       it 'sets the end of messages flag' do
         expect {
           make_request
-        }.not_to change { session[:end_of_messages] }
+        }.not_to change { session[:end_of_messages] }.from(true)
       end
 
       it 'sets the message index counter' do
@@ -583,8 +583,8 @@ describe VoiceFeedbackController do
   end
 
   describe 'POST #voice_survey' do
-    let!(:location_outcome) { create :question, :number, short_name: 'location_outcome' }
-    let!(:location_comments) { create :question, :voice, short_name: 'location_comments' }
+    let!(:location_outcome) { create(:question, :numerical_response, short_name: 'location_outcome') }
+    let!(:location_comments) { create(:question, :voice_file, short_name: 'location_comments') }
 
     before { session[:location_id] = location.id }
 

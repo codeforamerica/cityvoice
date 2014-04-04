@@ -24,26 +24,36 @@ FactoryGirl.define do
 
   factory :question do
     short_name { Faker::Name.name }
+    feedback_type { %w(numerical_response voice_file).sample }
 
-    trait :number do
+    trait :numerical_response do
       feedback_type 'numerical_response'
     end
 
-    trait :voice do
+    trait :voice_file do
       feedback_type 'voice_file'
     end
   end
 
   factory :answer do
-    question { create :question, :voice }
     call
+    question
 
-    trait :with_voice_file do
+    after(:build) do |answer, evaluator|
+      if answer.question.present?
+        answer.voice_file_url = Faker::Internet.http_url if answer.question.voice_file? && answer.voice_file_url.blank?
+        answer.numerical_response = rand(2) + 1 if answer.question.numerical_response? && answer.numerical_response.blank?
+      end
+    end
+
+    trait :voice_file do
+      question { create :question, :voice_file }
       voice_file_url { Faker::Internet.http_url }
     end
 
-    trait :with_location do
-      call { create(:call, :with_location) }
+    trait :numerical_response do
+      question { create :question, :numerical_response }
+      numerical_response { [1, 2].sample }
     end
   end
 

@@ -92,7 +92,7 @@ describe Location do
   end
 
   describe '#numerical_responses' do
-    let(:question) { create(:question, :number) }
+    let(:question) { create(:question, :numerical_response) }
 
     before { create(:answer, location: location, question: question, numerical_response: 1) }
 
@@ -101,7 +101,7 @@ describe Location do
 
   describe '#has_numerical_responses?' do
     let(:call) { create(:call, location: location) }
-    let(:question) { create(:question, :number) }
+    let(:question) { create(:question, :numerical_response) }
 
     context 'when there are no numerical responses' do
       it { should_not have_numerical_responses }
@@ -115,7 +115,7 @@ describe Location do
   end
 
   describe '#voice_messages' do
-    before { create(:answer, :with_voice_file, call: call) }
+    before { create(:answer, :voice_file, call: call) }
 
     its(:voice_messages) { should have(1).voice_message }
   end
@@ -126,7 +126,7 @@ describe Location do
     end
 
     context 'when there is a voice message' do
-      before { create(:answer, :with_voice_file, call: call) }
+      before { create(:answer, :voice_file, call: call) }
 
       it { should have_voice_messages }
     end

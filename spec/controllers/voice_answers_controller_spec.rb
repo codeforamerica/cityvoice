@@ -12,8 +12,8 @@ describe VoiceAnswersController do
       its(:response) { should be_success }
 
       context 'with voice messages' do
-        let!(:first_answer) { create(:answer, :with_voice_file) }
-        let!(:second_answer) { create(:answer, :with_voice_file) }
+        let!(:first_answer) { create(:answer, :voice_file) }
+        let!(:second_answer) { create(:answer, :voice_file) }
 
         it 'assigns the messages' do
           expect(assigns(:messages)).to eq([second_answer, first_answer])
@@ -21,7 +21,7 @@ describe VoiceAnswersController do
       end
 
       context 'with other messages' do
-        before { create(:answer) }
+        before { create(:answer, :numerical_response) }
 
         it 'does not assign the messages' do
           expect(assigns(:messages)).to be_empty
@@ -37,8 +37,8 @@ describe VoiceAnswersController do
       its(:response) { should be_success }
 
       context 'with voice messages' do
-        let!(:first_answer) { create(:answer, :with_voice_file) }
-        let!(:second_answer) { create(:answer, :with_voice_file) }
+        let!(:first_answer) { create(:answer, :voice_file) }
+        let!(:second_answer) { create(:answer, :voice_file) }
 
         it 'assigns the messages' do
           expect(assigns(:messages)).to eq([second_answer, first_answer])
@@ -46,7 +46,7 @@ describe VoiceAnswersController do
 
         context 'with more than 10 messages' do
           before do
-            9.times {create(:answer, :with_voice_file)}
+            9.times {create(:answer, :voice_file)}
           end
 
           it 'does not contain the first message' do
@@ -68,7 +68,7 @@ describe VoiceAnswersController do
       end
 
       context 'with other messages' do
-        before { create(:answer) }
+        before { create(:answer, :numerical_response) }
 
         it 'does not assign the messages' do
           expect(assigns(:messages)).to be_empty

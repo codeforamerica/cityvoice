@@ -12,13 +12,19 @@
 #
 
 class Answer < ActiveRecord::Base
-  belongs_to :question
   belongs_to :call
+  belongs_to :question
 
   has_one :caller, through: :call
   has_one :location, through: :call
 
   has_many :location_subscriptions, through: :location
+
+  validates :call, presence: true
+  validates :question, presence: true
+
+  validates :numerical_response, presence: true, inclusion: [1, 2], if: 'question.try(:numerical_response?)'
+  validates :voice_file_url, presence: true, if: 'question.try(:voice_file?)'
 
   attr_accessible :call, :question, :voice_file_url, :numerical_response
 

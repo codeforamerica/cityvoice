@@ -25,7 +25,7 @@ describe Question do
   it { should allow_mass_assignment_of(:question_text) }
 
   describe '.numerical' do
-    let!(:question) { create(:question, :number) }
+    let!(:question) { create(:question, :numerical_response) }
 
     it 'returns all questions with numerical feedback type' do
       expect(Question.numerical).to eq([question])
@@ -34,13 +34,13 @@ describe Question do
 
   describe '#voice_file?' do
     context 'with a numerical response question' do
-      subject(:question) { create(:question, :number) }
+      subject(:question) { create(:question, :numerical_response) }
 
       it { should_not be_voice_file }
     end
 
     context 'with a voice file question' do
-      subject(:question) { create(:question, :voice) }
+      subject(:question) { create(:question, :voice_file) }
 
       it { should be_voice_file }
     end
@@ -48,13 +48,13 @@ describe Question do
 
   describe '#numerical_response?' do
     context 'with a numerical response question' do
-      subject(:question) { create(:question, :number) }
+      subject(:question) { create(:question, :numerical_response) }
 
       it { should be_numerical_response }
     end
 
     context 'with a voice file question' do
-      subject(:question) { create(:question, :voice) }
+      subject(:question) { create(:question, :voice_file) }
 
       it { should_not be_numerical_response }
     end
@@ -64,7 +64,7 @@ describe Question do
     let(:call) { create(:call) }
 
     context 'with a numerical question' do
-      let(:question) { create(:question, :number) }
+      let(:question) { create(:question, :numerical_response) }
 
       it 'creates an answer' do
         expect {
@@ -79,7 +79,7 @@ describe Question do
     end
 
     context 'with a voice question' do
-      let(:question) { create(:question, :voice) }
+      let(:question) { create(:question, :voice_file) }
 
       it 'creates an answer' do
         expect {
