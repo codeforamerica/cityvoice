@@ -1,0 +1,11 @@
+//= require_self
+//= require varela_round
+
+$cvBlue: #27BDE0;
+$cvYellow: #FDBB11;
+$cvOrange: #F15E2C;
+$medGray: #B8B8B8;
+$drkGray: #A6A6A6;
+
+@import "foundation_and_overrides";
+@import "navigation/*";

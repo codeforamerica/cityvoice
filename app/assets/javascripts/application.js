@@ -12,9 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require leaflet
-//= require mapbox
-//= require bootstrap
-//= require ./typeahead.min
-//= require typeahead_address_bar
-//= require audiojs
+//= require foundation
+
+$(function(){ $(document).foundation(); });
