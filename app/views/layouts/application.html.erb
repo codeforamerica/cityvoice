@@ -10,59 +10,17 @@
     <link href="http://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" type="text/css">
     <link href="http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css" rel="stylesheet" type="text/css">
 
+    <%= javascript_include_tag 'vendor/modernizr' %>
     <%= csrf_meta_tags %>
     <%= analytics_init if Rails.env.production? && ENV['GOOGLE_ANALYTICS_ID'].present? %>
   </head>
-  <body class="<%= controller_name %> <%= action_name %>" data-no-turbolink>
-    <header class="navbar navbar-fixed-top navbar-inverse">
-      <div class="navbar-inner" style="background: <%= @content.header_color || "#6DC6AD" %>;  border: none;">
-       <div class="container">
-          <% if [nil, ""].include? @content.short_title %>
-          <%= link_to image_tag("cityvoice_icon.png", :border => 0), "/", id: "logo" %>
-          <%= link_to "CITYVOICE", "/", id: "logo" %>
-          <% else %>
-          <%= link_to @content.short_title, "/", id: "logo" %>
-          <% end %>
-          <nav>
-            <ul class="nav" style="margin-top: .35em; margin-left: 2em;">
-              <div class="input-append">
-                <input id="appendedInputButton" type="text" placeholder="enter address">
-              </div>
-            </ul>
-          </nav>
-          <nav class="pull-right">
-            <ul class="nav" style="margin-top: .6em; margin-left: 2em;">
-              <div class="header_links">
-                <%= link_to "ACTIVITY", numerical_answers_path %>
-              </div>
-              <div class="header_links">
-                <%= link_to "ALL MESSAGES", voice_answers_path %>
-              </div>
-            </ul>
-          </nav>
-        </div>
-      </div>
-    </header>
+  <body class="<%= controller_name %> <%= action_name %>">
+    <%= render partial: 'header', locals: {content: @content} %>
 
     <%= yield %>
 
-    <% unless @content.feedback_form_url.empty? %>
-      <div id="feedback">
-        <a href="<%= @content.feedback_form_url %>" target="_blank"><img src="/assets/feedback_button.png" /></a>
-      </div>
-    <% end %>
-
-    <footer class="footer">
-      <nav class="pull right" style="padding-right: 1.5em;">
-        <ul>
-          <li><%= link_to "Contact", page_path('contact') %></li>
-          <li><%= link_to "About", page_path('about') %></li>
-        </ul>
-      </nav>
-      <div class="footerLogo"><a href="http://www.cityvoiceapp.com/"><img src="/assets/CityVoice_footer.png" /></a></div>
-      <div class="footerLogo"><a href="http://codeforamerica.org/"><img src="/assets/cfa_logo_black.png" /></a></div>
-      <div class="footerLogo"><a href="http://southbendin.gov/"><img src="/assets/southbendlogo.png" /><strong> City of South Bend</strong></a></div>
-    </footer>
+    <%= render partial: 'feedback', locals: {content: @content} if @content.feedback_form_url.present? %>
+    <%= render partial: 'footer' %>
     <%= javascript_include_tag 'application' %>
   </body>
 </html>

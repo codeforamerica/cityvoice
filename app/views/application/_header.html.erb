@@ -1,0 +1,29 @@
+<div class="contain-to-grid">
+  <nav class="navigation-topbar top-bar" data-topbar>
+    <ul class="title-area">
+      <li class="name">
+        <h1 class="topbar-logo"><%= link_to(content.short_title, root_path) %></h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <ul class="left">
+        <li class="has-form">
+          <div class="row collapse">
+            <div class="small-12 columns">
+              <input type="text" placeholder="enter address">
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <ul class="right">
+        <li><%= link_to 'Activity', numerical_answers_path, class: 'button' %></li>
+        <li class="divider"></li>
+        <li><%= link_to 'All messages', voice_answers_path, class: 'button' %></li>
+        <li class="divider"></li>
+      </ul>
+    </section>
+  </nav>
+</div>
