@@ -4,9 +4,9 @@ xml.Response do
     if session[:attempts].nil?
       xml.Play voice_file_path('welcome')
     else
-      xml.Play voice_file_path('error1')
+      xml.Play voice_file_path('warning')
     end
-    xml.Play voice_file_path('code_prompt')
+    xml.Play voice_file_path('location_prompt')
   end
   xml.Redirect route_to_survey_path
 end

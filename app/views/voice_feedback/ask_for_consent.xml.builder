@@ -2,7 +2,7 @@ xml.instruct!
 xml.Response do
   xml.Gather timeout: 15, numDigits: 1, finishOnKey: '' do
     if session[:consent_attempts].present?
-      xml.Play voice_file_path('error1')
+      xml.Play voice_file_path('warning')
     end
     xml.Play voice_file_path('consent')
   end

@@ -7,7 +7,7 @@ xml.Response do
     if @current_question.feedback_type == 'numerical_response'
       xml.Gather timeout: 10, numDigits: 1, finishOnKey: '' do
         if session[:wrong_digit_entered]
-          xml.Play voice_file_path('error1')
+          xml.Play voice_file_path('warning')
         end
         xml.Play voice_file_path(@current_question.short_name)
       end

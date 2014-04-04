@@ -17,6 +17,6 @@ module TwilioControllerUtility
   def load_call
     call_id = params.require(:call_id)
     @call = Call.find_by(id: call_id)
-    handle_session_error(TwilioSessionError.new(:error2)) if @call.nil?
+    handle_session_error(TwilioSessionError.new(:fatal_error)) if @call.nil?
   end
 end

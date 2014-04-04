@@ -20,7 +20,7 @@ class VoiceFeedbackController < ApplicationController
           session[:attempts] = 1
           render action: 'ask_for_code.xml.builder', layout: false
         else
-          raise TwilioSessionError.new(:error2)
+          raise TwilioSessionError.new(:fatal_error)
         end
       end
     end
@@ -41,7 +41,7 @@ class VoiceFeedbackController < ApplicationController
         session[:listen_attempts] = 1
         render action: 'ask_about_listening.xml.builder', layout: false
       else
-        raise TwilioSessionError.new(:error2)
+        raise TwilioSessionError.new(:fatal_error)
       end
     end
   end
@@ -94,7 +94,7 @@ class VoiceFeedbackController < ApplicationController
         session[:consent_attempts] = 1
         render action: 'ask_for_consent.xml.builder', layout: false
       else
-        raise TwilioSessionError.new(:error2)
+        raise TwilioSessionError.new(:fatal_error)
       end
     end
   end
@@ -120,7 +120,7 @@ class VoiceFeedbackController < ApplicationController
             session[:wrong_digit_entered] = true
             return render action: 'ask_current_question.xml.builder', layout: false
           else
-            raise TwilioSessionError.new(:error2)
+            raise TwilioSessionError.new(:fatal_error)
           end
         end
         call.answers.create!(question: @current_question, numerical_response: params["Digits"])

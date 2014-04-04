@@ -66,7 +66,7 @@ describe TwilioControllerUtility, type: :controller do
 
     it 'plays the fatal error when the call is not found' do
       get :index, call_id: 0
-      expect(response.body).to play_twilio_url(/error2/)
+      expect(response.body).to play_twilio_url(/fatal_error/)
     end
 
     it 'hangs up when the call is not found' do

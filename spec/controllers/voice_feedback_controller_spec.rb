@@ -25,7 +25,7 @@ describe VoiceFeedbackController do
       end
 
       it 'plays the no feedback yet voice file' do
-        expect(response.body).to play_twilio_url(/no_feedback_yet/)
+        expect(response.body).to play_twilio_url(/no_answers_yet/)
       end
     end
 
@@ -89,7 +89,7 @@ describe VoiceFeedbackController do
 
           it 'plays the warning message' do
             make_request
-            expect(response.body).to play_twilio_url(/error1/)
+            expect(response.body).to play_twilio_url(/warning/)
           end
 
           it 'redirects to consent' do
@@ -108,7 +108,7 @@ describe VoiceFeedbackController do
 
           it 'plays the fatal error message' do
             make_request
-            expect(response.body).to play_twilio_url(/error2/)
+            expect(response.body).to play_twilio_url(/fatal_error/)
           end
 
           it 'hangs up' do
@@ -137,7 +137,7 @@ describe VoiceFeedbackController do
 
         it 'plays the first error message' do
           make_request('Digits' => '3')
-          expect(response.body).to play_twilio_url(/error1/)
+          expect(response.body).to play_twilio_url(/warning/)
         end
 
         it 'redirects to consent' do
@@ -245,12 +245,12 @@ describe VoiceFeedbackController do
 
           it 'plays the prompt message' do
             make_request
-            expect(response.body).to play_twilio_url(/listen_to_messages_prompt/)
+            expect(response.body).to play_twilio_url(/listen_to_answers_prompt/)
           end
 
           it 'plays the first error message' do
             make_request
-            expect(response.body).to play_twilio_url(/error1/)
+            expect(response.body).to play_twilio_url(/warning/)
           end
 
           it 'redirects to the message playback flow' do
@@ -269,7 +269,7 @@ describe VoiceFeedbackController do
 
           it 'plays the second error' do
             make_request
-            expect(response.body).to play_twilio_url(/error2/)
+            expect(response.body).to play_twilio_url(/fatal_error/)
           end
 
           it 'hangs up' do
@@ -298,7 +298,7 @@ describe VoiceFeedbackController do
 
         it 'plays the first error message' do
           make_request('Digits' => '3')
-          expect(response.body).to play_twilio_url(/error1/)
+          expect(response.body).to play_twilio_url(/warning/)
         end
 
         it 'redirects to consent' do
@@ -366,7 +366,7 @@ describe VoiceFeedbackController do
 
       it 'plays the last message reached url' do
         make_request
-        expect(response.body).to play_twilio_url(/last_message/)
+        expect(response.body).to play_twilio_url(/last_answer_reached/)
       end
     end
 
@@ -394,7 +394,7 @@ describe VoiceFeedbackController do
 
       it 'plays the last message reached url' do
         make_request
-        expect(response.body).to play_twilio_url(/last_message/)
+        expect(response.body).to play_twilio_url(/last_answer_reached/)
       end
     end
 
@@ -427,7 +427,7 @@ describe VoiceFeedbackController do
 
       it 'plays the last message reached url' do
         make_request
-        expect(response.body).to play_twilio_url(/listen_to_another/)
+        expect(response.body).to play_twilio_url(/listen_to_next_answer/)
       end
     end
 
@@ -485,7 +485,7 @@ describe VoiceFeedbackController do
 
       it 'plays the code prompt' do
         make_request
-        expect(response.body).to play_twilio_url(/code_prompt/)
+        expect(response.body).to play_twilio_url(/location_prompt/)
       end
 
       it 'redirects to the survey' do
@@ -548,7 +548,7 @@ describe VoiceFeedbackController do
 
           it 'plays the error message' do
             make_request
-            expect(response.body).to play_twilio_url(/error1/)
+            expect(response.body).to play_twilio_url(/warning/)
           end
 
           it 'creates a caller' do
@@ -570,7 +570,7 @@ describe VoiceFeedbackController do
 
           it 'plays the fatal error message' do
             make_request
-            expect(response.body).to play_twilio_url(/error2/)
+            expect(response.body).to play_twilio_url(/fatal_error/)
           end
 
           it 'hangs up' do
@@ -708,7 +708,7 @@ describe VoiceFeedbackController do
 
           it 'plays the fatal error message' do
             make_request
-            expect(response.body).to play_twilio_url(/error2/)
+            expect(response.body).to play_twilio_url(/fatal_error/)
           end
         end
       end
