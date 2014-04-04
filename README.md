@@ -111,7 +111,11 @@ To get the application set up for local development, first copy database.yml:
 
 Then, edit it for your local Postgres installation and run:
 
-    $ rake db:reset db:test:prepare
+    $ rake db:reset parallel:create parallel:prepare
+
+To run tests:
+
+    $ rake parallel:spec
 
 Next, load some sample data:
 

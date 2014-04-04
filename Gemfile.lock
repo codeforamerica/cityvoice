@@ -94,6 +94,9 @@ GEM
     newrelic_rpm (3.7.3.204)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
+    parallel (1.0.0)
+    parallel_tests (0.16.10)
+      parallel
     pg (0.17.1)
     polyglot (0.3.4)
     protected_attributes (1.0.3)
@@ -224,6 +227,7 @@ DEPENDENCIES
   leaflet-rails (~> 0.6.0)
   newrelic_rpm
   nokogiri
+  parallel_tests
   pg
   protected_attributes
   pry
