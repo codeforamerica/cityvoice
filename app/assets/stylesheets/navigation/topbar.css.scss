@@ -1,0 +1,26 @@
+.navigation-topbar {
+  h1 {
+    font-family: 'Varela Round', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+
+    a {
+      background-image: image-url('cityvoice_icon.png');
+      background-repeat: no-repeat;
+      background-position: rem-calc(10) center;
+      text-indent: rem-calc(75);
+    }
+  }
+
+  a.button {
+    border: 1px solid white;
+    border-radius: 2px;
+    margin-top: rem-calc(3);
+    padding-top: rem-calc(4);
+    padding-bottom: rem-calc(2);
+  }
+
+  .divider {
+    padding: 0 rem-calc(5);
+  }
+}
