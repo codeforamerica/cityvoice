@@ -26,12 +26,5 @@ Automidnight::Application.routes.draw do
     end
   end
 
-  post '/check_for_messages' => 'voice_feedback#check_for_messages'
-  post '/consent' => 'voice_feedback#consent'
-  post '/listen_to_messages_prompt' => 'voice_feedback#listen_to_messages_prompt'
-  post '/message_playback' => 'voice_feedback#message_playback'
-  post '/route_to_survey' => 'voice_feedback#route_to_survey'
-  post '/voice_survey' => 'voice_feedback#voice_survey'
-
   root to: 'landing#index'
 end
