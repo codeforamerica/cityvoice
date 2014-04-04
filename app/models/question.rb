@@ -11,6 +11,8 @@
 #
 
 class Question < ActiveRecord::Base
+  has_many :answers
+
   validates_presence_of :short_name, :feedback_type
   validates_uniqueness_of :short_name
 
@@ -18,5 +20,20 @@ class Question < ActiveRecord::Base
 
   def self.numerical
     where(feedback_type: 'numerical_response')
+  end
+
+  def voice_file?
+    self.feedback_type == 'voice_file'
+  end
+
+  def numerical_response?
+    self.feedback_type == 'numerical_response'
+  end
+
+  def answer(call, params)
+    answer_attributes = {call: call}
+    answer_attributes[:numerical_response] = params['Digits']  if numerical_response?
+    answer_attributes[:voice_file_url] = params['RecordingUrl']  if voice_file?
+    answers.create(answer_attributes)
   end
 end
