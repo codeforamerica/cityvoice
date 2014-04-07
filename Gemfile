@@ -14,6 +14,7 @@ gem 'will_paginate'
 
 gem 'coffee-rails', '~> 4.0.0'
 gem 'foundation-rails'
+gem 'compass-rails'
 gem 'jquery-rails'
 gem 'leaflet-rails', '~> 0.6.0'
 gem 'sass-rails', '~> 4.0.0'
