@@ -4,23 +4,41 @@ describe LocationsController do
   let(:call) { create(:call, location: location) }
 
   describe 'GET #index' do
-    let!(:location) { create(:location) }
-
-    before { make_request }
+    let!(:location) { create(:location, name: '1313 Mockingbird Lane', lat: 37, long: -122) }
 
     def make_request
       get :index, format: :json
     end
 
-    its(:response) { should be_success }
+    context 'after making the request' do
+      before { make_request }
 
-    it 'assigns locations' do
-      expect(assigns(:locations)).to eq([location])
+      its(:response) { should be_success }
+
+      it 'assigns locations' do
+        expect(assigns(:locations)).to eq([location])
+      end
+    end
+
+    context 'after rendering the request' do
+      render_views
+
+      before { make_request }
+
+      it 'renders geojson' do
+        expect(JSON.parse(response.body)).to include('type' => 'FeatureCollection')
+        expect(JSON.parse(response.body)).to have_key('features')
+        expect(JSON.parse(response.body)['features']).to have(1).feature
+      end
+
+      it 'saves the fixture' do
+        save_fixture('locations.json', response.body)
+      end
     end
   end
 
   describe 'GET #show' do
-    let!(:location) { create(:location, name: '123 Main Street') }
+    let!(:location) { create(:location, name: '123 Main Street', lat: 1, long: 2) }
 
     def make_request(location_id = location.id)
       get :show, id: location_id
@@ -95,6 +113,42 @@ describe LocationsController do
 
       it 'assigns location' do
         expect(assigns(:location)).to eq(location)
+      end
+    end
+
+    context 'when requesting json' do
+      def make_request(location_id = location.id)
+        get :show, id: location_id, format: :json
+      end
+
+      context 'after making the request' do
+        before { make_request }
+
+        its(:response) { should be_success }
+
+        it 'assigns the location' do
+          expect(assigns(:location)).to eq(location)
+        end
+      end
+
+      context 'after rendering the request' do
+        render_views
+
+        before { make_request }
+
+        it 'renders geojson' do
+          expect(JSON.parse(response.body)).to include('type' => 'Feature')
+          expect(JSON.parse(response.body)).to have_key('geometry')
+          expect(JSON.parse(response.body)['geometry']).to include('type' => 'Point')
+          expect(JSON.parse(response.body)['geometry']).to include('coordinates' => [1, 2])
+          expect(JSON.parse(response.body)).to have_key('properties')
+          expect(JSON.parse(response.body)['properties']).to include('name' => '123 Main Street')
+          expect(JSON.parse(response.body)['properties']).to include('url' => 'http://test.host/locations/123-Main-Street')
+        end
+
+        it 'saves the fixture' do
+          save_fixture('location.json', response.body)
+        end
       end
     end
   end
