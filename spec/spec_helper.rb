@@ -5,6 +5,7 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'capybara'
 require 'webmock/rspec'
+require 'jasmine_rails/rspec'
 
 require 'pry'
 require 'nokogiri'
