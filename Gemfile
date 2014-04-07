@@ -37,15 +37,16 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'factory_girl_rails'
   gem 'ffaker'
-  gem 'jasmine-rails'
   gem 'launchy'
   gem 'nokogiri'
   gem 'pry'
   gem 'rspec-rails', '~> 2.0'
+  gem 'teaspoon'
 end
 
 group :development do
   gem 'foreman'
+  gem 'guard-teaspoon'
   gem 'guard-livereload'
   gem 'rack-livereload'
   gem 'rails_email_preview'

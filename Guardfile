@@ -5,6 +5,12 @@ guard 'livereload' do
   watch(%r{config/locales/.+\.yml})
   # Rails Assets Pipeline
   watch(%r{(app|vendor)(/assets/\w+/(.+\.(css|js|html|png|jpg))).*}) { |m| "/assets/#{m[3]}" }
-  # Jasmine specs
-  watch(%r{spec/javascripts/.+_spec\.js})
+end
+
+guard :teaspoon do
+  # Implementation files
+  watch(%r{app/assets/javascripts/(.+).js}) { |m| "#{m[1]}_spec" }
+
+  # Specs / Helpers
+  watch(%r{spec/javascripts/(.*)})
 end
