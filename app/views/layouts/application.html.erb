@@ -19,8 +19,8 @@
 
     <%= yield %>
 
+    <%= render partial: 'footer', locals: {content: @content} %>
     <%= render partial: 'feedback', locals: {content: @content} if @content.feedback_form_url.present? %>
-    <%= render partial: 'footer' %>
     <%= javascript_include_tag 'application' %>
   </body>
 </html>

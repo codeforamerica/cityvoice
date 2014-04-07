@@ -1,11 +1,13 @@
 //= require_self
+//= require leaflet
 //= require varela_round
 
-$cvBlue: #27BDE0;
-$cvYellow: #FDBB11;
-$cvOrange: #F15E2C;
-$medGray: #B8B8B8;
-$drkGray: #A6A6A6;
+$city-voice-blue: #27BDE0;
+$city-voice-yellow: #FDBB11;
+$city-voice-orange: #F15E2C;
 
+@import "compass/css3/transition";
 @import "foundation_and_overrides";
 @import "navigation/*";
+@import "cityvoice/*";
+@import "landing";

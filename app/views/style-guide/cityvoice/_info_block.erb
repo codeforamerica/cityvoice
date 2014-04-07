@@ -1,0 +1,11 @@
+<% content = OpenStruct.new(feedback_form_url: '#') %>
+
+<div style="padding: 1rem;background-color: #e9e9ee;">
+  <%= render partial: 'landing/info_block', locals: {title: 'Tacos'} %>
+  <%= render layout: 'landing/info_block', locals: {title: 'geese'} do %>
+    <h6>Geese is a very okay!</h6>
+  <% end %>
+  <%= render layout: 'landing/info_block' do %>
+    I should <a href="#">buy more socks</a>
+  <% end %>
+</div>

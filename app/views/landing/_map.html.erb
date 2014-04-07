@@ -1,0 +1,21 @@
+<div class="city-voice-map">
+  <div class="container" id="cityvoice-map"></div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    var locations = new Cityvoice.Collections.Locations();
+    var map = new Cityvoice.Views.Map({
+      collection: locations,
+      tileLayerUrl: "<%= Leaflet.tile_layer %>",
+      attributionText: '<%= Leaflet.attribution.html_safe %>',
+      maxZoom: "<%= Leaflet.max_zoom %>"
+    });
+
+    locations.fetch({
+      success: function(){
+        map.render();
+      }
+    })
+  });
+</script>

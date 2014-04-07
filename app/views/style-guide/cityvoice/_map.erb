@@ -1,0 +1,5 @@
+<% locations = Location.all %>
+
+<div style="padding: 1rem;background-color: #e9e9ee;">
+  <%= render partial: 'landing/map', locals: {locations: locations} %>
+</div>

@@ -1,0 +1,11 @@
+<div class="city-voice-answer">
+  <h6>
+    <%= answer.location.name %>
+    <small><%= answer.created_at.to_s(:year_month_date) %></small>
+  </h6>
+  <audio controls>
+    <source src="<%= answer.voice_file_url %>.mp3" type="audio/mpeg">
+    <source src="<%= answer.voice_file_url %>.wav" type="audio/wav">
+    <a href="<%= answer.voice_file_url %>">Click here to play voice message</a>
+  </audio>
+</div>

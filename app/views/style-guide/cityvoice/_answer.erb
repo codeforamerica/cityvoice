@@ -1,0 +1,5 @@
+<% answer = FactoryGirl.create(:answer, :with_location) %>
+
+<div style="padding: 1rem;background-color: #e9e9ee;">
+  <%= render partial: 'landing/answer', locals: {answer: answer} %>
+</div>

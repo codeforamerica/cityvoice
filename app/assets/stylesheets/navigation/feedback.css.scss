@@ -1,0 +1,31 @@
+.navigation-feedback {
+  display: block;
+  background-color: darken($secondary-color, 17%);
+  background-image: image-url('feedback_button.png');
+  background-repeat: no-repeat;
+  background-position: right center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-indent: 100%;
+
+  @include side-radius($side: right);
+  height: rem-calc(115);
+  width: rem-calc(27);
+  @include transition-property(all);
+  @include transition-duration(.1s);
+  @include transition-delay(.1s);
+
+  box-shadow: 2px 0 0 darken($secondary-color, 30%);
+
+  &:hover {
+    background-color: darken($primary-color, 5%);
+    box-shadow: 2px 0 0 darken($primary-color, 20%);
+    width: rem-calc(35);
+  }
+}
+
+@mixin center-navigation {
+  position: fixed;
+  top: 50%;
+  margin-top: rem-calc(115) / -2;
+}

@@ -1,101 +1,37 @@
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<div class="row">
+  <%= render layout: 'landing/info_block', locals: {title: 'Learn'} do %>
+    <p><%= @content.issue %></p>
+    <p><%= @content.learn_text %></p>
+  <% end %>
 
+  <%= render layout: 'landing/info_block', locals: {title: 'Call'} do %>
+    <p><%= @content.call_text %></p>
+    <ul>
+      <li><%= @content.call_instruction %></li>
+      <li>Call <%= @content.app_phone_number %></li>
+    </ul>
+  <% end %>
 
-<div class="container">
-	<div class="center">
-		<a class="expander" href="#">
-			<div class="row" style="text-align: left;">
-				<div class="span4">
-					<div>
-						<img class="action_icon" src="/assets/learnicon.png" />
-						<h1 style="display:inline;">LEARN</h1>
-					</div>
-				</div>
-				<div class="span4">
-					<div>
-						<img class="action_icon" src="/assets/phoneicon.png" />
-						<h1 style="display:inline;">CALL</h1>
-					</div>
-				</div>
-				<div class="span4">
-					<div>
-						<img class="action_icon" src="/assets/listenicon.png" />
-						<h1 style="display:inline;">LISTEN</h1>
-					</div>
-				</div>
-			</div>
-		</a>
-		<div class="row" style="text-align: left;">
-			<div class="span4">
-				<div class="info_box learn content">
-                                    <% unless @content.issue.empty? %>
-					<h5 style="display:inline;">Issue:</h5>
-                                        <h3><%= @content.issue %></h3><br>
-                                    <% end %>
-                                        <p><a><%= raw(@content.learn_text) %></a></p>
-				</div>
-			</div>
-			<div class="span4">
-				<div class="info_box call content" style="min-height: 155px;">
-                                  <p><%= @content.call_text %></p>
-					<br>
-					<ul>
-                                          <li><h3><%= @content.call_instruction %></h3></li>
-                                          <li><h3>Call <strong><%= @content.app_phone_number %></strong></h3></li>
-					</ul>
-				</div>
-			</div>
-			<div class="span4">
-				<div class="info_box listen content" style="min-height: 155px;">
-                    <p><%= @content.listen_text %></p>
+  <%= render layout: 'landing/info_block', locals: {title: 'Listen'} do %>
+    <p><%= @content.listen_text %></p>
+    <h6><%= @content.message_from %></h6>
+    <audio controls>
+      <source src="<%= @content.message_url %>" type="audio/mpeg">
+    </audio>
+  <% end %>
+</div>
 
+<div class="row">
+  <div class="small-12 columns"><hr></div>
+</div>
 
-                  <% unless ["", nil].include?(@content.message_url) %>
-                    <h3 style="margin-top: 1.25em;">Message: <%= @content.message_from %></h3>
-                    <div class="audiojsZ">
-                      <audio controls>
-                        <source src="<%= @content.message_url %>" type="audio/mpeg">
-                      </audio>
-                   </div>
-                  <% end %>
+<div class="row">
+  <%= render layout: 'landing/info_block', locals: {html_class: 'recent-messages'} do %>
+    <h3>Recent Messages</h3>
+    <% @most_recent_messages.each do |answer| %>
+      <%= render partial: 'landing/answer', locals: {answer: answer} %>
+    <% end %>
+  <% end %>
 
-                    <style>
-                      p { clear: both; }
-                    </style>
-				</div>
-			</div>
-		</div>
-	</div>
-  <div class="row">
-    <div class="span8">
-      <div id="map" style="width: 100%; height: 400px; margin-top: 1em;"></div>
-    </div>
-    <div class="span4">
-        <div class="info_box listen">
-          <h1>RECENT MESSAGES</h1><hr>
-
-          <% @most_recent_messages.each do |voice_feedback| %>
-            <h3 style="display:inline;">
-            <% if voice_feedback.location %>
-              <%= voice_feedback.location.name  %>
-            <% end %>
-            </h3>
-              &nbsp;&nbsp;&nbsp;
-            <p style="display:inline;">
-              <%= voice_feedback.created_at.strftime('%Y-%m-%d') %>
-            </p>
-
-            <div class="vmessage">
-              <div class="audiojsZ">
-                <audio controls>
-                  <source src="<%= voice_feedback.voice_file_url %>.mp3" type="audio/mpeg">
-                  <source src="<%= voice_feedback.voice_file_url %>.wav" type="audio/wav">
-                  <a href="<%= voice_feedback.voice_file_url %>">Click here to play voice message</a>
-              </audio>
-              </div>
-            </div>
-          <% end %>
-      </div>
-    </div>
-  </div>
+  <%= render partial: 'landing/map', locals: {locations: Location.all} %>
 </div>

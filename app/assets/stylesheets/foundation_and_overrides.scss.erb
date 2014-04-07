@@ -41,7 +41,7 @@
 
 // We use these to control various global styles
 // $body-bg: #fff;
-// $body-font-color: #222;
+$body-font-color: #545454;
 // $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 // $body-font-weight: normal;
 // $body-font-style: normal;
@@ -56,7 +56,7 @@
 
 // We use these as default colors throughout
 $primary-color: <%= Rails.application.config.app_content_set.header_color %>;
-// $secondary-color: #e7e7e7;
+$secondary-color: #e7e7e7;
 // $alert-color: #f04124;
 // $success-color: #43AC6A;
 // $warning-color: #f08a24;
@@ -117,7 +117,7 @@ $primary-color: <%= Rails.application.config.app_content_set.header_color %>;
 // $include-html-type-classes: $include-html-classes;
 
 // We use these to control header font styles
-// $header-font-family: $body-font-family;
+$header-font-family: 'Varela Round', sans-serif;
 // $header-font-weight: normal;
 // $header-font-style: normal;
 // $header-font-color: #222;
@@ -163,8 +163,8 @@ $primary-color: <%= Rails.application.config.app_content_set.header_color %>;
 
 // We use these to style anchors
 // $anchor-text-decoration: none;
-// $anchor-font-color: $primary-color;
-// $anchor-font-color-hover: scale-color($primary-color, $lightness: -14%);
+$anchor-font-color: #0088cc;
+$anchor-font-color-hover: #005580;
 
 // We use these to style the <hr> element
 // $hr-border-width: 1px;
@@ -327,7 +327,7 @@ $primary-color: <%= Rails.application.config.app_content_set.header_color %>;
 // $button-margin-bottom: rem-calc(20);
 
 // We use these to control button text styles.
-// $button-font-family: $body-font-family;
+$button-font-family: 'Varela Round', sans-serif;
 // $button-font-color: #fff;
 // $button-font-color-alt: #333;
 // $button-font-tny: rem-calc(11);
@@ -1134,8 +1134,8 @@ $topbar-bg-color: $primary-color;
 $topbar-bg: $topbar-bg-color;
 
 // Height and margin
-$topbar-height: 45px;
-// $topbar-margin-bottom: 0;
+$topbar-height: rem-calc(45);
+$topbar-margin-bottom: rem-calc(20);
 
 // Controlling the styles for the title in the top bar
 $topbar-title-weight: bold;
