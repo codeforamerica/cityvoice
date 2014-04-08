@@ -1,4 +1,5 @@
-<% answer = FactoryGirl.build(:answer, :with_location, created_at: Time.now) %>
+<% location = OpenStruct.new(FactoryGirl.attributes_for(:location)) %>
+<% answer = OpenStruct.new(FactoryGirl.attributes_for(:answer).merge(created_at: Time.now, location: location)) %>
 
 <div style="padding: 1rem;background-color: #e9e9ee;">
   <%= render partial: 'landing/answer', locals: {answer: answer} %>
