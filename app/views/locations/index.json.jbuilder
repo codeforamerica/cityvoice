@@ -5,6 +5,6 @@ if params[:only] && Location.column_names.include?(params[:only])
   json.array!(@locations_array)
 else
   json.array!(@locations) do |location|
-    json.extract! location, :name, :lat, :long, :type
+    json.extract! location, :name, :lat, :long
   end
 end
