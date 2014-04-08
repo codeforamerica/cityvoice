@@ -9,22 +9,10 @@
     <%= csrf_meta_tags %>
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
     <link href='http://api.tiles.mapbox.com/mapbox.js/v1.3.1/mapbox.css' rel='stylesheet' />
-
-    <% if Rails.env == "production" && ENV['GOOGLE_ANALYTICS_ON'] == "true" %>
-      <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-43486781-1']);
-        _gaq.push(['_trackPageview']);
-        (function() {
-          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-      </script>
-    <% end %>
     <script>
       var mapboxMapID = "<%= ENV["MAPBOX_MAP_ID"] %>";
     </script>
+    <%= analytics_init if Rails.env.production? && ENV['GOOGLE_ANALYTICS_ID'].present? %>
   </head>
   <body class="<%= controller_name %> <%= action_name %>" data-no-turbolink>
     <header class="navbar navbar-fixed-top navbar-inverse">
