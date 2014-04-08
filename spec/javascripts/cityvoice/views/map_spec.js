@@ -3,8 +3,11 @@ describe("Cityvoice.Views.Map", function() {
     setFixtures("<div id='cityvoice-map'></div>");
     this.leaflet = spyOn(L, "map");
     var fakeLayer = {addTo: function(m){ return true; }};
-    this.fakeLayerAddToSpy = spyOn(fakeLayer, "addTo")
+    this.fakeLayerAddToSpy = spyOn(fakeLayer, "addTo");
     this.leafletLayer = spyOn(L, "tileLayer").andReturn(fakeLayer);
+    var fakeMarker = {bindPopup: function(){ return this; }, addTo: function(){}};
+    this.fakeMarkerAddToSpy = spyOn(fakeMarker, "addTo");
+    this.leafletMarker = spyOn(L, "marker").andReturn(fakeMarker);
   })
 
   it("instantiates", function() {
@@ -24,7 +27,9 @@ describe("Cityvoice.Views.Map", function() {
 
     describe("#render", function(){
       beforeEach(function(){
-        this.leaflet.andReturn(true);
+        this.leaflet.andReturn('leafletMap');
+        var FakeModel = Backbone.Model.extend({toLatLng: function(){ return {lat: 1, lng: 2}; }, toContent: function(){ return "content"; }});
+        this.map.collection.add(new FakeModel());
       });
 
       it("sets a reference to the leaflet map", function(){
@@ -35,6 +40,12 @@ describe("Cityvoice.Views.Map", function() {
 
       it("returns a reference to the map view", function(){
         expect(this.map.render()).toEqual(this.map);
+      });
+
+      it("adds a marker to the map", function(){
+        this.map.render();
+        expect(this.fakeMarkerAddToSpy).toHaveBeenCalledWith(this.map.leafletMap);
+        expect(this.leafletMarker).toHaveBeenCalledWith({lat: 1, lng: 2});
       });
     });
 

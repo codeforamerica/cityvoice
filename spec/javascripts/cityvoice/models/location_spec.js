@@ -24,5 +24,11 @@ describe("Cityvoice.Models.Location", function() {
         expect(this.location.toLatLng().lng).toEqual(2);
       });
     });
+
+    describe("#toContent", function(){
+      it("converts to a latLng", function(){
+        expect(this.location.toContent()).toEqual('<a href="http://test.host/locations/123-Main-Street">123 Main Street</a>');
+      });
+    });
   });
 });
