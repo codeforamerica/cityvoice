@@ -1,6 +1,8 @@
 FactoryGirl.define do
   factory :location do
     name { Faker::Address.street_address }
+    lat { SecureRandom.random_number * 100 }
+    long { SecureRandom.random_number * 100 } 
   end
 
   factory :subscriber do
