@@ -41,8 +41,80 @@
 						</div>
 					</div>
 				</div>
+
 				<% if @location.has_numerical_responses? || @location.has_voice_messages? %>
-					<%= render partial: "feedback" %>
+					<% if @numerical_responses_exist %>
+            <div class="info_box listen">
+                <div class="upper listen_bar">
+                  <h1 style="display:inline;">OPINIONS</h1>
+                </div>
+                <div class="lower">
+                  <% @numerical_responses.each do |single_numerical| %>
+                    <div class="question">
+                      <div class="row-fluid">
+                        <div class="span12">
+                          <div class="text">
+                            <%= single_numerical.question_text %>
+                          </div>
+
+                          <% single_numerical.response_hash.each_pair do |choice, count_of_choice| %>
+
+                              <div class="span2">
+                                <% if choice == "Repair" %>
+                                  <img src="/assets/Repair.png" />
+                                <% elsif choice == "Remove" %>
+                                  <img src="/assets/Demo.png" />
+                                <% end %>
+                              </div>
+                              <div class="span9">
+                              <div class="progress progress-info" style="margin-top: .5em; margin-bottom: 1em;">
+                                <div class="bar" style="width: <%= count_of_choice*10 %>%">
+                                  <h3><%= count_of_choice %>&nbsp;&nbsp;<%= choice %></h3>
+                                </div>
+                              </div>
+                            </div>
+                          <% end %>
+
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+            </div>
+					<% end %>
+
+					<div class="info_box listen">
+						<div class="upper" style="padding-bottom: 1.5em;">
+							<img class="action_icon" src="/assets/listenicon.png" /><h1 style="display:inline;">MESSAGES</h1>
+						</div>
+						<div class="lower">
+							<% @user_voice_messages.each do |message| %>
+								<div class="vmessage">
+									<div class="row-fluid">
+										<div class="span12" >
+											<div>
+                        <style>
+                          p { clear: both; }
+                        </style>
+                        <div class="audiojsZ">
+                          <audio controls>
+                            <source src="<%= message.voice_file_url %>.mp3" type="audio/mpeg">
+                            <source src="<%= message.voice_file_url %>.wav" type="audio/wav">
+                            <a href="<%= message.voice_file_url %>">Click here to play voice message</a>
+                          </audio>
+                        </div>
+											</div>
+											<div class="voiceAnnotate">
+												<strong><%= @choice %></strong>
+												date: <strong><%= message.created_at.to_date %></strong> &nbsp;
+												from: <strong><%= "#{message.phone_number.to_s[-10..-8]}-XXX-XX#{message.phone_number.to_s[-2..-1]}" %></strong>
+											</div>
+										</div>
+									</div>
+								</div>
+							<% end %>
+						</div>
+					</div>
 				<% else %>
 				<div class="info_box listen">
 					<img class="action_icon" src="/assets/listenicon.png" /><h1 style="display:inline;">LISTEN</h1><br><br>

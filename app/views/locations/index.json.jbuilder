@@ -1,4 +1,1 @@
-json.type 'FeatureCollection'
-json.features(@locations) do |location|
-  json.partial!(location)
-end
+json.partial!('locations/feature_collection', locations: @locations)
