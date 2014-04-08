@@ -7,28 +7,28 @@ Cityvoice.Views.Map = Backbone.View.extend({
     this.maxZoom = options.maxZoom;
   },
 
-  getMapOptions: function(){
+  _getMapOptions: function(){
     return {
       center: this.collection.getCenter(),
       zoom: this.maxZoom
     };
   },
 
-  createMap: function(){
-    if (!this.leafletTileLayer) { this.createTileLayer(); }
-    this.leafletMap = L.map(this.$el[0], this.getMapOptions());
-    this.leafletTileLayer.addTo(this.leafletMap);
-  },
-
-  getTileLayerOptions: function(){
+  _getTileLayerOptions: function(){
     return {
       attribution: this.attributionText,
       zoom: this.maxZoom
     };
   },
 
+  createMap: function(){
+    if (!this.leafletTileLayer) { this.createTileLayer(); }
+    this.leafletMap = L.map(this.$el[0], this._getMapOptions());
+    this.leafletTileLayer.addTo(this.leafletMap);
+  },
+
   createTileLayer: function(){
-    this.leafletTileLayer = L.tileLayer(this.tileLayerUrl, this.getTileLayerOptions());
+    this.leafletTileLayer = L.tileLayer(this.tileLayerUrl, this._getTileLayerOptions());
   },
 
   render: function(){
