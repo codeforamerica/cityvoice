@@ -1,3 +1,3 @@
-Leaflet.tile_layer = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-Leaflet.attribution = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+Leaflet.tile_layer = 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png'
+Leaflet.attribution = 'Tiles courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a>'
 Leaflet.max_zoom = 12
