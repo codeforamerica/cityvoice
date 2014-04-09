@@ -179,6 +179,7 @@ GEM
     rb-fsevent (0.9.4)
     rb-inotify (0.9.3)
       ffi (>= 0.5.0)
+    redcarpet (3.1.1)
     request_store (1.0.5)
     rspec-core (2.14.8)
     rspec-expectations (2.14.5)
@@ -288,6 +289,7 @@ DEPENDENCIES
   rails (= 4.0.0)
   rails_12factor
   rails_email_preview
+  redcarpet
   rspec-rails (~> 2.0)
   sass-rails (~> 4.0.0)
   shoulda-matchers

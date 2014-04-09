@@ -10,6 +10,7 @@ gem 'unicorn'
 gem 'high_voltage'
 gem 'jbuilder', '~> 1.0.1'
 gem 'protected_attributes'
+gem 'redcarpet'
 gem 'will_paginate'
 
 gem 'backbone-rails'
