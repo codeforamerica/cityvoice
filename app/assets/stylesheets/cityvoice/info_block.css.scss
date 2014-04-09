@@ -20,6 +20,10 @@
     background: white;
     padding: rem-calc(10) rem-calc(13);
   }
+
+  *:last-child {
+    margin-bottom: 0;
+  }
 }
 
 @media #{$medium-up} {
