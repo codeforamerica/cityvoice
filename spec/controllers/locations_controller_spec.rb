@@ -140,7 +140,7 @@ describe LocationsController do
           expect(JSON.parse(response.body)).to include('type' => 'Feature')
           expect(JSON.parse(response.body)).to have_key('geometry')
           expect(JSON.parse(response.body)['geometry']).to include('type' => 'Point')
-          expect(JSON.parse(response.body)['geometry']).to include('coordinates' => [1, 2])
+          expect(JSON.parse(response.body)['geometry']).to include('coordinates' => [2, 1])
           expect(JSON.parse(response.body)).to have_key('properties')
           expect(JSON.parse(response.body)['properties']).to include('name' => '123 Main Street')
           expect(JSON.parse(response.body)['properties']).to include('url' => 'http://test.host/locations/123-Main-Street')

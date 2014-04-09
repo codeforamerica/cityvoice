@@ -33,7 +33,7 @@ describe Location do
 
   its(:to_param) { should == '123-Maple-Street' }
 
-  its(:point) { should == [38, 122] }
+  its(:point) { should == [122, 38] }
 
   describe '.find_by_param' do
     let!(:location) { create(:location, name: '123 Maple Street') }

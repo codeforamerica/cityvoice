@@ -63,6 +63,6 @@ class Location < ActiveRecord::Base
   end
 
   def point
-    [lat.to_f, long.to_f]
+    [long.to_f, lat.to_f]
   end
 end
