@@ -1,0 +1,9 @@
+pairs:
+  dr: Doc Ritezel; doc
+  cj: CJ Bryan
+
+email:
+  prefix: pair
+  domain: ministryofvelocity.com
+
+global: true
