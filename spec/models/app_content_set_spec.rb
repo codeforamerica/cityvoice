@@ -1,75 +1,31 @@
-# == Schema Information
-#
-# Table name: app_content_sets
-#
-#  id                  :integer          not null, primary key
-#  issue               :string(255)
-#  learn_text          :text
-#  call_text           :string(255)
-#  call_instruction    :string(255)
-#  app_phone_number    :string(255)
-#  listen_text         :string(255)
-#  message_from        :string(255)
-#  message_url         :string(255)
-#  created_at          :datetime
-#  updated_at          :datetime
-#  header_color        :string(255)
-#  short_title         :string(255)
-#  call_in_code_digits :string(1)
-#  feedback_form_url   :string(255)
-#
-
 require 'spec_helper'
 
 describe AppContentSet do
-  let(:valid_content_path) { Rails.root.join('spec/support/fixtures/app_content_set.csv') }
-  let(:invalid_headers_path) { Rails.root.join('spec/support/fixtures/invalid_app_content_set_headers.csv') }
-  let(:invalid_content_path) { Rails.root.join('spec/support/fixtures/invalid_app_content_set.csv') }
-  let(:content) { valid_content_path.read }
-
-  subject(:app_content_set) { AppContentSet.new(content) }
-
-  describe '#valid?' do
-    context 'when all headers are present' do
-      context 'when there is a content set' do
-      end
-
-      context 'when there are no content sets' do
-        let(:content) { invalid_content_path.read }
-
-        it { should_not be_valid }
-      end
-    end
-
-    context 'when a header is missing' do
-      let(:content) { invalid_headers_path.read }
-
-      it { should_not be_valid }
-    end
+  let(:content_hash) do
+    {
+      app_phone_number: '415-767-2676',
+      call_in_code_digits: '1',
+      feedback_form_url: 'http://example.com',
+      header_color: '#fcc',
+      issue: 'Where should I start?',
+      message_from: 'geese',
+      message_url: 'http://example.com/scary-honking.mp3',
+      short_title: 'we all have issues my friend',
+    }
   end
 
-  describe '#to_a' do
-    subject(:content_set_hash) { OpenStruct.new(app_content_set.to_a.first) }
+  subject(:set) { AppContentSet.new(content_hash) }
 
-    its(:app_phone_number) { should == '5551212' }
-    its(:call_in_code_digits) { should == '12345' }
-    its(:call_instruction) { should == 'Dial some numbers and then honk into the phone' }
-    its(:call_text) { should == 'Call in to hear real goose sounds' }
-    its(:feedback_form_url) { should == 'http://example.com/geese/feedback' }
-    its(:header_color) { should == '#ccc' }
-    its(:issue) { should == 'We need more geese' }
-    its(:learn_text) { should == 'Geese are pretty great' }
-    its(:listen_text) { should == 'Listen to these goose sounds and then pick your favorite' }
-    its(:message_from) { should == 'Geese' }
-    its(:message_url) { should == 'http://example.com/geese' }
-    its(:short_title) { should == 'Goose Nuzzles' }
-  end
+  its(:app_phone_number) { should == '415-767-2676' }
+  its(:call_in_code_digits) { should == 1 }
+  its(:feedback_form_url) { should == 'http://example.com' }
+  its(:header_color) { should == '#fcc' }
+  its(:issue) { should == 'Where should I start?' }
+  its(:message_from) { should == 'geese' }
+  its(:message_url) { should == 'http://example.com/scary-honking.mp3' }
+  its(:short_title) { should == 'we all have issues my friend' }
 
-  describe '.load!' do
-    context 'with valid data' do
-      it 'returns the app content set as an object' do
-        expect(AppContentSet.load!(valid_content_path).short_title).to eq('Goose Nuzzles')
-      end
-    end
-  end
+  its(:call_text) { should include('Call the testing phone number') }
+  its(:learn_text) { should include('Learn more about CityVoice') }
+  its(:listen_text) { should include('Listen to a message from the authors') }
 end

@@ -1,19 +1,15 @@
 <div class="row">
   <%= render layout: 'landing/info_block', locals: {title: 'Learn'} do %>
-    <p><%= @content.issue %></p>
-    <p><%= @content.learn_text %></p>
+    <%= @content.learn_text %>
   <% end %>
 
   <%= render layout: 'landing/info_block', locals: {title: 'Call'} do %>
-    <p><%= @content.call_text %></p>
-    <ul>
-      <li><%= @content.call_instruction %></li>
-      <li>Call <%= @content.app_phone_number %></li>
-    </ul>
+    <%= @content.call_text %>
   <% end %>
 
   <%= render layout: 'landing/info_block', locals: {title: 'Listen'} do %>
-    <p><%= @content.listen_text %></p>
+    <%= @content.listen_text %>
+    <hr>
     <h6><%= @content.message_from %></h6>
     <audio controls>
       <source src="<%= @content.message_url %>" type="audio/mpeg">
