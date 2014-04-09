@@ -15,7 +15,7 @@ I18n.enforce_available_locales = true
 
 module Automidnight
   class Application < Rails::Application
-    config.style_guide.paths << Rails.root.join('app/views/style-guide/**/*') if defined?(StyleGuide::Engine)
+    config.style_guide.paths = [ Rails.root.join('app/views/style-guide/**/*') ] if defined?(StyleGuide::Engine)
     config.autoload_paths << Rails.root.join('lib')
   end
 end
