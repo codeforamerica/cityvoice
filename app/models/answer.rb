@@ -47,4 +47,8 @@ class Answer < ActiveRecord::Base
   def self.voice_messages
     where.not(voice_file_url: nil).order(created_at: :desc)
   end
+
+  def obscured_phone_number
+    "#{caller.phone_number.to_s[-10..-8]}-XXX-XX#{caller.phone_number.to_s[-2..-1]}"
+  end
 end

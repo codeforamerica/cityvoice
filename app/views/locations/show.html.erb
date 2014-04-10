@@ -106,8 +106,11 @@
 											</div>
 											<div class="voiceAnnotate">
 												<strong><%= @choice %></strong>
-												date: <strong><%= message.created_at.to_date %></strong> &nbsp;
-												from: <strong><%= "#{message.phone_number.to_s[-10..-8]}-XXX-XX#{message.phone_number.to_s[-2..-1]}" %></strong>
+												date: <strong><%= message.created_at.to_date %></strong>
+                        <% if message.call.consented_to_callback %>
+                          &nbsp;
+  												from: <strong><%= message.obscured_phone_number %></strong>
+                        <% end %>
 											</div>
 										</div>
 									</div>
