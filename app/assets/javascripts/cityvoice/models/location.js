@@ -1,7 +1,7 @@
 Cityvoice.Models.Location = Backbone.Model.extend({
   toLatLng: function(){
     var coordinates = this.get("geometry").coordinates;
-    return L.latLng(coordinates[0], coordinates[1]);
+    return L.latLng(coordinates[1], coordinates[0]);
   },
   toContent: function(){
     var properties = this.get("properties");
