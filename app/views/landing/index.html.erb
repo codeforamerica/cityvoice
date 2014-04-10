@@ -31,3 +31,19 @@
 
   <%= render partial: 'landing/map', locals: {locations: Location.all} %>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    var locationGeoJson = <%= render(partial: 'locations/feature_collection', locals: {locations: Location.all}).html_safe %>;
+    var locations = new Cityvoice.Collections.Locations();
+
+    locations.reset(locations.parse(locationGeoJson));
+
+    new Cityvoice.Views.Map({
+      collection: locations,
+      tileLayerUrl: "<%= Leaflet.tile_layer %>",
+      attributionText: '<%= Leaflet.attribution.html_safe %>',
+      maxZoom: "<%= Leaflet.max_zoom %>"
+    }).render();
+  });
+</script>
