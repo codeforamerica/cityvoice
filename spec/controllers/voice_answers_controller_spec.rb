@@ -12,16 +12,16 @@ describe VoiceAnswersController do
       its(:response) { should be_success }
 
       context 'with voice messages' do
-        let!(:first_input) { create(:answer, :with_voice_file) }
-        let!(:second_input) { create(:answer, :with_voice_file) }
+        let!(:first_answer) { create(:answer, :voice_file) }
+        let!(:second_answer) { create(:answer, :voice_file) }
 
         it 'assigns the messages' do
-          expect(assigns(:messages)).to eq([second_input, first_input])
+          expect(assigns(:messages)).to eq([second_answer, first_answer])
         end
       end
 
       context 'with other messages' do
-        before { create(:answer) }
+        before { create(:answer, :numerical_response) }
 
         it 'does not assign the messages' do
           expect(assigns(:messages)).to be_empty
@@ -37,20 +37,20 @@ describe VoiceAnswersController do
       its(:response) { should be_success }
 
       context 'with voice messages' do
-        let!(:first_input) { create(:answer, :with_voice_file) }
-        let!(:second_input) { create(:answer, :with_voice_file) }
+        let!(:first_answer) { create(:answer, :voice_file) }
+        let!(:second_answer) { create(:answer, :voice_file) }
 
         it 'assigns the messages' do
-          expect(assigns(:messages)).to eq([second_input, first_input])
+          expect(assigns(:messages)).to eq([second_answer, first_answer])
         end
 
         context 'with more than 10 messages' do
           before do
-            9.times {create(:answer, :with_voice_file)}
+            9.times {create(:answer, :voice_file)}
           end
 
           it 'does not contain the first message' do
-            expect(assigns(:messages)).not_to include(first_input)
+            expect(assigns(:messages)).not_to include(first_answer)
           end
 
           it 'only has 10 messages per page' do
@@ -61,14 +61,14 @@ describe VoiceAnswersController do
             let(:page) { 2 }
 
             it 'includes the first message' do
-              expect(assigns(:messages)).to include(first_input)
+              expect(assigns(:messages)).to include(first_answer)
             end
           end
         end
       end
 
       context 'with other messages' do
-        before { create(:answer) }
+        before { create(:answer, :numerical_response) }
 
         it 'does not assign the messages' do
           expect(assigns(:messages)).to be_empty

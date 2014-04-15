@@ -46,8 +46,8 @@ Next, push the code to Heroku:
 
 Load some example data:
 
-    $ heroku run rake import:locations[data/locations.csv.example]
-    $ heroku run rake import:questions[data/questions.csv.example]
+    $ heroku run rake import:locations
+    $ heroku run rake import:questions
 
 Set the survey name, the Mapbox id and the secret token:
 
@@ -59,7 +59,7 @@ Set the survey name, the Mapbox id and the secret token:
 
 CityVoice uses the awesome [Twilio](www.twilio.com) telephony API. To hook up your app to Twilio, go to their site, create an account, and buy a phone number. To configure your number on Twilio's site, go to 'Numbers' -> 'Twilio Numbers' and click on the phone number you want to hook up.
 
-On this page, look at the the 'Voice' section, go to the 'Request URL' box, and put in your deployed application's URL followed by `/route_to_survey` (for example: `http://my-cityvoice-app-on-heroku.herokuapp.com/route_to_survey`)
+On this page, look at the the 'Voice' section, go to the 'Request URL' box, and put in your deployed application's URL followed by `/calls` (for example: `http://my-cityvoice-app-on-heroku.herokuapp.com/calls`)
 
 Then select `POST` from the dropdown immediate to the right of where you put the URL.
 
@@ -115,8 +115,8 @@ Then, edit it for your local Postgres installation and run:
 
 Next, load some sample data:
 
-    $ rake import:locations[data/locations.csv.example]
-    $ rake import:questions[data/questions.csv.example]
+    $ rake import:locations
+    $ rake import:questions
 
 Then, create a [MapBox](https://www.mapbox.com) account and pass its id when starting Rails:
 

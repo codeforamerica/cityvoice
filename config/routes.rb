@@ -13,12 +13,18 @@ Automidnight::Application.routes.draw do
 
   resources :locations, only: [:index, :show]
 
-  post '/check_for_messages' => 'voice_feedback#check_for_messages'
-  post '/consent' => 'voice_feedback#consent'
-  post '/listen_to_messages_prompt' => 'voice_feedback#listen_to_messages_prompt'
-  post '/message_playback' => 'voice_feedback#message_playback'
-  post '/route_to_survey' => 'voice_feedback#route_to_survey'
-  post '/voice_survey' => 'voice_feedback#voice_survey'
+  resources :calls, only: [:create] do
+    scope module: :calls do
+      resource :location, only: [:create]
+      resources :messages, only: [:create] do
+        resource :playback, only: [:create]
+      end
+      resource :consent, only: [:create]
+      resources :questions, only: [:create] do
+        resource :answer, only: [:create]
+      end
+    end
+  end
 
   root to: 'landing#index'
 end

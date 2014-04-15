@@ -34,9 +34,14 @@ class AnswerCounts < Struct.new(:total_counts, :repair_counts, :remove_counts)
 
   def to_csv
     CSV.generate do |csv|
-      csv << ["Address", "Total", "Repair", "Remove"]
-      to_array.each do |element|
-        csv << [element[0], element[1].fetch(:total) { 0 }, element[1].fetch(:repair) { 0 }, element[1].fetch(:remove) { 0 }]
+      csv << %w[Address Total Repair Remove]
+      to_array.each do |address, count_hash|
+        csv << [
+          address,
+          count_hash[:total] || 0,
+          count_hash[:repair] || 0,
+          count_hash[:remove] || 0,
+        ]
       end
     end
   end

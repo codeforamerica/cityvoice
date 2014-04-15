@@ -3,7 +3,8 @@ require 'spec_helper'
 describe NumericalAnswersController do
   describe 'GET #index' do
     let(:location) { create :location, name: '1313 Mockingbird Lane' }
-    let!(:input) { create(:answer, location: location, numerical_response: '1') }
+    let(:call) { create(:call, location: location) }
+    let!(:input) { create(:answer, call: call, numerical_response: '1') }
 
     before { make_request }
 

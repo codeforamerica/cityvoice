@@ -42,4 +42,36 @@ describe TwilioControllerUtility, type: :controller do
       expect(response.body).to hangup_twilio
     end
   end
+
+  describe '#load_call' do
+    controller(ApplicationController) do
+      include TwilioControllerUtility
+
+      before_filter :load_call
+
+      def index
+        render text: @call
+      end
+    end
+
+    it 'assigns the call' do
+      call = create(:call)
+      get :index, call_id: call.id
+      expect(assigns(:call)).to eq(call)
+    end
+
+    it 'blows up when the call is not specified' do
+      expect { get :index }.to raise_error
+    end
+
+    it 'plays the fatal error when the call is not found' do
+      get :index, call_id: 0
+      expect(response.body).to play_twilio_url(/fatal_error/)
+    end
+
+    it 'hangs up when the call is not found' do
+      get :index, call_id: 0
+      expect(response.body).to hangup_twilio
+    end
+  end
 end

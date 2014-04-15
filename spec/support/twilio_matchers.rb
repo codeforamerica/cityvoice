@@ -8,6 +8,22 @@ RSpec::Matchers.define :redirect_twilio_to do |expected|
   end
 end
 
+RSpec::Matchers.define :gather_and_redirect_twilio_to do |expected|
+  match do |actual|
+    doc = Nokogiri::XML::Document.parse(actual)
+    node = doc.xpath('Response/Gather')
+    !node.empty? && node.any? { |n| n.attributes['action'].try(:value) == expected }
+  end
+end
+
+RSpec::Matchers.define :record_and_redirect_twilio_to do |expected|
+  match do |actual|
+    doc = Nokogiri::XML::Document.parse(actual)
+    node = doc.xpath('Response/Record')
+    !node.empty? && node.any? { |n| n.attributes['action'].try(:value) == expected }
+  end
+end
+
 RSpec::Matchers.define :play_twilio_url do |expected|
   match do |actual|
     doc = Nokogiri::XML::Document.parse(actual)

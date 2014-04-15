@@ -3,9 +3,11 @@ require 'spec_helper'
 describe 'Listening to messages' do
   let(:create_date) { Time.zone.now }
   let(:location) { create(:location, name: '1313 Mockingbird Lane') }
-  let!(:answer) { create(:answer, :with_voice_file, location: location, created_at: create_date) }
-  let(:number_question) { create(:question, :number) }
-  let!(:numeric_input) { create(:answer, numerical_response: '1', question: number_question, location: location, created_at: create_date) }
+  let(:caller) { create(:caller, phone_number: '+14155551212') }
+  let(:call) { create(:call, location: location, caller: caller, consented_to_callback: true) }
+  let!(:answer) { create(:answer, :voice_file, call: call, created_at: create_date) }
+  let(:number_question) { create(:question, :numerical_response) }
+  before { create(:answer, numerical_response: '1', question: number_question, call: call, created_at: create_date) }
 
   context 'on the landing page' do
     before do
@@ -51,7 +53,8 @@ describe 'Listening to messages' do
     end
 
     context 'when the user has not consented to publicly display their number' do
-      let!(:answer) { create(:answer, :with_voice_file, phone_number: nil, location: location, created_at: create_date) }
+      let(:call) { create(:call, caller: caller, location: location, consented_to_callback: false) }
+      let!(:answer) { create(:answer, :voice_file, call: call, created_at: create_date) }
 
       it 'does not display a number' do
         expect(page).not_to have_content('XXX-XX12')
@@ -113,7 +116,8 @@ describe 'Listening to messages' do
     end
 
     context 'when the user has not consented to publicly display their number' do
-      let!(:answer) { create(:answer, :with_voice_file, phone_number: nil, location: location, created_at: create_date) }
+      let(:call) { create(:call, caller: caller, location: location, consented_to_callback: false) }
+      let!(:answer) { create(:answer, :voice_file, call: call, created_at: create_date) }
 
       it 'does not display a number' do
         expect(page).not_to have_content('XXX-XX12')

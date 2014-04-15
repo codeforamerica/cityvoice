@@ -37,7 +37,7 @@ describe QuestionPresenter do
     end
 
     context 'when the question already exists' do
-      before { create :question, :voice, short_name: 'tacos' }
+      before { create(:question, :voice_file, short_name: 'tacos') }
 
       it 'does not create a new question' do
         question = presenter.to_question

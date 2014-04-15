@@ -3,7 +3,8 @@ require 'spec_helper'
 describe SubscriberNotifier do
   let(:location) { create(:location) }
   let!(:location_subscription) { create(:location_subscription, :bulk_added, subscriber: subscriber, location: location) }
-  let!(:answer) { create(:answer, created_at: Time.now + 1.day, location: location) }
+  let(:call) { create(:call, location: location)}
+  let!(:answer) { create(:answer, created_at: Time.now + 1.day, call:call) }
   let(:subscriber) { create(:subscriber) }
 
   subject(:notifier) { SubscriberNotifier.new(subscriber) }
