@@ -57,7 +57,7 @@ class Call::AnswerPlayer < Struct.new(:call, :digits, :answer_index, :attempt_va
   end
 
   def answers
-    @answers ||= call.location.answers.order(created_at: :desc)
+    @answers ||= call.location.answers.voice_messages
   end
 
   def scope_iterator

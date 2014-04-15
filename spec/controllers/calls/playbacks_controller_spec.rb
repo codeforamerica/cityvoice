@@ -28,7 +28,27 @@ describe Calls::PlaybacksController do
       end
     end
 
-    context 'when there is an answer' do
+    context 'when there is a numerical answer' do
+      let(:other_call) { create(:call, location: location) }
+      before { create(:answer, :numerical_response, call: other_call) }
+
+      it 'is successful' do
+        make_request
+        expect(response).to be_successful
+      end
+
+      it 'tells the user that there are no answers' do
+        make_request
+        expect(response.body).to play_twilio_url(/no_answers_yet/)
+      end
+
+      it 'redirects twilio to the consent path' do
+        make_request
+        expect(response.body).to redirect_twilio_to(call_consent_path(call))
+      end
+    end
+
+    context 'when there is a voice answer' do
       let(:other_call) { create(:call, location: location) }
       let!(:first_answer) { create(:answer, :voice_file, call: other_call) }
 

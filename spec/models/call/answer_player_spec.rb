@@ -17,8 +17,14 @@ describe Call::AnswerPlayer do
       it { should be_empty }
     end
 
-    context 'when there are answers' do
-      before { create(:answer, call: call) }
+    context 'when there are numerical answers' do
+      before { create(:answer, :numerical_response, call: call) }
+
+      it { should be_empty }
+    end
+
+    context 'when there are voice answers' do
+      before { create(:answer, :voice_file, call: call) }
 
       it { should_not be_empty }
     end
@@ -30,7 +36,7 @@ describe Call::AnswerPlayer do
     end
 
     context 'when there is one message' do
-      before { create(:answer, call: call) }
+      before { create(:answer, :voice_file, call: call) }
 
       context 'when on the first message' do
         it { should_not have_reached_last_answer }
