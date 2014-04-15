@@ -45,6 +45,6 @@ class Answer < ActiveRecord::Base
   end
 
   def self.voice_messages
-    where.not(voice_file_url: nil).order('created_at DESC')
+    where.not(voice_file_url: nil).order(created_at: :desc)
   end
 end
