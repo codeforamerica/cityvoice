@@ -93,4 +93,39 @@ describe Question do
       end
     end
   end
+
+  describe '#response_counts' do
+    context 'with a numerical question' do
+      subject(:question) { create(:question, :numerical_response) }
+
+      before { create(:answer, question: question, numerical_response: 1) }
+
+      its(:response_counts) { should == {1=>1} }
+    end
+
+    context 'with a voice question' do
+      subject(:question) { create(:question, :voice_file) }
+
+      its(:response_counts) { should == {} }
+    end
+  end
+
+  describe '#response_percentages' do
+    context 'with a numerical question' do
+      subject(:question) { create(:question, :numerical_response) }
+
+      before do
+        create(:answer, question: question, numerical_response: 1)
+        create(:answer, question: question, numerical_response: 2)
+      end
+
+      its(:response_percentages) { should == {1=>50.0, 2=>50.0} }
+    end
+
+    context 'with a voice question' do
+      subject(:question) { create(:question, :voice_file) }
+
+      its(:response_percentages) { should == {} }
+    end
+  end
 end

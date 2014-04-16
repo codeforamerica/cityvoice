@@ -1,0 +1,13 @@
+<div class="city-voice-message">
+  <h6>
+    <small>date:</small> <%= answer.created_at.to_s(:year_month_date) %>
+    <% if answer.call.consented_to_callback %>
+      <small>from:</small> <%= answer.obscured_phone_number %>
+    <% end %>
+  </h6>
+  <audio controls>
+    <source src="<%= answer.voice_file_url %>.mp3" type="audio/mpeg">
+    <source src="<%= answer.voice_file_url %>.wav" type="audio/wav">
+    <a href="<%= answer.voice_file_url %>">Click here to play voice message</a>
+  </audio>
+</div>

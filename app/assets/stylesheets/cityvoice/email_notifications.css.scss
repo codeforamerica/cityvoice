@@ -1,0 +1,14 @@
+.city-voice-email-notifications {
+  .description {
+    @include info-block-topper($color: lighten($body-font-color, 30%));
+  }
+
+  &.city-voice-info-block h3 {
+    text-indent: 0;
+    background-image: none;
+  }
+
+  p {
+    margin-top: 1rem;
+  }
+}

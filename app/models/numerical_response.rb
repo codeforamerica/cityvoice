@@ -4,11 +4,12 @@ class NumericalResponse < Struct.new(:question, :location)
   def_delegators :question, :short_name, :question_text
 
   def response_hash
+    total = location.answers.count * 0.01
     %w(Repair Remove).each_with_index.reduce({}) do |hash, (choice, index)|
       hash[choice] = location.answers
                              .where(question: question)
                              .where(numerical_response: (index+1))
-                             .count
+                             .count / total
       hash
     end
   end

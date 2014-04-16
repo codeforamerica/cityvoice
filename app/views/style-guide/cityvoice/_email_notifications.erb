@@ -1,0 +1,5 @@
+<% location = OpenStruct.new(FactoryGirl.attributes_for(:location).merge(id: 123)) %>
+
+<div style="background-color: #e9e9ee; padding: 1rem;">
+  <%= render partial: 'locations/email_notifications', locals: {location: location} %>
+</div>

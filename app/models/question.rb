@@ -22,6 +22,18 @@ class Question < ActiveRecord::Base
     where(feedback_type: 'numerical_response')
   end
 
+  def response_counts
+    answers.group(:numerical_response).count(:numerical_response)
+  end
+
+  def response_percentages
+    total = answers.count * 0.01
+    response_counts.reduce({}) do |memo, (response, count)|
+      memo[response] = count / total
+      memo
+    end
+  end
+
   def voice_file?
     self.feedback_type == 'voice_file'
   end

@@ -1,0 +1,17 @@
+<%= render layout: 'landing/info_block', locals: {title: 'Email Notifications', html_class: 'city-voice-email-notifications'} do %>
+  <div id="subscription-form-status"></div>
+
+  <%= form_for(:subscription, url: subscription_path, html: { class: 'row collapse' } ) do |f| %>
+    <%= f.hidden_field :location_id, value: location.id %>
+    <div class="small-9 columns">
+      <%= f.text_field :email, placeholder: 'example@gmail.com' %>
+    </div>
+    <div class="small-3 columns">
+      <%= f.submit 'Subscribe', class: 'button postfix' %>
+    </div>
+  <% end %>
+
+  <p>
+    Sign up to receive an email when there is new information on this location. Emails are sent out once a week and only if there is new information.
+  </p>
+<% end %>
