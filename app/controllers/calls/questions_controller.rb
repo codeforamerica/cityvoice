@@ -1,6 +1,4 @@
-class Calls::QuestionsController < ApplicationController
-  include TwilioControllerUtility
-  rescue_from TwilioSessionError, with: :handle_session_error
+class Calls::QuestionsController < TwilioController
   before_filter :load_call
 
   def create
