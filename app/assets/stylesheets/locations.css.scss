@@ -1,0 +1,61 @@
+.locations.show {
+  .navigation-feedback {
+    @include center-navigation;
+    z-index: 2100;
+  }
+
+  .city-voice-info-block {
+    & + .city-voice-info-block {
+      margin-top: 2rem;
+    }
+
+    audio {
+      width: 100%;
+    }
+
+    &.learn {
+      .description {
+        @include info-block-topper($color: $city-voice-blue);
+      }
+
+      h3 {
+        background-image: image-url('learnicon.png');
+      }
+    }
+
+    &.call {
+      .description {
+        @include info-block-topper($color: $city-voice-orange);
+      }
+
+      h3 {
+        background-image: image-url('phoneicon.png');
+      }
+    }
+
+    &.answer {
+      .description {
+        @include info-block-topper($color: $city-voice-yellow);
+      }
+
+      h3 {
+        text-indent: 0;
+        background-image: none;
+      }
+    }
+  }
+
+  #cityvoice-map {
+    height: 300px;
+  }
+}
+
+@media #{$small-only} {
+  .locations.show .navigation-feedback {
+    display: none;
+  }
+
+  .city-voice-info-block.call {
+    margin-top: 2rem;
+  }
+}
