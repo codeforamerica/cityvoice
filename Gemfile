@@ -19,6 +19,7 @@ gem 'foundation-rails'
 gem 'jquery-rails'
 gem 'leaflet-rails'
 gem 'sass-rails', '~> 4.0.0'
+gem 'twitter-typeahead-rails'
 gem 'uglifier', '>= 1.3.0'
 
 gem 'google-analytics-rails'
