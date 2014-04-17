@@ -4,5 +4,6 @@
 //= require leaflet
 //= require backbone-rails
 //= require cityvoice/application
+//= require twitter/typeahead
 
 $(function(){ $(document).foundation(); });

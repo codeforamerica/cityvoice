@@ -12,7 +12,7 @@
         <li class="has-form">
           <div class="row collapse">
             <div class="small-12 columns">
-              <input type="text" placeholder="enter address">
+              <input class="city-voice-typeahead" type="text" placeholder="Enter Address">
             </div>
           </div>
         </li>
@@ -27,3 +27,27 @@
     </section>
   </nav>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    var locations = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      limit: 10,
+      prefetch: {
+        url: '<%= locations_path %>.json',
+        filter: function(response) {
+          return $.map(response.features, function(feature) { return { name: feature.properties.name }; });
+        }
+      }
+    });
+
+    locations.initialize();
+
+    $('.city-voice-typeahead').typeahead(null, {
+      name: 'locations',
+      displayKey: 'name',
+      source: locations.ttAdapter()
+    });
+  });
+</script>
