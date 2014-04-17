@@ -1,57 +1,25 @@
-<div class="container">
-  <div class="row">
-    <div class="span4 offset1">
-      <h1>ACTIVITY</h1><br>
-    </div>
+<div class="row">
+  <div class="small-12 columns">
+    <h1>Activity</h1>
   </div>
-  <div class="row" style="border-bottom: 1px solid #eeeeee; border-top: 1px solid #eeeeee; margin-bottom: .5em;" >
-    <div class="span1 offset1">
-      <h4 style="text-align: center;">total calls</h4>
-    </div>
-    <div class="span2">
-      <h4>address</h4>
-    </div>
-    <div class="span5">
-      <h4>opinion poll</h4>
-    </div>
-  </div>
-  <% @sorted_array.each do |element| %>
-    <% total = element[1].fetch(:total) { 0 } %>
-    <% address = element[0] %>
-    <% repair = element[1].fetch(:repair) { 0 } %>
-    <% remove = element[1].fetch(:remove) { 0 } %>
-
-
-    <%= element %>
-
-
-    <div class="row" style="margin-top: 0em;">
-      <div class="span1 offset1">
-      <h3 style="text-align: center;"><%= total %></h3>
-      </div>
-      <div class="span2">
-      <h3><a href="<%= "locations/#{address.gsub(" ","-")} " %>"><%= address %></a></h3>
-      </div>
-      <div class="span5">
-        <div class="row">
-          <div class="span1"><h4 style="text-align: right;">repair</h4></div>
-          <div class="span4">
-            <div style=" background: #27BDE0; border-left: 1px solid #eeeeee; height: 1.2em; width: <%= repair * 30 %>px;">
-              <h3 style="margin-left: .5em;"><%= repair %></h3>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-          <div class="span1" style="color: black; text-align: right;"><h4 style="text-align: right;">remove</h4></div>
-          <div class="span4">
-            <div style=" background: #FDBB11; border-left: 1px solid #eeeeee; height: 1.2em; width: <%= remove * 30 %>px;">
-              <h3 style="margin-left: .5em;"><%= remove %></h3>
-                </div>
-              </div>
-            </div>
-        </div>
-    </div>
-  <% end %>
 </div>
 
-
+<div class="row">
+  <div class="small-12 columns">
+    <table style="width: 100%">
+      <thead>
+        <tr>
+          <th width="100">Total Calls</th>
+          <th width="150">Address</th>
+          <th width="100">Opinion</th>
+          <th>Votes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @sorted_array.each do |location, votes| %>
+          <%= render partial: 'numerical_answers/vote', locals: {location: location, votes: votes}%>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

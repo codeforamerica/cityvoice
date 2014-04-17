@@ -82,11 +82,11 @@ describe 'Listening to messages' do
     end
 
     it 'shows the number of repair votes' do
-      expect(page).to have_content('repair 1')
+      expect(page).to have_content('Repair 1')
     end
 
     it 'shows the number of remove votes' do
-      expect(page).to have_content('remove 0')
+      expect(page).to have_content('Remove 0')
     end
   end
 
