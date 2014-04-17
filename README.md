@@ -29,31 +29,35 @@ If you want to make a custom domain, like `city-name-voice.org`, you'll need to 
 Deployment
 ----------
 First, create a Heroku app:
-
-    $ heroku create
-
+```
+$ heroku create
+```
 Add the free Sendgrid Heroku addon:
-
-    $ heroku addons:add sendgrid:starter
-
+```
+$ heroku addons:add sendgrid:starter
+```
 Add the Heroku scheduled jobs addon:
-
-    $ heroku addons:add scheduler:standard
-
-Next, push the code to Heroku:
-
-    $ git push heroku master
-
-Load some example data:
-
-    $ heroku run rake import:locations
-    $ heroku run rake import:questions
-
+```
+$ heroku addons:add scheduler:standard
+```
 Set the survey name, the Mapbox id and the secret token:
-
-    $ heroku config:set MAPBOX_MAP_ID=xxxxxxxx.xxxxx
-    $ heroku config:set SECRET_TOKEN=`rake secret`
-
+```
+$ heroku config:set MAPBOX_MAP_ID=xxxxxxxx.xxxxx
+$ heroku config:set SECRET_TOKEN=`rake secret`
+```
+Next, push the code to Heroku:
+```
+$ git push heroku master
+```
+Migrate the database:
+```
+heroku run rake db:migrate
+```
+Load some example data:
+```
+$ heroku run rake import:locations
+$ heroku run rake import:questions
+```
 
 #### Twilio
 
