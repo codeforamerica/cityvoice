@@ -37,7 +37,9 @@
       prefetch: {
         url: '<%= locations_path %>.json',
         filter: function(response) {
-          return $.map(response.features, function(feature) { return { name: feature.properties.name }; });
+          return $.map(response.features, function(feature) {
+            return feature.properties;
+          });
         }
       }
     });
@@ -48,6 +50,8 @@
       name: 'locations',
       displayKey: 'name',
       source: locations.ttAdapter()
+    }).on('typeahead:selected', function(e, data, dataset){
+      window.location = '<%= locations_url %>/' + data.name.replace(/\s+/g, '-');
     });
   });
 </script>
