@@ -16,7 +16,10 @@ describe("Cityvoice.Views.Map", function() {
 
   describe("an instantiated copy", function(){
     beforeEach(function(){
-      var FakeCollection = Backbone.Collection.extend({getCenter: function(){ return [1,2]; }});
+      var FakeCollection = Backbone.Collection.extend({
+        getCenter: function(){ return [1,2]; },
+        getBounds: function(){ return 'bounds'; }
+      });
       this.map = new Cityvoice.Views.Map({
         collection: new FakeCollection(),
         attributionText: "attributionText",
@@ -27,7 +30,8 @@ describe("Cityvoice.Views.Map", function() {
 
     describe("#render", function(){
       beforeEach(function(){
-        this.leaflet.andReturn('leafletMap');
+        this.fitBoundsSpy = jasmine.createSpy('fitBounds');
+        this.leaflet.andReturn({fitBounds: this.fitBoundsSpy});
         var FakeModel = Backbone.Model.extend({toLatLng: function(){ return {lat: 1, lng: 2}; }, toContent: function(){ return "content"; }});
         this.map.collection.add(new FakeModel());
       });
@@ -46,6 +50,11 @@ describe("Cityvoice.Views.Map", function() {
         this.map.render();
         expect(this.fakeMarkerAddToSpy).toHaveBeenCalledWith(this.map.leafletMap);
         expect(this.leafletMarker).toHaveBeenCalledWith({lat: 1, lng: 2});
+      });
+
+      it("fits the view of the map to the bounds of the collection", function(){
+        this.map.render();
+        expect(this.fitBoundsSpy).toHaveBeenCalledWith('bounds');
       });
     });
 

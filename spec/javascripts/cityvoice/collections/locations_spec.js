@@ -41,6 +41,14 @@ describe("Cityvoice.Collections.Locations", function() {
           });
         });
       });
+
+      describe("#getBounds", function(){
+        it("returns the centroid", function(){
+          runs(function(){
+            expect(this.locations.getBounds().toBBoxString()).toEqual('-122,37,-122,37');
+          });
+        });
+      });
     });
   });
 });
