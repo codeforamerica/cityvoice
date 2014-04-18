@@ -15,11 +15,11 @@ describe NumericalAnswersController do
     its(:response) { should be_success }
 
     it 'assigns the counts hash' do
-      expect(assigns(:counts_hash)).to eq('1313 Mockingbird Lane' => {total: 1, repair: 1})
+      expect(assigns(:counts_hash)).to eq(location => {total: 1, repair: 1})
     end
 
     it 'assigns the sorted array' do
-      expect(assigns(:sorted_array)).to eq([['1313 Mockingbird Lane', {total: 1, repair: 1}]])
+      expect(assigns(:sorted_array)).to eq([[location, {total: 1, repair: 1}]])
     end
 
     context 'when requesting csv' do

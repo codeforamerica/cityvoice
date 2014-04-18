@@ -17,11 +17,10 @@ If you're interested in using (or helping out with!) CityVoice, please contact D
 
 Required Accounts
 -----------------
-Accounts on three services are required:
+Accounts on these services are required:
 
   * [Heroku](https://heroku.com)
-  * [Twilio](https://twilio.com), and
-  * [Mapbox](https://mapbox.com).
+  * [Twilio](https://twilio.com)
 
 If you want to make a custom domain, like `city-name-voice.org`, you'll need to have access to a DNS provider, like Namecheap.
 
@@ -29,35 +28,34 @@ If you want to make a custom domain, like `city-name-voice.org`, you'll need to 
 Deployment
 ----------
 First, create a Heroku app:
-```
-$ heroku create
-```
+
+    $ heroku create
+
 Add the free Sendgrid Heroku addon:
-```
-$ heroku addons:add sendgrid:starter
-```
+
+    $ heroku addons:add sendgrid:starter
+
 Add the Heroku scheduled jobs addon:
-```
-$ heroku addons:add scheduler:standard
-```
-Set the survey name, the Mapbox id and the secret token:
-```
-$ heroku config:set MAPBOX_MAP_ID=xxxxxxxx.xxxxx
-$ heroku config:set SECRET_TOKEN=`rake secret`
-```
+
+    $ heroku addons:add scheduler:standard
+
+Set the secret token:
+
+    $ heroku config:set SECRET_TOKEN=`rake secret`
+
 Next, push the code to Heroku:
-```
-$ git push heroku master
-```
+
+    $ git push heroku master
+
 Migrate the database:
-```
-heroku run rake db:migrate
-```
+
+    $ heroku run rake db:migrate
+
 Load some example data:
-```
-$ heroku run rake import:locations
-$ heroku run rake import:questions
-```
+
+    $ heroku run rake import:locations
+    $ heroku run rake import:questions
+
 
 #### Twilio
 
@@ -121,10 +119,6 @@ Next, load some sample data:
 
     $ rake import:locations
     $ rake import:questions
-
-Then, create a [MapBox](https://www.mapbox.com) account and pass its id when starting Rails:
-
-    $ MAPBOX_MAP_ID=xxxxx.xxxxxxxx rails s
 
 
 ### Twilio Local Setup

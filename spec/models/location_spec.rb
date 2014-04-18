@@ -17,7 +17,7 @@ require 'spec_helper'
 describe Location do
   let(:call) { create(:call, location: location) }
 
-  subject(:location) { create(:location, name: '123 Maple Street') }
+  subject(:location) { create(:location, name: '123 Maple Street', lat: 38, long: 122) }
 
   it { should validate_presence_of(:name) }
 
@@ -31,7 +31,9 @@ describe Location do
   it { should allow_mass_assignment_of(:description) }
   it { should allow_mass_assignment_of(:most_recent_activity) }
 
-  its(:url_to) { should == '/locations/123-Maple-Street' }
+  its(:to_param) { should == '123-Maple-Street' }
+
+  its(:point) { should == [122, 38] }
 
   describe '.find_by_param' do
     let!(:location) { create(:location, name: '123 Maple Street') }

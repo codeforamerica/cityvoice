@@ -10,14 +10,16 @@ gem 'unicorn'
 gem 'high_voltage'
 gem 'jbuilder', '~> 1.0.1'
 gem 'protected_attributes'
+gem 'redcarpet'
 gem 'will_paginate'
 
-gem 'audiojs'
-gem 'bootstrap-sass', '2.3.2.0'
-gem 'coffee-rails', '~> 4.0.0'
+gem 'backbone-rails'
+gem 'compass-rails'
+gem 'foundation-rails'
 gem 'jquery-rails'
-gem 'leaflet-rails', '~> 0.6.0'
+gem 'leaflet-rails'
 gem 'sass-rails', '~> 4.0.0'
+gem 'twitter-typeahead-rails'
 gem 'uglifier', '>= 1.3.0'
 
 gem 'google-analytics-rails'
@@ -41,11 +43,16 @@ group :development, :test do
   gem 'nokogiri'
   gem 'pry'
   gem 'rspec-rails', '~> 2.0'
+  gem 'teaspoon'
 end
 
 group :development do
   gem 'foreman'
+  gem 'guard-teaspoon'
+  gem 'guard-livereload'
+  gem 'rack-livereload'
   gem 'rails_email_preview'
+  gem 'style-guide'
 end
 
 group :production do

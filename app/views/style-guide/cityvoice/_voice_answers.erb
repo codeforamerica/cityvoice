@@ -1,0 +1,18 @@
+<% location = OpenStruct.new(FactoryGirl.attributes_for(:location)) %>
+<% answer = OpenStruct.new(FactoryGirl.attributes_for(:answer, :voice_file).merge(call: OpenStruct.new(FactoryGirl.attributes_for(:call)), created_at: Time.now, obscured_phone_number: 'XXX-XXX-XXXX', location: location)) %>
+
+<div style="background-color: #e9e9ee;">
+  <table style="width: 100%">
+    <thead>
+      <tr>
+        <th width="250">Location</th>
+        <th width="150">Date</th>
+        <th width="150">Phone #</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'voice_answers/answer', locals: {answer: answer} %>
+    </tbody>
+  </table>
+</div>

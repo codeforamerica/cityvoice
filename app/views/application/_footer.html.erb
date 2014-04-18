@@ -1,0 +1,16 @@
+<footer class="navigation-footer">
+  <div class="row collapse">
+    <ul class="links inline-list small-12 medium-push-9 medium-3 columns">
+      <li><%= link_to 'Contact', page_path('contact') %></li>
+      <li><%= link_to 'About', page_path('about') %></li>
+      <% if content.feedback_form_url.present? %>
+        <li class="show-for-small-only"><%= link_to 'Feedback', content.feedback_form_url %></li>
+      <% end %>
+    </ul>
+    <div class="logos small-12 medium-pull-3 medium-9 columns">
+      <%= link_to 'CityVoice', 'http://cityvoiceapp.com', class: 'cityvoice' %>
+      <%= link_to 'Code for America', 'http://codeforamerica.org', class: 'codeforamerica' %>
+      <%= link_to 'City of South Bend', 'http://southbendin.gov', class: 'southbend' %>
+    </div>
+  </div>
+</footer>

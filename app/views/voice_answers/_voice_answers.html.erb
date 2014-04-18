@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="small-12 columns">
+    <h1>Voice Answers</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+    <table style="width: 100%">
+      <thead>
+        <tr>
+          <th width="250">Location</th>
+          <th width="150">Date</th>
+          <th width="150">Phone #</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% answers.each do |answer| %>
+          <%= render partial: 'voice_answers/answer', locals: {answer: answer} %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="contain-to-grid">
+  <nav class="navigation-topbar top-bar" data-topbar>
+    <ul class="title-area">
+      <li class="name">
+        <h1 class="topbar-logo"><%= link_to(content.short_title, root_path) %></h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <ul class="left">
+        <li class="has-form">
+          <div class="row collapse">
+            <div class="small-12 columns city-voice-typeahead">
+              <input type="text" placeholder="Enter Address">
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <ul class="right">
+        <li><%= link_to 'Activity', numerical_answers_path, class: 'navigation-topbar-button' %></li>
+        <li class="divider"></li>
+        <li><%= link_to 'All messages', voice_answers_path, class: 'navigation-topbar-button' %></li>
+        <li class="divider"></li>
+      </ul>
+    </section>
+  </nav>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    var locations = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      limit: 10,
+      prefetch: {
+        url: '<%= locations_path %>.json',
+        filter: function(response) {
+          return $.map(response.features, function(feature) {
+            return feature.properties;
+          });
+        }
+      }
+    });
+
+    locations.initialize();
+
+    $('.city-voice-typeahead input').typeahead(null, {
+      name: 'locations',
+      displayKey: 'name',
+      source: locations.ttAdapter()
+    }).on('typeahead:selected', function(e, data, dataset){
+      window.location = '<%= locations_url %>/' + data.name.replace(/\s+/g, '-');
+    });
+  });
+</script>

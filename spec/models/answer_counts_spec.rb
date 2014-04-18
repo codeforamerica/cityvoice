@@ -11,11 +11,11 @@ describe AnswerCounts do
 
   subject(:counts) { AnswerCounts.new(total_counts, repair_counts, remove_counts) }
 
-  its(:total_hash) { should == {'1313 Mockingbird Lane' => {total: 1}} }
-  its(:repair_hash) { should == {'1313 Mockingbird Lane' => {repair: 1}} }
+  its(:total_hash) { should == {location => {total: 1}} }
+  its(:repair_hash) { should == {location => {repair: 1}} }
   its(:remove_hash) { should == {} }
 
-  its(:to_hash) { should == {'1313 Mockingbird Lane' => {total: 1, repair: 1}} }
-  its(:to_array) { should == [['1313 Mockingbird Lane', {:total=>1, :repair=>1}]] }
+  its(:to_hash) { should == {location => {total: 1, repair: 1}} }
+  its(:to_array) { should == [[location, {:total=>1, :repair=>1}]] }
   its(:to_csv) { should == "Address,Total,Repair,Remove\n1313 Mockingbird Lane,1,1,0\n" }
 end

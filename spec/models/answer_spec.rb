@@ -14,7 +14,8 @@
 require 'spec_helper'
 
 describe Answer do
-  subject(:answer) { create(:answer) }
+  let(:caller) { create(:caller, phone_number: '+14157672676') }
+  subject(:answer) { create(:answer, caller: caller) }
 
   it { should belong_to(:call) }
   it { should belong_to(:question) }
@@ -30,6 +31,8 @@ describe Answer do
   it { should allow_mass_assignment_of(:question) }
   it { should allow_mass_assignment_of(:voice_file_url) }
   it { should allow_mass_assignment_of(:numerical_response) }
+
+  its(:obscured_phone_number) { should == '415-XXX-XX76' }
 
   describe '.total_calls' do
     let!(:input) { create(:answer, numerical_response: '1') }

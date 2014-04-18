@@ -1,1 +1,1 @@
-Rails.application.config.app_content_set = AppContentSet.load!(Rails.root.join('config/app_content_set.csv'))
+Rails.application.config.app_content_set = AppContentSet.load!(Rails.root.join('data/app_content_set.csv'))

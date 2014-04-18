@@ -24,6 +24,7 @@ FactoryGirl.define do
 
   factory :question do
     short_name { Faker::Name.name }
+    question_text { "#{Faker::Company.bs}?" }
     feedback_type { %w(numerical_response voice_file).sample }
 
     trait :numerical_response do

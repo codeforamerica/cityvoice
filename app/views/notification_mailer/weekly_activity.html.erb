@@ -53,9 +53,8 @@
                                                 <br>
                                                 <% @subscriber.location_subscriptions.each do |location_subscription| %>
                                                   <h1 class="property-name" style="display: block;font-family: Helvetica;font-size: 22px;font-style: normal;font-weight: bold;line-height: 100%;letter-spacing: normal;margin-top: 0;margin-right: 0;margin-bottom: 10px;margin-left: 0;text-align: left;color: #202020;">
-                                                    <% host = ActionMailer::Base.default_url_options[:host] %>
                                                     <%= location_subscription.location.name %>
-                                                    <%= link_to 'View', "#{host}#{location_subscription.location.url_to}" %>
+                                                    <%= link_to('View', location_url(location_subscription.location)) %>
                                                   </h1>
 
                                                   <%= link_to 'Unsubscribe from this property',

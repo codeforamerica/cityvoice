@@ -1,131 +1,61 @@
-/* colors */
-$cvBlue: #27BDE0;
-$cvYellow: #FDBB11;
-$cvOrange: #F15E2C;
-$cvGray: #545454;
+.locations.show {
+  .navigation-feedback {
+    @include center-navigation;
+    z-index: 2100;
+  }
 
+  .city-voice-info-block {
+    & + .city-voice-info-block {
+      margin-top: 2rem;
+    }
 
-#map{
-	height: 300px;
-	margin-bottom: 0;
-}
-.info {
-	h2{
-		text-align: left;
-	}
-}
-.address{
-	color: $cvGray;
-	font-family: 'Varela Round', sans-serif;
-	font-size: 3.5em;
-	line-height: 45px;
-	text-align: left;
-}
-.infoSet_above{
-	color: $cvGray;
-	margin: 0px;
-	padding:0px;
-	font-size: .8em;
-	font-style: italic;
-	font-weight: normal;
-	text-align: left;
-}
-.infoSet_below{
-	color: $cvGray;
-	margin-bottom: .4em;
-	margin-top: .25em;
-	padding:0px;
-	font-size: 1.2em;
-	font-weight: bold;
-	text-align: left;
-}
+    audio {
+      width: 100%;
+    }
 
-.resources{
-	margin-top: 1em;
-	.resources_name{
-		color: $cvGray;
-		font-size: 1.25em;
-		font-style: italic;
-		padding-left: 1.5em;
-	}
-	.resources_info{
-		color: $cvGray;
-		margin-bottom: 1em;
-		padding-left: .25em;
-	}
+    &.learn {
+      .description {
+        @include info-block-topper($color: $city-voice-blue);
+      }
+
+      h3 {
+        background-image: image-url('learnicon.png');
+      }
+    }
+
+    &.call {
+      .description {
+        @include info-block-topper($color: $city-voice-orange);
+      }
+
+      h3 {
+        background-image: image-url('phoneicon.png');
+      }
+    }
+
+    &.answer {
+      .description {
+        @include info-block-topper($color: $city-voice-yellow);
+      }
+
+      h3 {
+        text-indent: 0;
+        background-image: none;
+      }
+    }
+  }
+
+  #cityvoice-map {
+    height: 300px;
+  }
 }
 
-div{
-	color: white;
-}
-h1{
-	margin-bottom: 0em;
-	margin-right: .5em;
-	margin-top: .25em;
-}
-h2{
-	padding-bottom: 0em;
-	margin-bottom: 0em;
-	margin-right: .5em;
-}
-.tags{
-	margin-bottom: .5em;
-}
-.label{
-	margin-bottom: .5em;
-}
+@media #{$small-only} {
+  .locations.show .navigation-feedback {
+    display: none;
+  }
 
-.infoHeader{
-	background: #C4C4C4;
-	color: white;
-	padding: .25em;
-	margin-bottom: 1em;
+  .city-voice-info-block.call {
+    margin-top: 2rem;
+  }
 }
-
-.question{
-	margin-top: 1em;
-	padding-left: .25em;
-	padding-right: 2em;
-	.opinionIcon{
-		display: inline;
-	}
-	.text{
-		display: inline;
-		margin-bottom: -.5em;
-	}
-	.progress{
-		margin-bottom: 0em;
-	}
-	.progressAnnotate{
-		color: black;
-		margin: 0px;
-		padding:0px;
-		font-size: .6em;
-		font-style: italic;
-		font-weight: normal;
-		width:100%;
-	}
-}
-
-.vmessage{
-	padding-bottom: 1.5em;
-}
-.avatar{
-	background: #83d0d2;
-	height: 40px;
-	width: 40px;
-}
-.voiceAnnotate{
-	font-style:italic;
-	padding-bottom: 0em;
-	padding-top: 0em;
-	color: #545454;
-}
-
-.center {
-  text-align: center;
-  h1 {
-  margin-bottom: 10px;
-	}
-}
-

@@ -34,7 +34,7 @@ class Location < ActiveRecord::Base
   end
 
   def property_code
-    digits = content_set.call_in_code_digits.to_i
+    digits = Rails.application.config.app_content_set.call_in_code_digits.to_i
     self.id.to_s.rjust(digits, '0')
   end
 
@@ -58,17 +58,11 @@ class Location < ActiveRecord::Base
     update_attribute(:most_recent_activity, Time.zone.now)
   end
 
-  def url_to
-    "/locations/#{slug}"
-  end
-
-  protected
-
-  def slug
+  def to_param
     name.gsub(' ', '-')
   end
 
-  def content_set
-    Rails.application.config.app_content_set
+  def point
+    [long.to_f, lat.to_f]
   end
 end

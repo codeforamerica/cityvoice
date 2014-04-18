@@ -1,67 +1,80 @@
-// Place all the styles related to the landing controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.landing.index {
+  .navigation-feedback {
+    @include center-navigation;
+    z-index: 2100;
+  }
 
-/* colors */
-$cvBlue: #27BDE0;
-$cvYellow: #FDBB11;
-$cvOrange: #F15E2C;
+  .city-voice-info-block {
+    @extend .small-12;
+    @extend .medium-4;
+    @extend .columns;
 
-/* For marker cluster group */
-.marker-cluster{
-  width: 40px;
-  height: 40px;
-  padding-top: 2px;
-  padding-bottom: 0px;
-  background-color: #757575;
+    audio {
+      width: 100%;
+    }
 
-  color: white;
-  text-align: center;
-  font-size: 23px;
-  -moz-box-shadow: 0px 0px 5px 4px #ccc;
-  -webkit-box-shadow: 0px 0px 5px 4px #ccc;
-  box-shadow: 0px 0px 5px 4px #ccc;
+    &.learn {
+      .description {
+        @include info-block-topper($color: $city-voice-blue);
+      }
+
+      h3 {
+        background-image: image-url('learnicon.png');
+      }
+    }
+
+    &.call {
+      .description {
+        @include info-block-topper($color: $city-voice-orange);
+      }
+
+      h3 {
+        background-image: image-url('phoneicon.png');
+      }
+    }
+
+    &.listen {
+      .description {
+        @include info-block-topper($color: $city-voice-yellow);
+      }
+
+      h3 {
+        background-image: image-url('listenicon.png');
+      }
+    }
+  }
+
+  .recent-messages {
+    @extend .medium-push-8;
+
+    .description {
+      @include info-block-topper($color: $city-voice-yellow);
+    }
+  }
+
+  hr {
+    border-color: transparent;
+  }
+
+  .city-voice-map {
+    @extend .small-12;
+    @extend .medium-8;
+    @extend .medium-pull-4;
+    @extend .columns;
+
+    .container {
+      height: 400px;
+    }
+  }
 }
 
-.landingBar{
-margin-top: .5em;
-background: white;
-}
-.landing_content{
-	margin-bottom: 1em;
-}
+@media #{$small-only} {
+  .landing.index .navigation-feedback {
+    display: none;
+  }
 
-.landing_icon{
-	display: inline;
-	margin-right: 1.5em;
-	height: 30px;
-	width: 30px;
+  .city-voice-map,
+  .city-voice-info-block + .city-voice-info-block {
+    margin-top: rem-calc(20);
+  }
 }
-.landing_titles{
-	color: gray;
-	display: inline;
-	font-family: 'Varela Round', sans-serif;
-	font-size: 2.3em;
-	margin-top: 1em;
-	text-align: left;
-}
-
-.ui-dialog{
-box-shadow: 0 0 10px 0px #545454;
-	.ui-dialog-content{
-		padding-left: .7em;
-		padding-right: .75em;
-		padding-top: 1em;
-	}
-	.ui-dialog-titlebar{
-	background: none;
-	border: none;
-		.ui-dialog-titlebar-close{
-			margin-top: .15em;
-			margin-right: .25em;
-		}
-	}
-
-
-}
-

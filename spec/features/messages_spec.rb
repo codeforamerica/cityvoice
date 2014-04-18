@@ -19,7 +19,7 @@ describe 'Listening to messages' do
     end
 
     it 'shows the date the call was made' do
-      expect(page).to have_content(create_date.strftime('%Y-%m-%d'))
+      expect(page).to have_content(create_date.to_formatted_s(:year_month_date))
     end
 
     it 'displays audio player' do
@@ -37,7 +37,7 @@ describe 'Listening to messages' do
     end
 
     it 'shows the date the call was made' do
-      expect(page).to have_content(create_date.strftime('%Y-%m-%d'))
+      expect(page).to have_content(create_date.to_formatted_s(:year_month_date))
     end
 
     it 'shows the masked number from which the call was made' do
@@ -82,11 +82,11 @@ describe 'Listening to messages' do
     end
 
     it 'shows the number of repair votes' do
-      expect(page).to have_content('repair 1')
+      expect(page).to have_content('Repair 1')
     end
 
     it 'shows the number of remove votes' do
-      expect(page).to have_content('remove 0')
+      expect(page).to have_content('Remove 0')
     end
   end
 
@@ -100,7 +100,7 @@ describe 'Listening to messages' do
     end
 
     it 'shows the date the call was made' do
-      expect(page).to have_content(create_date.strftime('%Y-%m-%d'))
+      expect(page).to have_content(create_date.to_formatted_s(:year_month_date))
     end
 
     it 'displays audio player' do

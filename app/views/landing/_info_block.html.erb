@@ -1,0 +1,8 @@
+<div class="city-voice-info-block <%= title.downcase.gsub(' ', '-') if defined?(title) %> <%= html_class if defined?(html_class) %>">
+  <% if defined?(title)  %>
+    <h3><%= title %></h3>
+  <% end %>
+  <div class="description">
+    <%= yield %>
+  </div>
+</div>

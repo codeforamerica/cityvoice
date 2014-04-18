@@ -5,7 +5,7 @@ describe 'Landing page' do
 
   it 'shows the title of the page' do
     visit root_path
-    page.should have_content 'To learn more about'
+    page.should have_content 'Learn more about CityVoice'
   end
 
   it 'loads the map markers from json' do

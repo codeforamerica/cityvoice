@@ -1,0 +1,5 @@
+<% content = OpenStruct.new(feedback_form_url: '#') %>
+
+<div style="padding: 1rem;background-color: #fafaff;">
+  <%= render partial: 'application/feedback', locals: {content: content} %>
+</div>

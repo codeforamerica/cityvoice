@@ -1,55 +1,43 @@
-<div class="container">
-	<div class="center">
-	<p id="notice"><%= notice %></p>
-		<div class="row">
-		</div>
-		<div class="row" style="text-align: left;">
-			<div class="span6 offset1 ">
-				<div class="info_box learn">
-					<div class="row">
-						<div class="span2">
-							<img class="action_icon" src="/assets/learnicon.png" />
-							<div class="address" style="margin-top: .25em;">
-							  	<%= @location.name %><br>
-							</div>
-						</div>
-						<div class="span3" id="subject_description_box">
-							<%= render :inline => raw(@location.description) %>
-						</div>
-					</div>
-					<div id="map" style="margin-top: 1em; margin-bottom: 1em;"></div>
-				</div>
-				<div class="info_box admin">
-					<div class="row">
-						<div class="span5">
-							<h2 style="display: inline;">Email Notifications</h2>
-							<%= render 'subscribe_form' %>
-							<p>Sign up to receive an email when there is new information on this location. Emails are sent out once a week and only if there is new information.</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="span4 info" style="text-align:left;">
-				<div class="info_box call">
-					<div class="upper">
-						<img class="action_icon" src="/assets/phoneicon.png" /><h1 style="display:inline;">CALL</h1>
-					</div>
-					<div class="lower">
-						<div class="infoSet_below">
-                                                  <br><%= @content.app_phone_number %>
-		    				<br>call-in code: <%= @location.property_code %>
-						</div>
-					</div>
-				</div>
-				<% if @location.has_numerical_responses? || @location.has_voice_messages? %>
-					<%= render partial: "feedback" %>
-				<% else %>
-				<div class="info_box listen">
-					<img class="action_icon" src="/assets/listenicon.png" /><h1 style="display:inline;">LISTEN</h1><br><br>
-					<p>There is no neighborhood feedback on this property yet.</p>
-				</div>
-				<% end %>
-			</div>
-		</div>
-	</div>
+<div class="row">
+  <div class="small-12 medium-7 columns">
+    <%= render layout: 'landing/info_block', locals: {title: @location.name,html_class: 'learn'} do %>
+      <%= @location.description %>
+      <%= render partial: 'map' %>
+    <% end %>
+
+    <%= render partial: 'email_notifications', locals: {location: @location} %>
+  </div>
+
+  <div class="small-12 medium-5  columns">
+    <%= render layout: 'landing/info_block', locals: {title: 'Call'} do %>
+      <h4><%= @content.app_phone_number %></h4>
+      <h5>Call-in Code: <%= @location.property_code %></h5>
+    <% end %>
+
+    <% @location.numerical_responses.each do |numerical_response| %>
+      <%= render partial: 'numerical_response', locals: {numerical_response: numerical_response} %>
+    <% end %>
+
+    <%= render layout: 'landing/info_block', locals: {title: 'Voice Messages', html_class: 'answer'} do %>
+      <% @location.answers.voice_messages.each do |voice_message| %>
+        <%= render partial: 'locations/voice_message', locals: {answer: voice_message} %>
+      <% end %>
+    <% end %>
+  </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    var locationGeoJson = <%= render(partial: 'locations/feature_collection', locals: {locations: [@location]}).html_safe %>;
+    var locations = new Cityvoice.Collections.Locations();
+
+    locations.reset(locations.parse(locationGeoJson));
+
+    new Cityvoice.Views.Map({
+      collection: locations,
+      tileLayerUrl: "<%= Leaflet.tile_layer %>",
+      attributionText: '<%= Leaflet.attribution.html_safe %>',
+      maxZoom: "<%= Leaflet.max_zoom %>"
+    }).render();
+  });
+</script>
