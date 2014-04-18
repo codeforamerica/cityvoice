@@ -25,3 +25,4 @@ git-merge-steps.txt
 .env
 /notes
 /config/database.yml
+/.idea
