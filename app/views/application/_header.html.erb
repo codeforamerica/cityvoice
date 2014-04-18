@@ -11,8 +11,8 @@
       <ul class="left">
         <li class="has-form">
           <div class="row collapse">
-            <div class="small-12 columns">
-              <input class="city-voice-typeahead" type="text" placeholder="Enter Address">
+            <div class="small-12 columns city-voice-typeahead">
+              <input type="text" placeholder="Enter Address">
             </div>
           </div>
         </li>
@@ -44,7 +44,7 @@
 
     locations.initialize();
 
-    $('.city-voice-typeahead').typeahead(null, {
+    $('.city-voice-typeahead input').typeahead(null, {
       name: 'locations',
       displayKey: 'name',
       source: locations.ttAdapter()
