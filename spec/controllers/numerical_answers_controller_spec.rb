@@ -4,7 +4,7 @@ describe NumericalAnswersController do
   describe 'GET #index' do
     let(:location) { create :location, name: '1313 Mockingbird Lane' }
     let(:call) { create(:call, location: location) }
-    let!(:input) { create(:answer, call: call, numerical_response: '1') }
+    let!(:input) { create(:answer, :numerical_response, call: call, numerical_response: '1') }
 
     before { make_request }
 

@@ -37,24 +37,20 @@ FactoryGirl.define do
   end
 
   factory :answer do
-    call
-    question
-
-    after(:build) do |answer, evaluator|
-      if answer.question.present?
-        answer.voice_file_url = Faker::Internet.http_url if answer.question.voice_file? && answer.voice_file_url.blank?
-        answer.numerical_response = rand(2) + 1 if answer.question.numerical_response? && answer.numerical_response.blank?
-      end
+    ignore do
+      numerical_response { rand(2) }
     end
 
+    call
+
     trait :voice_file do
-      question { create :question, :voice_file }
+      question { create(:question, :voice_file) }
       voice_file_url { Faker::Internet.http_url }
     end
 
     trait :numerical_response do
-      question { create :question, :numerical_response }
-      numerical_response { [1, 2].sample }
+      question { create(:question, :numerical_response) }
+      choice { create(:choice, number: numerical_response) }
     end
   end
 
@@ -73,5 +69,10 @@ FactoryGirl.define do
     trait :bulk_added do
       bulk_added true
     end
+  end
+
+  factory :choice do
+    name { Faker::Name.first_name }
+    number { rand(2) }
   end
 end

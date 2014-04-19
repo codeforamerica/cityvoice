@@ -1,23 +1,41 @@
 require 'csv'
 
-class AnswerCounts < Struct.new(:total_counts, :repair_counts, :remove_counts)
+class AnswerChoiceCounter < Struct.new(:question_short_name, :choice_name)
+  def count(location)
+    location.answers.where(choice_id: choice.id).count
+  end
+
+  protected
+
+  def question
+    Question.find_by!(short_name: question_short_name)
+  end
+
+  def choice
+    question.choices.find_by!(name: choice_name)
+  end
+end
+
+class AnswerCounts
   def total_hash
-    total_counts.reduce({}) do |hash, (property, calls)|
-      hash[property] = {total: calls}
+    Location.all.reduce({}) do |hash, location|
+      hash[location] = {total: location.calls.count}
       hash
     end
   end
 
   def repair_hash
-    repair_counts.reduce({}) do |hash, (property, repairs)|
-      hash[property] = {repair: repairs}
+    counter = AnswerChoiceCounter.new('property_outcome', 'Repair')
+    Location.all.reduce({}) do |hash, location|
+      hash[location] = {repair: counter.count(location)}
       hash
     end
   end
 
   def remove_hash
-    remove_counts.reduce({}) do |hash, (property, removals)|
-      hash[property] = {remove: removals}
+    counter = AnswerChoiceCounter.new('property_outcome', 'Remove')
+    Location.all.reduce({}) do |hash, location|
+      hash[location] = {remove: counter.count(location)}
       hash
     end
   end

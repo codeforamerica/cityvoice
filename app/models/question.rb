@@ -12,6 +12,7 @@
 
 class Question < ActiveRecord::Base
   has_many :answers
+  has_many :choices
 
   validates_presence_of :short_name, :feedback_type
   validates_uniqueness_of :short_name

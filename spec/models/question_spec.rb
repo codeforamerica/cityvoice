@@ -14,6 +14,7 @@ require 'spec_helper'
 
 describe Question do
   it { should have_many(:answers) }
+  it { should have_many(:choices) }
 
   it { should validate_presence_of(:short_name) }
   it { should validate_presence_of(:feedback_type) }

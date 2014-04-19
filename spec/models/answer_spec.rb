@@ -2,22 +2,23 @@
 #
 # Table name: answers
 #
-#  id                 :integer          not null, primary key
-#  question_id        :integer
-#  voice_file_url     :string(255)
-#  numerical_response :integer
-#  created_at         :datetime
-#  updated_at         :datetime
-#  call_id            :integer
+#  id             :integer          not null, primary key
+#  question_id    :integer
+#  voice_file_url :string(255)
+#  created_at     :datetime
+#  updated_at     :datetime
+#  call_id        :integer
+#  choice_id      :integer
 #
 
 require 'spec_helper'
 
 describe Answer do
   let(:caller) { create(:caller, phone_number: '+14157672676') }
-  subject(:answer) { create(:answer, caller: caller) }
+  subject(:answer) { create(:answer, :voice_file, caller: caller) }
 
   it { should belong_to(:call) }
+  it { should belong_to(:choice) }
   it { should belong_to(:question) }
 
   it { should have_one(:caller).through(:call) }
@@ -28,27 +29,11 @@ describe Answer do
   it { should validate_presence_of(:question) }
 
   it { should allow_mass_assignment_of(:call) }
+  it { should allow_mass_assignment_of(:choice) }
   it { should allow_mass_assignment_of(:question) }
   it { should allow_mass_assignment_of(:voice_file_url) }
-  it { should allow_mass_assignment_of(:numerical_response) }
 
   its(:obscured_phone_number) { should == '415-XXX-XX76' }
-
-  describe '.total_calls' do
-    let!(:input) { create(:answer, numerical_response: '1') }
-
-    it 'returns the total number of calls for each property' do
-      expect(Answer.total_calls).to eq(input.location => 1)
-    end
-  end
-
-  describe '.total_responses' do
-    let!(:input) { create(:answer, numerical_response: '1') }
-
-    it 'returns the number of responses for each property' do
-      expect(Answer.total_responses('1')).to eq(input.call.location => 1)
-    end
-  end
 
   describe '.voice_messages' do
     context 'when the feedback input does not have a voice file' do
