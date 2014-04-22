@@ -17,7 +17,7 @@ class NumericalAnswersController < ApplicationController
   def build_csv
     CSV.generate do |csv|
       csv << [ 'Time',
-         'Location Code',
+         'Location',
          'Source',
          'Phone Number',
          'Question Prompt',
@@ -25,7 +25,7 @@ class NumericalAnswersController < ApplicationController
              ]
       Answer.all.each do |a|
         csv << [ a.created_at,
-                 a.call.location_id,
+                 a.call.location.name,
                  a.call.source,
                  a.call.caller.phone_number,
                  a.question.question_text,
