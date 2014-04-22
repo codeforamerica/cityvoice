@@ -8,7 +8,30 @@ class NumericalAnswersController < ApplicationController
     @sorted_array = counts.to_array
     respond_to do |format|
       format.html
-      format.csv { send_data counts.to_csv }
+      format.csv { send_data build_csv }
+    end
+  end
+
+  private
+  
+  def build_csv
+    CSV.generate do |csv|
+      csv << [ 'Time',
+         'Location Code',
+         'Source',
+         'Phone Number',
+         'Question Prompt',
+         'Response'
+             ]
+      Answer.all.each do |a|
+        csv << [ a.created_at,
+                 a.call.location_id,
+                 a.call.source,
+                 a.call.caller.phone_number,
+                 a.question.question_text,
+                 (a.numerical_response || a.voice_file_url)
+               ]
+      end
     end
   end
 end
