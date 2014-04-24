@@ -15,6 +15,11 @@
 
     background: white;
     padding: rem-calc(10) rem-calc(13);
+
+    .call {
+      font-size: rem-calc(25);
+      font-weight: 700;
+    }
   }
 
   *:last-child {

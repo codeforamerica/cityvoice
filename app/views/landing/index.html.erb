@@ -5,6 +5,7 @@
 
   <%= render layout: 'landing/info_block', locals: {title: 'Call'} do %>
     <%= @content.call_text %>
+    <p class="call"><%= link_to "Call #{@content.app_phone_number}", "tel:#{@content.app_phone_number}" %></p>
   <% end %>
 
   <%= render layout: 'landing/info_block', locals: {title: 'Listen'} do %>
