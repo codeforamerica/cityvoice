@@ -2,13 +2,21 @@ require 'spec_helper'
 
 describe 'Voice Answers page' do
   let!(:breadland) { create(:location, name: 'Breadland') }
+  let!(:toast_question) { create(:question, question_text: 'How was your toast?') }
   let!(:prank_call) { create(:call, source: '+15551234455', location: breadland) }
-  let!(:voice_answer) { create(:answer, :voice_file, call: prank_call) }
+  let!(:voice_answer) { create(:answer, :voice_file, call: prank_call, question: toast_question) }
 
   describe 'voice answers' do
-    it 'shows the location of a voice answer' do
+    before do
       visit '/voice_answers'
+    end
+
+    it 'shows the location of a voice answer' do
       page.should have_content 'Breadland'
+    end
+
+    it 'shows the question text' do
+      page.should have_content 'How was your toast?'
     end
   end
 

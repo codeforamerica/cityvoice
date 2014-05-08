@@ -1,6 +1,7 @@
 <tr>
   <td><%= link_to(answer.location.name, location_path(answer.location.id)) %></td>
   <td><%= answer.created_at.to_formatted_s(:year_month_date) %></td>
+  <td><%= answer.question.question_text %></td>
   <td>
     <%= answer.obscured_phone_number %>
   </td>
