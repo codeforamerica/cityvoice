@@ -29,7 +29,7 @@ class NumericalAnswersController < ApplicationController
         columns = [ c.created_at,
                     c.location.name,
                     c.source,
-                    c.caller.phone_number,
+                    c.caller.obscured_phone_number
                   ]
 
         questions.map(&:id).each do |question_id|
