@@ -24,3 +24,15 @@
     </table>
   </div>
 </div>
+
+
+<div class="row">
+  <div class="small-12 columns center">
+    <% if @messages.previous_page %>
+      <%= link_to 'Previous', "/voice_answers?page=#{@messages.previous_page}" %>
+    <% end %>
+    <% if @messages.next_page %>
+      <%= link_to 'Next', "/voice_answers?page=#{@messages.next_page}" %>
+    <% end %>
+  </div>  
+</div>
