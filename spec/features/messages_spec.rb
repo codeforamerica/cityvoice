@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'Listening to messages' do
   let(:create_date) { Time.zone.now }
-  let(:location) { create(:location, name: '1313 Mockingbird Lane') }
+  let(:location) { create(:location, id: 333, name: "O'Brien Park/Skate Park") }
   let(:caller) { create(:caller, phone_number: '+14155551212') }
   let(:call) { create(:call, location: location, caller: caller, consented_to_callback: true) }
   let!(:answer) { create(:answer, :voice_file, call: call, created_at: create_date) }
@@ -15,7 +15,7 @@ describe 'Listening to messages' do
     end
 
     it 'shows name of the location' do
-      expect(page).to have_content('1313 Mockingbird Lane')
+      expect(page).to have_content("O'Brien Park/Skate Park")
     end
 
     it 'shows the date the call was made' do
@@ -33,7 +33,7 @@ describe 'Listening to messages' do
 
   context 'on a location page' do
     before do
-      visit location_path('1313-Mockingbird-Lane')
+      visit location_path('333-o-brien-park-skate-park')
     end
 
     it 'shows the date the call was made' do
@@ -74,7 +74,7 @@ describe 'Listening to messages' do
     end
 
     it 'shows name of the location' do
-      expect(page).to have_content('1313 Mockingbird Lane')
+      expect(page).to have_content("O'Brien Park/Skate Park")
     end
 
     it 'shows the total number of votes' do
@@ -96,7 +96,7 @@ describe 'Listening to messages' do
     end
 
     it 'shows name of the location' do
-      expect(page).to have_content('1313 Mockingbird Lane')
+      expect(page).to have_content("O'Brien Park/Skate Park")
     end
 
     it 'shows the date the call was made' do

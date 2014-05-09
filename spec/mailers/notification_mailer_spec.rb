@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe NotificationMailer do
-  let(:location) { create(:location, name: '1313 mockingbird lane') }
+  let(:location) { create(:location, id: 333, name: '1313 mockingbird lane') }
   let(:subscriber) { create(:subscriber, email: 'tacos@example.com') }
   let!(:location_subscription) { create(:location_subscription, subscriber: subscriber, location: location) }
 
@@ -52,7 +52,7 @@ describe NotificationMailer do
     end
 
     it 'assigns @properties_array' do
-      mail.body.encoded.should include('localhost:3000/locations/1313-mockingbird-lane')
+      mail.body.encoded.should include('localhost:3000/locations/333-1313-mockingbird-lane')
     end
 
     it 'assigns @unsubscribe_all_token' do
