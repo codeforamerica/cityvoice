@@ -4,7 +4,7 @@ class LocationsController < ApplicationController
   end
 
   def show
-    @location = Location.find_by_param(params[:id])
+    @location = Location.find(params[:id])
     @numerical_responses = @location.numerical_responses
     @numerical_responses_exist = @location.has_numerical_responses?
     @user_voice_messages = @location.voice_messages

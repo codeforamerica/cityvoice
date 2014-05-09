@@ -27,7 +27,7 @@ describe("Cityvoice.Models.Location", function() {
 
     describe("#toContent", function(){
       it("converts to a latLng", function(){
-        expect(this.location.toContent()).toEqual('<a href="http://test.host/locations/123-Main-Street">123 Main Street</a>');
+        expect(this.location.toContent()).toEqual('<a href="http://test.host/locations/333-123-main-street">123 Main Street</a>');
       });
     });
   });

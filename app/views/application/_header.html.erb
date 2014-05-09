@@ -51,7 +51,7 @@
       displayKey: 'name',
       source: locations.ttAdapter()
     }).on('typeahead:selected', function(e, data, dataset){
-      window.location = '<%= locations_url %>/' + data.name.replace(/\s+/g, '-');
+      window.location = data.url;
     });
   });
 </script>
