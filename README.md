@@ -27,7 +27,11 @@ If you want to make a custom domain, like `city-name-voice.org`, you'll need to 
 
 Deployment
 ----------
-First, create a Heroku app:
+First, clone the application:
+
+	$ git clone git@github.com:codeforamerica/cityvoice.git
+
+Create a Heroku app:
 
     $ heroku create
 
