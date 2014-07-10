@@ -36,7 +36,9 @@ If you're new to Twilio, you'll have to add $10 in credit (the minimum) to your 
 
 #### 2. (Recommended) [Heroku](https://heroku.com) — application hosting
 
-Heroku is an easy way to host your CityVoice instance. If you have experience with Ruby on Rails, you can alternately deploy to any infrastructure that supports a Rails 4 application.
+Heroku is an easy and cheap (~$50/month) way to host your CityVoice instance.
+
+If you have experience with Ruby on Rails, you can alternately deploy to any infrastructure that supports a Rails 4 application.
 
 #### 3. (Optional) [Mapbox](https://mapbox.com) — custom map tiles
 
@@ -71,6 +73,10 @@ Load some example data:
 
     $ heroku run rake import:locations
     $ heroku run rake import:questions
+
+Add an additional web dyno so that the app never sleeps (this is necessary so the app always answers when people call in):
+
+	$ heroku ps:scale web=2
 
 
 #### Configuring Twilio
