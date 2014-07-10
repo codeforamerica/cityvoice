@@ -18,18 +18,35 @@ For details on the status of CityVoice, check out the ["State of the CityVoice" 
 If you're interested in using (or helping out with!) CityVoice, please contact Dave ([@allafarce on Twitter](https://twitter.com/allafarce)) or open an Issue with a description of how you're thinking of using it (this is helpful in informing the code base's generalization.)
 
 
-Required Accounts
------------------
-Accounts on these services are required:
-
-  * [Heroku](https://heroku.com)
-  * [Twilio](https://twilio.com)
-
-If you want to make a custom domain, like `city-name-voice.org`, you'll need to have access to a DNS provider, like Namecheap.
-
-
 Deployment
 ----------
+
+### Third-Party Services
+
+Before deploying, here are the third-party services that are either required or easiest to use.
+
+#### 1. (Required) [Twilio](https://twilio.com) — telephone API
+
+First, you'll need a paid Twilio account and phone number:
+
+- [Register an account](https://www.twilio.com/try-twilio) and add payment information
+- [Buy a phone number](https://www.twilio.com/user/account/phone-numbers/available/local)
+
+If you're new to Twilio, you'll have to add $10 in credit (the minimum) to your account to get started. This will be more than enough for CityVoice, which required $1/month for the phone number and 1 cent per call minute (~ $2/month in total).
+
+#### 2. (Recommended) [Heroku](https://heroku.com) — application hosting
+
+Heroku is an easy way to host your CityVoice instance. If you have experience with Ruby on Rails, you can alternately deploy to any infrastructure that supports a Rails 4 application.
+
+#### 3. (Optional) [Mapbox](https://mapbox.com) — custom map tiles
+
+By default, CityVoice uses Mapquest's free map tiles. If you'd like to use Mapbox for custom map tiles, you can do so by creating a map on Mapbox and setting the map ID in the `MAPBOX_MAP_ID` environment variable.
+
+
+### Deploying on Heroku
+
+Below are example instructions for deploying to Heroku. The process will be similar for other platforms (e.g., Amazon EC2, Red Hat OpenShift).
+
 First, clone the application:
 
 	$ git clone git@github.com:codeforamerica/cityvoice.git
@@ -37,15 +54,7 @@ First, clone the application:
 Create a Heroku app:
 
     $ heroku create
-
-Add the free Sendgrid Heroku addon:
-
-    $ heroku addons:add sendgrid:starter
-
-Add the Heroku scheduled jobs addon:
-
-    $ heroku addons:add scheduler:standard
-
+    
 Set the secret token:
 
     $ heroku config:set SECRET_TOKEN=`rake secret`
@@ -64,16 +73,26 @@ Load some example data:
     $ heroku run rake import:questions
 
 
-#### Twilio
+#### Configuring Twilio
 
-CityVoice uses the awesome [Twilio](www.twilio.com) telephony API. To hook up your app to Twilio, go to their site, create an account, and buy a phone number. To configure your number on Twilio's site, go to 'Numbers' -> 'Twilio Numbers' and click on the phone number you want to hook up.
+To configure your number on Twilio's site, log in and go to [your "Numbers" page](https://www.twilio.com/user/account/phone-numbers/incoming). Then click on the phone number you bought.
 
-On this page, look at the the 'Voice' section, go to the 'Request URL' box, and put in your deployed application's URL followed by `/calls` (for example: `http://my-cityvoice-app-on-heroku.herokuapp.com/calls`)
+In the 'Voice' area, put your deployed application's URL followed by `/calls` in the 'Request URL' field and select `HTTP POST` from the dropdown.
 
-Then select `POST` from the dropdown immediate to the right of where you put the URL.
+For example, for an app at http://my-cityvoice-instance.herokuapp.com:
+
+![image](screenshots/twilio-number-configuration.png)
 
 
-#### Email Notifications
+#### (Optional) Setting up email notifications
+
+Add the free Sendgrid Heroku addon:
+
+    $ heroku addons:add sendgrid:starter
+
+Add the Heroku scheduled jobs addon:
+
+    $ heroku addons:add scheduler:standard
 
 An example for setting this up on Heroku with a custom domain of `myappdomain.com`:
 
@@ -86,16 +105,16 @@ Then, open the Heroku scheduled jobs console:
 Once in the web interface, set up a new scheduled job with the `rake notifications:task` to be run at whatever interval you want.
 
 
-#### Google Analytics
+#### (Optional) Google Analytics
 
 In production, you may want to set up Google Analytics with the environment variable used as a flag:
 
     $ heroku config:set GOOGLE_ANALYTICS_ID=foo123
 
 
-#### Basic Authentication
+#### (Optional) Password protection
 
-If you want HTTP basic authentication enabled, you can set the following environment variables:
+If you want collect telephone feedback but keep the web interface provide, you can password-protect the web site by setting the following environment variables:
 
     $ heroku config:set LOCK_CITYVOICE=true
     $ heroku config:set CITYVOICE_LOCK_USERNAME=xxxxxxxxxx
@@ -104,7 +123,8 @@ If you want HTTP basic authentication enabled, you can set the following environ
 If you forget the username or password, you can always find them again with the Heroku utility:
 
     $ heroku config
-      CITYVOICE_LOCK_USERNAME=very-clever-name
+          CITYVOICE_LOCK_USERNAME=very-clever-name
+          CITYVOICE_LOCK_PASSWORD=8974ijhdf98sydfkjshdfher0sdufkjshdfkj
 
 
 Development
