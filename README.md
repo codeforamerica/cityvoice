@@ -134,7 +134,11 @@ Then, run `ngrok 3000` to open a tunnel:
     Forwarding                    https://xxx.ngrok.com -> 127.0.0.1:3000
     Web Interface                 127.0.0.1:4040
 
-Log into your Twilio application, open up your [phone number](https://www.twilio.com/user/account/phone-numbers/incoming) and change the Voice Request URL to the `https://xxx.ngrok.com` redirection address.
+Log into your Twilio application, open up your [phone number](https://www.twilio.com/user/account/phone-numbers/incoming) and change the Voice Request URL to the your ngrok address with `/calls` at the end. For example:
+
+`https://xxx.ngrok.com/calls`
+
+Also select `POST` from the dropdown next to the URL box.
 
 
 Contributing
