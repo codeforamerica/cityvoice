@@ -2,8 +2,8 @@ CityVoice [![Build Status](https://travis-ci.org/codeforamerica/cityvoice.svg?br
 =========
 CityVoice is a place-based call-in system to collect community feedback on geographic entities (like vacant properties) using the simple, accessible medium of the telephone.
 
-- [How to deploy CityVoice yourself](#Deployment)
-- [Setting up for local development](#Development)
+- [How to deploy CityVoice yourself](#deployment)
+- [Setting up for local development](#development)
 
 
 Notice
