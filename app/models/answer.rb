@@ -49,6 +49,6 @@ class Answer < ActiveRecord::Base
   end
 
   def obscured_phone_number
-    "#{caller.phone_number.to_s[-10..-8]}-XXX-XX#{caller.phone_number.to_s[-2..-1]}"
+    caller.obscured_phone_number
   end
 end

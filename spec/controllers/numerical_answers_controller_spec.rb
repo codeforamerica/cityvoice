@@ -3,7 +3,7 @@ require 'spec_helper'
 describe NumericalAnswersController do
   describe 'GET #index' do
     let(:location) { create :location, name: '1313 Mockingbird Lane' }
-    let(:call) { create(:call, location: location) }
+    let(:call) { create(:call, source: 'twilio', location: location) }
     let!(:input) { create(:answer, call: call, numerical_response: '1') }
 
     before { make_request }
@@ -28,7 +28,11 @@ describe NumericalAnswersController do
       end
 
       it 'renders a csv document' do
-        expect(response.body).to eq("Address,Total,Repair,Remove\n1313 Mockingbird Lane,1,1,0\n")
+        expect(response.body).to have_content('Time,Location Code,Source,Phone Number,Question Prompt')
+      end
+
+      it 'shows the call source' do
+        expect(response.body).to have_content('twilio')
       end
     end
   end
