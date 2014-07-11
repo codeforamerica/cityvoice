@@ -38,7 +38,7 @@ If you're new to Twilio, you'll have to add $10 in credit (the minimum) to your 
 
 Heroku is an easy and cheap (~$50/month) way to host your CityVoice instance.
 
-If you have experience with Ruby on Rails, you can alternately deploy to any infrastructure that supports a Rails 4 application.
+If you have experience with Ruby on Rails, you can alternately deploy to any infrastructure that supports a Rails 4 application and Postgres.
 
 #### 3. (Optional) [Mapbox](https://mapbox.com) — custom map tiles
 
