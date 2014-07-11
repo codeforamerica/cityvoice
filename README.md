@@ -65,7 +65,7 @@ Set the secret token:
 
     $ heroku config:set SECRET_TOKEN=`rake secret`
 
-(If you don't have Ruby installed and this command gives you errors, you can replace \`rake secret\` with a long random string, e.g. `SECRET_TOKEN=8ausfkjhasdfkjshdfkjaisufyasfasdkjfskdjfh`.)
+(If you don't have Ruby installed and this command gives you errors, you can replace \`rake secret\` by typing in at least 30 random characters string, for example: `SECRET_TOKEN=8ausfkjhasdfkjshdfkjaisufyasfasdkjfskdjfh`.)
 
 Next, push the code to Heroku:
 
