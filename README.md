@@ -53,6 +53,10 @@ First, clone the application:
 
 	$ git clone git@github.com:codeforamerica/cityvoice.git
 
+Go into the repo folder:
+
+    $ cd cityvoice
+
 Create a Heroku app:
 
     $ heroku create
