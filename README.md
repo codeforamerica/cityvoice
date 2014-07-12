@@ -63,9 +63,7 @@ Create a Heroku app:
     
 Set the secret token:
 
-    $ heroku config:set SECRET_TOKEN=`rake secret`
-
-(If you don't have Ruby installed and this command gives you errors, you can replace \`rake secret\` by typing in at least 30 random characters string, for example: `SECRET_TOKEN=8ausfkjhasdfkjshdfkjaisufyasfasdkjfskdjfh`.)
+    $ heroku config:set SECRET_TOKEN=`python -c 'import uuid; print uuid.uuid4()'`
 
 Next, push the code to Heroku:
 
