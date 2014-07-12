@@ -81,12 +81,12 @@ describe 'Listening to messages' do
       expect(page).to have_content('1')
     end
 
-    it 'shows the number of repair votes' do
-      expect(page).to have_content('Repair 1')
+    it 'shows the number of agree votes' do
+      expect(page).to have_content('Agree 1')
     end
 
-    it 'shows the number of remove votes' do
-      expect(page).to have_content('Remove 0')
+    it 'shows the number of no votes' do
+      expect(page).to have_content('Disagree 0')
     end
   end
 
