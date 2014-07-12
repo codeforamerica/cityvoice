@@ -5,7 +5,7 @@ class NumericalResponse < Struct.new(:question, :location)
 
   def response_hash
     total = location.answers.count * 0.01
-    %w(Repair Remove).each_with_index.reduce({}) do |hash, (choice, index)|
+    %w(Agree Disagree).each_with_index.reduce({}) do |hash, (choice, index)|
       hash[choice] = location.answers
                              .where(question: question)
                              .where(numerical_response: (index+1))

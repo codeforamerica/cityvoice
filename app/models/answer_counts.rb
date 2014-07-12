@@ -1,6 +1,6 @@
 require 'csv'
 
-class AnswerCounts < Struct.new(:total_counts, :repair_counts, :remove_counts)
+class AnswerCounts < Struct.new(:total_counts, :agree_counts, :disagree_counts)
   def total_hash
     total_counts.reduce({}) do |hash, (property, calls)|
       hash[property] = {total: calls}
@@ -8,22 +8,22 @@ class AnswerCounts < Struct.new(:total_counts, :repair_counts, :remove_counts)
     end
   end
 
-  def repair_hash
-    repair_counts.reduce({}) do |hash, (property, repairs)|
-      hash[property] = {repair: repairs}
+  def agree_hash
+    agree_counts.reduce({}) do |hash, (property, agrees)|
+      hash[property] = {agree: agrees}
       hash
     end
   end
 
-  def remove_hash
-    remove_counts.reduce({}) do |hash, (property, removals)|
-      hash[property] = {remove: removals}
+  def disagree_hash
+    disagree_counts.reduce({}) do |hash, (property, disagrees)|
+      hash[property] = {disagree: disagrees}
       hash
     end
   end
 
   def to_hash
-    total_hash.deep_merge(repair_hash).deep_merge(remove_hash)
+    total_hash.deep_merge(agree_hash).deep_merge(disagree_hash)
   end
 
   def to_array
@@ -34,13 +34,13 @@ class AnswerCounts < Struct.new(:total_counts, :repair_counts, :remove_counts)
 
   def to_csv
     CSV.generate do |csv|
-      csv << %w[Address Total Repair Remove]
+      csv << %w[Address Total Agree Disagree]
       to_array.each do |location, count_hash|
         csv << [
           location.name,
           count_hash[:total] || 0,
-          count_hash[:repair] || 0,
-          count_hash[:remove] || 0,
+          count_hash[:agree] || 0,
+          count_hash[:disagree] || 0,
         ]
       end
     end

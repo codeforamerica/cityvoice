@@ -3,13 +3,13 @@
   <td rowspan="2"><%= link_to(location.name, location) %></td>
   <td>Agree</td>
   <td>
-    <%= render partial: 'numerical_answers/vote_meter', locals: { total: votes.fetch(:total, 0), number: votes.fetch(:repair, 0) } %>
+    <%= render partial: 'numerical_answers/vote_meter', locals: { total: votes.fetch(:total, 0), number: votes.fetch(:agree, 0) } %>
   </td>
 </tr>
 <tr>
   <td>Disagree</td>
   <td>
-    <%= render partial: 'numerical_answers/vote_meter', locals: { total: votes.fetch(:total, 0), number: votes.fetch(:remove, 0) } %>
+    <%= render partial: 'numerical_answers/vote_meter', locals: { total: votes.fetch(:total, 0), number: votes.fetch(:disagree, 0) } %>
 
   </td>
 </tr>
