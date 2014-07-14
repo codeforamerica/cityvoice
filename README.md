@@ -18,6 +18,16 @@ For details on the status of CityVoice, check out the ["State of the CityVoice" 
 If you're interested in using (or helping out with!) CityVoice, please contact Dave ([@allafarce on Twitter](https://twitter.com/allafarce)) or open an Issue with a description of how you're thinking of using it (this is helpful in informing the code base's generalization.)
 
 
+Making a CityVoice survey
+---------------
+
+Making a survey for CityVoice has three steps:
+
+1. [Writing questions](making_a_survey.md#writing-questions)
+2. [Adding locations](making_a_survey.md#adding-locations)
+3. [Recording audio files](making_a_survey.md#recording-audio-files)
+
+
 Deployment
 ----------
 
