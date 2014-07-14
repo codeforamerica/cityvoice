@@ -52,7 +52,27 @@ Now we're good to go! With our example, the "agree/disagree" question will show 
 
 ## Adding locations
 
-[Placeholder — explain location CSV structure]
+Next, you want to add locations for your CityVoice survey.
+
+Locations can be either:
+
+- Places you want to ask questions about (for example, an abandoned property)
+- Places that you want to segment your feedback by (for example, different neighborhood)
+
+You can add locations by editing the [data/locations.csv](data/locations.csv) file. (Similar to the `questions.csv` file, you can edit this in Excel or a text editor.) It looks like this:
+
+![image](screenshots/locations-csv.png)
+
+You will need to provide:
+
+1. **Name** — the name that will show up on the web site
+2. **Lat and Long** — the latitude and longitude of the location
+
+There are a number of tools for finding the latitude and longitude of your locations online.
+
+- If you have **a small # of individual locations**, this site is good: http://itouchmap.com/latlong.html
+- If you have **a large # of addresses**, you can use site that geocodes addresses, for example [CartoDB](http://www.cartodb.com/) or [BatchGeo](http://batchgeo.com/)
+
 
 ## Recording audio files
 
