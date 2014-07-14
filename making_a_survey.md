@@ -10,7 +10,45 @@ Making a survey for CityVoice involves three steps:
 
 ### Writing questions
 
-[Placeholder — explain question structure in CSVs]
+The first step to using CityVoice is deciding what questions you want callers to answer.
+
+There are two types of questions:
+
+- **Agree/disagree questions** — a caller presses 1 or 2 to say whether they agree or disagree with a statement
+- **Voice questions** — a caller leaves a voice message that can be listened to by other callers and visitors to the web site
+
+#### Configuring questions
+
+You configure your questions by editing the [data/questions.csv](data/questions.csv) file. It's easily edited in Excel or a text editor.
+
+Each question requires a bit of information:
+
+1. **Short Name** — This is a shorthand description of the question, will show up on the web page above responses, and also the filename for the mp3 audio file you'll record.
+2. **Feedback Type** — This should either be "numerical_response" for an agree/disagree question, or "voice_file" for a voice question.
+3. **Question Text** — This is the text of the question. This shows up on the web page 
+
+Questions will be asked in the order that they are in this file. We recommned you put your voice question last.
+
+#### Example
+
+Let's walk through an example with questions someone might want to ask about abandoned properties. We'll have two questions:
+
+- One "agree-disagree" question about whether the property should be removed, and
+- One voice question for comments about the property
+
+First, we would edit the CSV file to look like this:
+
+![image](screenshots/questions-csv.png)
+
+Second, we would record audio files to play to the callers for these two questions, save those files as "short_name.mp3", and put them in the `app/assets/audios/` folder:
+
+![image](screenshots/question-audio-files.png)
+
+Now we're good to go! With our example, the "agree/disagree" question will show up on the CityVoice site like this:
+
+![image](screenshots/question-display.png)
+
+
 
 ### Adding locations
 
