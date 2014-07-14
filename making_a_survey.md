@@ -149,7 +149,7 @@ Default audio <a href="app/assets/audios/listen_to_next_answer.mp3?raw=true">(cl
 
 > To listen to another message, press 1; to leave your own feedback, press 2.
 
-#### 9.last_answer_reached.mp3
+#### 9. last_answer_reached.mp3
 
 - This is played when a caller is listening to others' feedback on the phone, but there are no other messages remaining.
 - Button options: to leave your own feedback, press 1. Otherwise, please hang up.
