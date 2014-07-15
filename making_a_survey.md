@@ -8,6 +8,16 @@ Making a survey for CityVoice involves three steps:
 3. [Recording audio files](#recording-audio-files)
 
 
+## Getting started
+
+First you'll want a local copy of the CityVoice files. You can get this by:
+
+- Installing `git` — the Heroku toolbelt is a one-click installer that will do this for you: https://toolbelt.heroku.com/ 
+- Opening a command prompt and cloning the CityVoice files:
+
+	`$ git clone git@github.com:codeforamerica/cityvoice.git`
+
+
 ## Writing questions
 
 The first step to using CityVoice is deciding what questions you want callers to answer.
@@ -19,13 +29,13 @@ There are two types of questions:
 
 ### Configuring questions
 
-You configure your questions by editing the [data/questions.csv](data/questions.csv) file. It's easily edited in Excel or a text editor.
+You configure your questions by editing the `data/questions.csv` file in your local copy of the CityVoice files. It's easily edited in Excel or a text editor.
 
 Each question requires a bit of information:
 
 1. **Short Name** — This is a shorthand description of the question, will show up on the web page above responses, and also the filename for the mp3 audio file you'll record.
 2. **Feedback Type** — This should either be "numerical_response" for an agree/disagree question, or "voice_file" for a voice question.
-3. **Question Text** — This is the text of the question. This shows up on the web page 
+3. **Question Text** — This is the text of the question. This shows up on the web page and should be similar to the audio text you record for the question.
 
 Questions will be asked in the order that they are in this file. We recommned you put your voice question last.
 
@@ -40,13 +50,15 @@ First, we would edit the CSV file to look like this:
 
 ![image](screenshots/questions-csv.png)
 
-Second, we would record audio files to play to the callers for these two questions, save those files as "short_name.mp3", and put them in the `app/assets/audios/` folder:
+With our example, the results of this "agree/disagree" question will show up on your CityVoice site like this:
+
+![image](screenshots/question-display.png)
+
+Second, we would record audio files to play to the callers for these two questions, save those files as "short_name.mp3", and put them in the `app/assets/audios/` folder. (Look at the "[Recording audio files](#recording-audio-files)" section below for more info on how to do this.)
 
 ![image](screenshots/question-audio-files.png)
 
-Now we're good to go! With our example, the "agree/disagree" question will show up on the CityVoice site like this:
-
-![image](screenshots/question-display.png)
+Now we're good to go! 
 
 
 
@@ -57,9 +69,9 @@ Next, you want to add locations for your CityVoice survey.
 Locations can be either:
 
 - Places you want to ask questions about (for example, an abandoned property)
-- Places that you want to segment your feedback by (for example, different neighborhood)
+- Places that you want to segment your feedback by (for example, different neighborhoods)
 
-You can add locations by editing the [data/locations.csv](data/locations.csv) file. (Similar to the `questions.csv` file, you can edit this in Excel or a text editor.) It looks like this:
+You can add locations by editing the `data/locations.csv` file. (Similar to the `questions.csv` file, you can edit this in Excel or a text editor.) It looks like this:
 
 ![image](screenshots/locations-csv.png)
 

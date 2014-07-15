@@ -2,33 +2,42 @@ CityVoice [![Build Status](https://travis-ci.org/codeforamerica/cityvoice.svg?br
 =========
 CityVoice is a place-based call-in system to collect community feedback on geographic entities (like vacant properties) using the simple, accessible medium of the telephone.
 
-- [How to deploy CityVoice yourself](#deployment)
-- [Setting up for local development](#development)
+![image](screenshots/location-page.png)
 
+Using CityVoice in your city
+---------------
 
-Notice
-------
-CityVoice's current code base is *early stage software*. The project was a rapid-iteration experiment for South Bend, IN during the 2013 CfA fellowship, and still has a lot of South Bend-specific logic hard-coded in. Generalizing for reuse is an ongoing project.
+CityVoice is an open source project, and we'd love for you to use it yourself!
 
-For details on the status of CityVoice, check out the ["State of the CityVoice" document](https://github.com/codeforamerica/cityvoice/blob/revamp-for-local-setup/code-base-overview.md#state-of-the-cityvoice), in particular:
+To use CityVoice, there are three main steps:
 
-- [High-level status summary](https://github.com/codeforamerica/cityvoice/blob/revamp-for-local-setup/code-base-overview.md#high-level-summary)
-- [Proposed strategy for generalizing for reuse](https://github.com/codeforamerica/cityvoice/blob/revamp-for-local-setup/code-base-overview.md#a-proposal-for-generalizationredeployability)
+- [Making a CityVoice survey](#making-a-cityvoice-survey)
+- [Deploying the web application](#deploying-the-app)
+- Outreach and marketing to the community
 
-If you're interested in using (or helping out with!) CityVoice, please contact Dave ([@allafarce on Twitter](https://twitter.com/allafarce)) or open an Issue with a description of how you're thinking of using it (this is helpful in informing the code base's generalization.)
+Following this documentation, a semi-technical user — someone with experience using a terminal or command prompt — who has an idea of what kind of survey they would like to run should be able to get CityVoice up and running in a relatively short amount of time (less than a day).
+
+Using the recommended deployment instructions below, the tech cost (hosting and other services) should run you about $50 per month.
+
+If you have problems using CityVoice, please [open an issue here on GitHub](https://github.com/codeforamerica/cityvoice/issues/new) and let us know what problems or difficulties you encountered in as much detail as you can.
 
 
 Making a CityVoice survey
----------------
+-----
 
-Making a survey for CityVoice has three steps:
+What you'll need to make a CityVoice survey:
 
-1. [Writing questions](making_a_survey.md#writing-questions)
-2. [Adding locations](making_a_survey.md#adding-locations)
-3. [Recording audio files](making_a_survey.md#recording-audio-files)
+1. A set of locations (for example, properties or neighborhoods) that callers will call in about or from
+2. A set of 2-5 questions that you want to ask callers
+  - Agree/disagree questions
+  - A voice message question
+3. A microphone (for example, using a laptop or phone) to record mp3 audio files
+
+The exact steps for making and setting these up in CityVoice are in [the "Making a Survey" document](making_a_survey.md).
 
 
-Deployment
+
+Deploying the app
 ----------
 
 ### Third-Party Services
@@ -50,12 +59,10 @@ Heroku is an easy and cheap (~$50/month) way to host your CityVoice instance.
 
 If you have experience with Ruby on Rails, you can alternately deploy to any infrastructure that supports a Rails 4 application and Postgres.
 
-#### 3. (Optional) [Mapbox](https://mapbox.com) — custom map tiles
-
-By default, CityVoice uses Mapquest's free map tiles. If you'd like to use Mapbox for custom map tiles, you can do so by creating a map on Mapbox and setting the map ID in the `MAPBOX_MAP_ID` environment variable.
-
 
 ### Deploying on Heroku
+
+To follow the below instructions, you will first need to [install the Heroku toolbelt](https://toolbelt.heroku.com/) on your computer.
 
 Below are example instructions for deploying to Heroku. The process will be similar for other platforms (e.g., Amazon EC2, Red Hat OpenShift).
 
@@ -75,6 +82,11 @@ Set the secret token:
 
     $ heroku config:set SECRET_TOKEN=`python -c 'import uuid; print uuid.uuid4()'`
 
+Take the CSV and mp3 files content you created in the "[Making a CityVoice survey](making_a_survey.md)" section, put them in their destination folders (`/data` and `/app/assets/audios/`) and add and commit them into the repo.
+
+	$ git add data/ app/assets/audios/
+	$ git commit -m "Add customized CSVs and audio files for my deployment"
+
 Next, push the code to Heroku:
 
     $ git push heroku master
@@ -83,7 +95,7 @@ Migrate the database:
 
     $ heroku run rake db:migrate
 
-Load some example data:
+Load the locations and questions:
 
     $ heroku run rake import:locations
     $ heroku run rake import:questions
@@ -104,51 +116,27 @@ For example, for an app at http://my-cityvoice-instance.herokuapp.com:
 ![image](screenshots/twilio-number-configuration.png)
 
 
-#### (Optional) Setting up email notifications
+#### Optional features
 
-Add the free Sendgrid Heroku addon:
+CityVoice also has a number of optional features you can set up:
 
-    $ heroku addons:add sendgrid:starter
-
-Add the Heroku scheduled jobs addon:
-
-    $ heroku addons:add scheduler:standard
-
-An example for setting this up on Heroku with a custom domain of `myappdomain.com`:
-
-    $ heroku config:set APP_URL=http://www.myappdomain.com
-
-Then, open the Heroku scheduled jobs console:
-
-    $ heroku addons:open scheduler
-
-Once in the web interface, set up a new scheduled job with the `rake notifications:task` to be run at whatever interval you want.
+- [Email notifications](optional_features.md#email-notifications)
+- [Custom map tiles](optional_features.md#custom-map-tiles)
+- [Google Analytics](optional_features.md#google-analytics)
+- [Password protection](optional_features.md#password-protection)
 
 
-#### (Optional) Google Analytics
-
-In production, you may want to set up Google Analytics with the environment variable used as a flag:
-
-    $ heroku config:set GOOGLE_ANALYTICS_ID=foo123
-
-
-#### (Optional) Password protection
-
-If you want collect telephone feedback but keep the web interface provide, you can password-protect the web site by setting the following environment variables:
-
-    $ heroku config:set LOCK_CITYVOICE=true
-    $ heroku config:set CITYVOICE_LOCK_USERNAME=xxxxxxxxxx
-    $ heroku config:set CITYVOICE_LOCK_PASSWORD=`rake secret`
-
-If you forget the username or password, you can always find them again with the Heroku utility:
-
-    $ heroku config
-          CITYVOICE_LOCK_USERNAME=very-clever-name
-          CITYVOICE_LOCK_PASSWORD=8974ijhdf98sydfkjshdfher0sdufkjshdfkj
-
-
-Development
+For developers - local setup
 -----------
+
+If you're a software developer and would like to work on CityVoice, this section will get you up and running.
+
+CityVoice is a Ruby on Rails 4 application and uses Postgres as its database (other databases may work, but are untested).
+
+To get started with development, clone the repo and cd into the directory:
+
+	$ git clone git@github.com:codeforamerica/cityvoice.git
+	$ cd cityvoice
 
 Use Bundler to install dependencies:
 
@@ -166,6 +154,10 @@ Next, load some sample data:
 
     $ rake import:locations
     $ rake import:questions
+
+Tests are written in RSpec, and can be run as normal:
+
+	$ rake spec
 
 
 ### Twilio Local Setup
