@@ -1,0 +1,17 @@
+{
+  "name": "CityVoice",
+  "description": "A place-based call-in system for gathering and sharing community feedback",
+  "website": "https://github.com/codeforamerica/cityvoice",
+  "success_url": "/",
+  "addons": ["heroku-postgresql:hobby-dev"],
+  "env": {
+    "RAILS_ENV": "production",
+    "SECRET_TOKEN": {
+            "description": "This gets generated",
+            "generator": "secret"
+    }
+  },
+  "scripts": {
+    "postdeploy": "bash heroku_postdeploy_setup.sh"
+  }
+}
