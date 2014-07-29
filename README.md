@@ -13,7 +13,7 @@ To use CityVoice, there are three main steps:
 
 - [Making a CityVoice survey](#making-a-cityvoice-survey)
 - [Deploying the web application](#deploying-the-app)
-- Outreach and marketing to the community
+- [Outreach and marketing to the community](#outreach-and-marketing)
 
 Following this documentation, a semi-technical user — someone with experience using a terminal or command prompt — who has an idea of what kind of survey they would like to run should be able to get CityVoice up and running in a relatively short amount of time (less than a day).
 
@@ -124,6 +124,20 @@ CityVoice also has a number of optional features you can set up:
 - [Custom map tiles](optional_features.md#custom-map-tiles)
 - [Google Analytics](optional_features.md#google-analytics)
 - [Password protection](optional_features.md#password-protection)
+
+
+Outreach and Marketing
+-----
+
+Effective outreach might be the most important piece to making your use of CityVoice a success. Here are some tips from past CityVoice uses that might be helpful:
+
+- Physical, prominent, and persistent calls to action are very useful. For example, a large sign in a park that's there for two months is much better than a poster on a bulletin board with 20 other posters or a mass email.
+
+- Promotion, outreach, and media campaigns around the application are incredibly important. Without an effective campaign no one will know or care about the project.
+
+- The application is really built to ask questions about locations. Although it can work in other situations, it works best when tied to specific places.
+
+If you've used CityVoice before and have additional ideas, let us know! [Click here and describe your experience with doing CityVoice outreach](https://github.com/codeforamerica/cityvoice/issues/new).
 
 
 For developers - local setup
