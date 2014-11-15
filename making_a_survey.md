@@ -90,11 +90,13 @@ There are a number of tools for finding the latitude and longitude of your locat
 
 The main way people interact with CityVoice is by calling in to a phone number and responding to different voice prompts. So to use CityVoice, you will need to record some audio files for your survey (in an mp3 format).
 
-Here are some easy-to-use programs for recording audio:
+The absolute easiest way to record audio is to go to:
 
-- On Mac, Quicktime
-- On Windows, Sound Recorder
-- On Linux, [Audacity](http://audacity.sourceforge.net/)
+- http://www.recordmp3.org/
+
+where you can record audio in your browser.
+
+You can alternately use a desktop program for recording audio on the desktop for example: Quicktime (Mac), Sound Recorder (Windows), or Audacity.
 
 
 ### Required — audio files you have to record yourself
