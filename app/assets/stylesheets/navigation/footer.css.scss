@@ -16,7 +16,7 @@
       margin-left: rem-calc(20);
     }
 
-    .codeforamerica, .cityvoice {
+    .codeforamerica, .cityvoice, .southbend {
       overflow: hidden;
       text-indent: 100%;
       white-space: nowrap;
@@ -26,24 +26,20 @@
 
     .codeforamerica {
       background-image: image-url('cfa_logo_black.png');
-      height: rem-calc(40);
+      height: rem-calc(50);
       width: rem-calc(100);
     }
 
     .cityvoice {
       background-image: image-url('CityVoice_footer.png');
-      height: rem-calc(39);
+      height: rem-calc(50);
       width: rem-calc(142);
     }
 
     .southbend {
       background-image: image-url('southbendlogo.png');
       height: rem-calc(50);
-      width: rem-calc(200);
-      line-height: rem-calc(50);
-      text-indent: rem-calc(65);
-      color: black;
-      background-position: rem-calc(5) center;
+      width: rem-calc(60);
     }
   }
 }
