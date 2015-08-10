@@ -24,6 +24,7 @@ Cityvoice.Views.Map = Backbone.View.extend({
   createMap: function(){
     if (!this.leafletTileLayer) { this.createTileLayer(); }
     this.leafletMap = L.map(this.$el[0], this._getMapOptions());
+    this.leafletTileLayer.addTo(this.leafletMap);
   },
 
   createTileLayer: function(){
@@ -36,8 +37,7 @@ Cityvoice.Views.Map = Backbone.View.extend({
     this.collection.each(function(model){
       L.marker(model.toLatLng()).bindPopup(model.toContent()).addTo(map);
     });
-    this.leafletMap.fitBounds(this.collection.getBounds());
-    this.leafletTileLayer.addTo(this.leafletMap);
+    this.leafletMap.fitBounds(this.collection.getBounds(), {reset: true});
     return this;
   }
 });
