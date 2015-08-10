@@ -37,7 +37,7 @@ Cityvoice.Views.Map = Backbone.View.extend({
     this.collection.each(function(model){
       L.marker(model.toLatLng()).bindPopup(model.toContent()).addTo(map);
     });
-    this.leafletMap.fitBounds(this.collection.getBounds());
+    this.leafletMap.fitBounds(this.collection.getBounds(), {reset: true});
     return this;
   }
 });
