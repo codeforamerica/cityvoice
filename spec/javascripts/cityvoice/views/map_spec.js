@@ -54,7 +54,7 @@ describe("Cityvoice.Views.Map", function() {
 
       it("fits the view of the map to the bounds of the collection", function(){
         this.map.render();
-        expect(this.fitBoundsSpy).toHaveBeenCalledWith('bounds');
+        expect(this.fitBoundsSpy).toHaveBeenCalledWith('bounds', { reset: true });
       });
     });
 

@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-  - 2.1.1
+  - 2.1.7
 script: script/ci.sh
 notifications:
   webhooks: http://project-monitor.codeforamerica.org/projects/44ca9e93-fc92-46bd-9b76-bafe54b90590/status
