@@ -9,10 +9,11 @@
     <table style="width: 100%">
       <thead>
         <tr>
-          <th width="250">Location</th>
-          <th width="150">Date</th>
-          <th width="150">Phone #</th>
-          <th></th>
+          <th width="150">Location</th>
+          <th width="90">Date</th>
+          <th>Question</th>
+          <th width="120">Phone #</th>
+          <th width="50"></th>
         </tr>
       </thead>
       <tbody>
@@ -22,4 +23,16 @@
       </tbody>
     </table>
   </div>
+</div>
+
+
+<div class="row">
+  <div class="small-12 columns center">
+    <% if @messages.previous_page %>
+      <%= link_to 'Previous', "/voice_answers?page=#{@messages.previous_page}" %>
+    <% end %>
+    <% if @messages.next_page %>
+      <%= link_to 'Next', "/voice_answers?page=#{@messages.next_page}" %>
+    <% end %>
+  </div>  
 </div>

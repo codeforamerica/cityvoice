@@ -119,8 +119,8 @@ describe 'Listening to messages' do
       let(:call) { create(:call, caller: caller, location: location, consented_to_callback: false) }
       let!(:answer) { create(:answer, :voice_file, call: call, created_at: create_date) }
 
-      it 'does not display a number' do
-        expect(page).not_to have_content('XXX-XX12')
+      it 'does display a number' do
+        expect(page).to have_content('XXX-XX12')
       end
     end
   end
