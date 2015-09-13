@@ -3,7 +3,11 @@
   <% numerical_response.response_hash.each do |selection, count| %>
     <h4><%= selection %></h4>
     <div class="city-voice-vote-meter progress">
-      <span class="meter" style="width: <%= (count.to_f / numerical_response.total_response_count.to_f) * 100 -%>%"><%= count.to_s %></span>
+      <% if numerical_response.total_response_count > 0 %>
+        <span class="meter" style="width: <%= (count.to_f / numerical_response.total_response_count.to_f) * 100 -%>%"><%= count %></span>
+      <% else %>
+        <span class="meter" style="width: 0%"><%= 0 %></span>
+      <% end %>
     </div>
   <% end %>
 <% end %>
