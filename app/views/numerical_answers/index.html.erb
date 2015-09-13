@@ -8,21 +8,23 @@
   <div class="small-12 columns">
       <% @questions.each do |question| %>
         <h4><%= question.question_text %></h4>
-          <table>
-          <tbody>
-            <tr>
-              <td>Agree</td>
-              <td><%= question.response_counts[1] %></td>
-            </tr>
-            <tr>
-              <td>Disagree</td>
-              <td><%= question.response_counts[2] %></td>
-            </tr>
-          </tbody>
-          </table>
-        </tr>
+          <h5>Agree</h5>
+          <div class="city-voice-vote-meter progress">
+            <% if question.total_numerical_responses > 0 %>
+              <span class="meter" style="width: <%= (question.response_counts[1].to_f / question.total_numerical_responses) * 100 -%>%"><%= question.response_counts[1] %></span>
+            <% else %>
+              <span class="meter" style="width: 0%"><%= 0 %></span>
+            <% end %>
+          </div>
+          <h5>Disagree</h5>
+          <div class="city-voice-vote-meter progress">
+            <% if question.total_numerical_responses > 0 %>
+              <span class="meter" style="width: <%= (question.response_counts[2].to_f / question.total_numerical_responses) * 100 -%>%"><%= question.response_counts[2] %></span>
+            <% else %>
+              <span class="meter" style="width: 0%"><%= 0 %></span>
+            <% end %>
+          </div>
+          <br>
       <% end %>
-      </tbody>
-    </table>
   </div>
 </div>
