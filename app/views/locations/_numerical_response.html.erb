@@ -1,8 +1,9 @@
 <%= render layout: 'landing/info_block', locals: {title: numerical_response.short_name.titleize, html_class: 'city-voice-numerical-response'} do %>
   <p><%= numerical_response.question_text %></p>
-  <% numerical_response.response_hash.each do |number, percentage| %>
+  <% numerical_response.response_hash.each do |selection, count| %>
+    <h4><%= selection %></h4>
     <div class="city-voice-vote-meter progress">
-      <span class="meter" style="width: <%= percentage -%>%"><%= number %></span>
+      <span class="meter" style="width: <%= (count.to_f / numerical_response.total_response_count.to_f) * 100 -%>%"><%= count.to_s %></span>
     </div>
   <% end %>
 <% end %>
