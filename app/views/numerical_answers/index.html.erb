@@ -6,20 +6,25 @@
 
 <div class="row">
   <div class="small-12 columns">
-    <table style="width: 100%">
-      <thead>
-        <tr>
-          <th width="100">Total Calls</th>
-          <th width="150">Address</th>
-          <th width="100">Opinion</th>
-          <th>Votes</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @sorted_array.each do |location, votes| %>
-          <%= render partial: 'numerical_answers/vote', locals: {location: location, votes: votes}%>
-        <% end %>
-      </tbody>
-    </table>
+      <% @questions.each do |question| %>
+        <h4><%= question.question_text %></h4>
+          <h5>Agree</h5>
+          <div class="city-voice-vote-meter progress">
+            <% if question.total_numerical_responses > 0 %>
+              <span class="meter" style="width: <%= (question.response_counts[1].to_f / question.total_numerical_responses) * 100 -%>%"><%= question.response_counts[1] %></span>
+            <% else %>
+              <span class="meter" style="width: 0%"><%= 0 %></span>
+            <% end %>
+          </div>
+          <h5>Disagree</h5>
+          <div class="city-voice-vote-meter progress">
+            <% if question.total_numerical_responses > 0 %>
+              <span class="meter" style="width: <%= (question.response_counts[2].to_f / question.total_numerical_responses) * 100 -%>%"><%= question.response_counts[2] %></span>
+            <% else %>
+              <span class="meter" style="width: 0%"><%= 0 %></span>
+            <% end %>
+          </div>
+          <br>
+      <% end %>
   </div>
 </div>

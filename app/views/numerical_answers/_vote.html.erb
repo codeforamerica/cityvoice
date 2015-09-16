@@ -1,6 +1,5 @@
 <tr>
-  <td rowspan="2"><%= votes.fetch(:total, 0) %></td>
-  <td rowspan="2"><%= link_to(location.name, location) %></td>
+  <td rowspan="2"><%= response_set.question %></td>
   <td>Agree</td>
   <td>
     <%= render partial: 'numerical_answers/vote_meter', locals: { total: votes.fetch(:total, 0), number: votes.fetch(:agree, 0) } %>
