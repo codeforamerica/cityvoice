@@ -22,6 +22,10 @@ class Question < ActiveRecord::Base
     where(feedback_type: 'numerical_response')
   end
 
+  def total_numerical_responses
+    answers.where.not(:numerical_response => nil).count(:numerical_response)
+  end
+
   def response_counts
     answers.group(:numerical_response).count(:numerical_response)
   end
