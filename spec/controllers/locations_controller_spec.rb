@@ -78,7 +78,7 @@ describe LocationsController do
         end
 
         it 'assigns numerical response with a response hash for the question' do
-          expect(assigns(:numerical_responses).first.response_hash).to eq({"Agree"=>100.0, "Disagree"=>0.0})
+          expect(assigns(:numerical_responses).first.response_hash).to eq({"Agree"=>1, "Disagree"=>0})
         end
       end
 

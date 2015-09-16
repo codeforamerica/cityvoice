@@ -11,7 +11,7 @@ describe NumericalResponse do
 
   its(:short_name) { should == 'short_name' }
   its(:question_text) { should == 'question_text' }
-  its(:response_hash) { should == {'Agree' => 100.0, 'Disagree' => 0.0} }
+  its(:response_hash) { should == {'Agree' => 1, 'Disagree' => 0} }
 
   context 'with a numeric question' do
     it { should have_numeric_response }
