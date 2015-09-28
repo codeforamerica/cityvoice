@@ -49,20 +49,12 @@ describe VoiceAnswersController do
             9.times {create(:answer, :voice_file)}
           end
 
-          it 'does not contain the first message' do
-            expect(assigns(:messages)).not_to include(first_answer)
+          it 'contains the first message' do
+            expect(assigns(:messages)).to include(first_answer)
           end
 
-          it 'only has 10 messages per page' do
-            expect(assigns(:messages)).to have(10).items
-          end
-
-          context 'when requesting the second page' do
-            let(:page) { 2 }
-
-            it 'includes the first message' do
-              expect(assigns(:messages)).to include(first_answer)
-            end
+          it 'displays all the messages on the page' do
+            expect(assigns(:messages)).to have(11).items
           end
         end
       end
