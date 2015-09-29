@@ -4,6 +4,7 @@ Automidnight::Application.routes.draw do
 
   resources :voice_answers, only: [:index]
   resources :numerical_answers, only: [:index]
+  get '/export' => 'numerical_answers#export'
 
   resource :subscription, controller: :subscription, only: [:create] do
     resource :confirm, module: :subscription, only: [:show]
