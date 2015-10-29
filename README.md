@@ -178,7 +178,7 @@ Tests are written in RSpec, and can be run as normal:
 
 In order to set up Twilio for local development, you'll need a way to connect Twilio to your local machine.  The easiest way for this to happen is to install [ngrok](https://ngrok.com).
 
-Then, run `ngrok 3000` to open a tunnel:
+Then, run `ngrok http 3000` to open a tunnel:
 
     $ ngrok 3000
     Tunnel Status                 online
