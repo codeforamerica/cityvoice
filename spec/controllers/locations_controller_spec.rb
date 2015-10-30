@@ -38,9 +38,9 @@ describe LocationsController do
   end
 
   describe 'GET #show' do
-    let!(:location) { create(:location, name: '123 Main Street', lat: 1, long: 2) }
+    let!(:location) { create(:location, id: 333, name: '123 Main Street', lat: 1, long: 2) }
 
-    def make_request(location_id = location.id)
+    def make_request(location_id = location.to_param)
       get :show, id: location_id
     end
 
@@ -107,7 +107,7 @@ describe LocationsController do
     end
 
     context 'when requesting a location by name' do
-      before { make_request('123-Main-Street') }
+      before { make_request('333-123-Main-Street') }
 
       its(:response) { should be_success }
 
@@ -117,7 +117,7 @@ describe LocationsController do
     end
 
     context 'when requesting json' do
-      def make_request(location_id = location.id)
+      def make_request(location_id = location.to_param)
         get :show, id: location_id, format: :json
       end
 
@@ -143,7 +143,7 @@ describe LocationsController do
           expect(JSON.parse(response.body)['geometry']).to include('coordinates' => [2, 1])
           expect(JSON.parse(response.body)).to have_key('properties')
           expect(JSON.parse(response.body)['properties']).to include('name' => '123 Main Street')
-          expect(JSON.parse(response.body)['properties']).to include('url' => 'http://test.host/locations/123-Main-Street')
+          expect(JSON.parse(response.body)['properties']).to include('url' => 'http://test.host/locations/333-123-main-street')
         end
 
         it 'saves the fixture' do

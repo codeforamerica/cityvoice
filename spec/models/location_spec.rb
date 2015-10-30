@@ -17,7 +17,7 @@ require 'spec_helper'
 describe Location do
   let(:call) { create(:call, location: location) }
 
-  subject(:location) { create(:location, name: '123 Maple Street', lat: 38, long: 122) }
+  subject(:location) { create(:location, id: 333, name: '123 Maple Street', lat: 38, long: 122) }
 
   it { should validate_presence_of(:name) }
 
@@ -31,33 +31,9 @@ describe Location do
   it { should allow_mass_assignment_of(:description) }
   it { should allow_mass_assignment_of(:most_recent_activity) }
 
-  its(:to_param) { should == '123-Maple-Street' }
+  its(:to_param) { should == '333-123-maple-street' }
 
   its(:point) { should == [122, 38] }
-
-  describe '.find_by_param' do
-    let!(:location) { create(:location, name: '123 Maple Street') }
-
-    context 'when the location exists' do
-      it 'finds the location by id' do
-        expect(Location.find_by_param(location.id.to_s)).to eq(location)
-      end
-
-      it 'finds the location by name with dashes' do
-        expect(Location.find_by_param('123-Maple-Street')).to eq(location)
-      end
-    end
-
-    context 'when the location does not exist' do
-      it 'blows up when finding by id' do
-        expect { Location.find_by_param('0') }.to raise_error
-      end
-
-      it 'blows up when finding by name' do
-        expect { Location.find_by_param('Taco-Trucks') }.to raise_error
-      end
-    end
-  end
 
   describe '.activity_since' do
     let!(:location) { create(:location, most_recent_activity: Time.now) }
