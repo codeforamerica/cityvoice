@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/codeforamerica/cityvoice.png?label=ready&title=Ready)](https://waffle.io/codeforamerica/cityvoice)
 CityVoice [![Build Status](https://travis-ci.org/codeforamerica/cityvoice.svg?branch=master)](https://travis-ci.org/codeforamerica/cityvoice) [![Code Climate](https://codeclimate.com/github/codeforamerica/cityvoice.png)](https://codeclimate.com/github/codeforamerica/cityvoice)
 =========
 CityVoice is a place-based call-in system to collect community feedback on geographic entities (like vacant properties) using the simple, accessible medium of the telephone.
