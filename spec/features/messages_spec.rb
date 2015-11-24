@@ -73,30 +73,26 @@ describe 'Listening to messages' do
       visit numerical_answers_path
     end
 
-    it 'shows name of the location' do
-      expect(page).to have_content('1313 Mockingbird Lane')
-    end
-
     it 'shows the total number of votes' do
       expect(page).to have_content('1')
     end
 
     it 'shows the number of agree votes' do
-      expect(page).to have_content('Agree 1')
+      within '.agree .meter' do
+        expect(page).to have_content('1')
+      end
     end
 
-    it 'shows the number of no votes' do
-      expect(page).to have_content('Disagree 0')
+    it 'shows the number of disagree votes' do
+      within '.disagree .meter' do
+        expect(page).to have_content('')
+      end
     end
   end
 
   context 'on the voice message summary page' do
     before do
       visit voice_answers_path
-    end
-
-    it 'shows name of the location' do
-      expect(page).to have_content('1313 Mockingbird Lane')
     end
 
     it 'shows the date the call was made' do
