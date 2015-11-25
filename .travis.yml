@@ -2,6 +2,8 @@ language: ruby
 sudo: false
 rvm:
   - 2.1.7
+notifications:
+  slack: cfa:5sWh7WIy65DrEUFeKSjHsLJp
 script: script/ci.sh
 notifications:
   webhooks: http://project-monitor.codeforamerica.org/projects/44ca9e93-fc92-46bd-9b76-bafe54b90590/status
