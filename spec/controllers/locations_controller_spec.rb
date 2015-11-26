@@ -38,7 +38,7 @@ describe LocationsController do
   end
 
   describe 'GET #show' do
-    let!(:location) { create(:location, id: 333, name: '123 Main Street', lat: 1, long: 2) }
+    let!(:location) { create(:location, id: 333, name: '123 Main/Street', lat: 1, long: 2) }
 
     def make_request(location_id = location.to_param)
       get :show, id: location_id
@@ -142,7 +142,7 @@ describe LocationsController do
           expect(JSON.parse(response.body)['geometry']).to include('type' => 'Point')
           expect(JSON.parse(response.body)['geometry']).to include('coordinates' => [2, 1])
           expect(JSON.parse(response.body)).to have_key('properties')
-          expect(JSON.parse(response.body)['properties']).to include('name' => '123 Main Street')
+          expect(JSON.parse(response.body)['properties']).to include('name' => '123 Main/Street')
           expect(JSON.parse(response.body)['properties']).to include('url' => 'http://test.host/locations/333-123-main-street')
         end
 
