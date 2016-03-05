@@ -2,4 +2,3 @@ Short Name,Feedback Type,Question Text
 bus_shelter_setback,numerical_response,Should this bus shelter be pushed back from the sidewalk? Press 1 to push back or 2 to leave in place.
 access_management,numerical_response,Should this driveway be removed? Press 1 to remove or 2 to leave in place.
 sidewalk_comments,voice_file,Do you have anything else to say about this sidewalk?
-
