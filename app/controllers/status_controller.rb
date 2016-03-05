@@ -29,7 +29,7 @@ class StatusController < ApplicationController
   end
 
   def twilio_response_okay?
-    uri = URI('http://www.southbendvoices.com/route_to_survey')
+    uri = URI('http://cityvoice.smartlouisville.com/route_to_survey')
     res = Net::HTTP.post_form(uri, {})
     index_of_welcome_message = res.body.index("welcome.mp3")
     if index_of_welcome_message
