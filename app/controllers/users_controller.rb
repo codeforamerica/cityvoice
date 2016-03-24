@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  
 
   # GET /users
   # GET /users.json
@@ -28,6 +29,9 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        # Tell the UserMailer to send a welcome email after save
+        UserMailer.confirmation_email(@user).deliver_later
+
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render action: 'show', status: :created, location: @user }
       else
