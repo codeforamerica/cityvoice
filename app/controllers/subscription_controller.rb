@@ -13,4 +13,15 @@ class SubscriptionController < ApplicationController
   def subscription_params
     params.require(:subscription).permit(:email, :location_id)
   end
+
+#add weekly notifier email
+  def email
+    destination = params[:to]
+    weekly_activity = Notification_mailer.weekly_activity(@weekly_activity, destination)
+    #if notification_mailer.deliver
+    #else
+     # redirect_to notification_mailer_weekly_activity(@notification_mailer), 
+    #end
+  end
+
 end

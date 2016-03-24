@@ -1,0 +1,16 @@
+.city-voice-numerical-response {
+  .description {
+    @include info-block-topper($color: $city-voice-yellow);
+  }
+
+  &.city-voice-info-block h3 {
+    text-indent: 0;
+    background-image: none;
+  }
+
+  .city-voice-vote-meter {
+    & + .city-voice-vote-meter {
+      margin-top: 0.5rem;
+    }
+  }
+}

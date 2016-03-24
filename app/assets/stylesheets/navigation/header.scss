@@ -1,0 +1,29 @@
+.navigation-topbar {
+  h1 {
+    text-transform: uppercase;
+    letter-spacing: -1px;
+
+    a {
+      background-image: image-url('cityvoice_icon.png');
+      background-repeat: no-repeat;
+      background-position: rem-calc(10) center;
+      text-indent: rem-calc(75);
+    }
+  }
+
+  .divider {
+    padding: 0 rem-calc(5);
+  }
+}
+
+@media #{$medium-up} {
+  .navigation-topbar .top-bar-section li a.navigation-topbar-button {
+    @include button;
+    font-size: $topbar-link-font-size;
+    border: 1px solid white;
+    border-radius: 2px;
+    margin-bottom: 0;
+    margin-top: rem-calc(12);
+    padding: rem-calc(2) rem-calc(4) rem-calc(0) rem-calc(4);
+  }
+}

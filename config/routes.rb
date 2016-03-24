@@ -1,4 +1,6 @@
 Automidnight::Application.routes.draw do
+  resources :users
+
   mount RailsEmailPreview::Engine, at: 'emails' if defined?(RailsEmailPreview::Engine)
   mount StyleGuide::Engine => '/style-guide' if defined?(StyleGuide::Engine)
 

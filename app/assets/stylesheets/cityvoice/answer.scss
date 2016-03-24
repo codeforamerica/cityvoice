@@ -1,0 +1,5 @@
+.city-voice-answer {
+  & + & {
+    margin-top: rem-calc(30);
+  }
+}
