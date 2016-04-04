@@ -29,15 +29,22 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+         session[:user_id] = user.id
+      redirect_to :home, notice: 'Account created successfully'
+    else
+      flash[:error] = 'An error occured!'
+      render 'new'
+    end
+   
         # Tell the UserMailer to send a welcome email after save
-        UserMailer.confirmation_email(@user).deliver_later
+        #UserMailer.confirmation_email(@user).deliver_later
 
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @user }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+        #format.html { redirect_to @user, notice: 'User was successfully created.' }
+        #format.json { render action: 'show', status: :created, location: @user }
+      #else
+        #format.html { render action: 'new' }
+        #format.json { render json: @user.errors, status: :unprocessable_entity }
+      #end
     end
   end
 

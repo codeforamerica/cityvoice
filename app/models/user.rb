@@ -17,10 +17,10 @@ class User < ActiveRecord::Base
 	  # users.password_hash in the database is a :string
  
 
-    VALID_INPUTS = /[[:ascii:]]+/
-    validates :name, presence: true, length: { maximum: 128 },
-        format: { with: VALID_INPUTS }, uniqueness: true
-    #has_secure_password
+    #VALID_INPUTS = /[[:ascii:]]+/
+    #validates :name, presence: true, length: { maximum: 128 },
+        #format: { with: VALID_INPUTS }, uniqueness: true
+    has_secure_password
     validates :email, presence: true
 
 
