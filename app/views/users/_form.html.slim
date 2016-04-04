@@ -1,4 +1,6 @@
-= form_for @user do |f|
+Slim::Template.new(users/view.html.slim).render
+
+= form_for @user, html: {id: 'users/new'} do |f|
   - if @user.errors.any?
     #error_explanation
       h2 = "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
