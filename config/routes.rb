@@ -4,6 +4,8 @@ Automidnight::Application.routes.draw do
   mount RailsEmailPreview::Engine, at: 'emails' if defined?(RailsEmailPreview::Engine)
   mount StyleGuide::Engine => '/style-guide' if defined?(StyleGuide::Engine)
 
+  post 'twilio/voice' => 'twilio#voice'
+
   resources :voice_answers, only: [:index]
   resources :numerical_answers, only: [:index]
   get '/export' => 'numerical_answers#export'

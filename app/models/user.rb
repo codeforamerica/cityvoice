@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
         #format: { with: VALID_INPUTS }, uniqueness: true
     has_secure_password
     validates :email, presence: true
+    validates :id, presence: true
 
 
 
