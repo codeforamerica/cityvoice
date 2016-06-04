@@ -1,0 +1,67 @@
+.navigation-footer {
+  background-color: white;
+  border-top: 1px solid #e4e4e4;
+  padding: rem-calc(20) 0 0 0;
+  margin-top: rem-calc(40);
+
+  .logos {
+    .codeforamerica, .cityvoice, .southbend {
+      @extend .left;
+      background-position: left center;
+      background-repeat: no-repeat;
+      display: inline-block;
+    }
+
+    a {
+      margin-left: rem-calc(20);
+    }
+
+    .codeforamerica, .cityvoice, .southbend {
+      overflow: hidden;
+      text-indent: 100%;
+      white-space: nowrap;
+      margin-top: rem-calc(5);
+      margin-bottom: rem-calc(5);
+    }
+
+    .codeforamerica {
+      background-image: image-url('cfa_logo_black.png');
+      height: rem-calc(50);
+      width: rem-calc(100);
+    }
+
+    .cityvoice {
+      background-image: image-url('CityVoice_footer.png');
+      height: rem-calc(50);
+      width: rem-calc(142);
+    }
+
+    .southbend {
+      background-image: image-url('southbendlogo.png');
+      height: rem-calc(50);
+      width: rem-calc(60);
+    }
+  }
+}
+
+@media #{$medium-up} {
+  .navigation-footer .links {
+    line-height: rem-calc(50);
+
+    li {
+      float: right;
+    }
+  }
+}
+
+@media #{$xlarge-up} {
+  .navigation-footer .links li {
+    padding: 0 rem-calc(20);
+  }
+}
+
+@media #{$small-only} {
+  .navigation-footer .links li {
+    padding: 0 rem-calc(20);
+  }
+}

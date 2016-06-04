@@ -1,0 +1,13 @@
+.city-voice-vote-meter {
+  color: white;
+  text-shadow: 0 0 1rem rgba(black, 0.1),
+               0 1px 0 rgba(black, 0.2),
+               1px 1px 0 rgba(black, 0.2);
+  text-indent: 0.5rem;
+  margin-bottom: 0;
+
+  .meter {
+    line-height: rem-calc(25);
+    font-size: rem-calc(18);
+  }
+}

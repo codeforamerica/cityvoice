@@ -40,4 +40,6 @@ Cityvoice.Views.Map = Backbone.View.extend({
     this.leafletMap.fitBounds(this.collection.getBounds(), {reset: true});
     return this;
   }
+
 });
+

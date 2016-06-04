@@ -1,0 +1,8 @@
+.city-voice-map {
+  .container {
+    overflow: hidden;
+    position: relative;
+    background-color: $secondary-color;
+    @include radius;
+  }
+}

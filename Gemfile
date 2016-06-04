@@ -26,6 +26,11 @@ gem 'google-analytics-rails'
 gem 'soda-ruby', require: 'soda'
 gem 'twilio-ruby'
 
+#
+gem 'rake', '10.5.0'
+# Use ActiveModel has_secure_password
+gem 'bcrypt-ruby'
+
 group :test do
   gem 'shoulda-matchers'
   gem 'timecop'

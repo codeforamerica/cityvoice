@@ -1,0 +1,30 @@
+.city-voice-info-block {
+  > h3 {
+    background-image: image-url('listenicon.png');
+    background-size: rem-calc(32) * 0.75;
+    background-repeat: no-repeat;
+    background-position: left center;
+    text-indent: rem-calc(32);
+    text-transform: uppercase;
+  }
+
+  .description {
+    border: 1px solid $secondary-color;
+    border-top: 0 none;
+    @include radius;
+
+    background: white;
+    padding: rem-calc(10) rem-calc(13);
+  }
+
+  *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+@media #{$medium-up} {
+  .city-voice-info-block h2 {
+    background-size: rem-calc(48) * 0.75;
+    text-indent: rem-calc(48);
+  }
+}
