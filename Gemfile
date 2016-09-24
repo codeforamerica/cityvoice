@@ -41,6 +41,7 @@ group :development, :test do
   gem 'ffaker'
   gem 'launchy'
   gem 'nokogiri'
+  gem 'parallel_tests'
   gem 'pry'
   gem 'rspec-rails', '~> 2.0'
   gem 'teaspoon'
